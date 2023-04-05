@@ -13,7 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SQLiteWpfApp
+using SQLiteWpfApp.ViewModels;
+
+namespace SQLiteWpfApp.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,6 +25,8 @@ namespace SQLiteWpfApp
         public MainWindow()
         {
             InitializeComponent();
+
+            DataContext = new MainVM();
         }
     }
 }
