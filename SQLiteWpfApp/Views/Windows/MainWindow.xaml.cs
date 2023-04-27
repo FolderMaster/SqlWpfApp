@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,8 +15,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using SQLiteWpfApp.ViewModels;
+using SQLiteWpfApp.Views.MessageBoxes;
 
-namespace SQLiteWpfApp.Views
+namespace SQLiteWpfApp.Views.Windows
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -26,7 +28,9 @@ namespace SQLiteWpfApp.Views
         {
             InitializeComponent();
 
-            DataContext = new MainVM();
+            DataContext = new MainVM(new WindowConfiguration(this), new QuestionMessageBoxService(),
+                new InformationMessageBoxService(), () => DepartmentsWindow.Instance.Show(),
+                () => { }, () => { }, () => { }, () => { }, () => { });
         }
     }
 }

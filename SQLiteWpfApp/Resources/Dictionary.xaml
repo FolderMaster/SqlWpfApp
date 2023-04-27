@@ -1,0 +1,34 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <Image x:Shared="False" Source="Images/SQLite.ico" x:Key="MainIcon"/>
+    <sys:String x:Key="MainHeader">SQLite WPF App</sys:String>
+    <Image x:Shared="False" Source="Images/Exit.ico" x:Key="ExitIcon"/>
+    <sys:String x:Key="ExitHeader">Exit</sys:String>
+    <sys:String x:Key="ExitInput">Alt+X</sys:String>
+    <Image x:Shared="False" Source="Images/Information.ico" x:Key="InformationIcon"/>
+    <sys:String x:Key="InformationHeader">About program</sys:String>
+    <sys:String x:Key="InformationInput">Alt+I</sys:String>
+    <sys:String x:Key="FileHeader">File</sys:String>
+    <sys:String x:Key="TablesHeader">Tables</sys:String>
+    <sys:String x:Key="UnrelatedTablesHeader">Unrelated</sys:String>
+    <Image x:Shared="False" Source="Images/Departments.ico" x:Key="DepartmentsIcon"/>
+    <sys:String x:Key="DepartmentsHeader">Departments</sys:String>
+    <sys:String x:Key="DepartmentsInput">Alt+D</sys:String>
+    <Image x:Shared="False" Source="Images/Positions.ico" x:Key="PositionsIcon"/>
+    <sys:String x:Key="PositionsHeader">Positions</sys:String>
+    <sys:String x:Key="PositionsInput">Alt+P</sys:String>
+    <Image x:Shared="False" Source="Images/Passports.ico" x:Key="PassportsIcon"/>
+    <sys:String x:Key="PassportsHeader">Passports</sys:String>
+    <sys:String x:Key="PassportsInput">Alt+A</sys:String>
+    <Image x:Shared="False" Source="Images/GradeModes.ico" x:Key="GradeModesIcon"/>
+    <sys:String x:Key="GradeModesHeader">Grade modes</sys:String>
+    <sys:String x:Key="GradeModesInput">Alt+G</sys:String>
+    <Image x:Shared="False" Source="Images/Scholarships.ico" x:Key="ScholarshipsIcon"/>
+    <sys:String x:Key="ScholarshipsHeader">Scholarships</sys:String>
+    <sys:String x:Key="ScholarshipsInput">Alt+S</sys:String>
+    <Image x:Shared="False" Source="Images/Roles.ico" x:Key="RolesIcon"/>
+    <sys:String x:Key="RolesHeader">Roles</sys:String>
+    <sys:String x:Key="RolesInput">Alt+R</sys:String>
+    <sys:String x:Key="RelatedTablesHeader">Related</sys:String>
+</ResourceDictionary>
