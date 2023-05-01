@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SQLiteWpfApp.Models
+namespace SQLiteWpfApp.Models.Dependent
 {
     [Table("Disciplines")]
     [PrimaryKey(nameof(ID))]
@@ -13,7 +13,11 @@ namespace SQLiteWpfApp.Models
 
         public int HoursCount { get; set; }
 
+        public string SpecialityNumber { get; set; }
+
         public Specialty Specialty { get; set; }
+
+        public string StudyFormName { get; set; }
 
         public StudyForm StudyForm { get; set; }
     }

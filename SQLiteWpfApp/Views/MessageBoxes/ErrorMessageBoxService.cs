@@ -9,9 +9,9 @@ using SQLiteWpfApp.ViewModels;
 
 namespace SQLiteWpfApp.Views.MessageBoxes
 {
-    class QuestionMessageBoxService : IMessageService
+    class ErrorMessageBoxService : IMessageService
     {
         public bool ShowMessage(string message, string title) => MessageBox.Show(message, title,
-            MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
+            MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK;
     }
 }

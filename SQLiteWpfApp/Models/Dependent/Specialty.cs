@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SQLiteWpfApp.Models
+using SQLiteWpfApp.Models.Independent;
+
+namespace SQLiteWpfApp.Models.Dependent
 {
     [Table("Specialties")]
     [PrimaryKey(nameof(Number))]
@@ -10,6 +12,8 @@ namespace SQLiteWpfApp.Models
         public string Number { get; set; }
 
         public string Name { get; set; }
+
+        public string DepartmentName { get; set; }
 
         public Department Department { get; set; }
     }

@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Reflection.Metadata;
 
-using SQLiteWpfApp.Models;
+using SQLiteWpfApp.Models.Independent;
+using SQLiteWpfApp.Models.Dependent;
 
 namespace SQLiteWpfApp.ViewModels
 {
@@ -8,31 +11,29 @@ namespace SQLiteWpfApp.ViewModels
     {
         private string _dataBasePath;
 
-        //public DbSet<Teacher> Teachers { get; set; } = null!;
+        public DbSet<Teacher> Teachers { get; set; } = null!;
 
-        //public DbSet<Student> Students { get; set; } = null!;
+        public DbSet<Student> Students { get; set; } = null!;
 
-        //public DbSet<Discipline> Disciplines { get; set; } = null!;
+        public DbSet<Discipline> Disciplines { get; set; } = null!;
 
-        //public DbSet<StudyForm> StudyForms { get; set; } = null!;
+        public DbSet<StudyForm> StudyForms { get; set; } = null!;
 
-        //public DbSet<Grade> Grades { get; set; } = null!;
+        public DbSet<Grade> Grades { get; set; } = null!;
 
-        //public DbSet<GradeStatement> GradeStatements { get; set; } = null!;
+        public DbSet<GradeStatement> GradeStatements { get; set; } = null!;
 
-        //public DbSet<Specialty> Specialties { get; set; } = null!;
+        public DbSet<Specialty> Specialties { get; set; } = null!;
 
-        //public DbSet<Person> Persons { get; set; } = null!;
+        public DbSet<Person> Persons { get; set; } = null!;
 
-        ////public DbSet<GradeMode> GradeModes { get; set; } = null!;
-        
-        //public DbSet<Group> Groups { get; set; } = null!;
+        public DbSet<Group> Groups { get; set; } = null!;
 
-        //public DbSet<StudentDisciplineConnection> StudentDisciplineConnections { get; set; } =
-        //    null!;
+        public DbSet<StudentDisciplineConnection> StudentDisciplineConnections { get; set; } =
+            null!;
 
-        //public DbSet<TeacherDisciplineConnection> TeacherDisciplineConnections { get; set; } =
-        //    null!;
+        public DbSet<TeacherDisciplineConnection> TeacherDisciplineConnections { get; set; } =
+            null!;
 
         public DbSet<Department> Departments { get; set; } = null!;
 
@@ -42,11 +43,30 @@ namespace SQLiteWpfApp.ViewModels
 
         public DbSet<Passport> Passports { get; set; } = null!;
 
+        public DbSet<GradeMode> GradeModes { get; set; } = null!;
+
         public DbSet<Scholarship> Scholarships { get; set; } = null!;
 
-        public DataBaseContext(string dataBasePath) => _dataBasePath = dataBasePath;
+        public DataBaseContext(string dataBasePath)
+        {
+            _dataBasePath = dataBasePath;
+            Database.EnsureCreated();
+        }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+        }
+
+        protected override void ConfigureConventions
+            (ModelConfigurationBuilder configurationBuilder)
+        {
+            base.ConfigureConventions(configurationBuilder);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
             optionsBuilder.UseSqlite($"Data Source={_dataBasePath}");
+        }
     }
 }

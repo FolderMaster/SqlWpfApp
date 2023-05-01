@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SQLiteWpfApp.Models
+namespace SQLiteWpfApp.Models.Dependent
 {
     [Table("GradeStatements")]
     [PrimaryKey(nameof(ID))]
@@ -10,11 +10,19 @@ namespace SQLiteWpfApp.Models
     {
         public int ID { get; set; }
 
+        public int StudentID { get; set; }
+
         public Student Student { get; set; }
+
+        public int DisciplineID { get; set; }
 
         public Discipline Discipline { get; set; }
 
+        public int TeacherID { get; set; }
+
         public Teacher Teacher { get; set; }
+
+        public string GradeName { get; set; }
 
         public Grade Grade { get; set; }
 

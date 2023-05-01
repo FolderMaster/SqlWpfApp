@@ -1,4 +1,4 @@
-﻿namespace SQLiteWpfApp.Services
+﻿namespace SQLiteWpfApp.ViewModels
 {
     public interface IConfigurational
     {

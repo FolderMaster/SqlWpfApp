@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-using SQLiteWpfApp.Services;
+using SQLiteWpfApp.ViewModels;
 
 namespace SQLiteWpfApp.Views.MessageBoxes
 {

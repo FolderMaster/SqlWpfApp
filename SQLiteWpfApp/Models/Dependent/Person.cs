@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SQLiteWpfApp.Models
+using SQLiteWpfApp.Models.Independent;
+
+namespace SQLiteWpfApp.Models.Dependent
 {
     [Table("Persons")]
     [PrimaryKey(nameof(ID))]
@@ -10,6 +12,8 @@ namespace SQLiteWpfApp.Models
         public int ID { get; set; }
 
         public string ResidentialAddress { get; set; }
+
+        public int PassportSerialNumber { get; set; }
 
         public Passport Passport { get; set; }
     }

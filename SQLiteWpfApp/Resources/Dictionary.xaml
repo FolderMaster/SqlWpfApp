@@ -1,34 +1,51 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <Image x:Shared="False" Source="Images/SQLite.ico" x:Key="MainIcon"/>
+    <sys:Double x:Key="ToolbarButtonSize">30</sys:Double>
+    <BitmapImage x:Shared="False" UriSource="Images/SQLite.ico" x:Key="MainIcon"/>
     <sys:String x:Key="MainHeader">SQLite WPF App</sys:String>
-    <Image x:Shared="False" Source="Images/Exit.ico" x:Key="ExitIcon"/>
+    <Image x:Shared="False" Source="Images/Exit.ico" x:Key="ExitImage"/>
     <sys:String x:Key="ExitHeader">Exit</sys:String>
     <sys:String x:Key="ExitInput">Alt+X</sys:String>
-    <Image x:Shared="False" Source="Images/Information.ico" x:Key="InformationIcon"/>
+    <Image x:Shared="False" Source="Images/Information.ico" x:Key="InformationImage"/>
     <sys:String x:Key="InformationHeader">About program</sys:String>
     <sys:String x:Key="InformationInput">Alt+I</sys:String>
     <sys:String x:Key="FileHeader">File</sys:String>
     <sys:String x:Key="TablesHeader">Tables</sys:String>
-    <sys:String x:Key="UnrelatedTablesHeader">Unrelated</sys:String>
-    <Image x:Shared="False" Source="Images/Departments.ico" x:Key="DepartmentsIcon"/>
+    <sys:String x:Key="IndependentTablesHeader">Independent</sys:String>
+    <Image x:Shared="False" Source="Images/Departments.ico" x:Key="DepartmentsImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Departments.ico" x:Key="DepartmentsIcon"/>
     <sys:String x:Key="DepartmentsHeader">Departments</sys:String>
     <sys:String x:Key="DepartmentsInput">Alt+D</sys:String>
-    <Image x:Shared="False" Source="Images/Positions.ico" x:Key="PositionsIcon"/>
+    <Image x:Shared="False" Source="Images/Positions.ico" x:Key="PositionsImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Positions.ico" x:Key="PositionsIcon"/>
     <sys:String x:Key="PositionsHeader">Positions</sys:String>
     <sys:String x:Key="PositionsInput">Alt+P</sys:String>
-    <Image x:Shared="False" Source="Images/Passports.ico" x:Key="PassportsIcon"/>
+    <Image x:Shared="False" Source="Images/Passports.ico" x:Key="PassportsImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Passports.ico" x:Key="PassportsIcon"/>
     <sys:String x:Key="PassportsHeader">Passports</sys:String>
     <sys:String x:Key="PassportsInput">Alt+A</sys:String>
-    <Image x:Shared="False" Source="Images/GradeModes.ico" x:Key="GradeModesIcon"/>
+    <Image x:Shared="False" Source="Images/GradeModes.ico" x:Key="GradeModesImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/GradeModes.ico" x:Key="GradeModesIcon"/>
     <sys:String x:Key="GradeModesHeader">Grade modes</sys:String>
     <sys:String x:Key="GradeModesInput">Alt+G</sys:String>
-    <Image x:Shared="False" Source="Images/Scholarships.ico" x:Key="ScholarshipsIcon"/>
+    <Image x:Shared="False" Source="Images/Scholarships.ico" x:Key="ScholarshipsImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Scholarships.ico" x:Key="ScholarshipsIcon"/>
     <sys:String x:Key="ScholarshipsHeader">Scholarships</sys:String>
     <sys:String x:Key="ScholarshipsInput">Alt+S</sys:String>
-    <Image x:Shared="False" Source="Images/Roles.ico" x:Key="RolesIcon"/>
+    <Image x:Shared="False" Source="Images/Roles.ico" x:Key="RolesImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Roles.ico" x:Key="RolesIcon"/>
     <sys:String x:Key="RolesHeader">Roles</sys:String>
     <sys:String x:Key="RolesInput">Alt+R</sys:String>
-    <sys:String x:Key="RelatedTablesHeader">Related</sys:String>
+    <sys:String x:Key="DependentTablesHeader">Dependent</sys:String>
+    <sys:String x:Key="SaveHeader">Save</sys:String>
+    <sys:Double x:Key="TableWindowWidth">400</sys:Double>
+    <sys:Double x:Key="TableWindowHeight">300</sys:Double>
+    <sys:String x:Key="NameHeader">Name</sys:String>
+    <sys:String x:Key="SymbolHeader">Symbol</sys:String>
+    <sys:String x:Key="SerialNumberHeader">Serial number</sys:String>
+    <sys:String x:Key="ScanHeader">Scan</sys:String>
+    <sys:String x:Key="SexHeader">Sex</sys:String>
+    <sys:String x:Key="PermanentResidenceAddressHeader">Permanent residence address</sys:String>
+    <sys:String x:Key="CoefficientHeader">Coefficient</sys:String>
 </ResourceDictionary>

@@ -14,8 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using SQLiteWpfApp.ViewModels;
+using SQLiteWpfApp.ViewModels.VMs;
 using SQLiteWpfApp.Views.MessageBoxes;
+using SQLiteWpfApp.Views.Windows.Table.Independent;
 
 namespace SQLiteWpfApp.Views.Windows
 {
@@ -28,9 +29,11 @@ namespace SQLiteWpfApp.Views.Windows
         {
             InitializeComponent();
 
-            DataContext = new MainVM(new WindowConfiguration(this), new QuestionMessageBoxService(),
-                new InformationMessageBoxService(), () => DepartmentsWindow.Instance.Show(),
-                () => { }, () => { }, () => { }, () => { }, () => { });
+            DataContext = new MainVM(new WindowConfiguration(this),
+                new QuestionMessageBoxService(), new InformationMessageBoxService(),
+                DepartmentsWindow.ActionService, PassportsWindow.ActionService,
+                PositionsWindow.ActionService, GradeModesWindow.ActionService,
+                RolesWindow.ActionService, ScholarshipsWindow.ActionService);
         }
     }
 }

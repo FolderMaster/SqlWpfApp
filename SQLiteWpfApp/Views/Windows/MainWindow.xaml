@@ -6,14 +6,7 @@
         xmlns:local="clr-namespace:SQLiteWpfApp.Views.Windows"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="{DynamicResource MainHeader}" Icon="{DynamicResource MainIcon}">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../../Resources/Dictionary.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
+        Title="{StaticResource MainHeader}" Icon="{StaticResource MainIcon}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">
             <i:InvokeCommandAction Command="{Binding SaveCommand}"/>
@@ -34,41 +27,41 @@
             <MenuItem Header="{StaticResource FileHeader}">
                 <MenuItem Command="{Binding ExitCommand}" Header="{StaticResource ExitHeader}"
                           InputGestureText="{StaticResource ExitInput}"
-                          Icon="{StaticResource ExitIcon}"/>
+                          Icon="{StaticResource ExitImage}"/>
                 <Separator/>
                 <MenuItem Command="{Binding InformationCommand}"
                           Header="{StaticResource InformationHeader}"
                           InputGestureText="{StaticResource InformationInput}"
-                          Icon="{StaticResource InformationIcon}"/>
+                          Icon="{StaticResource InformationImage}"/>
             </MenuItem>
             <MenuItem Header="{StaticResource TablesHeader}">
-                <MenuItem Header="{StaticResource UnrelatedTablesHeader}">
+                <MenuItem Header="{StaticResource IndependentTablesHeader}">
                     <MenuItem Command="{Binding DepartmentsCommand}"
                               Header="{StaticResource DepartmentsHeader}"
                               InputGestureText="{StaticResource DepartmentsInput}"
-                              Icon="{StaticResource DepartmentsIcon}"/>
+                              Icon="{StaticResource DepartmentsImage}"/>
                     <MenuItem Command="{Binding PositionsCommand}"
                               Header="{StaticResource PositionsHeader}"
                               InputGestureText="{StaticResource PositionsInput}"
-                              Icon="{StaticResource PositionsIcon}"/>
+                              Icon="{StaticResource PositionsImage}"/>
                     <MenuItem Command="{Binding PassportsCommand}"
                               Header="{StaticResource PassportsHeader}"
                               InputGestureText="{StaticResource PassportsInput}"
-                              Icon="{StaticResource PassportsIcon}"/>
+                              Icon="{StaticResource PassportsImage}"/>
                     <MenuItem Command="{Binding GradeModesCommand}"
                               Header="{StaticResource GradeModesHeader}"
                               InputGestureText="{StaticResource GradeModesInput}"
-                              Icon="{StaticResource GradeModesIcon}"/>
+                              Icon="{StaticResource GradeModesImage}"/>
                     <MenuItem Command="{Binding ScholarshipsCommand}"
                               Header="{StaticResource ScholarshipsHeader}"
                               InputGestureText="{StaticResource ScholarshipsInput}"
-                              Icon="{StaticResource ScholarshipsIcon}"/>
+                              Icon="{StaticResource ScholarshipsImage}"/>
                     <MenuItem Command="{Binding RolesCommand}"
                               Header="{StaticResource RolesHeader}"
                               InputGestureText="{StaticResource RolesInput}"
-                              Icon="{StaticResource RolesIcon}"/>
+                              Icon="{StaticResource RolesImage}"/>
                 </MenuItem>
-                <MenuItem Header="{StaticResource RelatedTablesHeader}">
+                <MenuItem Header="{StaticResource DependentTablesHeader}">
                 </MenuItem>
             </MenuItem>
         </ContextMenu>
@@ -78,86 +71,94 @@
             <MenuItem Header="{StaticResource FileHeader}">
                 <MenuItem Command="{Binding ExitCommand}" Header="{StaticResource ExitHeader}"
                           InputGestureText="{StaticResource ExitInput}"
-                          Icon="{StaticResource ExitIcon}"/>
+                          Icon="{StaticResource ExitImage}"/>
                 <Separator/>
                 <MenuItem Command="{Binding InformationCommand}"
                           Header="{StaticResource InformationHeader}"
                           InputGestureText="{StaticResource InformationInput}"
-                          Icon="{StaticResource InformationIcon}"/>
+                          Icon="{StaticResource InformationImage}"/>
             </MenuItem>
             <MenuItem Header="{StaticResource TablesHeader}">
-                <MenuItem Header="{StaticResource UnrelatedTablesHeader}">
+                <MenuItem Header="{StaticResource IndependentTablesHeader}">
                     <MenuItem Command="{Binding DepartmentsCommand}"
                               Header="{StaticResource DepartmentsHeader}"
                               InputGestureText="{StaticResource DepartmentsInput}"
-                              Icon="{StaticResource DepartmentsIcon}"/>
+                              Icon="{StaticResource DepartmentsImage}"/>
                     <MenuItem Command="{Binding PositionsCommand}"
                               Header="{StaticResource PositionsHeader}"
                               InputGestureText="{StaticResource PositionsInput}"
-                              Icon="{StaticResource PositionsIcon}"/>
+                              Icon="{StaticResource PositionsImage}"/>
                     <MenuItem Command="{Binding PassportsCommand}"
                               Header="{StaticResource PassportsHeader}"
                               InputGestureText="{StaticResource PassportsInput}"
-                              Icon="{StaticResource PassportsIcon}"/>
+                              Icon="{StaticResource PassportsImage}"/>
                     <MenuItem Command="{Binding GradeModesCommand}"
                               Header="{StaticResource GradeModesHeader}"
                               InputGestureText="{StaticResource GradeModesInput}"
-                              Icon="{StaticResource GradeModesIcon}"/>
+                              Icon="{StaticResource GradeModesImage}"/>
                     <MenuItem Command="{Binding ScholarshipsCommand}"
                               Header="{StaticResource ScholarshipsHeader}"
                               InputGestureText="{StaticResource ScholarshipsInput}"
-                              Icon="{StaticResource ScholarshipsIcon}"/>
+                              Icon="{StaticResource ScholarshipsImage}"/>
                     <MenuItem Command="{Binding RolesCommand}"
                               Header="{StaticResource RolesHeader}"
                               InputGestureText="{StaticResource RolesInput}"
-                              Icon="{StaticResource RolesIcon}"/>
+                              Icon="{StaticResource RolesImage}"/>
                 </MenuItem>
-                <MenuItem Header="{StaticResource RelatedTablesHeader}">
+                <MenuItem Header="{StaticResource DependentTablesHeader}">
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <ToolBar DockPanel.Dock="Top" VerticalAlignment="Top" Height="30">
-            <Button Command="{Binding ExitCommand}" Content="{StaticResource ExitIcon}">
+        <ToolBar DockPanel.Dock="Top" VerticalAlignment="Top">
+            <Button Command="{Binding ExitCommand}" Content="{StaticResource ExitImage}"
+                    Height="30">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource ExitHeader}"/>
                 </Button.ToolTip>
             </Button>
             <Button Command="{Binding InformationCommand}"
-                    Content="{StaticResource InformationIcon}">
+                    Content="{StaticResource InformationImage}"
+                    Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource InformationHeader}"/>
                 </Button.ToolTip>
             </Button>
             <Separator/>
             <Button Command="{Binding DepartmentsCommand}"
-                    Content="{StaticResource DepartmentsIcon}">
+                    Content="{StaticResource DepartmentsImage}"
+                    Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource DepartmentsHeader}"/>
                 </Button.ToolTip>
             </Button>
-            <Button Command="{Binding PositionsCommand}" Content="{StaticResource PositionsIcon}">
+            <Button Command="{Binding PositionsCommand}" Content="{StaticResource PositionsImage}"
+                    Height="30">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource PositionsHeader}"/>
                 </Button.ToolTip>
             </Button>
-            <Button Command="{Binding PassportsCommand}" Content="{StaticResource PassportsIcon}">
+            <Button Command="{Binding PassportsCommand}" Content="{StaticResource PassportsImage}"
+                    Height="30">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource PassportsHeader}"/>
                 </Button.ToolTip>
             </Button>
             <Button Command="{Binding GradeModesCommand}"
-                    Content="{StaticResource GradeModesIcon}">
+                    Content="{StaticResource GradeModesImage}"
+                    Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource GradeModesHeader}"/>
                 </Button.ToolTip>
             </Button>
             <Button Command="{Binding ScholarshipsCommand}"
-                    Content="{StaticResource ScholarshipsIcon}">
+                    Content="{StaticResource ScholarshipsImage}" 
+                    Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource ScholarshipsHeader}"/>
                 </Button.ToolTip>
             </Button>
-            <Button Command="{Binding RolesCommand}" Content="{StaticResource RolesIcon}">
+            <Button Command="{Binding RolesCommand}" Content="{StaticResource RolesImage}"
+                    Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource RolesHeader}"/>
                 </Button.ToolTip>

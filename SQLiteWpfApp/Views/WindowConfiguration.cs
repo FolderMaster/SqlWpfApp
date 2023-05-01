@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.Windows;
 
-using SQLiteWpfApp.Services;
+using SQLiteWpfApp.ViewModels;
 
 namespace SQLiteWpfApp.Views
 {
