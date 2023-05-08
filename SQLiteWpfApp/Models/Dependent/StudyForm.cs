@@ -13,6 +13,6 @@ namespace SQLiteWpfApp.Models.Dependent
 
         public string GradeModeName { get; set; }
 
-        public GradeMode GradeMode { get; set; }
+        public virtual GradeMode GradeMode { get; set; }
     }
 }

@@ -8,105 +8,79 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-using SQLiteWpfApp.ViewModels;
 using SQLiteWpfApp.Models.Independent;
 
 namespace SQLiteWpfApp.ViewModels.VMs
 {
     public class MainVM
     {
-        private DataBaseContext _dataBaseContext;
+        public DataBaseContext DataBaseContext { get; private set; }
 
-        private IConfigurational _configurational;
+        public IConfigurational Configurational { get; private set; }
 
-        private ICommand _saveCommand;
+        public ICommand SaveCommand { get; private set; }
 
-        private ICommand _loadCommand;
+        public ICommand LoadCommand { get; private set; }
 
-        private ICommand _exitCommand;
+        public ICommand ExitCommand { get; private set; }
 
-        private ICommand _informationCommand;
+        public ICommand InformationCommand { get; private set; }
 
-        private ICommand _departmentsCommand;
+        public ICommand DepartmentsCommand { get; private set; }
 
-        private ICommand _passportsCommand;
+        public ICommand PassportsCommand { get; private set; }
 
-        private ICommand _positionsCommand;
+        public ICommand PositionsCommand { get; private set; }
 
-        private ICommand _gradeModesCommand;
+        public ICommand GradeModesCommand { get; private set; }
 
-        private ICommand _rolesCommand;
+        public ICommand RolesCommand { get; private set; }
 
-        private ICommand _scholarshipsCommand;
-
-        public DataBaseContext DataBaseContext => _dataBaseContext;
-
-        public IConfigurational Configurational => _configurational;
-
-        public ICommand SaveCommand => _saveCommand;
-
-        public ICommand LoadCommand => _loadCommand;
-
-        public ICommand ExitCommand => _exitCommand;
-
-        public ICommand InformationCommand => _informationCommand;
-
-        public ICommand DepartmentsCommand => _departmentsCommand;
-
-        public ICommand PassportsCommand => _passportsCommand;
-
-        public ICommand PositionsCommand => _positionsCommand;
-
-        public ICommand GradeModesCommand => _gradeModesCommand;
-
-        public ICommand RolesCommand => _rolesCommand;
-
-        public ICommand ScholarshipsCommand => _scholarshipsCommand;
+        public ICommand ScholarshipsCommand { get; private set; }
 
         public MainVM(IConfigurational configurational, IMessageService exitMessageService,
             IMessageService informationMessageService,
-            DbConnectionService<Department> departmentsConnectionService,
-            DbConnectionService<Passport> passportsConnectionService,
-            DbConnectionService<Position> positionsConnectionService,
-            DbConnectionService<GradeMode> gradeModesConnectionService,
-            DbConnectionService<Role> rolesConnectionService,
-            DbConnectionService<Scholarship> scholarshipsConnectionService)
+            DataBaseConnectionService<Department> departmentsConnectionService,
+            DataBaseConnectionService<Passport> passportsConnectionService,
+            DataBaseConnectionService<Position> positionsConnectionService,
+            DataBaseConnectionService<GradeMode> gradeModesConnectionService,
+            DataBaseConnectionService<Role> rolesConnectionService,
+            DataBaseConnectionService<Scholarship> scholarshipsConnectionService)
         {
-            _configurational = configurational;
+            Configurational = configurational;
 
-            _saveCommand = new RelayCommand((parameter) =>
+            SaveCommand = new RelayCommand((parameter) =>
                 Configurational.Save());
-            _loadCommand = new RelayCommand((parameter) =>
+            LoadCommand = new RelayCommand((parameter) =>
                 Configurational.Load());
-            _exitCommand = new RelayCommand((parameter) =>
+            ExitCommand = new RelayCommand((parameter) =>
             {
                 if (exitMessageService.ShowMessage("Do you want to close the program?", "Exit"))
                 {
                     Application.Current.Shutdown();
                 }
             });
-            _informationCommand = new RelayCommand((parameter) =>
+            InformationCommand = new RelayCommand((parameter) =>
                 informationMessageService.ShowMessage("(C)TUSUR, KSUB, Pchelintsev Andrew" +
                     " Alexandrovich, group 571-2, 2023.", "About program"));
-            _departmentsCommand = new RelayCommand((parameter) =>
+            DepartmentsCommand = new RelayCommand((parameter) =>
                 departmentsConnectionService.ConnectDb(DataBaseContext,
                 DataBaseContext.Departments));
-            _passportsCommand = new RelayCommand((parameter) =>
+            PassportsCommand = new RelayCommand((parameter) =>
                 passportsConnectionService.ConnectDb(DataBaseContext, DataBaseContext.Passports));
-            _positionsCommand = new RelayCommand((parameter) =>
+            PositionsCommand = new RelayCommand((parameter) =>
                 positionsConnectionService.ConnectDb(DataBaseContext, DataBaseContext.Positions));
-            _gradeModesCommand = new RelayCommand((parameter) =>
+            GradeModesCommand = new RelayCommand((parameter) =>
                 gradeModesConnectionService.ConnectDb(DataBaseContext,
                     DataBaseContext.GradeModes));
-            _scholarshipsCommand = new RelayCommand((parameter) =>
+            ScholarshipsCommand = new RelayCommand((parameter) =>
                 scholarshipsConnectionService.ConnectDb(DataBaseContext,
                     DataBaseContext.Scholarships));
-            _rolesCommand = new RelayCommand((parameter) =>
+            RolesCommand = new RelayCommand((parameter) =>
                 rolesConnectionService.ConnectDb(DataBaseContext, DataBaseContext.Roles));
 
             LoadCommand.Execute(null);
-
-            _dataBaseContext = new DataBaseContext(Configurational.DataBasePath);
+            DataBaseContext = new DataBaseContext(Configurational.DataBasePath);
         }
     }
 }

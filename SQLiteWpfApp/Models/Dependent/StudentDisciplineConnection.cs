@@ -9,11 +9,11 @@ namespace SQLiteWpfApp.Models.Dependent
     {
         public int StudentID { get; set; }
 
-        public Student Student { get; set; }
+        public virtual Student Student { get; set; }
 
         public int DisciplineID { get; set; }
 
-        public Discipline Discipline { get; set; }
+        public virtual Discipline Discipline { get; set; }
 
         public bool? isPassed { get; set; }
     }

@@ -15,10 +15,10 @@ namespace SQLiteWpfApp.Models.Dependent
 
         public string SpecialityNumber { get; set; }
 
-        public Specialty Specialty { get; set; }
+        public virtual Specialty Specialty { get; set; }
 
         public string StudyFormName { get; set; }
 
-        public StudyForm StudyForm { get; set; }
+        public virtual StudyForm StudyForm { get; set; }
     }
 }

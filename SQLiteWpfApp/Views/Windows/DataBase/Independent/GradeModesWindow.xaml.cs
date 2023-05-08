@@ -18,47 +18,48 @@ using SQLiteWpfApp.ViewModels;
 using SQLiteWpfApp.ViewModels.VMs;
 using SQLiteWpfApp.Views.MessageBoxes;
 
-namespace SQLiteWpfApp.Views.Windows.Table.Independent
+namespace SQLiteWpfApp.Views.Windows.DataBase.Independent
 {
     /// <summary>
-    /// Interaction logic for PassportWindow.xaml
+    /// Interaction logic for GradeModesWindow.xaml
     /// </summary>
-    public partial class PassportsWindow : Window
+    public partial class GradeModesWindow : Window
     {
-        private static PassportsWindow? _instance = null;
+        private static GradeModesWindow? _instance = null;
 
-        private static DbConnectionService<Passport> _actionService =
-            new DbConnectionService<Passport>((dbContext, dbSet) =>
+        private static DataBaseConnectionService<GradeMode> _actionService =
+            new DataBaseConnectionService<GradeMode>((dbContext, dbSet) =>
             {
                 _dbContext = dbContext;
                 _dbSet = dbSet;
-                PassportsWindow instance = Instance;
+                GradeModesWindow instance = Instance;
                 instance.Show();
             });
 
-        private static DbContext _dbContext = null!;
+        private static DataBaseContext _dbContext = null!;
 
-        private static DbSet<Passport> _dbSet = null!;
+        private static DbSet<GradeMode> _dbSet = null!;
 
-        public static PassportsWindow Instance
+        public static GradeModesWindow Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    _instance = new PassportsWindow(_dbContext, _dbSet);
+                    _instance = new GradeModesWindow(_dbContext, _dbSet);
                 }
                 return _instance;
             }
         }
 
-        public static DbConnectionService<Passport> ActionService => _actionService;
+        public static DataBaseConnectionService<GradeMode> ActionService => _actionService;
 
-        private PassportsWindow(DbContext dbContext, DbSet<Passport> dbSet)
+        private GradeModesWindow(DataBaseContext dbContext, DbSet<GradeMode> dbSet)
         {
             InitializeComponent();
 
-            DataContext = new DataBaseVM<Passport>(new ErrorMessageBoxService(), dbContext, dbSet);
+            DataContext = new DataBaseVM<GradeMode>(new ErrorMessageBoxService(), dbContext,
+                dbSet);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

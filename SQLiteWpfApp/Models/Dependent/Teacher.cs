@@ -11,14 +11,14 @@ namespace SQLiteWpfApp.Models.Dependent
     {
         public int PersonID { get; set; }
 
-        public Person Person { get; set; }
+        public virtual Person Person { get; set; }
 
         public string DepartmentName { get; set; }
 
-        public Department Department { get; set; }
+        public virtual Department Department { get; set; }
 
         public string PositionName { get; set; }
 
-        public Position Position { get; set; }
+        public virtual Position Position { get; set; }
     }
 }

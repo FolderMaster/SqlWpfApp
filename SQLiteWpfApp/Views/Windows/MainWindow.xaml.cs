@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 
 using SQLiteWpfApp.ViewModels.VMs;
 using SQLiteWpfApp.Views.MessageBoxes;
-using SQLiteWpfApp.Views.Windows.Table.Independent;
+using SQLiteWpfApp.Views.Windows.DataBase.Independent;
 
 namespace SQLiteWpfApp.Views.Windows
 {

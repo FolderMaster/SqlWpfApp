@@ -2,8 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:Double x:Key="ToolbarButtonSize">30</sys:Double>
+    <sys:Double x:Key="ToolbarFontSize">20</sys:Double>
+    <sys:Double x:Key="TableWindowWidth">500</sys:Double>
+    <sys:Double x:Key="TableWindowHeight">400</sys:Double>
     <BitmapImage x:Shared="False" UriSource="Images/SQLite.ico" x:Key="MainIcon"/>
     <sys:String x:Key="MainHeader">SQLite WPF App</sys:String>
+    
     <Image x:Shared="False" Source="Images/Exit.ico" x:Key="ExitImage"/>
     <sys:String x:Key="ExitHeader">Exit</sys:String>
     <sys:String x:Key="ExitInput">Alt+X</sys:String>
@@ -37,15 +41,34 @@
     <BitmapImage x:Shared="False" UriSource="Images/Roles.ico" x:Key="RolesIcon"/>
     <sys:String x:Key="RolesHeader">Roles</sys:String>
     <sys:String x:Key="RolesInput">Alt+R</sys:String>
+    
     <sys:String x:Key="DependentTablesHeader">Dependent</sys:String>
     <sys:String x:Key="SaveHeader">Save</sys:String>
-    <sys:Double x:Key="TableWindowWidth">400</sys:Double>
-    <sys:Double x:Key="TableWindowHeight">300</sys:Double>
     <sys:String x:Key="NameHeader">Name</sys:String>
     <sys:String x:Key="SymbolHeader">Symbol</sys:String>
+    <sys:String x:Key="ValuesHeader">Values</sys:String>
     <sys:String x:Key="SerialNumberHeader">Serial number</sys:String>
     <sys:String x:Key="ScanHeader">Scan</sys:String>
     <sys:String x:Key="SexHeader">Sex</sys:String>
     <sys:String x:Key="PermanentResidenceAddressHeader">Permanent residence address</sys:String>
     <sys:String x:Key="CoefficientHeader">Coefficient</sys:String>
+
+    <Image x:Shared="False" Source="Images/RightArrow.ico" x:Key="RightArrowImage"/>
+    <Image x:Shared="False" Source="Images/LeftArrow.ico" x:Key="LeftArrowImage"/>
+    <Image x:Shared="False" Source="Images/RightDoubleArrow.ico" x:Key="RightDoubleArrowImage"/>
+    <Image x:Shared="False" Source="Images/LeftDoubleArrow.ico" x:Key="LeftDoubleArrowImage"/>
+    <Image x:Shared="False" Source="Images/Add.ico" x:Key="AddImage"/>
+    <Image x:Shared="False" Source="Images/Remove.ico" x:Key="RemoveImage"/>
+    <Image x:Shared="False" Source="Images/Save.ico" x:Key="SaveImage"/>
+
+    <sys:String x:Key="FirstHeader">First</sys:String>
+    <sys:String x:Key="BackHeader">Back</sys:String>
+    <sys:String x:Key="NextHeader">Next</sys:String>
+    <sys:String x:Key="LastHeader">Last</sys:String>
+    <sys:String x:Key="AddHeader">Add</sys:String>
+    <sys:String x:Key="LoadHeader">Load</sys:String>
+    <sys:String x:Key="RemoveHeader">Remove</sys:String>
+    <sys:String x:Key="OutOfHeader">out of</sys:String>
+
+    <BitmapImage x:Shared="False" UriSource="Images/NoImage.ico" x:Key="NoImage"/>
 </ResourceDictionary>

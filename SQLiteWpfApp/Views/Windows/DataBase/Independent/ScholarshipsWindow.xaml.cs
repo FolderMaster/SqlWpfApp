@@ -18,17 +18,17 @@ using SQLiteWpfApp.ViewModels;
 using SQLiteWpfApp.ViewModels.VMs;
 using SQLiteWpfApp.Views.MessageBoxes;
 
-namespace SQLiteWpfApp.Views.Windows.Table.Independent
+namespace SQLiteWpfApp.Views.Windows.DataBase.Independent
 {
     /// <summary>
-    /// Interaction logic for RolesWindow.xaml
+    /// Interaction logic for ScholarshipsWindow.xaml
     /// </summary>
-    public partial class RolesWindow : Window
+    public partial class ScholarshipsWindow : Window
     {
-        private static RolesWindow? _instance = null;
+        private static ScholarshipsWindow? _instance = null;
 
-        private static DbConnectionService<Role> _actionService = new DbConnectionService<Role>
-            ((dbContext, dbSet) =>
+        private static DataBaseConnectionService<Scholarship> _actionService =
+            new DataBaseConnectionService<Scholarship>((dbContext, dbSet) =>
             {
                 _dbSet = dbSet;
                 _dbContext = dbContext;
@@ -36,29 +36,29 @@ namespace SQLiteWpfApp.Views.Windows.Table.Independent
                 instance.Show();
             });
 
-        private static DbContext _dbContext = null!;
+        private static DataBaseContext _dbContext = null!;
 
-        private static DbSet<Role> _dbSet = null!;
+        private static DbSet<Scholarship> _dbSet = null!;
 
-        public static RolesWindow Instance
+        public static ScholarshipsWindow Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    _instance = new RolesWindow(_dbContext, _dbSet);
+                    _instance = new ScholarshipsWindow(_dbContext, _dbSet);
                 }
                 return _instance;
             }
         }
 
-        public static DbConnectionService<Role> ActionService => _actionService;
+        public static DataBaseConnectionService<Scholarship> ActionService => _actionService;
 
-        private RolesWindow(DbContext dbContext, DbSet<Role> dataBase)
+        private ScholarshipsWindow(DataBaseContext dbContext, DbSet<Scholarship> dbSet)
         {
             InitializeComponent();
 
-            DataContext = new DataBaseVM<Role>(new ErrorMessageBoxService(), dbContext, dataBase);
+            DataContext = new DataBaseVM<Scholarship>(new ErrorMessageBoxService(), dbContext, dbSet);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

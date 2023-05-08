@@ -15,6 +15,6 @@ namespace SQLiteWpfApp.Models.Dependent
 
         public int PassportSerialNumber { get; set; }
 
-        public Passport Passport { get; set; }
+        public virtual Passport Passport { get; set; }
     }
 }

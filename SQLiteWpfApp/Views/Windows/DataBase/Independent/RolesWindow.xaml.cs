@@ -18,47 +18,47 @@ using SQLiteWpfApp.ViewModels;
 using SQLiteWpfApp.ViewModels.VMs;
 using SQLiteWpfApp.Views.MessageBoxes;
 
-namespace SQLiteWpfApp.Views.Windows.Table.Independent
+namespace SQLiteWpfApp.Views.Windows.DataBase.Independent
 {
     /// <summary>
-    /// Interaction logic for PositionsWindow.xaml
+    /// Interaction logic for RolesWindow.xaml
     /// </summary>
-    public partial class PositionsWindow : Window
+    public partial class RolesWindow : Window
     {
-        private static PositionsWindow? _instance = null;
+        private static RolesWindow? _instance = null;
 
-        private static DbConnectionService<Position> _actionService =
-            new DbConnectionService<Position>((dbContext, dbSet) =>
+        private static DataBaseConnectionService<Role> _actionService = new DataBaseConnectionService<Role>
+            ((dbContext, dbSet) =>
             {
-                _dbContext = dbContext;
                 _dbSet = dbSet;
+                _dbContext = dbContext;
                 var instance = Instance;
                 instance.Show();
             });
 
-        private static DbContext _dbContext = null!;
+        private static DataBaseContext _dbContext = null!;
 
-        private static DbSet<Position> _dbSet = null!;
+        private static DbSet<Role> _dbSet = null!;
 
-        public static PositionsWindow Instance
+        public static RolesWindow Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    _instance = new PositionsWindow(_dbContext, _dbSet);
+                    _instance = new RolesWindow(_dbContext, _dbSet);
                 }
                 return _instance;
             }
         }
 
-        public static DbConnectionService<Position> ActionService => _actionService;
+        public static DataBaseConnectionService<Role> ActionService => _actionService;
 
-        private PositionsWindow(DbContext dbContext, DbSet<Position> dbSet) : base()
+        private RolesWindow(DataBaseContext dbContext, DbSet<Role> dataBase)
         {
             InitializeComponent();
 
-            DataContext = new DataBaseVM<Position>(new ErrorMessageBoxService(), dbContext, dbSet);
+            DataContext = new DataBaseVM<Role>(new ErrorMessageBoxService(), dbContext, dataBase);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

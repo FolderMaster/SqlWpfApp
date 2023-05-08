@@ -1,10 +1,10 @@
-﻿<Window x:Class="SQLiteWpfApp.Views.Windows.Table.Independent.GradeModesWindow"
+﻿<Window x:Class="SQLiteWpfApp.Views.Windows.DataBase.Independent.GradeModesWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SQLiteWpfApp.Views.Windows.Table.Independent"
-        xmlns:views="clr-namespace:SQLiteWpfApp.Views"
+        xmlns:local="clr-namespace:SQLiteWpfApp.Views.Windows.DataBase.Independent"
+        xmlns:v="clr-namespace:SQLiteWpfApp.Views.ValidationRules"
         mc:Ignorable="d"
         Closing="Window_Closing"
         Width="{StaticResource TableWindowWidth}" Height="{StaticResource TableWindowHeight}"
@@ -14,10 +14,9 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{StaticResource NameHeader}">
                     <DataGridTextColumn.Binding>
-                        <Binding Path="Name" UpdateSourceTrigger="PropertyChanged"
-                                 ValidatesOnDataErrors="True" ValidatesOnExceptions="True">
+                        <Binding Path="Name" UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
-                                <views:NotEmptyValidationRule />
+                                <v:NotEmptyValidationRule/>
                             </Binding.ValidationRules>
                         </Binding>
                     </DataGridTextColumn.Binding>

@@ -18,47 +18,47 @@ using SQLiteWpfApp.ViewModels;
 using SQLiteWpfApp.ViewModels.VMs;
 using SQLiteWpfApp.Views.MessageBoxes;
 
-namespace SQLiteWpfApp.Views.Windows.Table.Independent
+namespace SQLiteWpfApp.Views.Windows.DataBase.Independent
 {
     /// <summary>
-    /// Interaction logic for ScholarshipsWindow.xaml
+    /// Interaction logic for PositionsWindow.xaml
     /// </summary>
-    public partial class ScholarshipsWindow : Window
+    public partial class PositionsWindow : Window
     {
-        private static ScholarshipsWindow? _instance = null;
+        private static PositionsWindow? _instance = null;
 
-        private static DbConnectionService<Scholarship> _actionService =
-            new DbConnectionService<Scholarship>((dbContext, dbSet) =>
+        private static DataBaseConnectionService<Position> _actionService =
+            new DataBaseConnectionService<Position>((dbContext, dbSet) =>
             {
-                _dbSet = dbSet;
                 _dbContext = dbContext;
+                _dbSet = dbSet;
                 var instance = Instance;
                 instance.Show();
             });
 
-        private static DbContext _dbContext = null!;
+        private static DataBaseContext _dbContext = null!;
 
-        private static DbSet<Scholarship> _dbSet = null!;
+        private static DbSet<Position> _dbSet = null!;
 
-        public static ScholarshipsWindow Instance
+        public static PositionsWindow Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    _instance = new ScholarshipsWindow(_dbContext, _dbSet);
+                    _instance = new PositionsWindow(_dbContext, _dbSet);
                 }
                 return _instance;
             }
         }
 
-        public static DbConnectionService<Scholarship> ActionService => _actionService;
+        public static DataBaseConnectionService<Position> ActionService => _actionService;
 
-        private ScholarshipsWindow(DbContext dbContext, DbSet<Scholarship> dbSet)
+        private PositionsWindow(DataBaseContext dbContext, DbSet<Position> dbSet) : base()
         {
             InitializeComponent();
 
-            DataContext = new DataBaseVM<Scholarship>(new ErrorMessageBoxService(), dbContext, dbSet);
+            DataContext = new DataBaseVM<Position>(new ErrorMessageBoxService(), dbContext, dbSet);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

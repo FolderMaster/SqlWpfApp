@@ -67,7 +67,7 @@
         </ContextMenu>
     </Window.ContextMenu>
     <DockPanel>
-        <Menu DockPanel.Dock="Top" VerticalAlignment="Top">
+        <Menu DockPanel.Dock="Top">
             <MenuItem Header="{StaticResource FileHeader}">
                 <MenuItem Command="{Binding ExitCommand}" Header="{StaticResource ExitHeader}"
                           InputGestureText="{StaticResource ExitInput}"
@@ -111,7 +111,7 @@
         </Menu>
         <ToolBar DockPanel.Dock="Top" VerticalAlignment="Top">
             <Button Command="{Binding ExitCommand}" Content="{StaticResource ExitImage}"
-                    Height="30">
+                    Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource ExitHeader}"/>
                 </Button.ToolTip>

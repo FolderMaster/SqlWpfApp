@@ -11,7 +11,7 @@ namespace SQLiteWpfApp.Models.Dependent
     {
         public int PersonID { get; set; }
 
-        public Person Person { get; set; }
+        public virtual Person Person { get; set; }
 
         public int RecordBookNumber { get; set; }
 
@@ -21,10 +21,10 @@ namespace SQLiteWpfApp.Models.Dependent
 
         public string GroupNumber { get; set; }
 
-        public Group Group { get; set; }
+        public virtual Group Group { get; set; }
 
         public string? ScholarshipName { get; set; }
 
-        public Scholarship? Scholarship { get; set; }
+        public virtual Scholarship? Scholarship { get; set; }
     }
 }

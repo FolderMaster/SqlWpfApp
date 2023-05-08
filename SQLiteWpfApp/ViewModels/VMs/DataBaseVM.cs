@@ -11,23 +11,22 @@ namespace SQLiteWpfApp.ViewModels.VMs
 {
     public class DataBaseVM<T> where T : class
     {
-        private ICommand _saveCommand;
+        protected IMessageService _messageService;
 
-        private IMessageService _messageService;
+        protected DataBaseContext _dbContext;
 
-        private DbContext _dbContext;
+        protected DbSet<T> _dbSet;
 
-        private DbSet<T> _dbSet;
-
-        public DbSet<T> DbSet
+        protected DbSet<T> DbSet
         {
             get => _dbSet;
-            private set
+            set
             {
                 _dbSet = value;
                 try
                 {
                     _dbSet.Load();
+                    DataBaseLocal = DbSet.Local.ToObservableCollection();
                 }
                 catch (Exception ex)
                 {
@@ -36,20 +35,21 @@ namespace SQLiteWpfApp.ViewModels.VMs
             }
         }
 
-        public ICommand SaveCommand => _saveCommand;
+        public ICommand SaveCommand { get; private set; }
 
-        public ObservableCollection<T> DataBaseLocal => DbSet.Local.ToObservableCollection();
+        public ObservableCollection<T> DataBaseLocal { get; private set; }
 
-        public DataBaseVM(IMessageService messageService, DbContext dbContext, DbSet<T> dbSet)
+        public DataBaseVM(IMessageService messageService, DataBaseContext dbContext,
+            DbSet<T> dbSet)
         {
             _messageService = messageService;
             _dbContext = dbContext;
             DbSet = dbSet;
-            _saveCommand = new RelayCommand((parameter) =>
+            SaveCommand = new RelayCommand((parameter) =>
             {
                 try
                 {
-                    _dbContext.SaveChanges();
+                    _dbContext.SaveChanges<T>();
                 }
                 catch(Exception ex)
                 {

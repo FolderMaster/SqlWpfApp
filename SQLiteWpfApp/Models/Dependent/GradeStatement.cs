@@ -12,19 +12,19 @@ namespace SQLiteWpfApp.Models.Dependent
 
         public int StudentID { get; set; }
 
-        public Student Student { get; set; }
+        public virtual Student Student { get; set; }
 
         public int DisciplineID { get; set; }
 
-        public Discipline Discipline { get; set; }
+        public virtual Discipline Discipline { get; set; }
 
         public int TeacherID { get; set; }
 
-        public Teacher Teacher { get; set; }
+        public virtual Teacher Teacher { get; set; }
 
         public string GradeName { get; set; }
 
-        public Grade Grade { get; set; }
+        public virtual Grade Grade { get; set; }
 
         public string PassingDate { get; set; }
     }

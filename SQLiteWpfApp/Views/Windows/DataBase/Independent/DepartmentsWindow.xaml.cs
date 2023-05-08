@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,53 +11,54 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.EntityFrameworkCore;
 
 using SQLiteWpfApp.Models.Independent;
 using SQLiteWpfApp.ViewModels;
 using SQLiteWpfApp.ViewModels.VMs;
 using SQLiteWpfApp.Views.MessageBoxes;
 
-namespace SQLiteWpfApp.Views.Windows.Table.Independent
+namespace SQLiteWpfApp.Views.Windows.DataBase.Independent
 {
     /// <summary>
-    /// Interaction logic for GradeModesWindow.xaml
+    /// Interaction logic for DepartmentsWindow.xaml
     /// </summary>
-    public partial class GradeModesWindow : Window
+    public partial class DepartmentsWindow : Window
     {
-        private static GradeModesWindow? _instance = null;
+        private static DepartmentsWindow? _instance = null;
 
-        private static DbConnectionService<GradeMode> _actionService =
-            new DbConnectionService<GradeMode>((dbContext, dbSet) =>
+        private static DataBaseConnectionService<Department> _actionService =
+            new DataBaseConnectionService<Department>((dbContext, dbSet) =>
             {
                 _dbContext = dbContext;
                 _dbSet = dbSet;
-                GradeModesWindow instance = Instance;
+                var instance = Instance;
                 instance.Show();
             });
 
-        private static DbContext _dbContext = null!;
+        private static DataBaseContext _dbContext = null!;
 
-        private static DbSet<GradeMode> _dbSet = null!;
+        private static DbSet<Department> _dbSet = null!;
 
-        public static GradeModesWindow Instance
+        public static DepartmentsWindow Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    _instance = new GradeModesWindow(_dbContext, _dbSet);
+                    _instance = new DepartmentsWindow(_dbContext, _dbSet);
                 }
                 return _instance;
             }
         }
 
-        public static DbConnectionService<GradeMode> ActionService => _actionService;
+        public static DataBaseConnectionService<Department> ActionService => _actionService;
 
-        private GradeModesWindow(DbContext dbContext, DbSet<GradeMode> dbSet)
+        private DepartmentsWindow(DataBaseContext dbContext, DbSet<Department> dbSet)
         {
             InitializeComponent();
 
-            DataContext = new DataBaseVM<GradeMode>(new ErrorMessageBoxService(), dbContext,
+            DataContext = new DataBaseVM<Department>(new ErrorMessageBoxService(), dbContext,
                 dbSet);
         }
 

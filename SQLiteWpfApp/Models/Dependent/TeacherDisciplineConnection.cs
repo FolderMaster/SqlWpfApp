@@ -12,14 +12,14 @@ namespace SQLiteWpfApp.Models.Dependent
     {
         public int TeacherID { get; set; }
 
-        public Teacher Teacher { get; set; }
+        public virtual Teacher Teacher { get; set; }
 
         public int DisciplineID { get; set; }
 
-        public Discipline Discipline { get; set; }
+        public virtual Discipline Discipline { get; set; }
 
         public string RoleName { get; set; }
 
-        public Role Role { get; set; }
+        public virtual Role Role { get; set; }
     }
 }
