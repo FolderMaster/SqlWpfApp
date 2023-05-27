@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace SQLiteWpfApp.Views.Converters
 {
-    class IntToBoolConverter : IValueConverter
+    public class IntToBoolConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             => (int)value > 0 ? true : false;

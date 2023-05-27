@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
+using SQLiteWpfApp.Models.Dependent;
+
 namespace SQLiteWpfApp.Models.Independent
 {
     [Table("Roles")]
@@ -28,6 +30,8 @@ namespace SQLiteWpfApp.Models.Independent
                 }
             }
         }
+
+        public virtual ObservableCollection<TeacherDisciplineConnection> Connections { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

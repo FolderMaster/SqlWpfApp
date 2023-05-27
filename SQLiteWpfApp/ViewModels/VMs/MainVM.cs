@@ -1,86 +1,108 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
-using SQLiteWpfApp.Models.Independent;
+using SQLiteWpfApp.ViewModels.Services;
 
 namespace SQLiteWpfApp.ViewModels.VMs
 {
-    public class MainVM
+    public class MainVM : ObservableObject
     {
-        public DataBaseContext DataBaseContext { get; private set; }
-
         public IConfigurational Configurational { get; private set; }
 
-        public ICommand SaveCommand { get; private set; }
+        public RelayCommand SaveCommand { get; private set; }
 
-        public ICommand LoadCommand { get; private set; }
+        public RelayCommand LoadCommand { get; private set; }
 
-        public ICommand ExitCommand { get; private set; }
+        public RelayCommand ExitCommand { get; private set; }
 
-        public ICommand InformationCommand { get; private set; }
+        public RelayCommand InformationCommand { get; private set; }
 
-        public ICommand DepartmentsCommand { get; private set; }
+        public RelayCommand DepartmentsCommand { get; private set; }
 
-        public ICommand PassportsCommand { get; private set; }
+        public RelayCommand PassportsCommand { get; private set; }
 
-        public ICommand PositionsCommand { get; private set; }
+        public RelayCommand PositionsCommand { get; private set; }
 
-        public ICommand GradeModesCommand { get; private set; }
+        public RelayCommand GradeModesCommand { get; private set; }
 
-        public ICommand RolesCommand { get; private set; }
+        public RelayCommand RolesCommand { get; private set; }
 
-        public ICommand ScholarshipsCommand { get; private set; }
+        public RelayCommand ScholarshipsCommand { get; private set; }
+
+        public RelayCommand DisciplinesCommand { get; private set; }
+
+        public RelayCommand GradesCommand { get; private set; }
+
+        public RelayCommand GradeStatementsCommand { get; private set; }
+
+        public RelayCommand PersonsCommand { get; private set; }
+
+        public RelayCommand SpecialtiesCommand { get; private set; }
+
+        public RelayCommand StudentsCommand { get; private set; }
+
+        public RelayCommand GroupsCommand { get; private set; }
+
+        public RelayCommand StudyFormsCommand { get; private set; }
+
+        public RelayCommand TeachersCommand { get; private set; }
+
+        public RelayCommand StudentDisciplineConnectionsCommand { get; private set; }
+
+        public RelayCommand TeacherDisciplineConnectionsCommand { get; private set; }
 
         public MainVM(IConfigurational configurational, IMessageService exitMessageService,
-            IMessageService informationMessageService,
-            DataBaseConnectionService<Department> departmentsConnectionService,
-            DataBaseConnectionService<Passport> passportsConnectionService,
-            DataBaseConnectionService<Position> positionsConnectionService,
-            DataBaseConnectionService<GradeMode> gradeModesConnectionService,
-            DataBaseConnectionService<Role> rolesConnectionService,
-            DataBaseConnectionService<Scholarship> scholarshipsConnectionService)
+            IMessageService informationMessageService, Action departmentsAction,
+            Action passportsAction, Action positionsAction, Action gradeModesAction,
+            Action rolesAction, Action scholarshipsAction, Action disciplinesAction,
+            Action gradesAction, Action gradeStatementsAction, Action personsAction,
+            Action specialtiesAction, Action studentsAction, Action groupsAction,
+            Action studyFormsAction, Action teachersAction,
+            Action studentDisciplineConnectionsAction, Action teacherDisciplineConnectionsAction)
         {
             Configurational = configurational;
 
-            SaveCommand = new RelayCommand((parameter) =>
-                Configurational.Save());
-            LoadCommand = new RelayCommand((parameter) =>
-                Configurational.Load());
-            ExitCommand = new RelayCommand((parameter) =>
+            SaveCommand = new RelayCommand(() => Configurational.Save(), () => true);
+            LoadCommand = new RelayCommand(() => Configurational.Load(), () => true);
+
+            ExitCommand = new RelayCommand(() =>
             {
                 if (exitMessageService.ShowMessage("Do you want to close the program?", "Exit"))
                 {
                     Application.Current.Shutdown();
                 }
             });
-            InformationCommand = new RelayCommand((parameter) =>
+            InformationCommand = new RelayCommand(() =>
                 informationMessageService.ShowMessage("(C)TUSUR, KSUB, Pchelintsev Andrew" +
                     " Alexandrovich, group 571-2, 2023.", "About program"));
-            DepartmentsCommand = new RelayCommand((parameter) =>
-                departmentsConnectionService.ConnectDb(DataBaseContext,
-                DataBaseContext.Departments));
-            PassportsCommand = new RelayCommand((parameter) =>
-                passportsConnectionService.ConnectDb(DataBaseContext, DataBaseContext.Passports));
-            PositionsCommand = new RelayCommand((parameter) =>
-                positionsConnectionService.ConnectDb(DataBaseContext, DataBaseContext.Positions));
-            GradeModesCommand = new RelayCommand((parameter) =>
-                gradeModesConnectionService.ConnectDb(DataBaseContext,
-                    DataBaseContext.GradeModes));
-            ScholarshipsCommand = new RelayCommand((parameter) =>
-                scholarshipsConnectionService.ConnectDb(DataBaseContext,
-                    DataBaseContext.Scholarships));
-            RolesCommand = new RelayCommand((parameter) =>
-                rolesConnectionService.ConnectDb(DataBaseContext, DataBaseContext.Roles));
+
+            DepartmentsCommand = new RelayCommand(() => departmentsAction());
+            PassportsCommand = new RelayCommand(() => passportsAction());
+            PositionsCommand = new RelayCommand(() => positionsAction());
+            GradeModesCommand = new RelayCommand(() => gradeModesAction());
+            ScholarshipsCommand = new RelayCommand(() => scholarshipsAction());
+            RolesCommand = new RelayCommand(() => rolesAction());
+
+            DisciplinesCommand = new RelayCommand(() => disciplinesAction());
+            GradesCommand = new RelayCommand(() => gradesAction());
+            GradeStatementsCommand = new RelayCommand(() => gradeStatementsAction());
+            PersonsCommand = new RelayCommand(() => personsAction());
+            SpecialtiesCommand = new RelayCommand(() => specialtiesAction());
+            StudentsCommand = new RelayCommand(() => studentsAction());
+            GroupsCommand = new RelayCommand(() => groupsAction());
+            StudyFormsCommand = new RelayCommand(() => studyFormsAction());
+            TeachersCommand = new RelayCommand(() => teachersAction());
+
+            StudentDisciplineConnectionsCommand = new RelayCommand(() =>
+                studentDisciplineConnectionsAction());
+            TeacherDisciplineConnectionsCommand = new RelayCommand(() =>
+                teacherDisciplineConnectionsAction());
 
             LoadCommand.Execute(null);
-            DataBaseContext = new DataBaseContext(Configurational.DataBasePath);
+            DataBaseContext.DataBasePath = Configurational.DataBasePath;
         }
     }
 }

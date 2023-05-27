@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
+using SQLiteWpfApp.Models.Dependent;
+
 namespace SQLiteWpfApp.Models.Independent
 {
     [Table("Departments")]
@@ -43,6 +45,10 @@ namespace SQLiteWpfApp.Models.Independent
                 }
             }
         }
+
+        public virtual ObservableCollection<Specialty> Specialties { get; set; }
+
+        public virtual ObservableCollection<Teacher> Teachers { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

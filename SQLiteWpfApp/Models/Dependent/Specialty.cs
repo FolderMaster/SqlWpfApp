@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.ObjectModel;
 
 using SQLiteWpfApp.Models.Independent;
 
@@ -16,5 +17,9 @@ namespace SQLiteWpfApp.Models.Dependent
         public string DepartmentName { get; set; }
 
         public virtual Department Department { get; set; }
+
+        public virtual ObservableCollection<Discipline> Disciplines { get; set; }
+
+        public virtual ObservableCollection<Group> Groups { get; set; }
     }
 }

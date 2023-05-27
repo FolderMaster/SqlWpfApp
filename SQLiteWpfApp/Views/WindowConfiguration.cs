@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Configuration;
 using System.Windows;
-
-using SQLiteWpfApp.ViewModels;
+using SQLiteWpfApp.ViewModels.Services;
 
 namespace SQLiteWpfApp.Views
 {
-    class WindowConfiguration : IConfigurational
+    public class WindowConfiguration : IConfigurational
     {
         private Configuration _configuration;
 
@@ -15,7 +14,7 @@ namespace SQLiteWpfApp.Views
         private Window _window;
 
         public string DataBasePath { get; set; } =
-            "C:\\Users\\darko\\Documents\\UniversityDataBase.db";
+            "Data Source=C:\\Users\\darko\\Documents\\UniversityDataBase.db";
 
         public double Left
         {

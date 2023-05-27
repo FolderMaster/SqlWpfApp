@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
+using SQLiteWpfApp.Models.Dependent;
+
 namespace SQLiteWpfApp.Models.Independent
 {
     [Table("Scholarships")]
@@ -58,6 +60,11 @@ namespace SQLiteWpfApp.Models.Independent
                 }
             }
         }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public double Amount { get; set; }
+
+        public virtual ObservableCollection<Student> Students { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

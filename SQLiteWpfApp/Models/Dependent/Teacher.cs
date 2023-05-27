@@ -1,16 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.ObjectModel;
 
 using SQLiteWpfApp.Models.Independent;
 
 namespace SQLiteWpfApp.Models.Dependent
 {
     [Table("Teachers")]
-    [PrimaryKey(nameof(PersonID))]
+    [PrimaryKey(nameof(ID))]
     public class Teacher
     {
-        public int PersonID { get; set; }
+        public int ID { get; set; }
 
+        [ForeignKey(nameof(ID))]
         public virtual Person Person { get; set; }
 
         public string DepartmentName { get; set; }
@@ -20,5 +22,9 @@ namespace SQLiteWpfApp.Models.Dependent
         public string PositionName { get; set; }
 
         public virtual Position Position { get; set; }
+
+        public virtual ObservableCollection<GradeStatement> GradeStatements { get; set; }
+
+        public virtual ObservableCollection<TeacherDisciplineConnection> Connections { get; set; }
     }
 }

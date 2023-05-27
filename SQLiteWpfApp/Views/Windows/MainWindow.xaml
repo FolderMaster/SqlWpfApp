@@ -7,108 +7,135 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="{StaticResource MainHeader}" Icon="{StaticResource MainIcon}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <x:Array x:Key="MenuItems" Type="{x:Type MenuItem}" x:Shared="False">
+                <MenuItem Header="{StaticResource FileHeader}">
+                    <MenuItem Command="{Binding ExitCommand}" Header="{StaticResource ExitHeader}"
+                              InputGestureText="{StaticResource ExitInput}"
+                              Icon="{StaticResource ExitImage}"/>
+                    <Separator/>
+                    <MenuItem Command="{Binding InformationCommand}"
+                              Header="{StaticResource InformationHeader}"
+                              InputGestureText="{StaticResource InformationInput}"
+                              Icon="{StaticResource InformationImage}"/>
+                </MenuItem>
+                <MenuItem Header="{StaticResource TablesHeader}">
+                    <MenuItem Header="{StaticResource IndependentTablesHeader}">
+                        <MenuItem Command="{Binding DepartmentsCommand}"
+                                  Header="{StaticResource DepartmentsHeader}"
+                                  InputGestureText="{StaticResource DepartmentsInput}"
+                                  Icon="{StaticResource DepartmentsImage}"/>
+                        <MenuItem Command="{Binding PositionsCommand}"
+                                  Header="{StaticResource PositionsHeader}"
+                                  InputGestureText="{StaticResource PositionsInput}"
+                                  Icon="{StaticResource PositionsImage}"/>
+                        <MenuItem Command="{Binding PassportsCommand}"
+                                  Header="{StaticResource PassportsHeader}"
+                                  InputGestureText="{StaticResource PassportsInput}"
+                                  Icon="{StaticResource PassportsImage}"/>
+                        <MenuItem Command="{Binding GradeModesCommand}"
+                                  Header="{StaticResource GradeModesHeader}"
+                                  InputGestureText="{StaticResource GradeModesInput}"
+                                  Icon="{StaticResource GradeModesImage}"/>
+                        <MenuItem Command="{Binding ScholarshipsCommand}"
+                                  Header="{StaticResource ScholarshipsHeader}"
+                                  InputGestureText="{StaticResource ScholarshipsInput}"
+                                  Icon="{StaticResource ScholarshipsImage}"/>
+                        <MenuItem Command="{Binding RolesCommand}"
+                                  Header="{StaticResource RolesHeader}"
+                                  InputGestureText="{StaticResource RolesInput}"
+                                  Icon="{StaticResource RolesImage}"/>
+                    </MenuItem>
+                    <MenuItem Header="{StaticResource DependentTablesHeader}">
+                        <MenuItem Command="{Binding DisciplinesCommand}"
+                                  Header="{StaticResource DisciplinesHeader}"
+                                  InputGestureText="{StaticResource DisciplinesInput}"
+                                  Icon="{StaticResource DisciplinesImage}"/>
+                        <MenuItem Command="{Binding GradesCommand}"
+                                  Header="{StaticResource GradesHeader}"
+                                  InputGestureText="{StaticResource GradesInput}"
+                                  Icon="{StaticResource GradesImage}"/>
+                        <MenuItem Command="{Binding GradeStatementsCommand}"
+                                  Header="{StaticResource GradeStatementsHeader}"
+                                  InputGestureText="{StaticResource GradeStatementsInput}"
+                                  Icon="{StaticResource GradeStatementsImage}"/>
+                        <MenuItem Command="{Binding PersonsCommand}"
+                                  Header="{StaticResource PersonsHeader}"
+                                  InputGestureText="{StaticResource PersonsInput}"
+                                  Icon="{StaticResource PersonsImage}"/>
+                        <MenuItem Command="{Binding SpecialtiesCommand}"
+                                  Header="{StaticResource SpecialtiesHeader}"
+                                  InputGestureText="{StaticResource SpecialtiesInput}"
+                                  Icon="{StaticResource SpecialtiesImage}"/>
+                        <MenuItem Command="{Binding GroupsCommand}"
+                                  Header="{StaticResource GroupsHeader}"
+                                  InputGestureText="{StaticResource GroupsInput}"
+                                  Icon="{StaticResource GroupsImage}"/>
+                        <MenuItem Command="{Binding StudentsCommand}"
+                                  Header="{StaticResource StudentsHeader}"
+                                  InputGestureText="{StaticResource StudentsInput}"
+                                  Icon="{StaticResource StudentsImage}"/>
+                        <MenuItem Command="{Binding StudyFormsCommand}"
+                                  Header="{StaticResource StudyFormsHeader}"
+                                  InputGestureText="{StaticResource StudyFormsInput}"
+                                  Icon="{StaticResource StudyFormsImage}"/>
+                        <MenuItem Command="{Binding TeachersCommand}"
+                                  Header="{StaticResource TeachersHeader}"
+                                  InputGestureText="{StaticResource TeachersInput}"
+                                  Icon="{StaticResource TeachersImage}"/>
+                        <Separator/>
+                        <MenuItem Command="{Binding StudentDisciplineConnectionsCommand}"
+                                  Header="{StaticResource StudentDisciplineConnectionsHeader}"
+                                  InputGestureText="{StaticResource
+                                  StudentDisciplineConnectionsInput}"
+                                  Icon="{StaticResource StudentDisciplineConnectionsImage}"/>
+                        <MenuItem Command="{Binding TeacherDisciplineConnectionsCommand}"
+                                  Header="{StaticResource TeacherDisciplineConnectionsHeader}"
+                                  InputGestureText="{StaticResource
+                                  TeacherDisciplineConnectionsInput}"
+                                  Icon="{StaticResource TeacherDisciplineConnectionsImage}"/>
+                    </MenuItem>
+                </MenuItem>
+            </x:Array>
+        </ResourceDictionary>
+    </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">
             <i:InvokeCommandAction Command="{Binding SaveCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Window.InputBindings>
-        <KeyBinding Key="A" Modifiers="Alt" Command="{Binding PassportsCommand}"/>
         <KeyBinding Key="X" Modifiers="Alt" Command="{Binding ExitCommand}"/>
         <KeyBinding Key="I" Modifiers="Alt" Command="{Binding InformationCommand}"/>
+        
+        <KeyBinding Key="A" Modifiers="Alt" Command="{Binding PassportsCommand}"/>
         <KeyBinding Key="D" Modifiers="Alt" Command="{Binding DepartmentsCommand}"/>
         <KeyBinding Key="P" Modifiers="Alt" Command="{Binding PositionsCommand}"/>
         <KeyBinding Key="G" Modifiers="Alt" Command="{Binding GradeModesCommand}"/>
         <KeyBinding Key="S" Modifiers="Alt" Command="{Binding ScholarshipsCommand}"/>
         <KeyBinding Key="R" Modifiers="Alt" Command="{Binding RolesCommand}"/>
+
+        <KeyBinding Key="F" Modifiers="Alt" Command="{Binding DisciplinesCommand}"/>
+        <KeyBinding Key="H" Modifiers="Alt" Command="{Binding GradesCommand}"/>
+        <KeyBinding Key="Y" Modifiers="Alt" Command="{Binding GradeStatementsCommand}"/>
+        <KeyBinding Key="O" Modifiers="Alt" Command="{Binding PersonsCommand}"/>
+        <KeyBinding Key="Z" Modifiers="Alt" Command="{Binding SpecialtiesCommand}"/>
+        <KeyBinding Key="Q" Modifiers="Alt" Command="{Binding StudentsCommand}"/>
+        <KeyBinding Key="B" Modifiers="Alt" Command="{Binding GroupsCommand}"/>
+        <KeyBinding Key="E" Modifiers="Alt" Command="{Binding StudyFormsCommand}"/>
+        <KeyBinding Key="T" Modifiers="Alt" Command="{Binding TeachersCommand}"/>
+
+        <KeyBinding Key="C" Modifiers="Alt"
+                    Command="{Binding StudentDisciplineConnectionsCommand}"/>
+        <KeyBinding Key="K" Modifiers="Alt"
+                    Command="{Binding TeacherDisciplineConnectionsCommand}"/>
     </Window.InputBindings>
     <Window.ContextMenu>
-        <ContextMenu>
-            <MenuItem Header="{StaticResource FileHeader}">
-                <MenuItem Command="{Binding ExitCommand}" Header="{StaticResource ExitHeader}"
-                          InputGestureText="{StaticResource ExitInput}"
-                          Icon="{StaticResource ExitImage}"/>
-                <Separator/>
-                <MenuItem Command="{Binding InformationCommand}"
-                          Header="{StaticResource InformationHeader}"
-                          InputGestureText="{StaticResource InformationInput}"
-                          Icon="{StaticResource InformationImage}"/>
-            </MenuItem>
-            <MenuItem Header="{StaticResource TablesHeader}">
-                <MenuItem Header="{StaticResource IndependentTablesHeader}">
-                    <MenuItem Command="{Binding DepartmentsCommand}"
-                              Header="{StaticResource DepartmentsHeader}"
-                              InputGestureText="{StaticResource DepartmentsInput}"
-                              Icon="{StaticResource DepartmentsImage}"/>
-                    <MenuItem Command="{Binding PositionsCommand}"
-                              Header="{StaticResource PositionsHeader}"
-                              InputGestureText="{StaticResource PositionsInput}"
-                              Icon="{StaticResource PositionsImage}"/>
-                    <MenuItem Command="{Binding PassportsCommand}"
-                              Header="{StaticResource PassportsHeader}"
-                              InputGestureText="{StaticResource PassportsInput}"
-                              Icon="{StaticResource PassportsImage}"/>
-                    <MenuItem Command="{Binding GradeModesCommand}"
-                              Header="{StaticResource GradeModesHeader}"
-                              InputGestureText="{StaticResource GradeModesInput}"
-                              Icon="{StaticResource GradeModesImage}"/>
-                    <MenuItem Command="{Binding ScholarshipsCommand}"
-                              Header="{StaticResource ScholarshipsHeader}"
-                              InputGestureText="{StaticResource ScholarshipsInput}"
-                              Icon="{StaticResource ScholarshipsImage}"/>
-                    <MenuItem Command="{Binding RolesCommand}"
-                              Header="{StaticResource RolesHeader}"
-                              InputGestureText="{StaticResource RolesInput}"
-                              Icon="{StaticResource RolesImage}"/>
-                </MenuItem>
-                <MenuItem Header="{StaticResource DependentTablesHeader}">
-                </MenuItem>
-            </MenuItem>
-        </ContextMenu>
+        <ContextMenu ItemsSource="{StaticResource MenuItems}"/>
     </Window.ContextMenu>
     <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="{StaticResource FileHeader}">
-                <MenuItem Command="{Binding ExitCommand}" Header="{StaticResource ExitHeader}"
-                          InputGestureText="{StaticResource ExitInput}"
-                          Icon="{StaticResource ExitImage}"/>
-                <Separator/>
-                <MenuItem Command="{Binding InformationCommand}"
-                          Header="{StaticResource InformationHeader}"
-                          InputGestureText="{StaticResource InformationInput}"
-                          Icon="{StaticResource InformationImage}"/>
-            </MenuItem>
-            <MenuItem Header="{StaticResource TablesHeader}">
-                <MenuItem Header="{StaticResource IndependentTablesHeader}">
-                    <MenuItem Command="{Binding DepartmentsCommand}"
-                              Header="{StaticResource DepartmentsHeader}"
-                              InputGestureText="{StaticResource DepartmentsInput}"
-                              Icon="{StaticResource DepartmentsImage}"/>
-                    <MenuItem Command="{Binding PositionsCommand}"
-                              Header="{StaticResource PositionsHeader}"
-                              InputGestureText="{StaticResource PositionsInput}"
-                              Icon="{StaticResource PositionsImage}"/>
-                    <MenuItem Command="{Binding PassportsCommand}"
-                              Header="{StaticResource PassportsHeader}"
-                              InputGestureText="{StaticResource PassportsInput}"
-                              Icon="{StaticResource PassportsImage}"/>
-                    <MenuItem Command="{Binding GradeModesCommand}"
-                              Header="{StaticResource GradeModesHeader}"
-                              InputGestureText="{StaticResource GradeModesInput}"
-                              Icon="{StaticResource GradeModesImage}"/>
-                    <MenuItem Command="{Binding ScholarshipsCommand}"
-                              Header="{StaticResource ScholarshipsHeader}"
-                              InputGestureText="{StaticResource ScholarshipsInput}"
-                              Icon="{StaticResource ScholarshipsImage}"/>
-                    <MenuItem Command="{Binding RolesCommand}"
-                              Header="{StaticResource RolesHeader}"
-                              InputGestureText="{StaticResource RolesInput}"
-                              Icon="{StaticResource RolesImage}"/>
-                </MenuItem>
-                <MenuItem Header="{StaticResource DependentTablesHeader}">
-                </MenuItem>
-            </MenuItem>
-        </Menu>
+        <Menu DockPanel.Dock="Top" ItemsSource="{StaticResource MenuItems}"/>
         <ToolBar DockPanel.Dock="Top" VerticalAlignment="Top">
             <Button Command="{Binding ExitCommand}" Content="{StaticResource ExitImage}"
                     Height="{StaticResource ToolbarButtonSize}">
@@ -132,13 +159,13 @@
                 </Button.ToolTip>
             </Button>
             <Button Command="{Binding PositionsCommand}" Content="{StaticResource PositionsImage}"
-                    Height="30">
+                    Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource PositionsHeader}"/>
                 </Button.ToolTip>
             </Button>
             <Button Command="{Binding PassportsCommand}" Content="{StaticResource PassportsImage}"
-                    Height="30">
+                    Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource PassportsHeader}"/>
                 </Button.ToolTip>
@@ -161,6 +188,81 @@
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource RolesHeader}"/>
+                </Button.ToolTip>
+            </Button>
+            <Separator/>
+            <Button Command="{Binding DisciplinesCommand}"
+                    Content="{StaticResource DisciplinesImage}"
+                    Height="{StaticResource ToolbarButtonSize}">
+                <Button.ToolTip>
+                    <ToolTip Content="{StaticResource DisciplinesHeader}"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Command="{Binding GradesCommand}" Content="{StaticResource GradesImage}"
+                    Height="{StaticResource ToolbarButtonSize}">
+                <Button.ToolTip>
+                    <ToolTip Content="{StaticResource GradesHeader}"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Command="{Binding GradeStatementsCommand}"
+                    Content="{StaticResource GradeStatementsImage}"
+                    Height="{StaticResource ToolbarButtonSize}">
+                <Button.ToolTip>
+                    <ToolTip Content="{StaticResource GradeStatementsHeader}"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Command="{Binding PersonsCommand}" Content="{StaticResource PersonsImage}"
+                    Height="{StaticResource ToolbarButtonSize}">
+                <Button.ToolTip>
+                    <ToolTip Content="{StaticResource PersonsHeader}"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Command="{Binding SpecialtiesCommand}"
+                    Content="{StaticResource SpecialtiesImage}" 
+                    Height="{StaticResource ToolbarButtonSize}">
+                <Button.ToolTip>
+                    <ToolTip Content="{StaticResource SpecialtiesHeader}"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Command="{Binding StudentsCommand}" Content="{StaticResource StudentsImage}"
+                    Height="{StaticResource ToolbarButtonSize}">
+                <Button.ToolTip>
+                    <ToolTip Content="{StaticResource StudentsHeader}"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Command="{Binding StudyFormsCommand}"
+                    Content="{StaticResource StudyFormsImage}"
+                    Height="{StaticResource ToolbarButtonSize}">
+                <Button.ToolTip>
+                    <ToolTip Content="{StaticResource StudyFormsHeader}"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Command="{Binding GroupsCommand}"
+                    Content="{StaticResource GroupsImage}"
+                    Height="{StaticResource ToolbarButtonSize}">
+                <Button.ToolTip>
+                    <ToolTip Content="{StaticResource GroupsHeader}"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Command="{Binding TeachersCommand}" Content="{StaticResource TeachersImage}"
+                    Height="{StaticResource ToolbarButtonSize}">
+                <Button.ToolTip>
+                    <ToolTip Content="{StaticResource TeachersHeader}"/>
+                </Button.ToolTip>
+            </Button>
+            <Separator/>
+            <Button Command="{Binding StudentDisciplineConnectionsCommand}"
+                    Content="{StaticResource StudentDisciplineConnectionsImage}" 
+                    Height="{StaticResource ToolbarButtonSize}">
+                <Button.ToolTip>
+                    <ToolTip Content="{StaticResource StudentDisciplineConnectionsHeader}"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Command="{Binding TeacherDisciplineConnectionsCommand}"
+                    Content="{StaticResource TeacherDisciplineConnectionsImage}"
+                    Height="{StaticResource ToolbarButtonSize}">
+                <Button.ToolTip>
+                    <ToolTip Content="{StaticResource TeacherDisciplineConnectionsHeader}"/>
                 </Button.ToolTip>
             </Button>
         </ToolBar>

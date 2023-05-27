@@ -21,5 +21,8 @@ namespace SQLiteWpfApp.Models.Dependent
         public string RoleName { get; set; }
 
         public virtual Role Role { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public string? PositionName { get; set; }
     }
 }

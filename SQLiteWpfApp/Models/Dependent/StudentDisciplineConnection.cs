@@ -15,6 +15,6 @@ namespace SQLiteWpfApp.Models.Dependent
 
         public virtual Discipline Discipline { get; set; }
 
-        public bool? isPassed { get; set; }
+        public bool? IsPassed { get; set; }
     }
 }

@@ -26,6 +26,6 @@ namespace SQLiteWpfApp.Models.Dependent
 
         public virtual Grade Grade { get; set; }
 
-        public string PassingDate { get; set; }
+        public DateTime PassingDate { get; set; }
     }
 }

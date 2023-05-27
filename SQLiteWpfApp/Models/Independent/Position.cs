@@ -3,7 +3,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Xml.Linq;
+
+using SQLiteWpfApp.Models.Dependent;
 
 namespace SQLiteWpfApp.Models.Independent
 {
@@ -29,6 +30,8 @@ namespace SQLiteWpfApp.Models.Independent
                 }
             }
         }
+
+        public virtual ObservableCollection<Teacher> Teachers { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

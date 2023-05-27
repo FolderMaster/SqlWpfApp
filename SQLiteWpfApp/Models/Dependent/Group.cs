@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SQLiteWpfApp.Models.Dependent
@@ -14,5 +15,7 @@ namespace SQLiteWpfApp.Models.Dependent
         public string SpecialtyNumber { get; set; }
 
         public virtual Specialty Specialty { get; set; }
+
+        public virtual ObservableCollection<Student> Students { get; set; }
     }
 }

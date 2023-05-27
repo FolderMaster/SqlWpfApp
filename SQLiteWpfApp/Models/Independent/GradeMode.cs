@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
+using SQLiteWpfApp.Models.Dependent;
+
 namespace SQLiteWpfApp.Models.Independent
 {
     [Table("GradeModes")]
@@ -28,6 +30,10 @@ namespace SQLiteWpfApp.Models.Independent
                 }
             }
         }
+
+        public virtual ObservableCollection<Grade> Grades { get; set; }
+
+        public virtual ObservableCollection<StudyForm> StudyForms { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

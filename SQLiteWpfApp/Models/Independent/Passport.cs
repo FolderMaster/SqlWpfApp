@@ -1,8 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+
+using SQLiteWpfApp.Models.Dependent;
 
 namespace SQLiteWpfApp.Models.Independent
 {
@@ -21,6 +24,8 @@ namespace SQLiteWpfApp.Models.Independent
         private Sex _sex = Sex.Male;
 
         private byte[] _scan = null;
+
+        private DateTime _birthDate = DateTime.Now;
 
         public static ObservableCollection<Passport> Passports { get; set; } = new();
 
@@ -89,10 +94,28 @@ namespace SQLiteWpfApp.Models.Independent
             }
         }
 
+        public DateTime BirthDate
+        {
+            get => _birthDate;
+            set
+            {
+                if (value != BirthDate)
+                {
+                    _birthDate = value;
+                    InvokePropertyChanged(nameof(BirthDate));
+                }
+            }
+        }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int Age { get; set; }
+
+        public virtual ObservableCollection<Person> Persons { get; set; }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public Passport() => ValuesGenerator.GenerateValues(_idGenerator, () =>
-            Passports.FirstOrDefault((p) => p.Name == Name) != null, (id) => {
+            Passports.FirstOrDefault((p) => p.SerialNumber == SerialNumber) != null, (id) => {
                 SerialNumber = id;
                 Name = nameof(Name) + "_" + id;
                 PermanentResidenceAddress = nameof(PermanentResidenceAddress) + "_" + id;

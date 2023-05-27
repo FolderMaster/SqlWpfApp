@@ -3,55 +3,120 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:Double x:Key="ToolbarButtonSize">30</sys:Double>
     <sys:Double x:Key="ToolbarFontSize">20</sys:Double>
-    <sys:Double x:Key="TableWindowWidth">500</sys:Double>
-    <sys:Double x:Key="TableWindowHeight">400</sys:Double>
+    <sys:Double x:Key="TableWindowWidth">700</sys:Double>
+    <sys:Double x:Key="TableWindowHeight">500</sys:Double>
     <BitmapImage x:Shared="False" UriSource="Images/SQLite.ico" x:Key="MainIcon"/>
     <sys:String x:Key="MainHeader">SQLite WPF App</sys:String>
     
     <Image x:Shared="False" Source="Images/Exit.ico" x:Key="ExitImage"/>
     <sys:String x:Key="ExitHeader">Exit</sys:String>
     <sys:String x:Key="ExitInput">Alt+X</sys:String>
+    
     <Image x:Shared="False" Source="Images/Information.ico" x:Key="InformationImage"/>
     <sys:String x:Key="InformationHeader">About program</sys:String>
     <sys:String x:Key="InformationInput">Alt+I</sys:String>
+    
     <sys:String x:Key="FileHeader">File</sys:String>
+    
     <sys:String x:Key="TablesHeader">Tables</sys:String>
+    
     <sys:String x:Key="IndependentTablesHeader">Independent</sys:String>
+    
     <Image x:Shared="False" Source="Images/Departments.ico" x:Key="DepartmentsImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Departments.ico" x:Key="DepartmentsIcon"/>
     <sys:String x:Key="DepartmentsHeader">Departments</sys:String>
     <sys:String x:Key="DepartmentsInput">Alt+D</sys:String>
+
     <Image x:Shared="False" Source="Images/Positions.ico" x:Key="PositionsImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Positions.ico" x:Key="PositionsIcon"/>
     <sys:String x:Key="PositionsHeader">Positions</sys:String>
     <sys:String x:Key="PositionsInput">Alt+P</sys:String>
+    
     <Image x:Shared="False" Source="Images/Passports.ico" x:Key="PassportsImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Passports.ico" x:Key="PassportsIcon"/>
     <sys:String x:Key="PassportsHeader">Passports</sys:String>
     <sys:String x:Key="PassportsInput">Alt+A</sys:String>
+    
     <Image x:Shared="False" Source="Images/GradeModes.ico" x:Key="GradeModesImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/GradeModes.ico" x:Key="GradeModesIcon"/>
     <sys:String x:Key="GradeModesHeader">Grade modes</sys:String>
     <sys:String x:Key="GradeModesInput">Alt+G</sys:String>
+    
     <Image x:Shared="False" Source="Images/Scholarships.ico" x:Key="ScholarshipsImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Scholarships.ico" x:Key="ScholarshipsIcon"/>
     <sys:String x:Key="ScholarshipsHeader">Scholarships</sys:String>
     <sys:String x:Key="ScholarshipsInput">Alt+S</sys:String>
+    
     <Image x:Shared="False" Source="Images/Roles.ico" x:Key="RolesImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Roles.ico" x:Key="RolesIcon"/>
     <sys:String x:Key="RolesHeader">Roles</sys:String>
     <sys:String x:Key="RolesInput">Alt+R</sys:String>
-    
+
     <sys:String x:Key="DependentTablesHeader">Dependent</sys:String>
-    <sys:String x:Key="SaveHeader">Save</sys:String>
-    <sys:String x:Key="NameHeader">Name</sys:String>
-    <sys:String x:Key="SymbolHeader">Symbol</sys:String>
-    <sys:String x:Key="ValuesHeader">Values</sys:String>
-    <sys:String x:Key="SerialNumberHeader">Serial number</sys:String>
-    <sys:String x:Key="ScanHeader">Scan</sys:String>
-    <sys:String x:Key="SexHeader">Sex</sys:String>
-    <sys:String x:Key="PermanentResidenceAddressHeader">Permanent residence address</sys:String>
-    <sys:String x:Key="CoefficientHeader">Coefficient</sys:String>
+
+    <Image x:Shared="False" Source="Images/Disciplines.ico" x:Key="DisciplinesImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Disciplines.ico" x:Key="DisciplinesIcon"/>
+    <sys:String x:Key="DisciplinesHeader">Disciplines</sys:String>
+    <sys:String x:Key="DisciplinesInput">Alt+F</sys:String>
+
+    <Image x:Shared="False" Source="Images/Grades.ico" x:Key="GradesImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Grades.ico" x:Key="GradesIcon"/>
+    <sys:String x:Key="GradesHeader">Grades</sys:String>
+    <sys:String x:Key="GradesInput">Alt+H</sys:String>
+
+    <Image x:Shared="False" Source="Images/GradeStatements.ico" x:Key="GradeStatementsImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/GradeStatements.ico"
+                 x:Key="GradeStatementsIcon"/>
+    <sys:String x:Key="GradeStatementsHeader">Grade statements</sys:String>
+    <sys:String x:Key="GradeStatementsInput">Alt+Y</sys:String>
+
+    <Image x:Shared="False" Source="Images/Persons.ico" x:Key="PersonsImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Persons.ico" x:Key="PersonsIcon"/>
+    <sys:String x:Key="PersonsHeader">Persons</sys:String>
+    <sys:String x:Key="PersonsInput">Alt+O</sys:String>
+
+    <Image x:Shared="False" Source="Images/Specialties.ico" x:Key="SpecialtiesImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Specialties.ico" x:Key="SpecialtiesIcon"/>
+    <sys:String x:Key="SpecialtiesHeader">Specialties</sys:String>
+    <sys:String x:Key="SpecialtiesInput">Alt+Z</sys:String>
+
+    <Image x:Shared="False" Source="Images/Students.ico" x:Key="StudentsImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Students.ico" x:Key="StudentsIcon"/>
+    <sys:String x:Key="StudentsHeader">Students</sys:String>
+    <sys:String x:Key="StudentsInput">Alt+Q</sys:String>
+
+    <Image x:Shared="False" Source="Images/Groups.ico" x:Key="GroupsImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Groups.ico" x:Key="GroupsIcon"/>
+    <sys:String x:Key="GroupsHeader">Groups</sys:String>
+    <sys:String x:Key="GroupsInput">Alt+B</sys:String>
+
+    <Image x:Shared="False" Source="Images/StudentDisciplineConnections.ico"
+           x:Key="StudentDisciplineConnectionsImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/StudentDisciplineConnections.ico"
+                 x:Key="StudentDisciplineConnectionsIcon"/>
+    <sys:String x:Key="StudentDisciplineConnectionsHeader">
+        Student-discipline connections
+    </sys:String>
+    <sys:String x:Key="StudentDisciplineConnectionsInput">Alt+C</sys:String>
+
+    <Image x:Shared="False" Source="Images/StudyForms.ico" x:Key="StudyFormsImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/StudyForms.ico" x:Key="StudyFormsIcon"/>
+    <sys:String x:Key="StudyFormsHeader">Study forms</sys:String>
+    <sys:String x:Key="StudyFormsInput">Alt+E</sys:String>
+
+    <Image x:Shared="False" Source="Images/Teachers.ico" x:Key="TeachersImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Teachers.ico" x:Key="TeachersIcon"/>
+    <sys:String x:Key="TeachersHeader">Teachers</sys:String>
+    <sys:String x:Key="TeachersInput">Alt+S</sys:String>
+
+    <Image x:Shared="False" Source="Images/TeacherDisciplineConnections.ico"
+           x:Key="TeacherDisciplineConnectionsImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/TeacherDisciplineConnections.ico"
+                 x:Key="TeacherDisciplineConnectionsIcon"/>
+    <sys:String x:Key="TeacherDisciplineConnectionsHeader">
+        Teacher-discipline connections
+    </sys:String>
+    <sys:String x:Key="TeacherDisciplineConnectionsInput">Alt+K</sys:String>
 
     <Image x:Shared="False" Source="Images/RightArrow.ico" x:Key="RightArrowImage"/>
     <Image x:Shared="False" Source="Images/LeftArrow.ico" x:Key="LeftArrowImage"/>
@@ -61,6 +126,9 @@
     <Image x:Shared="False" Source="Images/Remove.ico" x:Key="RemoveImage"/>
     <Image x:Shared="False" Source="Images/Save.ico" x:Key="SaveImage"/>
 
+    <sys:String x:Key="SaveHeader">Save</sys:String>
+    <sys:String x:Key="SearchHeader">Search</sys:String>
+    <sys:String x:Key="IsFilterHeader">Is filter?</sys:String>
     <sys:String x:Key="FirstHeader">First</sys:String>
     <sys:String x:Key="BackHeader">Back</sys:String>
     <sys:String x:Key="NextHeader">Next</sys:String>
@@ -69,6 +137,93 @@
     <sys:String x:Key="LoadHeader">Load</sys:String>
     <sys:String x:Key="RemoveHeader">Remove</sys:String>
     <sys:String x:Key="OutOfHeader">out of</sys:String>
+    <sys:String x:Key="ThisTableHeader">This table</sys:String>
+    <sys:String x:Key="DependencyTableHeader">Dependency table</sys:String>
+
+    <sys:String x:Key="NameHeader">Name</sys:String>
+    <sys:String x:Key="SymbolHeader">Symbol</sys:String>
+    <sys:String x:Key="ValuesHeader">Values</sys:String>
+    <sys:String x:Key="SerialNumberHeader">Serial number</sys:String>
+    <sys:String x:Key="ScanHeader">Scan</sys:String>
+    <sys:String x:Key="SexHeader">Sex</sys:String>
+    <sys:String x:Key="PermanentResidenceAddressHeader">Permanent residence address</sys:String>
+    <sys:String x:Key="CoefficientHeader">Coefficient</sys:String>
+    <sys:String x:Key="GradeModeNameHeader">Grade mode name</sys:String>
+    <sys:String x:Key="IDHeader">ID</sys:String>
+    <sys:String x:Key="ResidentialAddressHeader">Residential address</sys:String>
+    <sys:String x:Key="PassportSerialNumberHeader">Passport serial number</sys:String>
+    <sys:String x:Key="NumberHeader">Number</sys:String>
+    <sys:String x:Key="DepartmentNameHeader">Department name</sys:String>
+    <sys:String x:Key="FormationYearHeader">Formation year</sys:String>
+    <sys:String x:Key="SpecialtyNumberHeader">Specialty number</sys:String>
+    <sys:String x:Key="HoursCountHeader">Hours count</sys:String>
+    <sys:String x:Key="StudyFormNameHeader">Study form name</sys:String>
+    <sys:String x:Key="GradeHeader">Grade</sys:String>
+    <sys:String x:Key="StudentIDHeader">Student ID</sys:String>
+    <sys:String x:Key="TeacherIDHeader">Teacher ID</sys:String>
+    <sys:String x:Key="DisciplineIDHeader">Discipline ID</sys:String>
+    <sys:String x:Key="GradeNameHeader">Grade name</sys:String>
+    <sys:String x:Key="PassingDateHeader">Passing date</sys:String>
+    <sys:String x:Key="IsPassedHeader">Is passed?</sys:String>
+    <sys:String x:Key="RoleNameHeader">Role name</sys:String>
+    <sys:String x:Key="PositionNameHeader">Position name</sys:String>
+    <sys:String x:Key="RecordBookNumberHeader">Record book number</sys:String>
+    <sys:String x:Key="IsDeductibleHeader">Is deductible?</sys:String>
+    <sys:String x:Key="GroupFormationYearHeader">Group formation year</sys:String>
+    <sys:String x:Key="GroupNumberHeader">Group number</sys:String>
+    <sys:String x:Key="ScholarshipNameHeader">Scholarship name</sys:String>
+    <sys:String x:Key="BirthDateHeader">Birth date</sys:String>
+    <sys:String x:Key="AgeHeader">Age</sys:String>
+    <sys:String x:Key="AmountHeader">Amount</sys:String>
 
     <BitmapImage x:Shared="False" UriSource="Images/NoImage.ico" x:Key="NoImage"/>
+
+    <DataTemplate x:Key="StudentTemplate">
+        <StackPanel>
+            <Label Content="{Binding ID}"/>
+            <Label Content="{Binding Group.Number}"/>
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="TeacherTemplate">
+        <StackPanel>
+            <Label Content="{Binding ID}"/>
+            <Label Content="{Binding Position.Name}"/>
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="DisciplineTemplate">
+        <StackPanel>
+            <Label Content="{Binding ID}"/>
+            <Label Content="{Binding Name}"/>
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="GradeTemplate">
+        <StackPanel>
+            <Label Content="{Binding Symbol}"/>
+            <Label Content="{Binding Name}"/>
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="GroupTemplate">
+        <StackPanel>
+            <Label Content="{Binding Number}"/>
+            <Label Content="{Binding FormationYear}"/>
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="ScholarshipTemplate">
+        <Label Content="{Binding Name}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="PersonTemplate">
+        <TextBlock Text="{Binding ID}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="PositionTemplate">
+        <Label Content="{Binding Name}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="DepartmentTemplate">
+        <StackPanel>
+            <Label Content="{Binding Symbol}"/>
+            <Label Content="{Binding Name}"/>
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="RoleTemplate">
+        <Label Content="{Binding Name}"/>
+    </DataTemplate>
 </ResourceDictionary>
