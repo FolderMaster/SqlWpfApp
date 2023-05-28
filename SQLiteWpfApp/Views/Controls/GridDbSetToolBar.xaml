@@ -4,19 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SQLiteWpfApp.Views.Controls"
+             xmlns:c="clr-namespace:SQLiteWpfApp.Views.Converters"
              mc:Ignorable="d"
              Name="gridDbSetToolBar" d:DesignHeight="100" d:DesignWidth="400">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <c:StringToHeaderConverter x:Key="StringToHeaderConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <ToolBar>
-        <Label Content="{StaticResource SearchHeader}" VerticalAlignment="Center"
-               FontSize="{StaticResource ToolbarFontSize}"/>
+        <Label Content="{Binding Source={StaticResource SearchHeader},
+                    Converter={StaticResource StringToHeaderConverter}}"
+               VerticalAlignment="Center" FontSize="{StaticResource ToolbarFontSize}"/>
         <TextBox Text="{Binding ElementName=gridDbSetToolBar, Path=SearchText,
             UpdateSourceTrigger=PropertyChanged}" FontSize="{StaticResource ToolbarFontSize}"
                  Width="100"/>
-        <Label Content="{StaticResource IsFilterHeader}" VerticalAlignment="Center"
-               FontSize="{StaticResource ToolbarFontSize}"/>
-        <CheckBox IsChecked="{Binding ElementName=gridDbSetToolBar, Path=IsFilter}"
-                  Height="{StaticResource ToolbarFontSize}"
-                  Width="{StaticResource ToolbarFontSize}"/>
+        <Label Content="{Binding Source={StaticResource FilterHeader},
+                    Converter={StaticResource StringToHeaderConverter}}"
+               VerticalAlignment="Center" FontSize="{StaticResource ToolbarFontSize}"/>
+        <TextBox Text="{Binding ElementName=gridDbSetToolBar, Path=FilterText,
+            UpdateSourceTrigger=PropertyChanged}" FontSize="{StaticResource ToolbarFontSize}"
+                 Width="100"/>
         <Separator/>
         <Button Command="{Binding ElementName=gridDbSetToolBar, Path=SaveCommand}"
                 Height="{StaticResource ToolbarButtonSize}" Content="{StaticResource SaveImage}">

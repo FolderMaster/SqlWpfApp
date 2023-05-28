@@ -34,7 +34,7 @@
                                     NextCommand="{Binding NextCommand}"
                                     LastCommand="{Binding LastCommand}"
                                     SearchText="{Binding SearchText, Mode=TwoWay}"
-                                    IsFilter="{Binding IsFilter, Mode=TwoWay}"
+                                    FilterText="{Binding FilterText, Mode=TwoWay}"
                                     AddCommand="{Binding AddCommand}"
                                     RemoveCommand="{Binding RemoveCommand}"
                                     SaveCommand="{Binding SaveCommand}"
@@ -42,6 +42,7 @@
         <controls:PassportControl Passport="{Binding SelectedItem}"
                                   LoadImageCommand="{Binding LoadImageCommand}"
                                   SaveImageCommand="{Binding SaveImageCommand}"
+                                  MessageService="{Binding MessageService}"
                                   IsReadOnly="{Binding SelectedNumber,
                                   Converter={StaticResource InverseIntToBoolConverter}}"/>
     </DockPanel>

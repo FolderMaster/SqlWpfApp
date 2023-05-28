@@ -9,6 +9,7 @@
              xmlns:v="clr-namespace:SQLiteWpfApp.Views.ValidationRules"
              xmlns:c="clr-namespace:SQLiteWpfApp.Views.Converters"
              xmlns:m="clr-namespace:SQLiteWpfApp.Models"
+             xmlns:b="clr-namespace:SQLiteWpfApp.Views.Behaviors"
              mc:Ignorable="d" 
              Name="passportControl" d:DesignHeight="400" d:DesignWidth="600">
     <UserControl.Resources>
@@ -20,6 +21,7 @@
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
             <c:InverseBoolConverter x:Key="InverseBoolConverter"/>
+            <c:StringToHeaderConverter x:Key="StringToHeaderConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -43,7 +45,8 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Content="{StaticResource SerialNumberHeader}"/>
+                <Label Grid.Row="0" Content="{Binding Source={StaticResource SerialNumberHeader},
+                    Converter={StaticResource StringToHeaderConverter}}"/>
                 <TextBox Grid.Row="1" IsReadOnly="{Binding ElementName=passportControl,
                     Path=IsReadOnly}">
                     <TextBox.Text>
@@ -58,7 +61,8 @@
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
-                <Label Grid.Row="2" Content="{StaticResource NameHeader}"/>
+                <Label Grid.Row="2" Content="{Binding Source={StaticResource NameHeader},
+                    Converter={StaticResource StringToHeaderConverter}}"/>
                 <TextBox Grid.Row="3" IsReadOnly="{Binding ElementName=passportControl,
                     Path=IsReadOnly}">
                     <TextBox.Text>
@@ -70,21 +74,25 @@
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
-                <Label Grid.Row="4" Content="{StaticResource BirthDateHeader}"/>
+                <Label Grid.Row="4" Content="{Binding Source={StaticResource BirthDateHeader},
+                    Converter={StaticResource StringToHeaderConverter}}"/>
                 <DatePicker Grid.Row="5" SelectedDate="{Binding ElementName=passportControl,
                     Path=Passport.BirthDate, UpdateSourceTrigger=PropertyChanged}"
                             IsEnabled="{Binding ElementName=passportControl,
                     Path=IsReadOnly, Converter={StaticResource InverseBoolConverter}}"/>
-                <Label Grid.Row="6" Content="{StaticResource AgeHeader}"/>
+                <Label Grid.Row="6" Content="{Binding Source={StaticResource AgeHeader},
+                    Converter={StaticResource StringToHeaderConverter}}"/>
                 <TextBox Grid.Row="7" Text="{Binding ElementName=passportControl, Path=Passport.Age}"
                          IsReadOnly="True"/>
-                <Label Grid.Row="8" Content="{StaticResource SexHeader}"/>
+                <Label Grid.Row="8" Content="{Binding Source={StaticResource SexHeader},
+                    Converter={StaticResource StringToHeaderConverter}}"/>
                 <ComboBox Grid.Row="9" ItemsSource="{Binding Source={StaticResource SexEnum}}"
                           SelectedItem="{Binding ElementName=passportControl,Path=Passport.Sex}"
                           IsEnabled="{Binding ElementName=passportControl, Path=IsReadOnly,
                           Converter={StaticResource InverseBoolConverter}}"/>
-                <Label Grid.Row="10"
-                           Content="{StaticResource PermanentResidenceAddressHeader}"/>
+                <Label Grid.Row="10" Content="{Binding
+                    Source={StaticResource PermanentResidenceAddressHeader},
+                    Converter={StaticResource StringToHeaderConverter}}"/>
                 <TextBox Grid.Row="11" IsReadOnly="{Binding ElementName=passportControl,
                         Path=IsReadOnly}" AcceptsReturn="True" TextWrapping="Wrap"
                         VerticalScrollBarVisibility="Auto">
@@ -114,18 +122,11 @@
                           Header="{StaticResource ScanHeader}">
                 <Image Source="{Binding ElementName=passportControl, Path=Passport.Scan,
                     TargetNullValue={StaticResource NoImage}}" AllowDrop="True">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
-                            <i:InvokeCommandAction Command="{Binding DragImageCommand}"
-                                        CommandParameter="{Binding RelativeSource=
-                                        {RelativeSource Mode=FindAncestor,
-                                        AncestorType={x:Type Image}}}"/>
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="Drop">
-                            <i:InvokeCommandAction Command="{Binding DropImageCommand}"
-                                                       PassEventArgsToCommand="True"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
+                    <i:Interaction.Behaviors>
+                        <b:DragDropImageBehavior Image="{Binding ElementName=passportControl,
+                            Path=Passport.Scan, Mode=TwoWay}" MessageService="{Binding
+                            ElementName=passportControl, Path=MessageService}"/>
+                    </i:Interaction.Behaviors>
                 </Image>
             </GroupBox>
             <Button Grid.Column="0" Grid.Row="1" Content="{StaticResource SaveHeader}"

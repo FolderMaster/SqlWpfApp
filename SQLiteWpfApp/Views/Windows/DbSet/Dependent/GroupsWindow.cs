@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 
 using SQLiteWpfApp.Models.Dependent;
-using SQLiteWpfApp.Models.Independent;
 using SQLiteWpfApp.ViewModels.VMs;
 using SQLiteWpfApp.Views.MessageBoxes;
 
@@ -36,8 +35,8 @@ namespace SQLiteWpfApp.Views.Windows.DbSet.Dependent
 
         private GroupsWindow() : base()
         {
-            Title = Application.Current.Resources[nameof(Department) + "sHeader"] as string;
-            Icon = Application.Current.Resources[nameof(Department) + "sIcon"] as BitmapSource;
+            Title = Application.Current.Resources[nameof(Group) + "sHeader"] as string;
+            Icon = Application.Current.Resources[nameof(Group) + "sIcon"] as BitmapSource;
 
             var messageService = new ErrorMessageBoxService();
 

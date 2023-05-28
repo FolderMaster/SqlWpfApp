@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using System;
-using System.Collections.ObjectModel;
 
 using SQLiteWpfApp.ViewModels.Services;
 
@@ -56,12 +55,13 @@ namespace SQLiteWpfApp.ViewModels.VMs
             }, () => DbSetLocal != null);
             RemoveCommand = new RelayCommand(() =>
             {
+                var selectedIndex = FinalDbSetLocal.IndexOf(SelectedItem);
                 FinalDbSetLocal.Remove(SelectedItem);
                 RemoveCommand?.NotifyCanExecuteChanged();
                 OnPropertyChanged(nameof(Count));
                 if (Count > 0)
                 {
-                    SelectedItem = SelectedIndex < Count ? FinalDbSetLocal[SelectedIndex] :
+                    SelectedItem = selectedIndex < Count ? FinalDbSetLocal[selectedIndex] :
                         FinalDbSetLocal[Count - 1];
                 }
                 else

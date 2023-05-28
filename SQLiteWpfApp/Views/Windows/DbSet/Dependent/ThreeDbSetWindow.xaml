@@ -17,59 +17,50 @@
     <DockPanel LastChildFill="True">
         <c:GridDbSetToolBar DockPanel.Dock="Top" SaveCommand="{Binding [0].SaveCommand}"
                             SearchText="{Binding [0].SearchText, Mode=TwoWay}"
-                            IsFilter="{Binding [0].IsFilter, Mode=TwoWay}"/>
+                            FilterText="{Binding [0].FilterText, Mode=TwoWay}"/>
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <GroupBox Header="{StaticResource ThisTableHeader}" Grid.Row="0" Grid.Column="0"
-                      Grid.ColumnSpan="2">
-                <DataGrid ItemsSource="{Binding [0].FinalDbSetLocal}" AutoGenerateColumns="True"
-                          SelectedItem="{Binding [0].SelectedItem}">
+            <GroupBox Header="{StaticResource ThisTableHeader}" Grid.Row="0">
+                <DataGrid ItemsSource="{Binding [0].FinalDbSetLocal}"
+                              AutoGenerateColumns="True" SelectedItem="{Binding [0].SelectedItem}"
+                              SelectionUnit="CellOrRowHeader">
                     <i:Interaction.Behaviors>
-                        <b:DbSetDataGridBehavior CreateColumnPredicate="{Binding [3]}"/>
+                        <b:DbSetDataGridBehavior CreateColumnPredicate="{Binding [3]}"
+                                                 SelectedPropertyName="{Binding
+                                                 [0].SelectedPropertyName, Mode=OneWayToSource}"/>
                     </i:Interaction.Behaviors>
                 </DataGrid>
             </GroupBox>
-            <GroupBox Header="{StaticResource DependencyTableHeader}" Grid.Row="1" Grid.Column="0">
-                <DataGrid ItemsSource="{Binding [1].DbSetLocal}" AutoGenerateColumns="True"
-                          IsReadOnly="True" SelectedItem="{Binding [1].SelectedItem}">
-                    <i:Interaction.Behaviors>
-                        <b:DbSetDataGridBehavior CreateColumnPredicate="{Binding [4]}"/>
-                    </i:Interaction.Behaviors>
-                    <DataGrid.RowStyle>
-                        <Style TargetType="DataGridRow">
-                            <Style.Triggers>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Background" Value="#33000077"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </DataGrid.RowStyle>
-                </DataGrid>
-            </GroupBox>
-            <GroupBox Header="{StaticResource DependencyTableHeader}" Grid.Row="1" Grid.Column="1">
-                <DataGrid ItemsSource="{Binding [2].DbSetLocal}" AutoGenerateColumns="True"
-                          IsReadOnly="True" SelectedItem="{Binding [2].SelectedItem}">
-                    <i:Interaction.Behaviors>
-                        <b:DbSetDataGridBehavior CreateColumnPredicate="{Binding [5]}"/>
-                    </i:Interaction.Behaviors>
-                    <DataGrid.RowStyle>
-                        <Style TargetType="DataGridRow">
-                            <Style.Triggers>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Background" Value="#33000077"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </DataGrid.RowStyle>
-                </DataGrid>
-            </GroupBox>
+            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                          ShowsPreview="True" ResizeDirection="Rows" Height="3px"/>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <GroupBox Header="{StaticResource DependencyTableHeader}" Grid.Column="0">
+                    <DataGrid ItemsSource="{Binding [1].DbSetLocal}" AutoGenerateColumns="True"
+                          IsReadOnly="True" SelectedItem="{Binding [1].SelectedItem}"
+                          SelectionUnit="CellOrRowHeader">
+                        <i:Interaction.Behaviors>
+                            <b:DbSetDataGridBehavior CreateColumnPredicate="{Binding [4]}"/>
+                        </i:Interaction.Behaviors>
+                    </DataGrid>
+                </GroupBox>
+                <GridSplitter Grid.Column="0" Width="3px"/>
+                <GroupBox Header="{StaticResource DependencyTableHeader}" Grid.Column="1">
+                    <DataGrid ItemsSource="{Binding [2].DbSetLocal}" AutoGenerateColumns="True"
+                          IsReadOnly="True" SelectedItem="{Binding [2].SelectedItem}"
+                          SelectionUnit="CellOrRowHeader">
+                        <i:Interaction.Behaviors>
+                            <b:DbSetDataGridBehavior CreateColumnPredicate="{Binding [5]}"/>
+                        </i:Interaction.Behaviors>
+                    </DataGrid>
+                </GroupBox>
+            </Grid>
         </Grid>
     </DockPanel>
 </Window>

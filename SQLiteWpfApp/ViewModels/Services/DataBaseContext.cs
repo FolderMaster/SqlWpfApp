@@ -4,9 +4,6 @@ using System.Linq;
 using SQLiteWpfApp.Models.Independent;
 using SQLiteWpfApp.Models.Dependent;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System.Windows.Documents;
-using System.Collections.Generic;
-using System;
 
 namespace SQLiteWpfApp.ViewModels.Services
 {
@@ -44,7 +41,7 @@ namespace SQLiteWpfApp.ViewModels.Services
 
         public DbSet<Person> Persons { get; set; } = null!;
 
-        public DbSet<Models.Dependent.Group> Groups { get; set; } = null!;
+        public DbSet<Group> Groups { get; set; } = null!;
 
         public DbSet<StudentDisciplineConnection> StudentDisciplineConnections { get; set; } =
             null!;
@@ -52,7 +49,7 @@ namespace SQLiteWpfApp.ViewModels.Services
         public DbSet<TeacherDisciplineConnection> TeacherDisciplineConnections { get; set; } =
             null!;
 
-        public DbSet<Models.Independent.Department> Departments { get; set; } = null!;
+        public DbSet<Department> Departments { get; set; } = null!;
 
         public DbSet<Role> Roles { get; set; } = null!;
 

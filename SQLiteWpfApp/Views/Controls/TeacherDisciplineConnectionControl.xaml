@@ -10,6 +10,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <c:InverseBoolConverter x:Key="InverseBoolConverter"/>
+            <c:StringToHeaderConverter x:Key="StringToHeaderConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -21,7 +22,8 @@
         </Grid.ColumnDefinitions>
         <GroupBox Grid.Column="0" Header="{StaticResource ValuesHeader}">
             <StackPanel>
-                <Label Content="{StaticResource PositionNameHeader}"/>
+                <Label Content="{Binding Source={StaticResource PositionNameHeader},
+                    Converter={StaticResource StringToHeaderConverter}}"/>
                 <TextBox Text="{Binding ElementName=teacherDisciplineConnectionControl,
                     Path=TeacherDisciplineConnection.PositionName}" IsReadOnly="True"/>
             </StackPanel>

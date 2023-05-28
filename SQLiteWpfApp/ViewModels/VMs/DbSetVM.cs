@@ -3,20 +3,18 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Reflection;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore;
+
 using SQLiteWpfApp.ViewModels.Services;
 
 namespace SQLiteWpfApp.ViewModels.VMs
 {
     public class DbSetVM<T> : ObservableObject where T : class
     {
-        protected IMessageService _messageService;
-
         protected DbSet<T> _dbSet;
 
         protected ObservableCollection<T>? _dbSetLocal = null;
@@ -25,11 +23,9 @@ namespace SQLiteWpfApp.ViewModels.VMs
 
         protected T? _selectedItem = null;
 
-        protected int _selectedIndex = -1;
-
         protected string _searchText = "";
 
-        protected bool _isFilter = false;
+        protected string _filterText = "";
 
         protected List<PropertyInfo> _getMethodList;
 
@@ -38,18 +34,15 @@ namespace SQLiteWpfApp.ViewModels.VMs
             get => _dbSet;
             set
             {
-                SetProperty(ref _dbSet, value);
-                try
+                if(SetProperty(ref _dbSet, value))
                 {
                     DbSet.Load();
                     DbSetLocal = DbSet.Local.ToObservableCollection();
                 }
-                catch (Exception ex)
-                {
-                    _messageService.ShowMessage(ex.Message, "Error!");
-                }
             }
         }
+
+        public IMessageService MessageService { get; private set; }
 
         public ObservableCollection<T>? DbSetLocal
         {
@@ -58,8 +51,8 @@ namespace SQLiteWpfApp.ViewModels.VMs
             {
                 if(SetProperty(ref _dbSetLocal, value))
                 {
-                    Find();
-                    SelectedIndex = Count > 0 ? 0 : -1;
+                    Filter();
+                    Search();
                 }
             }
         }
@@ -90,7 +83,8 @@ namespace SQLiteWpfApp.ViewModels.VMs
             {
                 if (SetProperty(ref _selectedItem, value))
                 {
-                    SelectedIndex = FinalDbSetLocal.IndexOf(SelectedItem);
+                    OnPropertyChanged(nameof(SelectedIndex));
+                    SelectedIndexChanged();
                     SelectedItemChanged();
                     ItemChanged?.Invoke(this, EventArgs.Empty);
                 }
@@ -99,14 +93,12 @@ namespace SQLiteWpfApp.ViewModels.VMs
 
         public int SelectedIndex
         {
-            get => _selectedIndex;
+            get => Count > 0 ? FinalDbSetLocal.IndexOf(SelectedItem) : -1;
             set
             {
-                if (SetProperty(ref _selectedIndex, value))
-                {
-                    SelectedItem = SelectedIndex != -1 ? FinalDbSetLocal[SelectedIndex] : null;
-                    SelectedIndexChanged();
-                }
+                SelectedItem = value != -1 ? FinalDbSetLocal[value] : null;
+                OnPropertyChanged(nameof(SelectedIndex));
+                SelectedIndexChanged();
             }
         }
 
@@ -117,33 +109,44 @@ namespace SQLiteWpfApp.ViewModels.VMs
             {
                 if (SetProperty(ref _searchText, value))
                 {
-                    Find();
+                    Search();
                 }
             }
         }
 
-        public bool IsFilter
+        public string FilterText
         {
-            get => _isFilter;
+            get => _filterText;
             set
             {
-                if (SetProperty(ref _isFilter, value))
+                if (SetProperty(ref _filterText, value))
                 {
-                    Find();
+                    Filter();
+                    Search();
                 }
             }
         }
 
-        public ICommand SaveCommand { get; private set; }
+        public string SelectedPropertyName { get; set; } = "";
 
-        public ICommand CloseCommand { get; private set; }
+        public RelayCommand SaveCommand { get; private set; }
+
+        public RelayCommand CloseCommand { get; private set; }
 
         public event EventHandler ItemChanged;
 
         public DbSetVM(IMessageService messageService)
         {
-            _messageService = messageService;
-            DbSet = DataBaseContext.Instance.Set<T>();
+            MessageService = messageService;
+            try
+            {
+                DbSet = DataBaseContext.Instance.Set<T>();
+            }
+            catch (Exception ex)
+            {
+                MessageService.ShowMessage(ex.Message, "Error!");
+                SaveCommand?.NotifyCanExecuteChanged();
+            }
             SaveCommand = new RelayCommand(() =>
             {
                 try
@@ -152,11 +155,12 @@ namespace SQLiteWpfApp.ViewModels.VMs
                 }
                 catch (Exception ex)
                 {
-                    _messageService.ShowMessage(ex.Message, "Error!");
+                    MessageService.ShowMessage(ex.Message, "Error!");
                 }
             }, () => DbSet != null);
             CloseCommand = new RelayCommand(() => { });
-            _getMethodList = typeof(T).GetProperties().Where((p) => p.GetGetMethod() != null).ToList();
+            _getMethodList =
+                typeof(T).GetProperties().Where((p) => p.GetGetMethod() != null).ToList();
         }
 
         public DbSetVM(IMessageService messageService, Action closeAction) : this(messageService)
@@ -166,72 +170,84 @@ namespace SQLiteWpfApp.ViewModels.VMs
 
         protected virtual void SelectedItemChanged() { }
 
-        protected void Find()
+        private void Filter()
+        {
+            var selectedIndex = SelectedIndex;
+
+            ObservableCollection<T> collection;
+            if (!string.IsNullOrEmpty(FilterText))
+            {
+                List<PropertyInfo> properties = GetPropertiesForCondition();
+
+                collection = new ObservableCollection<T>();
+                foreach (var item in DbSetLocal)
+                {
+                    foreach (var property in properties)
+                    {
+                        var doFind = IsMatchTextInValueOfProperty(FilterText, property, item);
+                        if (doFind)
+                        {
+                            collection.Add(item);
+                            break;
+                        }
+                    }
+                }
+                FinalDbSetLocal = collection;
+            }
+            else
+            {
+                collection = new ObservableCollection<T>(DbSetLocal);
+            }
+            FinalDbSetLocal = collection;
+
+            if (!FinalDbSetLocal.Contains(SelectedItem))
+            {
+                SelectedIndex = Count > 0 ? 0 : -1;
+            }
+            else if(selectedIndex != SelectedIndex)
+            {
+                OnPropertyChanged(nameof(SelectedIndex));
+                SelectedIndexChanged();
+            }
+            OnPropertyChanged(nameof(Count));
+        }
+
+        private void Search()
         {
             if(!string.IsNullOrEmpty(SearchText))
             {
-                if (IsFilter)
+                List<PropertyInfo> properties = GetPropertiesForCondition();
+
+                foreach (var item in FinalDbSetLocal)
                 {
-                    var collection = new ObservableCollection<T>();
-                    foreach (var item in DbSetLocal)
+                    bool doFind = false;
+                    foreach (var property in properties)
                     {
-                        foreach (var property in _getMethodList)
-                        {
-                            var value = property.GetValue(item);
-                            var text = value != null ? value.ToString() : "";
-                            if (text.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) != -1)
-                            {
-                                collection.Add(item);
-                                break;
-                            }
-                        }
-                    }
-                    FinalDbSetLocal = collection;
-                }
-                else
-                {
-                    FinalDbSetLocal = new ObservableCollection<T>(DbSetLocal);
-                    foreach (var item in DbSetLocal)
-                    {
-                        bool doFind = false;
-                        foreach (var property in _getMethodList)
-                        {
-                            var value = property.GetValue(item);
-                            var text = value != null ? value.ToString() : "";
-                            if (text.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) != -1)
-                            {
-                                doFind = true;
-                                break;
-                            }
-                        }
+                        doFind = IsMatchTextInValueOfProperty(SearchText, property, item);
                         if (doFind)
                         {
                             SelectedItem = item;
                             break;
                         }
                     }
+                    if (doFind)
+                    {
+                        break;
+                    }
                 }
             }
-            else
-            {
-                FinalDbSetLocal = new ObservableCollection<T>(DbSetLocal);
-            }
-
-            var selectedIndex = FinalDbSetLocal.IndexOf(SelectedItem);
-            if (selectedIndex == -1 && Count > 0)
-            {
-                SelectedIndex = 0;
-            }
-            else if(selectedIndex != -1 && Count > 0)
-            {
-                SelectedIndex = selectedIndex;
-            }
-            else if(Count == 0)
-            {
-                SelectedIndex = -1;
-            }
-            OnPropertyChanged(nameof(Count));
         }
+
+        private bool IsMatchTextInValueOfProperty(string matchText, PropertyInfo property, T item)
+        {
+            var value = property.GetValue(item);
+            var text = value != null ? value.ToString() : "";
+            return text.IndexOf(matchText, StringComparison.OrdinalIgnoreCase) != -1;
+        }
+
+        private List<PropertyInfo> GetPropertiesForCondition() =>
+            string.IsNullOrEmpty(SelectedPropertyName) ? _getMethodList : new List<PropertyInfo>()
+            { _getMethodList.First((p) => p.Name == SelectedPropertyName) };
 
         private void FinalDbSetLocal_CollectionChanged(object? sender,
             NotifyCollectionChangedEventArgs e)

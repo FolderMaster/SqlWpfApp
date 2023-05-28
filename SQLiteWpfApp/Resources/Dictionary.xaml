@@ -3,25 +3,25 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:Double x:Key="ToolbarButtonSize">30</sys:Double>
     <sys:Double x:Key="ToolbarFontSize">20</sys:Double>
-    <sys:Double x:Key="TableWindowWidth">700</sys:Double>
+    <sys:Double x:Key="TableWindowWidth">800</sys:Double>
     <sys:Double x:Key="TableWindowHeight">500</sys:Double>
     <BitmapImage x:Shared="False" UriSource="Images/SQLite.ico" x:Key="MainIcon"/>
     <sys:String x:Key="MainHeader">SQLite WPF App</sys:String>
-    
+
     <Image x:Shared="False" Source="Images/Exit.ico" x:Key="ExitImage"/>
     <sys:String x:Key="ExitHeader">Exit</sys:String>
     <sys:String x:Key="ExitInput">Alt+X</sys:String>
-    
+
     <Image x:Shared="False" Source="Images/Information.ico" x:Key="InformationImage"/>
     <sys:String x:Key="InformationHeader">About program</sys:String>
     <sys:String x:Key="InformationInput">Alt+I</sys:String>
-    
+
     <sys:String x:Key="FileHeader">File</sys:String>
-    
+
     <sys:String x:Key="TablesHeader">Tables</sys:String>
-    
+
     <sys:String x:Key="IndependentTablesHeader">Independent</sys:String>
-    
+
     <Image x:Shared="False" Source="Images/Departments.ico" x:Key="DepartmentsImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Departments.ico" x:Key="DepartmentsIcon"/>
     <sys:String x:Key="DepartmentsHeader">Departments</sys:String>
@@ -31,22 +31,22 @@
     <BitmapImage x:Shared="False" UriSource="Images/Positions.ico" x:Key="PositionsIcon"/>
     <sys:String x:Key="PositionsHeader">Positions</sys:String>
     <sys:String x:Key="PositionsInput">Alt+P</sys:String>
-    
+
     <Image x:Shared="False" Source="Images/Passports.ico" x:Key="PassportsImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Passports.ico" x:Key="PassportsIcon"/>
     <sys:String x:Key="PassportsHeader">Passports</sys:String>
     <sys:String x:Key="PassportsInput">Alt+A</sys:String>
-    
+
     <Image x:Shared="False" Source="Images/GradeModes.ico" x:Key="GradeModesImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/GradeModes.ico" x:Key="GradeModesIcon"/>
     <sys:String x:Key="GradeModesHeader">Grade modes</sys:String>
     <sys:String x:Key="GradeModesInput">Alt+G</sys:String>
-    
+
     <Image x:Shared="False" Source="Images/Scholarships.ico" x:Key="ScholarshipsImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Scholarships.ico" x:Key="ScholarshipsIcon"/>
     <sys:String x:Key="ScholarshipsHeader">Scholarships</sys:String>
     <sys:String x:Key="ScholarshipsInput">Alt+S</sys:String>
-    
+
     <Image x:Shared="False" Source="Images/Roles.ico" x:Key="RolesImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Roles.ico" x:Key="RolesIcon"/>
     <sys:String x:Key="RolesHeader">Roles</sys:String>
@@ -128,7 +128,7 @@
 
     <sys:String x:Key="SaveHeader">Save</sys:String>
     <sys:String x:Key="SearchHeader">Search</sys:String>
-    <sys:String x:Key="IsFilterHeader">Is filter?</sys:String>
+    <sys:String x:Key="FilterHeader">Filter</sys:String>
     <sys:String x:Key="FirstHeader">First</sys:String>
     <sys:String x:Key="BackHeader">Back</sys:String>
     <sys:String x:Key="NextHeader">Next</sys:String>
@@ -226,4 +226,64 @@
     <DataTemplate x:Key="RoleTemplate">
         <Label Content="{Binding Name}"/>
     </DataTemplate>
+    
+    <!--<Style TargetType="{x:Type DataGridCell}">
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="DarkBlue"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="Background" Value="Blue"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="{x:Type DataGridRowHeader}">
+        <Style.Triggers>
+            <Trigger Property="IsRowSelected" Value="True">
+                <Setter Property="Background" Value="Blue"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="ListBoxItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border x:Name="Border" Background="Transparent">
+                        <ContentPresenter />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="Blue"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter TargetName="Border" Property="Padding" Value="4"/>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Selector.IsSelected" Value="True"/>
+                                <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="Border" Property="Background" Value="DarkBlue"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter TargetName="Border" Property="Padding" Value="4"/>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
+    <!--<Style TargetType="{x:Type DataGrid}">
+        <Setter Property="AlternationCount" Value="2" />
+    </Style>
+    <Style TargetType="{x:Type DataGridRow}">
+        <Style.Triggers>
+            <Trigger Property="AlternationIndex" Value="0">
+                <Setter Property="Background" Value="White"/>
+            </Trigger>
+            <Trigger Property="AlternationIndex" Value="1">
+                <Setter Property="Background" Value="LightGray"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>-->
 </ResourceDictionary>

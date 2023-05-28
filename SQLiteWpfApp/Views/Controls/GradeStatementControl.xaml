@@ -10,6 +10,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <c:InverseBoolConverter x:Key="InverseBoolConverter"/>
+            <c:StringToHeaderConverter x:Key="StringToHeaderConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -22,10 +23,12 @@
         </Grid.ColumnDefinitions>
         <GroupBox Grid.Column="0" Header="{StaticResource ValuesHeader}">
             <StackPanel>
-                <Label Content="{StaticResource IDHeader}"/>
+                <Label Content="{Binding Source={StaticResource IDHeader},
+                    Converter={StaticResource StringToHeaderConverter}}"/>
                 <TextBox Text="{Binding ElementName=gradeStatementControl, Path=GradeStatement.ID}"
                          IsReadOnly="{Binding ElementName=gradeStatementControl, Path=IsReadOnly}"/>
-                <Label Content="{StaticResource PassingDateHeader}"/>
+                <Label Content="{Binding Source={StaticResource PassingDateHeader},
+                    Converter={StaticResource StringToHeaderConverter}}"/>
                 <DatePicker SelectedDate="{Binding ElementName=gradeStatementControl,
                     Path=GradeStatement.PassingDate, UpdateSourceTrigger=PropertyChanged}"
                             IsEnabled="{Binding ElementName=gradeStatementControl,

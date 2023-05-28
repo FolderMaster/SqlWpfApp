@@ -48,10 +48,10 @@ namespace SQLiteWpfApp.Views.Controls
             set => SetValue(SearchTextProperty, value);
         }
 
-        public bool IsFilter
+        public string FilterText
         {
-            get => (bool)GetValue(IsFilterProperty);
-            set => SetValue(IsFilterProperty, value);
+            get => (string)GetValue(FilterTextProperty);
+            set => SetValue(FilterTextProperty, value);
         }
 
         public ICommand AddCommand
@@ -100,8 +100,8 @@ namespace SQLiteWpfApp.Views.Controls
             DependencyProperty.Register(nameof(SearchText), typeof(string),
                 typeof(ControlDbSetToolBar), new FrameworkPropertyMetadata());
 
-        public static DependencyProperty IsFilterProperty =
-            DependencyProperty.Register(nameof(IsFilter), typeof(bool),
+        public static DependencyProperty FilterTextProperty =
+            DependencyProperty.Register(nameof(FilterText), typeof(string),
                 typeof(ControlDbSetToolBar), new FrameworkPropertyMetadata());
 
         public static DependencyProperty AddCommandProperty =

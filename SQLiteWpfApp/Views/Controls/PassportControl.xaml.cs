@@ -3,6 +3,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 
 using SQLiteWpfApp.Models.Independent;
+using SQLiteWpfApp.ViewModels.Services;
+using SQLiteWpfApp.Views.Behaviors;
 
 namespace SQLiteWpfApp.Views.Controls
 {
@@ -32,6 +34,12 @@ namespace SQLiteWpfApp.Views.Controls
             set => SetValue(SaveImageCommandProperty, value);
         }
 
+        public IMessageService MessageService
+        {
+            get => (IMessageService)GetValue(MessageServiceProperty);
+            set => SetValue(MessageServiceProperty, value);
+        }
+
         public static DependencyProperty PassportProperty =
             DependencyProperty.Register(nameof(Passport), typeof(Passport),
                 typeof(PassportControl), new FrameworkPropertyMetadata());
@@ -47,6 +55,10 @@ namespace SQLiteWpfApp.Views.Controls
         public static DependencyProperty SaveImageCommandProperty =
             DependencyProperty.Register(nameof(SaveImageCommand), typeof(ICommand),
                 typeof(PassportControl), new FrameworkPropertyMetadata());
+
+        public static DependencyProperty MessageServiceProperty = DependencyProperty.Register
+            (nameof(MessageService), typeof(IMessageService), typeof(PassportControl),
+            new FrameworkPropertyMetadata());
 
         public PassportControl()
         {
