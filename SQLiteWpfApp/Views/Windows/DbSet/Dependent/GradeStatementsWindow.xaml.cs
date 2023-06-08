@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 
 using SQLiteWpfApp.Models.Dependent;
-using SQLiteWpfApp.ViewModels.VMs;
+using SQLiteWpfApp.ViewModels.VMs.DbSet;
 using SQLiteWpfApp.Views.MessageBoxes;
 
 namespace SQLiteWpfApp.Views.Windows.DbSet.Dependent
@@ -40,9 +40,10 @@ namespace SQLiteWpfApp.Views.Windows.DbSet.Dependent
 
             DataContext = new List<object>()
             {
-                new ControlDbSetVM<GradeStatement>(messageService, () => _instance = null),
+                new ControlDbSetVM<GradeStatement>(messageService),
                 new DbSetVM<Discipline>(messageService), new DbSetVM<Student>(messageService),
-                new DbSetVM<Teacher>(messageService), new DbSetVM<Grade>(messageService)
+                new DbSetVM<Teacher>(messageService), new DbSetVM<Grade>(messageService),
+                (Action)(() => _instance = null)
             };
         }
     }

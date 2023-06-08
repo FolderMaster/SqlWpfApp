@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 
 using SQLiteWpfApp.Models.Independent;
-using SQLiteWpfApp.ViewModels.VMs;
+using SQLiteWpfApp.ViewModels.VMs.DbSet;
 using SQLiteWpfApp.Views.MessageBoxes;
 
 namespace SQLiteWpfApp.Views.Windows.DbSet.Independent
@@ -40,9 +40,10 @@ namespace SQLiteWpfApp.Views.Windows.DbSet.Independent
 
             DataContext = new List<object>()
             {
-                new DbSetVM<Department>(new ErrorMessageBoxService(), () => _instance = null),
+                new DbSetVM<Department>(new ErrorMessageBoxService()),
                 (string nameProperty) => nameProperty != nameof(Department.Specialties) &&
-                nameProperty != nameof(Department.Teachers)
+                nameProperty != nameof(Department.Teachers),
+                (Action)(() => _instance = null)
             };
         }
     }

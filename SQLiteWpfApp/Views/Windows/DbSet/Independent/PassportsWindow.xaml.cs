@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows;
+using System.Collections.Generic;
 
-using SQLiteWpfApp.ViewModels.VMs;
+using SQLiteWpfApp.ViewModels.VMs.DbSet;
 using SQLiteWpfApp.Views.MessageBoxes;
 using SQLiteWpfApp.Views.FileDialogs;
 
@@ -35,9 +36,13 @@ namespace SQLiteWpfApp.Views.Windows.DbSet.Independent
         {
             InitializeComponent();
 
-            DataContext = new PassportsVM(new ErrorMessageBoxService(), () => _instance = null,
+            DataContext = new List<object>()
+            {
+                new PassportsVM(new ErrorMessageBoxService(),
                 new OpenFileDialogService("Images (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg"),
-                new SaveFileDialogService("PNG image|*.png|JPEG image|*.jpeg|JPG image|*.jpg"));
+                new SaveFileDialogService("PNG image|*.png|JPEG image|*.jpeg|JPG image|*.jpg")),
+                (Action)(() => _instance = null)
+            };
         }
     }
 }

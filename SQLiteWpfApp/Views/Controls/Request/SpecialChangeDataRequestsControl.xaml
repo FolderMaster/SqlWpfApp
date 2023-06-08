@@ -1,0 +1,188 @@
+﻿<UserControl x:Class="SQLiteWpfApp.Views.Controls.Request.SpecialChangeDataRequestsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SQLiteWpfApp.Views.Controls.Request"
+             xmlns:converters="clr-namespace:SQLiteWpfApp.Views.Converters"
+             xmlns:enums="clr-namespace:SQLiteWpfApp.ViewModels.Enums"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converters:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
+            <converters:EnumToVisibilityConverter x:Key="EnumToVisibilityConverter"/>
+            <converters:IntToBoolConverter x:Key="IntToBoolConverter"/>
+            <converters:StringToHeaderConverter x:Key="StringToHeaderConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <GroupBox Header="{StaticResource ChangeDataModesHeader}" Grid.Row="0">
+            <WrapPanel>
+                <RadioButton Content="{StaticResource SetNullStudentDeductingsHeader}"
+                             IsChecked="{Binding Request, Mode=TwoWay,
+                             Converter={StaticResource EnumToBoolConverter},
+                             ConverterParameter=SetNullStudentDeductings}"/>
+                <RadioButton Content="{StaticResource SetNullStudentPassingsHeader}"
+                             IsChecked="{Binding Request, Mode=TwoWay,
+                             Converter={StaticResource EnumToBoolConverter},
+                             ConverterParameter=SetNullStudentPassings}"/>
+                <RadioButton Content="{StaticResource SetStudentPassingsByLastGradesHeader}"
+                             IsChecked="{Binding Request, Mode=TwoWay,
+                             Converter={StaticResource EnumToBoolConverter},
+                             ConverterParameter=SetStudentPassingsByLastGrades}"/>
+                <RadioButton Content="{StaticResource SetStudentPassingsWithoutGradesHeader}"
+                             IsChecked="{Binding Request, Mode=TwoWay,
+                             Converter={StaticResource EnumToBoolConverter},
+                             ConverterParameter=SetStudentPassingsWithoutGrades}"/>
+                <RadioButton Content="{StaticResource SetStudentDeductingsHeader}"
+                             IsChecked="{Binding Request, Mode=TwoWay,
+                             Converter={StaticResource EnumToBoolConverter},
+                             ConverterParameter=SetStudentDeductings}"/>
+                <RadioButton Content="{StaticResource SetStudentScholarshipsByGradesHeader}"
+                             IsChecked="{Binding Request, Mode=TwoWay,
+                             Converter={StaticResource EnumToBoolConverter},
+                             ConverterParameter=SetStudentScholarshipsByGrades}"/>
+                <RadioButton Content="{StaticResource SetStudentScholarshipsByPassingsHeader}"
+                             IsChecked="{Binding Request, Mode=TwoWay,
+                             Converter={StaticResource EnumToBoolConverter},
+                             ConverterParameter=SetStudentScholarshipsByPassings}"/>
+            </WrapPanel>
+        </GroupBox>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <GroupBox Header="{StaticResource ValuesHeader}" Grid.Row="0">
+                <Grid>
+                    <StackPanel Visibility="{Binding Request,
+                          Converter={StaticResource EnumToVisibilityConverter},
+                          ConverterParameter=SetNullStudentDeductings}">
+                        <Label Content="{Binding Source={StaticResource GroupNumberHeader},
+                                   Converter={StaticResource StringToHeaderConverter}}"/>
+                        <TextBox Text="{Binding ParametersVMs[0].Parameters[2], Mode=TwoWay,
+                                 UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Content="{Binding Source={StaticResource
+                                   GroupFormationYearHeader},
+                                   Converter={StaticResource StringToHeaderConverter}}"/>
+                        <TextBox Text="{Binding ParametersVMs[0].Parameters[0], Mode=TwoWay,
+                                 UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding ParametersVMs[0].Parameters[1], Mode=TwoWay,
+                                 UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                    <StackPanel Visibility="{Binding Request,
+                          Converter={StaticResource EnumToVisibilityConverter},
+                          ConverterParameter=SetNullStudentPassings}">
+                        <Label Content="{Binding Source={StaticResource GroupNumberHeader},
+                                   Converter={StaticResource StringToHeaderConverter}}"/>
+                        <TextBox Text="{Binding ParametersVMs[1].Parameters[2], Mode=TwoWay,
+                                 UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Content="{Binding Source={StaticResource
+                                   GroupFormationYearHeader},
+                                   Converter={StaticResource StringToHeaderConverter}}"/>
+                        <TextBox Text="{Binding ParametersVMs[1].Parameters[0], Mode=TwoWay,
+                                 UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding ParametersVMs[1].Parameters[1], Mode=TwoWay,
+                                 UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                    <StackPanel Visibility="{Binding Request,
+                          Converter={StaticResource EnumToVisibilityConverter},
+                          ConverterParameter=SetStudentPassingsByLastGrades}">
+                        <CheckBox Content="{StaticResource IsPassedHeader}"
+                                  IsChecked="{Binding ParametersVMs[2].Parameters[0],
+                                  Converter={StaticResource IntToBoolConverter}, Mode=TwoWay,
+                                  UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Content="{Binding Source={StaticResource GradeCoefficientHeader},
+                                   Converter={StaticResource StringToHeaderConverter}}"/>
+                        <TextBox Text="{Binding ParametersVMs[2].Parameters[1], Mode=TwoWay,
+                                 UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding ParametersVMs[2].Parameters[2], Mode=TwoWay,
+                                 UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                    <StackPanel Visibility="{Binding Request,
+                          Converter={StaticResource EnumToVisibilityConverter},
+                          ConverterParameter=SetStudentPassingsWithoutGrades}">
+                        <CheckBox Content="{StaticResource IsPassedHeader}"
+                                  IsChecked="{Binding ParametersVMs[3].Parameters[0],
+                                  Converter={StaticResource IntToBoolConverter}, Mode=TwoWay,
+                                  UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                    <StackPanel Visibility="{Binding Request,
+                          Converter={StaticResource EnumToVisibilityConverter},
+                          ConverterParameter=SetStudentDeductings}">
+                        <CheckBox Content="{StaticResource IsDeductibleHeader}"
+                                  IsChecked="{Binding ParametersVMs[4].Parameters[0],
+                                  Converter={StaticResource IntToBoolConverter}, Mode=TwoWay,
+                                  UpdateSourceTrigger=PropertyChanged}"/>
+                        <CheckBox Content="{StaticResource IsPassedHeader}"
+                                  IsChecked="{Binding ParametersVMs[4].Parameters[1],
+                                  Converter={StaticResource IntToBoolConverter}, Mode=TwoWay,
+                                  UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Content="{Binding Source={StaticResource CountHeader},
+                                   Converter={StaticResource StringToHeaderConverter}}"/>
+                        <TextBox Text="{Binding ParametersVMs[4].Parameters[2], Mode=TwoWay,
+                                 UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                    <StackPanel Visibility="{Binding Request,
+                          Converter={StaticResource EnumToVisibilityConverter},
+                          ConverterParameter=SetStudentScholarshipsByGrades}">
+                        <Label Content="{Binding Source={StaticResource ScholarshipHeader},
+                                   Converter={StaticResource StringToHeaderConverter}}"/>
+                        <TextBox Text="{Binding ParametersVMs[5].Parameters[0], Mode=TwoWay,
+                                 UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Content="{Binding Source={StaticResource CountHeader},
+                                   Converter={StaticResource StringToHeaderConverter}}"/>
+                        <TextBox Text="{Binding ParametersVMs[5].Parameters[1], Mode=TwoWay,
+                                 UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Content="{Binding Source={StaticResource GradeCoefficientHeader},
+                                   Converter={StaticResource StringToHeaderConverter}}"/>
+                        <TextBox Text="{Binding ParametersVMs[5].Parameters[2], Mode=TwoWay,
+                                 UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Content="{Binding Source={StaticResource ScholarshipHeader},
+                                   Converter={StaticResource StringToHeaderConverter}}"/>
+                        <TextBox Text="{Binding ParametersVMs[5].Parameters[3], Mode=TwoWay,
+                                 UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Content="{Binding Source={StaticResource PermanentResidenceAddressHeader},
+                                   Converter={StaticResource StringToHeaderConverter}}"/>
+                        <TextBox Text="{Binding ParametersVMs[5].Parameters[4], Mode=TwoWay,
+                                 UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                    <StackPanel Visibility="{Binding Request,
+                          Converter={StaticResource EnumToVisibilityConverter},
+                          ConverterParameter=SetStudentScholarshipsByPassings}">
+                        <Label Content="{Binding Source={StaticResource ScholarshipHeader},
+                                   Converter={StaticResource StringToHeaderConverter}}"/>
+                        <TextBox Text="{Binding ParametersVMs[6].Parameters[0], Mode=TwoWay,
+                                 UpdateSourceTrigger=PropertyChanged}"/>
+                        <CheckBox Content="{StaticResource IsPassedHeader   }"
+                                  IsChecked="{Binding ParametersVMs[6].Parameters[1],
+                                  Converter={StaticResource IntToBoolConverter}, Mode=TwoWay,
+                                  UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Content="{Binding Source={StaticResource CountHeader},
+                                   Converter={StaticResource StringToHeaderConverter}}"/>
+                        <TextBox Text="{Binding ParametersVMs[6].Parameters[2], Mode=TwoWay,
+                                 UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Content="{Binding Source={StaticResource ScholarshipHeader},
+                                   Converter={StaticResource StringToHeaderConverter}}"/>
+                        <TextBox Text="{Binding ParametersVMs[6].Parameters[3], Mode=TwoWay,
+                                 UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+            <Button Grid.Row="1" Content="{StaticResource ExecuteRequestHeader}"
+                    Command="{Binding ExecuteSqlCommand}"/>
+        </Grid>
+        <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                      ShowsPreview="True" ResizeDirection="Rows" Height="3px"/>
+        <GroupBox Header="{StaticResource ResultHeader}" Grid.Row="2">
+            <DataGrid ItemsSource="{Binding ExecutingResult}" AutoGenerateColumns="True"
+                      IsReadOnly="True" SelectionUnit="CellOrRowHeader"/>
+        </GroupBox>
+    </Grid>
+</UserControl>

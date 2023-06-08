@@ -5,7 +5,7 @@ using System.Windows.Media.Imaging;
 
 using SQLiteWpfApp.Models.Dependent;
 using SQLiteWpfApp.Models.Independent;
-using SQLiteWpfApp.ViewModels.VMs;
+using SQLiteWpfApp.ViewModels.VMs.DbSet;
 using SQLiteWpfApp.Views.MessageBoxes;
 
 namespace SQLiteWpfApp.Views.Windows.DbSet.Dependent
@@ -41,7 +41,7 @@ namespace SQLiteWpfApp.Views.Windows.DbSet.Dependent
 
             var messageService = new ErrorMessageBoxService();
 
-            var mainVM = new DbSetVM<Person>(messageService, () => _instance = null);
+            var mainVM = new DbSetVM<Person>(messageService);
             var dependentVM = new DbSetVM<Passport>(messageService);
 
             mainVM.ItemChanged += (object? sender, EventArgs e) =>
@@ -55,7 +55,8 @@ namespace SQLiteWpfApp.Views.Windows.DbSet.Dependent
                 (string nameProperty) => nameProperty != nameof(Person.Passport) &&
                 nameProperty != nameof(Person.Teachers) && nameProperty != nameof(Person.Students),
                 (string nameProperty) => nameProperty != nameof(Passport.Persons) &&
-                nameProperty != nameof(Passport.Scan)
+                nameProperty != nameof(Passport.Scan),
+                (Action)(() => _instance = null)
             };
         }
     }

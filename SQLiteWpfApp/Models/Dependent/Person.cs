@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 using SQLiteWpfApp.Models.Independent;
 
@@ -10,7 +11,11 @@ namespace SQLiteWpfApp.Models.Dependent
     [PrimaryKey(nameof(ID))]
     public class Person
     {
-        public int ID { get; set; }
+        private static IdGenerator _idGenerator = new(1);
+
+        public static ObservableCollection<Person> Persons { get; set; } = new();
+
+        public long ID { get; set; }
 
         public string ResidentialAddress { get; set; }
 
@@ -24,5 +29,11 @@ namespace SQLiteWpfApp.Models.Dependent
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string? Name { get; set; }
+
+        public Person() => ValuesGenerator.GenerateValues(_idGenerator, () =>
+            Persons.FirstOrDefault((d) => d.ID == ID) != null, (id) => {
+                ID = id;
+                ResidentialAddress = nameof(ResidentialAddress) + "_" + id;
+            }, () => Persons.Add(this));
     }
 }

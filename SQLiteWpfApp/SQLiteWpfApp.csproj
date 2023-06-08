@@ -24,6 +24,8 @@
     <None Remove="Resources\Images\Persons.ico" />
     <None Remove="Resources\Images\Positions.ico" />
     <None Remove="Resources\Images\Remove.ico" />
+    <None Remove="Resources\Images\Reports.ico" />
+    <None Remove="Resources\Images\Requests.ico" />
     <None Remove="Resources\Images\RightArrow.ico" />
     <None Remove="Resources\Images\RightDoubleArrow.ico" />
     <None Remove="Resources\Images\Roles.ico" />
@@ -46,6 +48,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0-preview.3.23174.2" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.117" />
   </ItemGroup>
 
   <ItemGroup>
@@ -71,6 +74,8 @@
     <Resource Include="Resources\Images\Persons.ico" />
     <Resource Include="Resources\Images\Positions.ico" />
     <Resource Include="Resources\Images\Remove.ico" />
+    <Resource Include="Resources\Images\Reports.ico" />
+    <Resource Include="Resources\Images\Requests.ico" />
     <Resource Include="Resources\Images\RightArrow.ico" />
     <Resource Include="Resources\Images\RightDoubleArrow.ico" />
     <Resource Include="Resources\Images\Roles.ico" />

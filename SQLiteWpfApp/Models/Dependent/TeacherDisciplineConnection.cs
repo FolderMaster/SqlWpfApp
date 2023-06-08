@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 using SQLiteWpfApp.Models.Independent;
 
@@ -10,11 +12,16 @@ namespace SQLiteWpfApp.Models.Dependent
     [PrimaryKey(nameof(TeacherID), new string[] { nameof(DisciplineID) })]
     public class TeacherDisciplineConnection
     {
-        public int TeacherID { get; set; }
+        private static IdGenerator _idGenerator = new(1);
+
+        public static ObservableCollection<TeacherDisciplineConnection>
+            TeacherDisciplineConnections { get; set; } = new();
+
+        public long TeacherID { get; set; }
 
         public virtual Teacher Teacher { get; set; }
 
-        public int DisciplineID { get; set; }
+        public long DisciplineID { get; set; }
 
         public virtual Discipline Discipline { get; set; }
 
@@ -24,5 +31,12 @@ namespace SQLiteWpfApp.Models.Dependent
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string? PositionName { get; set; }
+
+        public TeacherDisciplineConnection() => ValuesGenerator.GenerateValues(_idGenerator, () =>
+            TeacherDisciplineConnections.FirstOrDefault((d) => d.TeacherID == TeacherID &&
+            d.DisciplineID == DisciplineID) != null, (id) => {
+                TeacherID = id;
+                DisciplineID = id;
+            }, () => TeacherDisciplineConnections.Add(this));
     }
 }

@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="SQLiteWpfApp.Views.Controls.DbSet.TeacherControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SQLiteWpfApp.Views.Controls.DbSet"
+             xmlns:c="clr-namespace:SQLiteWpfApp.Views.Converters"
+             mc:Ignorable="d" 
+             Name="teacherControl" d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <c:InverseBoolConverter x:Key="InverseBoolConverter"/>
+            <c:StringToHeaderConverter x:Key="StringToHeaderConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Grid.Column="0" Header="{StaticResource ValuesHeader}">
+            <StackPanel>
+                <Label Content="{Binding Source={StaticResource IDHeader},
+                    Converter={StaticResource StringToHeaderConverter}}"/>
+                <ComboBox ItemsSource="{Binding ElementName=teacherControl, Path=Persons}"
+                          SelectedItem="{Binding ElementName=teacherControl, Path=Teacher.Person}"
+                          IsEnabled="{Binding ElementName=teacherControl,
+                          Path=IsReadOnly, Converter={StaticResource InverseBoolConverter}}"
+                          ItemTemplate="{StaticResource PersonTemplate}"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Column="1" Header="{StaticResource DepartmentsHeader}">
+            <ListBox ItemsSource="{Binding ElementName=teacherControl, Path=Departments}"
+                     SelectedItem="{Binding ElementName=teacherControl, Path=Teacher.Department}"
+                     ItemTemplate="{StaticResource DepartmentTemplate}" IsEnabled="{Binding
+                     ElementName=teacherControl, Path=IsReadOnly, Converter={StaticResource
+                     InverseBoolConverter}}"/>
+        </GroupBox>
+        <GroupBox Grid.Column="2" Header="{StaticResource GroupsHeader}">
+            <ListBox ItemsSource="{Binding ElementName=teacherControl, Path=Positions}"
+                     SelectedItem="{Binding ElementName=teacherControl, Path=Teacher.Position}"
+                     ItemTemplate="{StaticResource PositionTemplate}" IsEnabled="{Binding
+                     ElementName=teacherControl, Path=IsReadOnly, Converter={StaticResource
+                     InverseBoolConverter}}"/>
+        </GroupBox>
+    </Grid>
+</UserControl>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace SQLiteWpfApp.Models.Dependent
 {
@@ -8,11 +9,15 @@ namespace SQLiteWpfApp.Models.Dependent
     [PrimaryKey(nameof(ID))]
     public class Discipline
     {
-        public int ID { get; set; }
+        private static IdGenerator _idGenerator = new(1);
+
+        public static ObservableCollection<Discipline> Disciplines { get; set; } = new();
+
+        public long ID { get; set; }
 
         public string Name { get; set; }
 
-        public int HoursCount { get; set; }
+        public int HoursCount { get; set; } = 0;
 
         public string SpecialtyNumber { get; set; }
 
@@ -29,5 +34,11 @@ namespace SQLiteWpfApp.Models.Dependent
 
         public virtual ObservableCollection<TeacherDisciplineConnection> TeacherConnections
         { get; set; }
+
+        public Discipline() => ValuesGenerator.GenerateValues(_idGenerator, () =>
+            Disciplines.FirstOrDefault((d) => d.ID == ID) != null, (id) => {
+                ID = id;
+                Name = nameof(Name) + "_" + id;
+            }, () => Disciplines.Add(this));
     }
 }

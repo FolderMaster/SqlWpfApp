@@ -5,15 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SQLiteWpfApp.Views.Windows.DbSet.Dependent"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:c="clr-namespace:SQLiteWpfApp.Views.Controls"
+        xmlns:c="clr-namespace:SQLiteWpfApp.Views.Controls.DbSet"
         xmlns:b="clr-namespace:SQLiteWpfApp.Views.Behaviors"
         mc:Ignorable="d"
         Height="{StaticResource TableWindowHeight}" Width="{StaticResource TableWindowWidth}">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Closed">
-            <i:InvokeCommandAction Command="{Binding [0].CloseCommand}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+    <i:Interaction.Behaviors>
+        <b:CloseWindowBehavior CloseAction="{Binding [6]}"/>
+    </i:Interaction.Behaviors>
     <DockPanel LastChildFill="True">
         <c:GridDbSetToolBar DockPanel.Dock="Top" SaveCommand="{Binding [0].SaveCommand}"
                             SearchText="{Binding [0].SearchText, Mode=TwoWay}"

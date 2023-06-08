@@ -5,45 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SQLiteWpfApp.Views.Windows.DbSet.Independent"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:behaviors="clr-namespace:SQLiteWpfApp.Views.Behaviors"
         xmlns:converters="clr-namespace:SQLiteWpfApp.Views.Converters"
-        xmlns:controls="clr-namespace:SQLiteWpfApp.Views.Controls"
+        xmlns:controls="clr-namespace:SQLiteWpfApp.Views.Controls.DbSet"
         mc:Ignorable="d"
         Width="{StaticResource TableWindowWidth}" Height="{StaticResource TableWindowHeight}"
         Title="{StaticResource PassportsHeader}" Icon="{StaticResource PassportsIcon}">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Closed">
-            <i:InvokeCommandAction Command="{Binding CloseCommand}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+    <i:Interaction.Behaviors>
+        <behaviors:CloseWindowBehavior CloseAction="{Binding [1]}"/>
+    </i:Interaction.Behaviors>
     <Window.Resources>
         <ResourceDictionary>
             <converters:InverseIntToBoolConverter x:Key="InverseIntToBoolConverter"/>
         </ResourceDictionary>
     </Window.Resources>
     <Window.InputBindings>
-        <KeyBinding Key="Down" Modifiers="Shift" Command="{Binding FirstCommand}"/>
-        <KeyBinding Key="Left" Modifiers="Shift" Command="{Binding BackCommand}"/>
-        <KeyBinding Key="Right" Modifiers="Shift" Command="{Binding NextCommand}"/>
-        <KeyBinding Key="Up" Modifiers="Shift" Command="{Binding LastCommand}"/>
+        <KeyBinding Key="Down" Modifiers="Shift" Command="{Binding [0].FirstCommand}"/>
+        <KeyBinding Key="Left" Modifiers="Shift" Command="{Binding [0].BackCommand}"/>
+        <KeyBinding Key="Right" Modifiers="Shift" Command="{Binding [0].NextCommand}"/>
+        <KeyBinding Key="Up" Modifiers="Shift" Command="{Binding [0].LastCommand}"/>
     </Window.InputBindings>
     <DockPanel LastChildFill="True">
-        <controls:ControlDbSetToolBar FirstCommand="{Binding FirstCommand}"
-                                    BackCommand="{Binding BackCommand}"
-                                    SelectedNumber="{Binding SelectedNumber, Mode=TwoWay}"
-                                    Count="{Binding Count}"
-                                    NextCommand="{Binding NextCommand}"
-                                    LastCommand="{Binding LastCommand}"
-                                    SearchText="{Binding SearchText, Mode=TwoWay}"
-                                    FilterText="{Binding FilterText, Mode=TwoWay}"
-                                    AddCommand="{Binding AddCommand}"
-                                    RemoveCommand="{Binding RemoveCommand}"
-                                    SaveCommand="{Binding SaveCommand}"
+        <controls:ControlDbSetToolBar FirstCommand="{Binding [0].FirstCommand}"
+                                    BackCommand="{Binding [0].BackCommand}"
+                                    SelectedNumber="{Binding [0].SelectedNumber, Mode=TwoWay}"
+                                    Count="{Binding [0].Count}"
+                                    NextCommand="{Binding [0].NextCommand}"
+                                    LastCommand="{Binding [0].LastCommand}"
+                                    SearchText="{Binding [0].SearchText, Mode=TwoWay}"
+                                    FilterText="{Binding [0].FilterText, Mode=TwoWay}"
+                                    AddCommand="{Binding [0].AddCommand}"
+                                    RemoveCommand="{Binding [0].RemoveCommand}"
+                                    SaveCommand="{Binding [0].SaveCommand}"
                                     DockPanel.Dock="Top"/>
-        <controls:PassportControl Passport="{Binding SelectedItem}"
-                                  LoadImageCommand="{Binding LoadImageCommand}"
-                                  SaveImageCommand="{Binding SaveImageCommand}"
-                                  MessageService="{Binding MessageService}"
-                                  IsReadOnly="{Binding SelectedNumber,
+        <controls:PassportControl Passport="{Binding [0].SelectedItem}"
+                                  LoadImageCommand="{Binding [0].LoadImageCommand}"
+                                  SaveImageCommand="{Binding [0].SaveImageCommand}"
+                                  MessageService="{Binding [0].MessageService}"
+                                  IsReadOnly="{Binding [0].SelectedNumber,
                                   Converter={StaticResource InverseIntToBoolConverter}}"/>
     </DockPanel>
 </Window>

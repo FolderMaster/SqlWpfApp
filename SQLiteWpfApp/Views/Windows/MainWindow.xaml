@@ -97,6 +97,16 @@
                                   Icon="{StaticResource TeacherDisciplineConnectionsImage}"/>
                     </MenuItem>
                 </MenuItem>
+                <MenuItem Header="{StaticResource OperationsHeader}">
+                    <MenuItem Command="{Binding RequestsCommand}"
+                              Header="{StaticResource RequestsHeader}"
+                              InputGestureText="{StaticResource RequestsInput}"
+                              Icon="{StaticResource RequestsImage}"/>
+                    <MenuItem Command="{Binding ReportsCommand}"
+                              Header="{StaticResource ReportsHeader}"
+                              InputGestureText="{StaticResource ReportsInput}"
+                              Icon="{StaticResource ReportsImage}"/>
+                </MenuItem>
             </x:Array>
         </ResourceDictionary>
     </Window.Resources>
@@ -130,6 +140,9 @@
                     Command="{Binding StudentDisciplineConnectionsCommand}"/>
         <KeyBinding Key="K" Modifiers="Alt"
                     Command="{Binding TeacherDisciplineConnectionsCommand}"/>
+
+        <KeyBinding Key="W" Modifiers="Alt" Command="{Binding RequestsCommand}"/>
+        <KeyBinding Key="N" Modifiers="Alt" Command="{Binding ReportsCommand}"/>
     </Window.InputBindings>
     <Window.ContextMenu>
         <ContextMenu ItemsSource="{StaticResource MenuItems}"/>
@@ -263,6 +276,21 @@
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource TeacherDisciplineConnectionsHeader}"/>
+                </Button.ToolTip>
+            </Button>
+            <Separator/>
+            <Button Command="{Binding RequestsCommand}"
+                    Content="{StaticResource RequestsImage}"
+                    Height="{StaticResource ToolbarButtonSize}">
+                <Button.ToolTip>
+                    <ToolTip Content="{StaticResource RequestsHeader}"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Command="{Binding ReportsCommand}"
+                    Content="{StaticResource ReportsImage}"
+                    Height="{StaticResource ToolbarButtonSize}">
+                <Button.ToolTip>
+                    <ToolTip Content="{StaticResource ReportsHeader}"/>
                 </Button.ToolTip>
             </Button>
         </ToolBar>

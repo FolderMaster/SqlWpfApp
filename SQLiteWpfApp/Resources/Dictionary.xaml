@@ -3,8 +3,12 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:Double x:Key="ToolbarButtonSize">30</sys:Double>
     <sys:Double x:Key="ToolbarFontSize">20</sys:Double>
+    <sys:Double x:Key="ToolbarTextBoxWidth">100</sys:Double>
+    <sys:Double x:Key="HalfToolbarTextBoxWidth">50</sys:Double>
+    
     <sys:Double x:Key="TableWindowWidth">800</sys:Double>
     <sys:Double x:Key="TableWindowHeight">500</sys:Double>
+    
     <BitmapImage x:Shared="False" UriSource="Images/SQLite.ico" x:Key="MainIcon"/>
     <sys:String x:Key="MainHeader">SQLite WPF App</sys:String>
 
@@ -198,7 +202,6 @@
     </DataTemplate>
     <DataTemplate x:Key="GradeTemplate">
         <StackPanel>
-            <Label Content="{Binding Symbol}"/>
             <Label Content="{Binding Name}"/>
         </StackPanel>
     </DataTemplate>
@@ -226,7 +229,85 @@
     <DataTemplate x:Key="RoleTemplate">
         <Label Content="{Binding Name}"/>
     </DataTemplate>
+
+    <sys:String x:Key="OperationsHeader">Operations</sys:String>
+
+    <Image x:Shared="False" Source="Images/Requests.ico" x:Key="RequestsImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Requests.ico" x:Key="RequestsIcon"/>
+    <sys:String x:Key="RequestsHeader">Requests</sys:String>
+    <sys:String x:Key="RequestsInput">Alt+W</sys:String>
     
+    <sys:String x:Key="ExecuteRequestHeader">Execute request</sys:String>
+    <sys:String x:Key="ResultHeader">Result</sys:String>
+
+    <sys:String x:Key="SortHeader">Sort</sys:String>
+    <sys:String x:Key="ColumnNameHeader">Column name</sys:String>
+    <sys:String x:Key="SortModeHeader">Sort mode</sys:String>
+
+    <sys:String x:Key="ChangeDataRequestsHeader">Change data requests</sys:String>
+
+    <sys:String x:Key="ChangeDataModesHeader">Change data modes</sys:String>
+
+    <sys:String x:Key="InsertHeader">Insert</sys:String>
+    <sys:String x:Key="UpdateHeader">Update</sys:String>
+    <sys:String x:Key="DeleteHeader">Delete</sys:String>
+
+    <sys:String x:Key="SpecialChangeDataRequestsHeader">Special change data requests</sys:String>
+
+    <sys:String x:Key="SetNullStudentPassingsHeader">Set null student passings</sys:String>
+    <sys:String x:Key="SetNullStudentDeductingsHeader">Set null student deductings</sys:String>
+    <sys:String x:Key="SetStudentPassingsByLastGradesHeader">
+        Set student passings by last grades
+    </sys:String>
+    <sys:String x:Key="SetStudentPassingsWithoutGradesHeader">
+        Set student passings without grades
+    </sys:String>
+    <sys:String x:Key="SetStudentDeductingsHeader">Set student deductings</sys:String>
+    <sys:String x:Key="SetStudentScholarshipsByGradesHeader">
+        Set student scholarships by grades
+    </sys:String>
+    <sys:String x:Key="SetStudentScholarshipsByPassingsHeader">
+        Set student scholarships by passings
+    </sys:String>
+
+    <sys:String x:Key="GradeCoefficientHeader">Grade coefficient</sys:String>
+    <sys:String x:Key="CountHeader">Count</sys:String>
+
+    <sys:String x:Key="ViewDataRequestsHeader">View data requests</sys:String>
+
+    <sys:String x:Key="SpecialViewDataRequestsHeader">Special view data requests</sys:String>
+
+    <sys:String x:Key="AverageDisciplineLastGradesHeader">
+        Average discipline last grades
+    </sys:String>
+    <sys:String x:Key="DepartmentScholarshipCountsHeader">
+        Department scholarship counts
+    </sys:String>
+    <sys:String x:Key="DeductibleDepartmentStudentsHeader">
+        Deductible department students
+    </sys:String>
+    <sys:String x:Key="PassingDisciplineCountsHeader">Passing discipline counts</sys:String>
+    <sys:String x:Key="AverageDepartmentGroupLastGradesHeader">
+        Average department-group last grades
+    </sys:String>
+    <sys:String x:Key="PassedDepartmentStudentDisciplinesHeader">
+        Passed department-student disciplines
+    </sys:String>
+
+    <sys:String x:Key="StudyFormHeader">Study form</sys:String>
+    <sys:String x:Key="DepartmentHeader">Department</sys:String>
+    <sys:String x:Key="ScholarshipHeader">Scholarship</sys:String>
+
+    <sys:String x:Key="ViewDataModesHeader">View data modes</sys:String>
+
+    <Image x:Shared="False" Source="Images/Reports.ico" x:Key="ReportsImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Reports.ico" x:Key="ReportsIcon"/>
+    <sys:String x:Key="ReportsHeader">Reports</sys:String>
+    <sys:String x:Key="ReportsInput">Alt+N</sys:String>
+
+    <sys:String x:Key="DeductingsHeader">Deductings</sys:String>
+    <sys:String x:Key="PrintHeader">Print</sys:String>
+
     <!--<Style TargetType="{x:Type DataGridCell}">
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">

@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 
 using SQLiteWpfApp.Models.Dependent;
-using SQLiteWpfApp.ViewModels.VMs;
+using SQLiteWpfApp.ViewModels.VMs.DbSet;
 using SQLiteWpfApp.Views.MessageBoxes;
 
 namespace SQLiteWpfApp.Views.Windows.DbSet.Dependent
@@ -42,8 +42,7 @@ namespace SQLiteWpfApp.Views.Windows.DbSet.Dependent
 
             var messageService = new ErrorMessageBoxService();
 
-            var mainVM = new DbSetVM<StudentDisciplineConnection>(messageService,
-                () => _instance = null);
+            var mainVM = new DbSetVM<StudentDisciplineConnection>(messageService);
             var dependentVM = new DbSetVM<Student>(messageService);
             var dependent2VM = new DbSetVM<Discipline>(messageService);
 
@@ -67,7 +66,8 @@ namespace SQLiteWpfApp.Views.Windows.DbSet.Dependent
                 nameProperty != nameof(Discipline.StudentConnections) &&
                 nameProperty != nameof(Discipline.TeacherConnections) &&
                 nameProperty != nameof(Discipline.StudyForm) &&
-                nameProperty != nameof(Discipline.GradeStatements)
+                nameProperty != nameof(Discipline.GradeStatements),
+                (Action)(() => _instance = null)
             };
         }
     }

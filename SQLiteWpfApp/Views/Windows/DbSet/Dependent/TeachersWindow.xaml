@@ -6,15 +6,14 @@
         xmlns:local="clr-namespace:SQLiteWpfApp.Views.Windows.DbSet.Dependent"
         mc:Ignorable="d"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:behaviors="clr-namespace:SQLiteWpfApp.Views.Behaviors"
         xmlns:converters="clr-namespace:SQLiteWpfApp.Views.Converters"
-        xmlns:controls="clr-namespace:SQLiteWpfApp.Views.Controls"
+        xmlns:controls="clr-namespace:SQLiteWpfApp.Views.Controls.DbSet"
         Width="{StaticResource TableWindowWidth}" Height="{StaticResource TableWindowHeight}"
         Title="{StaticResource TeachersHeader}" Icon="{StaticResource TeachersIcon}">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Closed">
-            <i:InvokeCommandAction Command="{Binding [0].CloseCommand}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+    <i:Interaction.Behaviors>
+        <behaviors:CloseWindowBehavior CloseAction="{Binding [4]}"/>
+    </i:Interaction.Behaviors>
     <Window.Resources>
         <ResourceDictionary>
             <converters:InverseIntToBoolConverter x:Key="InverseIntToBoolConverter"/>

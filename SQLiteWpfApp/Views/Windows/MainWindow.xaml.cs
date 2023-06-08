@@ -21,7 +21,8 @@ namespace SQLiteWpfApp.Views.Windows
                 PersonsWindow.Action, SpecialtiesWindow.Action, StudentsWindow.Action,
                 GroupsWindow.Action, StudyFormsWindow.Action, TeachersWindow.Action,
                 StudentDisciplineConnectionsWindow.Action,
-                TeacherDisciplineConnectionsWindow.Action);
+                TeacherDisciplineConnectionsWindow.Action, RequestsWindow.Action,
+                ReportsWindow.Action);
         }
     }
 }

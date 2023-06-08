@@ -5,7 +5,7 @@ using System.Windows.Media.Imaging;
 
 using SQLiteWpfApp.Models.Dependent;
 using SQLiteWpfApp.Models.Independent;
-using SQLiteWpfApp.ViewModels.VMs;
+using SQLiteWpfApp.ViewModels.VMs.DbSet;
 using SQLiteWpfApp.Views.MessageBoxes;
 
 namespace SQLiteWpfApp.Views.Windows.DbSet.Dependent
@@ -41,7 +41,7 @@ namespace SQLiteWpfApp.Views.Windows.DbSet.Dependent
 
             var messageService = new ErrorMessageBoxService();
 
-            var mainVM = new DbSetVM<Grade>(messageService, () => _instance = null);
+            var mainVM = new DbSetVM<Grade>(messageService);
             var dependentVM = new DbSetVM<GradeMode>(messageService);
 
             mainVM.ItemChanged += (object? sender, EventArgs e) =>
@@ -55,7 +55,8 @@ namespace SQLiteWpfApp.Views.Windows.DbSet.Dependent
                 (string nameProperty) => nameProperty != nameof(Grade.GradeStatements) &&
                 nameProperty != nameof(Grade.GradeMode), (string nameProperty) =>
                 nameProperty != nameof(GradeMode.Grades) &&
-                nameProperty != nameof(GradeMode.StudyForms)
+                nameProperty != nameof(GradeMode.StudyForms),
+                (Action)(() => _instance = null)
             };
         }
     }

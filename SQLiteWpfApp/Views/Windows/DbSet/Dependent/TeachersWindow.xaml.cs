@@ -4,7 +4,7 @@ using System.Windows;
 
 using SQLiteWpfApp.Models.Dependent;
 using SQLiteWpfApp.Models.Independent;
-using SQLiteWpfApp.ViewModels.VMs;
+using SQLiteWpfApp.ViewModels.VMs.DbSet;
 using SQLiteWpfApp.Views.MessageBoxes;
 
 namespace SQLiteWpfApp.Views.Windows.DbSet.Dependent
@@ -41,9 +41,10 @@ namespace SQLiteWpfApp.Views.Windows.DbSet.Dependent
 
             DataContext = new List<object>()
             {
-                new ControlDbSetVM<Teacher>(messageService, () => _instance = null),
+                new ControlDbSetVM<Teacher>(messageService),
                 new DbSetVM<Department>(messageService), new DbSetVM<Position>(messageService),
-                new DbSetVM<Person>(messageService)
+                new DbSetVM<Person>(messageService),
+                (Action)(() => _instance = null)
             };
         }
     }

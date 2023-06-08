@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace SQLiteWpfApp.Models.Dependent
 {
@@ -8,17 +10,21 @@ namespace SQLiteWpfApp.Models.Dependent
     [PrimaryKey(nameof(ID))]
     public class GradeStatement
     {
-        public int ID { get; set; }
+        private static IdGenerator _idGenerator = new(1);
 
-        public int StudentID { get; set; }
+        public static ObservableCollection<GradeStatement> GradeStatements { get; set; } = new();
+
+        public long ID { get; set; }
+
+        public long StudentID { get; set; }
 
         public virtual Student Student { get; set; }
 
-        public int DisciplineID { get; set; }
+        public long DisciplineID { get; set; }
 
         public virtual Discipline Discipline { get; set; }
 
-        public int TeacherID { get; set; }
+        public long TeacherID { get; set; }
 
         public virtual Teacher Teacher { get; set; }
 
@@ -26,6 +32,10 @@ namespace SQLiteWpfApp.Models.Dependent
 
         public virtual Grade Grade { get; set; }
 
-        public DateTime PassingDate { get; set; }
+        public DateTime PassingDate { get; set; } = DateTime.Now;
+
+        public GradeStatement() => ValuesGenerator.GenerateValues(_idGenerator, () =>
+            GradeStatements.FirstOrDefault((d) => d.ID == ID) != null, (id) =>  ID = id,
+            () => GradeStatements.Add(this));
     }
 }

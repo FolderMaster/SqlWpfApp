@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -54,6 +53,10 @@ namespace SQLiteWpfApp.ViewModels.VMs
 
         public RelayCommand TeacherDisciplineConnectionsCommand { get; private set; }
 
+        public RelayCommand RequestsCommand { get; private set; }
+
+        public RelayCommand ReportsCommand { get; private set; }
+
         public MainVM(IConfigurational configurational, IMessageService exitMessageService,
             IMessageService informationMessageService, Action departmentsAction,
             Action passportsAction, Action positionsAction, Action gradeModesAction,
@@ -61,7 +64,8 @@ namespace SQLiteWpfApp.ViewModels.VMs
             Action gradesAction, Action gradeStatementsAction, Action personsAction,
             Action specialtiesAction, Action studentsAction, Action groupsAction,
             Action studyFormsAction, Action teachersAction,
-            Action studentDisciplineConnectionsAction, Action teacherDisciplineConnectionsAction)
+            Action studentDisciplineConnectionsAction, Action teacherDisciplineConnectionsAction,
+            Action requestsAction, Action reportsAction)
         {
             Configurational = configurational;
 
@@ -101,8 +105,11 @@ namespace SQLiteWpfApp.ViewModels.VMs
             TeacherDisciplineConnectionsCommand = new RelayCommand(() =>
                 teacherDisciplineConnectionsAction());
 
+            RequestsCommand = new RelayCommand(() => requestsAction());
+            ReportsCommand = new RelayCommand(() => reportsAction());
+
             LoadCommand.Execute(null);
-            DataBaseContext.DataBasePath = Configurational.DataBasePath;
+            DataBaseContext.DataBaseConnection = Configurational.DataBasePath;
         }
     }
 }

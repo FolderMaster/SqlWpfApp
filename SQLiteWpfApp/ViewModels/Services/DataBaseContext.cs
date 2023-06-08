@@ -23,7 +23,7 @@ namespace SQLiteWpfApp.ViewModels.Services
             }
         }
 
-        public static string DataBasePath { get; set; } = null!;
+        public static string DataBaseConnection { get; set; } = null!;
 
         public DbSet<Teacher> Teachers { get; set; } = null!;
 
@@ -77,7 +77,7 @@ namespace SQLiteWpfApp.ViewModels.Services
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.EnableSensitiveDataLogging();
-            optionsBuilder.UseSqlite(DataBasePath);
+            optionsBuilder.UseSqlite(DataBaseConnection);
         }
 
         public int SaveChanges<TEntity>() where TEntity : class
