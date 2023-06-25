@@ -1,0 +1,28 @@
+﻿<Window x:Class="View.Windows.DbSet.Independent.GridDbSetWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View.Windows.DbSet.Independent"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:c="clr-namespace:View.Controls.DbSet"
+        xmlns:b="clr-namespace:View.Behaviors"
+        mc:Ignorable="d"
+        Height="{StaticResource TableWindowHeight}" Width="{StaticResource TableWindowWidth}">
+    <i:Interaction.Behaviors>
+        <b:CloseWindowBehavior CloseAction="{Binding [2]}"/>
+    </i:Interaction.Behaviors>
+    <DockPanel LastChildFill="True">
+        <c:GridDbSetToolBar DockPanel.Dock="Top" SaveCommand="{Binding [0].SaveCommand}"
+                            SearchText="{Binding [0].SearchText, Mode=TwoWay}"
+                            FilterText="{Binding [0].FilterText, Mode=TwoWay}"/>
+        <DataGrid ItemsSource="{Binding [0].FinalDbSetLocal}" AutoGenerateColumns="True"
+                  SelectedItem="{Binding [0].SelectedItem}" SelectionUnit="CellOrRowHeader">
+            <i:Interaction.Behaviors>
+                <b:DbSetDataGridBehavior CreateColumnPredicate="{Binding [1]}"
+                                         SelectedPropertyName="{Binding [0].SelectedPropertyName,
+                                         Mode=OneWayToSource}"/>
+            </i:Interaction.Behaviors>
+        </DataGrid>
+    </DockPanel>
+</Window>

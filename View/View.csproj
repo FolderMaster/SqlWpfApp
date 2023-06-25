@@ -1,0 +1,180 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Images\Add.ico" />
+    <None Remove="Resources\Images\Departments.ico" />
+    <None Remove="Resources\Images\Disciplines.ico" />
+    <None Remove="Resources\Images\Exit.ico" />
+    <None Remove="Resources\Images\GradeModes.ico" />
+    <None Remove="Resources\Images\Grades.ico" />
+    <None Remove="Resources\Images\GradeStatements.ico" />
+    <None Remove="Resources\Images\Groups.ico" />
+    <None Remove="Resources\Images\Information.ico" />
+    <None Remove="Resources\Images\LeftArrow.ico" />
+    <None Remove="Resources\Images\LeftDoubleArrow.ico" />
+    <None Remove="Resources\Images\NoImage.ico" />
+    <None Remove="Resources\Images\Passports.ico" />
+    <None Remove="Resources\Images\Persons.ico" />
+    <None Remove="Resources\Images\Positions.ico" />
+    <None Remove="Resources\Images\Remove.ico" />
+    <None Remove="Resources\Images\Reports.ico" />
+    <None Remove="Resources\Images\Requests.ico" />
+    <None Remove="Resources\Images\RightArrow.ico" />
+    <None Remove="Resources\Images\RightDoubleArrow.ico" />
+    <None Remove="Resources\Images\Roles.ico" />
+    <None Remove="Resources\Images\Save.ico" />
+    <None Remove="Resources\Images\Scholarships.ico" />
+    <None Remove="Resources\Images\Specialties.ico" />
+    <None Remove="Resources\Images\SQLite.ico" />
+    <None Remove="Resources\Images\StudentDisciplineConnections.ico" />
+    <None Remove="Resources\Images\Students.ico" />
+    <None Remove="Resources\Images\StudyForms.ico" />
+    <None Remove="Resources\Images\TeacherDisciplineConnections.ico" />
+    <None Remove="Resources\Images\Teachers.ico" />
+    <None Remove="Resources\Images\Update.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ViewModel\ViewModel.csproj" />
+    <ProjectReference Include="..\ViewModel\ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\Add.ico" />
+    <Resource Include="Resources\Images\Departments.ico">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\Disciplines.ico" />
+    <Resource Include="Resources\Images\Exit.ico">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\GradeModes.ico" />
+    <Resource Include="Resources\Images\Grades.ico" />
+    <Resource Include="Resources\Images\GradeStatements.ico" />
+    <Resource Include="Resources\Images\Groups.ico" />
+    <Resource Include="Resources\Images\Information.ico">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\LeftArrow.ico" />
+    <Resource Include="Resources\Images\LeftDoubleArrow.ico" />
+    <Resource Include="Resources\Images\NoImage.ico" />
+    <Resource Include="Resources\Images\Passports.ico" />
+    <Resource Include="Resources\Images\Persons.ico" />
+    <Resource Include="Resources\Images\Positions.ico" />
+    <Resource Include="Resources\Images\Remove.ico" />
+    <Resource Include="Resources\Images\Reports.ico" />
+    <Resource Include="Resources\Images\Requests.ico" />
+    <Resource Include="Resources\Images\RightArrow.ico" />
+    <Resource Include="Resources\Images\RightDoubleArrow.ico" />
+    <Resource Include="Resources\Images\Roles.ico" />
+    <Resource Include="Resources\Images\Save.ico" />
+    <Resource Include="Resources\Images\Scholarships.ico" />
+    <Resource Include="Resources\Images\Specialties.ico" />
+    <Resource Include="Resources\Images\SQLite.ico" />
+    <Resource Include="Resources\Images\StudentDisciplineConnections.ico" />
+    <Resource Include="Resources\Images\Students.ico" />
+    <Resource Include="Resources\Images\StudyForms.ico" />
+    <Resource Include="Resources\Images\TeacherDisciplineConnections.ico" />
+    <Resource Include="Resources\Images\Teachers.ico" />
+    <Resource Include="Resources\Images\Update.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Controls\DbSet\ControlDbSetToolBar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\DbSet\GradeStatementControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\DbSet\GridDbSetToolBar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\DbSet\PassportControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\DbSet\StudentControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\DbSet\TeacherControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\DbSet\TeacherDisciplineConnectionControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Request\ChangeDataRequestsControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Request\SortControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Request\SpecialChangeDataRequestsControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Request\SpecialViewDataRequestsControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Request\ViewDataRequestsControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\DbSet\Dependent\GradeStatementsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\DbSet\Dependent\StudentsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\DbSet\Dependent\TeacherDisciplineConnectionsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\DbSet\Dependent\TeachersWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\DbSet\Dependent\ThreeDbSetWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\DbSet\Dependent\TwoGridDbSetWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\DbSet\Independent\DepartmentsWindow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\DbSet\Independent\GradeModesWindow..cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\DbSet\Independent\PassportsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\DbSet\Independent\PositionsWindow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\DbSet\Independent\RolesWindow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\DbSet\Independent\ScholarshipsWindow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\ReportsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\RequestsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="UniversityDataBase.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

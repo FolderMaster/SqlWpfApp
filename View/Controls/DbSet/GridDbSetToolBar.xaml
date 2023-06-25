@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="View.Controls.DbSet.GridDbSetToolBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:View.Controls.DbSet"
+             xmlns:c="clr-namespace:View.Converters"
+             mc:Ignorable="d"
+             Name="gridDbSetToolBar" d:DesignHeight="100" d:DesignWidth="400">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <c:StringToHeaderConverter x:Key="StringToHeaderConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <ToolBar>
+        <Label Content="{Binding Source={StaticResource SearchHeader},
+                    Converter={StaticResource StringToHeaderConverter}}"
+               VerticalAlignment="Center" FontSize="{StaticResource ToolbarFontSize}"/>
+        <TextBox Text="{Binding ElementName=gridDbSetToolBar, Path=SearchText,
+            UpdateSourceTrigger=PropertyChanged}" FontSize="{StaticResource ToolbarFontSize}"
+                 Width="{StaticResource ToolbarTextBoxWidth}"/>
+        <Label Content="{Binding Source={StaticResource FilterHeader},
+                    Converter={StaticResource StringToHeaderConverter}}"
+               VerticalAlignment="Center" FontSize="{StaticResource ToolbarFontSize}"/>
+        <TextBox Text="{Binding ElementName=gridDbSetToolBar, Path=FilterText,
+            UpdateSourceTrigger=PropertyChanged}" FontSize="{StaticResource ToolbarFontSize}"
+                 Width="{StaticResource ToolbarTextBoxWidth}"/>
+        <Separator/>
+        <Button Command="{Binding ElementName=gridDbSetToolBar, Path=SaveCommand}"
+                Height="{StaticResource ToolbarButtonSize}" Content="{StaticResource SaveImage}">
+            <Button.ToolTip>
+                <ToolTip Content="{StaticResource SaveHeader}"/>
+            </Button.ToolTip>
+        </Button>
+    </ToolBar>
+</UserControl>
