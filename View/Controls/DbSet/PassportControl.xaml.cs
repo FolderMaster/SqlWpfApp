@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 
 using Model.Independent;
-using ViewModel.Services;
+using ViewModel.Interfaces;
 
 namespace View.Controls.DbSet
 {

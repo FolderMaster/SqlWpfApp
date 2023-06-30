@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Windows;
 
 using ViewModel.VMs.Request;
-using View.MessageBoxes;
-using View.PrintDialogs;
+using View.Implementations;
+using View.Implementations.MessageBoxes;
+using ViewModel.Interfaces;
 
 namespace View.Windows
 {
@@ -12,7 +13,7 @@ namespace View.Windows
     {
         private static ReportsWindow? _instance = null;
 
-        private static Action _action = () =>
+        private static Action _call = () =>
         {
             var instance = Instance;
             instance.Show();
@@ -30,7 +31,9 @@ namespace View.Windows
             }
         }
 
-        public static Action Action => _action;
+        public static Action Call => _call;
+
+        public static IDataBaseContextCreator? DataBaseContextCreator { get; set; }
 
         private ReportsWindow()
         {
@@ -38,7 +41,7 @@ namespace View.Windows
 
             DataContext = new List<object>()
             {
-                new ReportsVM(new ErrorMessageBoxService(),
+                new ReportsVM(DataBaseContextCreator, new ErrorMessageBoxService(),
                 new PrintDialogService()),
                 (Action)(() => _instance = null)
             };

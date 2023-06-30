@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Media.Imaging;
 
 using Model.Dependent;
 using Model.Independent;
 using ViewModel.VMs.DbSet;
-using View.MessageBoxes;
+using View.Implementations.MessageBoxes;
+using View.Services;
+using ViewModel.Interfaces;
 
 namespace View.Windows.DbSet.Dependent
 {
@@ -14,7 +14,7 @@ namespace View.Windows.DbSet.Dependent
     {
         private static SpecialtiesWindow? _instance = null;
 
-        private static Action _action = () =>
+        private static Action _call = () =>
         {
             var instance = Instance;
             instance.Show();
@@ -32,17 +32,19 @@ namespace View.Windows.DbSet.Dependent
             }
         }
 
-        public static Action Action => _action;
+        public static Action Call => _call;
+
+        public static IDataBaseContextCreator? DataBaseContextCreator { get; set; }
 
         private SpecialtiesWindow() : base()
         {
-            Title = Application.Current.Resources["SpecialtiesHeader"] as string;
-            Icon = Application.Current.Resources["SpecialtiesIcon"] as BitmapSource;
+            Title = AppResourceService.GetHeader("Specialtie");
+            Icon = AppResourceService.GetIcon("Specialtie");
 
             var messageService = new ErrorMessageBoxService();
 
-            var mainVM = new DbSetVM<Specialty>(messageService);
-            var dependentVM = new DbSetVM<Department>(messageService);
+            var mainVM = new DbSetVM<Specialty>(DataBaseContextCreator, messageService);
+            var dependentVM = new DbSetVM<Department>(DataBaseContextCreator, messageService);
 
             mainVM.ItemChanged += (object? sender, EventArgs e) =>
             {

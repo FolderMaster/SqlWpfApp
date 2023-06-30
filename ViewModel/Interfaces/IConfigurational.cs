@@ -1,8 +1,8 @@
-﻿namespace ViewModel.Services
+﻿namespace ViewModel.Interfaces
 {
     public interface IConfigurational
     {
-        public string DataBasePath { get; set; }
+        public string DataBaseConnectionString { get; set; }
 
         public void Save();
 

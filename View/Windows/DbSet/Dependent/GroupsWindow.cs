@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Media.Imaging;
 
 using Model.Dependent;
 using ViewModel.VMs.DbSet;
-using View.MessageBoxes;
+using View.Implementations.MessageBoxes;
+using View.Services;
+using ViewModel.Interfaces;
 
 namespace View.Windows.DbSet.Dependent
 {
@@ -13,7 +13,7 @@ namespace View.Windows.DbSet.Dependent
     {
         private static GroupsWindow? _instance = null;
 
-        private static Action _action = () =>
+        private static Action _call = () =>
         {
             var instance = Instance;
             instance.Show();
@@ -31,17 +31,19 @@ namespace View.Windows.DbSet.Dependent
             }
         }
 
-        public static Action Action => _action;
+        public static IDataBaseContextCreator? DataBaseContextCreator { get; set; }
+
+        public static Action Call => _call;
 
         private GroupsWindow() : base()
         {
-            Title = Application.Current.Resources[nameof(Group) + "sHeader"] as string;
-            Icon = Application.Current.Resources[nameof(Group) + "sIcon"] as BitmapSource;
+            Title = AppResourceService.GetHeader(nameof(Group));
+            Icon = AppResourceService.GetIcon(nameof(Group));
 
             var messageService = new ErrorMessageBoxService();
 
-            var mainVM = new DbSetVM<Group>(messageService);
-            var dependentVM = new DbSetVM<Specialty>(messageService);
+            var mainVM = new DbSetVM<Group>(DataBaseContextCreator, messageService);
+            var dependentVM = new DbSetVM<Specialty>(DataBaseContextCreator, messageService);
 
             mainVM.ItemChanged += (object? sender, EventArgs e) =>
             {

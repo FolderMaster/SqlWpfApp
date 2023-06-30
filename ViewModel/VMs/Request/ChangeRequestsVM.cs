@@ -1,4 +1,4 @@
-﻿using ViewModel.Services;
+﻿using ViewModel.Interfaces;
 
 namespace ViewModel.VMs.Request
 {
@@ -15,6 +15,7 @@ namespace ViewModel.VMs.Request
         protected string CreateDeleteCommand(string table, string condition) =>
             $"DELETE FROM {table} WHERE {condition}";
 
-        public ChangeRequestsVM(IMessageService messageService) : base(messageService) { }
+        public ChangeRequestsVM(IDataBaseContextCreator dataBaseContextCreator,
+            IMessageService messageService) : base(dataBaseContextCreator, messageService) { }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-
-using ViewModel.Services;
+using ViewModel.Interfaces;
 
 namespace ViewModel.VMs.DbSet
 {
@@ -34,7 +33,8 @@ namespace ViewModel.VMs.DbSet
             }
         }
 
-        public ControlDbSetVM(IMessageService messageService) : base(messageService)
+        public ControlDbSetVM(IDataBaseContextCreator dataBaseContextCreator,
+            IMessageService messageService) : base(dataBaseContextCreator, messageService)
         {
             FirstCommand = new RelayCommand(() => SelectedIndex = 0,
                 () => Count > 0 && SelectedIndex != 0);

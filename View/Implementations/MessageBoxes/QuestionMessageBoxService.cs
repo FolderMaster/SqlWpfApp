@@ -1,8 +1,7 @@
 ﻿using System.Windows;
+using ViewModel.Interfaces;
 
-using ViewModel.Services;
-
-namespace View.MessageBoxes
+namespace View.Implementations.MessageBoxes
 {
     public class QuestionMessageBoxService : IMessageService
     {

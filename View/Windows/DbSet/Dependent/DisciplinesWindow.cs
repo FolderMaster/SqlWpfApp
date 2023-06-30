@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Media.Imaging;
 
 using Model.Dependent;
 using ViewModel.VMs.DbSet;
-using View.MessageBoxes;
+using View.Implementations.MessageBoxes;
+using View.Services;
+using ViewModel.Interfaces;
 
 namespace View.Windows.DbSet.Dependent
 {
@@ -13,7 +13,7 @@ namespace View.Windows.DbSet.Dependent
     {
         private static DisciplinesWindow? _instance = null;
 
-        private static Action _action = () =>
+        private static Action _call = () =>
         {
             var instance = Instance;
             instance.Show();
@@ -31,18 +31,20 @@ namespace View.Windows.DbSet.Dependent
             }
         }
 
-        public static Action Action => _action;
+        public static IDataBaseContextCreator? DataBaseContextCreator { get; set; }
+
+        public static Action Call => _call;
 
         private DisciplinesWindow() : base()
         {
-            Title = Application.Current.Resources[nameof(Discipline) + "sHeader"] as string;
-            Icon = Application.Current.Resources[nameof(Discipline) + "sIcon"] as BitmapSource;
+            Title = AppResourceService.GetHeader(nameof(Discipline));
+            Icon = AppResourceService.GetIcon(nameof(Discipline));
 
             var messageService = new ErrorMessageBoxService();
 
-            var mainVM = new DbSetVM<Discipline>(messageService);
-            var dependentVM = new DbSetVM<StudyForm>(messageService);
-            var dependent2VM = new DbSetVM<Specialty>(messageService);
+            var mainVM = new DbSetVM<Discipline>(DataBaseContextCreator, messageService);
+            var dependentVM = new DbSetVM<StudyForm>(DataBaseContextCreator, messageService);
+            var dependent2VM = new DbSetVM<Specialty>(DataBaseContextCreator, messageService);
 
             mainVM.ItemChanged += (object? sender, EventArgs e) =>
             {

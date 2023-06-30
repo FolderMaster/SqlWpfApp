@@ -4,27 +4,13 @@ using System.Linq;
 
 using Model.Independent;
 using Model.Dependent;
-using System;
+using ViewModel.Interfaces;
 
-namespace ViewModel.Services
+namespace ViewModel.Dependencies
 {
-    public class DataBaseContext : DbContext
+    public class SQLiteDataBaseContext : DbContext, IDataBaseContext
     {
-        private static DataBaseContext? _instance;
-
-        public static DataBaseContext Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new DataBaseContext();
-                }
-                return _instance;
-            }
-        }
-
-        public static string DataBaseConnection { get; set; } = null!;
+        public string ConnectionString { get; private set; } = null!;
 
         public DbSet<Teacher> Teachers { get; set; } = null!;
 
@@ -62,15 +48,14 @@ namespace ViewModel.Services
 
         public DbSet<Scholarship> Scholarships { get; set; } = null!;
 
-        private DataBaseContext()
+        public SQLiteDataBaseContext(string connectionString)
         {
+            ConnectionString = connectionString;
             Database.EnsureCreated();
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        protected override void OnModelCreating(ModelBuilder modelBuilder) =>
             base.OnModelCreating(modelBuilder);
-        }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder
             configurationBuilder) => base.ConfigureConventions(configurationBuilder);
@@ -78,7 +63,7 @@ namespace ViewModel.Services
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.EnableSensitiveDataLogging();
-            optionsBuilder.UseSqlite(DataBaseConnection);
+            optionsBuilder.UseSqlite(ConnectionString);
         }
 
         public int SaveChanges<TEntity>() where TEntity : class

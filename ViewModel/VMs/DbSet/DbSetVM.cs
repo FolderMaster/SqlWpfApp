@@ -8,7 +8,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore;
 
-using ViewModel.Services;
+using ViewModel.Interfaces;
 
 namespace ViewModel.VMs.DbSet
 {
@@ -132,12 +132,12 @@ namespace ViewModel.VMs.DbSet
 
         public event EventHandler ItemChanged;
 
-        public DbSetVM(IMessageService messageService)
+        public DbSetVM(IDataBaseContextCreator dataBaseContextCreator, IMessageService messageService)
         {
             MessageService = messageService;
             try
             {
-                DbSet = DataBaseContext.Instance.Set<T>();
+                DbSet = dataBaseContextCreator.Result.Set<T>();
             }
             catch (Exception ex)
             {
@@ -148,7 +148,7 @@ namespace ViewModel.VMs.DbSet
             {
                 try
                 {
-                    DataBaseContext.Instance.SaveChanges<T>();
+                    dataBaseContextCreator.Result.SaveChanges<T>();
                 }
                 catch (Exception ex)
                 {

@@ -1,9 +1,8 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Documents;
+using ViewModel.Interfaces;
 
-using ViewModel.Services;
-
-namespace View.PrintDialogs
+namespace View.Implementations
 {
     public class PrintDialogService : IPrintDialogService
     {
@@ -11,7 +10,7 @@ namespace View.PrintDialogs
 
         public void Print(object document, string description)
         {
-            if(_dialog.ShowDialog() == true)
+            if (_dialog.ShowDialog() == true)
             {
                 _dialog.PrintDocument(document as DocumentPaginator, description);
             }

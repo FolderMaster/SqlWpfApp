@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Configuration;
 using System.Windows;
+using ViewModel.Interfaces;
 
-using ViewModel.Services;
-
-namespace View.Configurations
+namespace View.Implementations
 {
     public class WindowConfiguration : IConfigurational
     {
@@ -14,7 +13,7 @@ namespace View.Configurations
 
         private Window _window;
 
-        public string DataBasePath { get; set; } = "Data Source=UniversityDataBase.db";
+        public string DataBaseConnectionString { get; set; } = "Data Source=UniversityDataBase.db";
 
         public double Left
         {
@@ -77,7 +76,7 @@ namespace View.Configurations
 
         public void Save()
         {
-            SetConfigurationValue(nameof(DataBasePath), DataBasePath);
+            SetConfigurationValue(nameof(DataBaseConnectionString), DataBaseConnectionString);
             SetConfigurationValue(nameof(Left), Left);
             SetConfigurationValue(nameof(Top), Top);
             SetConfigurationValue(nameof(Width), Width);
@@ -88,7 +87,7 @@ namespace View.Configurations
 
         public void Load()
         {
-            AssignByConfigurationValue(nameof(DataBasePath), (value) => DataBasePath = value);
+            AssignByConfigurationValue(nameof(DataBaseConnectionString), (value) => DataBaseConnectionString = value);
             AssignByConfigurationValue(nameof(Left), (value) => Left = double.Parse(value));
             AssignByConfigurationValue(nameof(Top), (value) => Top = double.Parse(value));
             AssignByConfigurationValue(nameof(Width), (value) => Width = double.Parse(value));

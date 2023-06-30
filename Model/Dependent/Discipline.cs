@@ -4,36 +4,79 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Dependent
 {
+    /// <summary>
+    /// Класс дисциплина с идентификатором, названием, количеством часов, номером специальности и
+    /// названием режима обучения.
+    /// </summary>
     [Table("Disciplines")]
     [PrimaryKey(nameof(ID))]
     public class Discipline
     {
+        /// <summary>
+        /// Генератор идентификаторов.
+        /// </summary>
         private static IdGenerator _idGenerator = new(1);
 
+        /// <summary>
+        /// Возвращает и задаёт все дисциплины.
+        /// </summary>
         public static ObservableCollection<Discipline> Disciplines { get; set; } = new();
 
+        /// <summary>
+        /// Возвращает и задаёт идентификатор.
+        /// </summary>
         public long ID { get; set; }
 
+        /// <summary>
+        /// Возвращает и задаёт название.
+        /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        /// Возвращает и задаёт количество часов.
+        /// </summary>
         public int HoursCount { get; set; } = 0;
 
+        /// <summary>
+        /// Возвращает и задаёт номер специальности.
+        /// </summary>
         public string SpecialtyNumber { get; set; }
 
+        /// <summary>
+        /// Возвращает и задаёт связанная специальность.
+        /// </summary>
         public virtual Specialty Specialty { get; set; }
 
+        /// <summary>
+        /// Возвращает и задаёт название режима обучения.
+        /// </summary>
         public string StudyFormName { get; set; }
 
+        /// <summary>
+        /// Возвращает и задаёт связанный режимы обучения.
+        /// </summary>
         public virtual StudyForm StudyForm { get; set; }
 
+        /// <summary>
+        /// Возвращает и задаёт связанные ведомости оценивания.
+        /// </summary>
         public virtual ObservableCollection<GradeStatement> GradeStatements { get; set; }
 
+        /// <summary>
+        /// Возвращает и задаёт связанные связи между дисциплинами и студентами.
+        /// </summary>
         public virtual ObservableCollection<StudentDisciplineConnection> StudentConnections
         { get; set; }
 
+        /// <summary>
+        /// Возвращает и задаёт связанные связи между дисциплинами и преподавателями.
+        /// </summary>
         public virtual ObservableCollection<TeacherDisciplineConnection> TeacherConnections
         { get; set; }
 
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="Discipline"/> по умолчанию.
+        /// </summary>
         public Discipline() => ValuesGenerator.GenerateValues(_idGenerator, () =>
             Disciplines.FirstOrDefault((d) => d.ID == ID) != null, (id) => {
                 ID = id;

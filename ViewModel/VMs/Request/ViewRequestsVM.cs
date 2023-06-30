@@ -1,4 +1,4 @@
-﻿using ViewModel.Services;
+﻿using ViewModel.Interfaces;
 
 namespace ViewModel.VMs.Request
 {
@@ -14,6 +14,7 @@ namespace ViewModel.VMs.Request
             (string.IsNullOrEmpty(havingContent) ? "" : $" HAVING {havingContent}") +
             (string.IsNullOrEmpty(orderByContent) ? "" : $" ORDER BY {orderByContent}");
 
-        public ViewRequestsVM(IMessageService messageService) : base(messageService) { }
+        public ViewRequestsVM(IDataBaseContextCreator dataBaseContextCreator,
+            IMessageService messageService) : base(dataBaseContextCreator, messageService) { }
     }
 }

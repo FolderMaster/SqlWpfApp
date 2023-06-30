@@ -5,7 +5,8 @@ using System.Windows;
 using Model.Dependent;
 using Model.Independent;
 using ViewModel.VMs.DbSet;
-using View.MessageBoxes;
+using View.Implementations.MessageBoxes;
+using ViewModel.Interfaces;
 
 namespace View.Windows.DbSet.Dependent
 {
@@ -13,7 +14,7 @@ namespace View.Windows.DbSet.Dependent
     {
         private static StudentsWindow? _instance = null;
 
-        private static Action _action = () =>
+        private static Action _call = () =>
         {
             var instance = Instance;
             instance.Show();
@@ -31,7 +32,9 @@ namespace View.Windows.DbSet.Dependent
             }
         }
 
-        public static Action Action => _action;
+        public static Action Call => _call;
+
+        public static IDataBaseContextCreator? DataBaseContextCreator { get; set; }
 
         public StudentsWindow()
         {
@@ -41,9 +44,10 @@ namespace View.Windows.DbSet.Dependent
 
             DataContext = new List<object>()
             {
-                new ControlDbSetVM<Student>(messageService),
-                new DbSetVM<Group>(messageService), new DbSetVM<Scholarship>(messageService),
-                new DbSetVM<Person>(messageService),
+                new ControlDbSetVM<Student>(DataBaseContextCreator, messageService),
+                new DbSetVM<Group>(DataBaseContextCreator, messageService),
+                new DbSetVM<Scholarship>(DataBaseContextCreator, messageService),
+                new DbSetVM<Person>(DataBaseContextCreator, messageService),
                 (Action)(() => _instance = null)
             };
         }

@@ -1,29 +1,30 @@
 ﻿using System.Windows;
 
-using ViewModel.VMs;
-using View.MessageBoxes;
 using View.Windows.DbSet.Dependent;
 using View.Windows.DbSet.Independent;
-using View.Configurations;
+using View.Implementations;
+using View.Implementations.MessageBoxes;
+
+using ViewModel.VMs;
+using ViewModel.Interfaces;
 
 namespace View.Windows
 {
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(IDataBaseContextCreator dataBaseContextCreator)
         {
             InitializeComponent();
 
-            DataContext = new MainVM(new WindowConfiguration(this),
+            DataContext = new MainVM(dataBaseContextCreator, new WindowConfiguration(this),
                 new QuestionMessageBoxService(), new InformationMessageBoxService(),
-                DepartmentsWindow.Action, PassportsWindow.Action, PositionsWindow.ActionService,
-                GradeModesWindow.Action, RolesWindow.Action, ScholarshipsWindow.ActionService,
-                DisciplinesWindow.Action, GradesWindow.Action, GradeStatementsWindow.Action,
-                PersonsWindow.Action, SpecialtiesWindow.Action, StudentsWindow.Action,
-                GroupsWindow.Action, StudyFormsWindow.Action, TeachersWindow.Action,
-                StudentDisciplineConnectionsWindow.Action,
-                TeacherDisciplineConnectionsWindow.Action, RequestsWindow.Action,
-                ReportsWindow.Action);
+                new AppCloseable(), DepartmentsWindow.Call, PassportsWindow.Call,
+                PositionsWindow.Call, GradeModesWindow.Call, RolesWindow.Call,
+                ScholarshipsWindow.Call, DisciplinesWindow.Call, GradesWindow.Call,
+                GradeStatementsWindow.Call, PersonsWindow.Call, SpecialtiesWindow.Call,
+                StudentsWindow.Call, GroupsWindow.Call, StudyFormsWindow.Call, TeachersWindow.Call,
+                StudentDisciplineConnectionsWindow.Call, TeacherDisciplineConnectionsWindow.Call,
+                RequestsWindow.Call, ReportsWindow.Call);
         }
     }
 }

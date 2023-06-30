@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 
 using ViewModel.Classes;
 using ViewModel.Enums;
-using ViewModel.Services;
+using ViewModel.Interfaces;
 using ViewModel.VMs.Request;
 
 namespace ViewModel.VMs
@@ -51,7 +51,8 @@ namespace ViewModel.VMs
 
         public RelayCommand ExecuteSqlCommand { get; private set; }
 
-        public SpecialViewDataRequestsVM(IMessageService messageService) : base(messageService)
+        public SpecialViewDataRequestsVM(IDataBaseContextCreator dataBaseContextCreator,
+            IMessageService messageService) : base(dataBaseContextCreator, messageService)
         {
             ExecuteSqlCommand = new RelayCommand(() => ExecuteSqlCommand(CreateSpecialCommand()));
         }

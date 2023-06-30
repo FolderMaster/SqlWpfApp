@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Media.Imaging;
 
 using Model.Dependent;
 using Model.Independent;
 using ViewModel.VMs.DbSet;
-using View.MessageBoxes;
+using View.Implementations.MessageBoxes;
+using View.Services;
+using ViewModel.Interfaces;
 
 namespace View.Windows.DbSet.Dependent
 {
@@ -14,7 +14,7 @@ namespace View.Windows.DbSet.Dependent
     {
         private static PersonsWindow? _instance = null;
 
-        private static Action _action = () =>
+        private static Action _call = () =>
         {
             var instance = Instance;
             instance.Show();
@@ -32,17 +32,19 @@ namespace View.Windows.DbSet.Dependent
             }
         }
 
-        public static Action Action => _action;
+        public static Action Call => _call;
+
+        public static IDataBaseContextCreator? DataBaseContextCreator { get; set; }
 
         private PersonsWindow() : base()
         {
-            Title = Application.Current.Resources[nameof(Person) + "sHeader"] as string;
-            Icon = Application.Current.Resources[nameof(Person) + "sIcon"] as BitmapSource;
+            Title = AppResourceService.GetHeader(nameof(Person));
+            Icon = AppResourceService.GetIcon(nameof(Person));
 
             var messageService = new ErrorMessageBoxService();
 
-            var mainVM = new DbSetVM<Person>(messageService);
-            var dependentVM = new DbSetVM<Passport>(messageService);
+            var mainVM = new DbSetVM<Person>(DataBaseContextCreator, messageService);
+            var dependentVM = new DbSetVM<Passport>(DataBaseContextCreator, messageService);
 
             mainVM.ItemChanged += (object? sender, EventArgs e) =>
             {

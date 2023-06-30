@@ -1,8 +1,8 @@
 ﻿using Microsoft.Win32;
 
-using ViewModel.Services;
+using ViewModel.Interfaces;
 
-namespace View.FileDialogs
+namespace View.Implementations.FileDialogs
 {
     public class OpenFileDialogService : IGettingFileService
     {

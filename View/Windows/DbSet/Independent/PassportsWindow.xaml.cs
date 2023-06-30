@@ -3,8 +3,9 @@ using System.Windows;
 using System.Collections.Generic;
 
 using ViewModel.VMs.DbSet;
-using View.MessageBoxes;
-using View.FileDialogs;
+using View.Implementations.FileDialogs;
+using View.Implementations.MessageBoxes;
+using ViewModel.Interfaces;
 
 namespace View.Windows.DbSet.Independent
 {
@@ -12,7 +13,7 @@ namespace View.Windows.DbSet.Independent
     {
         private static PassportsWindow? _instance = null;
 
-        private static Action _action = () =>
+        private static Action _call = () =>
         {
             var instance = Instance;
             instance.Show();
@@ -30,7 +31,9 @@ namespace View.Windows.DbSet.Independent
             }
         }
 
-        public static Action Action => _action;
+        public static Action Call => _call;
+
+        public static IDataBaseContextCreator? DataBaseContextCreator { get; set; }
 
         private PassportsWindow()
         {
@@ -38,7 +41,7 @@ namespace View.Windows.DbSet.Independent
 
             DataContext = new List<object>()
             {
-                new PassportsVM(new ErrorMessageBoxService(),
+                new PassportsVM(DataBaseContextCreator, new ErrorMessageBoxService(),
                 new OpenFileDialogService("Images (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg"),
                 new SaveFileDialogService("PNG image|*.png|JPEG image|*.jpeg|JPG image|*.jpg")),
                 (Action)(() => _instance = null)

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Media.Imaging;
 
 using Model.Dependent;
 using Model.Independent;
 using ViewModel.VMs.DbSet;
-using View.MessageBoxes;
+using View.Implementations.MessageBoxes;
+using View.Services;
+using ViewModel.Interfaces;
 
 namespace View.Windows.DbSet.Dependent
 {
@@ -14,7 +14,7 @@ namespace View.Windows.DbSet.Dependent
     {
         private static GradesWindow? _instance = null;
 
-        private static Action _action = () =>
+        private static Action _call = () =>
         {
             var instance = Instance;
             instance.Show();
@@ -32,17 +32,19 @@ namespace View.Windows.DbSet.Dependent
             }
         }
 
-        public static Action Action => _action;
+        public static IDataBaseContextCreator? DataBaseContextCreator { get; set; }
+
+        public static Action Call => _call;
 
         private GradesWindow() : base()
         {
-            Title = Application.Current.Resources[nameof(Grade) + "sHeader"] as string;
-            Icon = Application.Current.Resources[nameof(Grade) + "sIcon"] as BitmapSource;
+            Title = AppResourceService.GetHeader(nameof(Grade));
+            Icon = AppResourceService.GetIcon(nameof(Grade));
 
             var messageService = new ErrorMessageBoxService();
 
-            var mainVM = new DbSetVM<Grade>(messageService);
-            var dependentVM = new DbSetVM<GradeMode>(messageService);
+            var mainVM = new DbSetVM<Grade>(DataBaseContextCreator, messageService);
+            var dependentVM = new DbSetVM<GradeMode>(DataBaseContextCreator, messageService);
 
             mainVM.ItemChanged += (object? sender, EventArgs e) =>
             {

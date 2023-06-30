@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Media.Imaging;
 
 using Model.Independent;
 using ViewModel.VMs.DbSet;
-using View.MessageBoxes;
+using View.Implementations.MessageBoxes;
+using View.Services;
+using ViewModel.Interfaces;
 
 namespace View.Windows.DbSet.Independent
 {
@@ -13,7 +13,7 @@ namespace View.Windows.DbSet.Independent
     {
         private static DepartmentsWindow? _instance = null;
 
-        private static Action _action = () =>
+        private static Action _call = () =>
         {
             var instance = Instance;
             instance.Show();
@@ -31,16 +31,18 @@ namespace View.Windows.DbSet.Independent
             }
         }
 
-        public static Action Action => _action;
+        public static Action Call => _call;
+
+        public static IDataBaseContextCreator? DataBaseContextCreator { get; set; }
 
         private DepartmentsWindow() : base()
         {
-            Title = Application.Current.Resources[nameof(Department) + "sHeader"] as string;
-            Icon = Application.Current.Resources[nameof(Department) + "sIcon"] as BitmapSource;
+            Title = AppResourceService.GetHeader(nameof(Department));
+            Icon = AppResourceService.GetIcon(nameof(Department));
 
             DataContext = new List<object>()
             {
-                new DbSetVM<Department>(new ErrorMessageBoxService()),
+                new DbSetVM<Department>(DataBaseContextCreator, new ErrorMessageBoxService()),
                 (string nameProperty) => nameProperty != nameof(Department.Specialties) &&
                 nameProperty != nameof(Department.Teachers),
                 (Action)(() => _instance = null)

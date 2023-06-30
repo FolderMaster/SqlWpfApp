@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Media.Imaging;
 
 using Model.Independent;
 using ViewModel.VMs.DbSet;
-using View.MessageBoxes;
+using View.Implementations.MessageBoxes;
+using View.Services;
+using ViewModel.Interfaces;
 
 namespace View.Windows.DbSet.Independent
 {
@@ -13,7 +13,7 @@ namespace View.Windows.DbSet.Independent
     {
         private static ScholarshipsWindow? _instance = null;
 
-        private static Action _action = () =>
+        private static Action _call = () =>
             {
                 var instance = Instance;
                 instance.Show();
@@ -31,16 +31,18 @@ namespace View.Windows.DbSet.Independent
             }
         }
 
-        public static Action ActionService => _action;
+        public static Action Call => _call;
+
+        public static IDataBaseContextCreator? DataBaseContextCreator { get; set; }
 
         private ScholarshipsWindow() : base()
         {
-            Title = Application.Current.Resources[nameof(Scholarship) + "sHeader"] as string;
-            Icon = Application.Current.Resources[nameof(Scholarship) + "sIcon"] as BitmapSource;
+            Title = AppResourceService.GetHeader(nameof(Scholarship));
+            Icon = AppResourceService.GetIcon(nameof(Scholarship));
 
             DataContext = new List<object>()
             {
-                new DbSetVM<Scholarship>(new ErrorMessageBoxService()),
+                new DbSetVM<Scholarship>(DataBaseContextCreator, new ErrorMessageBoxService()),
                 (string nameProperty) => nameProperty != nameof(Scholarship.Students),
                 (Action)(() => _instance = null)
             };

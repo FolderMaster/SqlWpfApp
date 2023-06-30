@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Media.Imaging;
 
 using Model.Dependent;
 using Model.Independent;
 using ViewModel.VMs.DbSet;
-using View.MessageBoxes;
+using View.Implementations.MessageBoxes;
+using View.Services;
+using ViewModel.Interfaces;
 
 namespace View.Windows.DbSet.Dependent
 {
@@ -14,7 +14,7 @@ namespace View.Windows.DbSet.Dependent
     {
         private static StudyFormsWindow? _instance = null;
 
-        private static Action _action = () =>
+        private static Action _call = () =>
         {
             var instance = Instance;
             instance.Show();
@@ -32,17 +32,19 @@ namespace View.Windows.DbSet.Dependent
             }
         }
 
-        public static Action Action => _action;
+        public static Action Call => _call;
+
+        public static IDataBaseContextCreator? DataBaseContextCreator { get; set; }
 
         private StudyFormsWindow() : base()
         {
-            Title = Application.Current.Resources[nameof(StudyForm) + "sHeader"] as string;
-            Icon = Application.Current.Resources[nameof(StudyForm) + "sIcon"] as BitmapSource;
+            Title = AppResourceService.GetHeader(nameof(StudyForm));
+            Icon = AppResourceService.GetIcon(nameof(StudyForm));
 
             var messageService = new ErrorMessageBoxService();
 
-            var mainVM = new DbSetVM<StudyForm>(messageService);
-            var dependentVM = new DbSetVM<GradeMode>(messageService);
+            var mainVM = new DbSetVM<StudyForm>(DataBaseContextCreator, messageService);
+            var dependentVM = new DbSetVM<GradeMode>(DataBaseContextCreator, messageService);
 
             mainVM.ItemChanged += (object? sender, EventArgs e) =>
             {

@@ -7,7 +7,7 @@ namespace View.Windows
     {
         private static RequestsWindow? _instance = null;
 
-        private static Action _action = () =>
+        private static Action _call = () =>
         {
             var instance = Instance;
             instance.Show();
@@ -25,7 +25,7 @@ namespace View.Windows
             }
         }
 
-        public static Action Action => _action;
+        public static Action Call => _call;
 
         public RequestsWindow()
         {

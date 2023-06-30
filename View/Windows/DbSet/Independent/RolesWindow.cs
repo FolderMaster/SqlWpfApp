@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Media.Imaging;
 
 using Model.Independent;
 using ViewModel.VMs.DbSet;
-using View.MessageBoxes;
+using View.Implementations.MessageBoxes;
+using View.Services;
+using ViewModel.Interfaces;
 
 namespace View.Windows.DbSet.Independent
 {
@@ -13,7 +13,7 @@ namespace View.Windows.DbSet.Independent
     {
         private static RolesWindow? _instance = null;
 
-        private static Action _action = () =>
+        private static Action _call = () =>
             {
                 var instance = Instance;
                 instance.Show();
@@ -31,16 +31,18 @@ namespace View.Windows.DbSet.Independent
             }
         }
 
-        public static Action Action => _action;
+        public static Action Call => _call;
+
+        public static IDataBaseContextCreator? DataBaseContextCreator { get; set; }
 
         private RolesWindow() : base()
         {
-            Title = Application.Current.Resources[nameof(Role) + "sHeader"] as string;
-            Icon = Application.Current.Resources[nameof(Role) + "sIcon"] as BitmapSource;
+            Title = AppResourceService.GetHeader(nameof(Role));
+            Icon = AppResourceService.GetIcon(nameof(Role));
 
             DataContext = new List<object>()
             {
-                new DbSetVM<Role>(new ErrorMessageBoxService()),
+                new DbSetVM<Role>(DataBaseContextCreator, new ErrorMessageBoxService()),
                 (string nameProperty) => nameProperty != nameof(Role.Connections),
                 (Action)(() => _instance = null)
             };

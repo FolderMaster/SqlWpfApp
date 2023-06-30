@@ -4,7 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 using ViewModel.Enums;
-using ViewModel.Services;
+using ViewModel.Interfaces;
 
 namespace ViewModel.VMs.Request
 {
@@ -29,7 +29,8 @@ namespace ViewModel.VMs.Request
 
         public RelayCommand ExecuteSqlCommand { get; private set; }
 
-        public ChangeDataRequestsVM(IMessageService messageService) : base(messageService) =>
+        public ChangeDataRequestsVM(IDataBaseContextCreator dataBaseContextCreator,
+            IMessageService messageService) : base(dataBaseContextCreator, messageService) =>
             ExecuteSqlCommand = new RelayCommand(() => ExecuteSqlCommand(CreateCommand()));
 
         private string CreateCommand()

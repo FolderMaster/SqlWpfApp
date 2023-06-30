@@ -4,7 +4,8 @@ using System.Windows;
 
 using Model.Dependent;
 using ViewModel.VMs.DbSet;
-using View.MessageBoxes;
+using View.Implementations.MessageBoxes;
+using ViewModel.Interfaces;
 
 namespace View.Windows.DbSet.Dependent
 {
@@ -12,7 +13,7 @@ namespace View.Windows.DbSet.Dependent
     {
         private static GradeStatementsWindow? _instance = null;
 
-        private static Action _action = () =>
+        private static Action _call = () =>
         {
             var instance = Instance;
             instance.Show();
@@ -30,7 +31,9 @@ namespace View.Windows.DbSet.Dependent
             }
         }
 
-        public static Action Action => _action;
+        public static IDataBaseContextCreator? DataBaseContextCreator { get; set; }
+
+        public static Action Call => _call;
 
         public GradeStatementsWindow()
         {
@@ -40,9 +43,11 @@ namespace View.Windows.DbSet.Dependent
 
             DataContext = new List<object>()
             {
-                new ControlDbSetVM<GradeStatement>(messageService),
-                new DbSetVM<Discipline>(messageService), new DbSetVM<Student>(messageService),
-                new DbSetVM<Teacher>(messageService), new DbSetVM<Grade>(messageService),
+                new ControlDbSetVM<GradeStatement>(DataBaseContextCreator, messageService),
+                new DbSetVM<Discipline>(DataBaseContextCreator, messageService),
+                new DbSetVM<Student>(DataBaseContextCreator, messageService),
+                new DbSetVM<Teacher>(DataBaseContextCreator, messageService),
+                new DbSetVM<Grade>(DataBaseContextCreator, messageService),
                 (Action)(() => _instance = null)
             };
         }

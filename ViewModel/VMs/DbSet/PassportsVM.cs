@@ -3,7 +3,7 @@ using System;
 using System.IO;
 
 using Model.Independent;
-using ViewModel.Services;
+using ViewModel.Interfaces;
 
 namespace ViewModel.VMs.DbSet
 {
@@ -13,8 +13,9 @@ namespace ViewModel.VMs.DbSet
 
         public RelayCommand SaveImageCommand { get; private set; }
 
-        public PassportsVM(IMessageService messageService, IGettingFileService openFileService,
-            IGettingFileService saveFileService) : base(messageService)
+        public PassportsVM(IDataBaseContextCreator dataBaseContextCreator, 
+            IMessageService messageService, IGettingFileService openFileService,
+            IGettingFileService saveFileService) : base(dataBaseContextCreator, messageService)
         {
             LoadImageCommand = new RelayCommand(() =>
             {

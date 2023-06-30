@@ -3,7 +3,7 @@ using System.Data.SQLite;
 using System.Data;
 using System;
 
-using ViewModel.Services;
+using ViewModel.Interfaces;
 
 namespace ViewModel.VMs
 {
@@ -12,16 +12,23 @@ namespace ViewModel.VMs
         [ObservableProperty]
         private DataTable executingResult;
 
+        public IDataBaseContextCreator DataBaseContextCreator { get; private set; }
+
         public IMessageService MessageService { get; private set; }
 
-        public RequestsVM(IMessageService messageService) => MessageService = messageService;
+        public RequestsVM(IDataBaseContextCreator dataBaseContextCreator,
+            IMessageService messageService)
+        {
+            MessageService = messageService;
+            DataBaseContextCreator = dataBaseContextCreator;
+        }
 
         protected void ExecuteSqlCommand(string sqlCommand)
         {
             try
             {
                 using (SQLiteConnection connection = new SQLiteConnection
-                (DataBaseContext.DataBaseConnection))
+                (DataBaseContextCreator.Result.ConnectionString))
                 {
                     connection.Open();
 

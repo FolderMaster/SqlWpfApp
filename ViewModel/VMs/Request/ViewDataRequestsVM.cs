@@ -1,5 +1,5 @@
 ﻿using ViewModel.Enums;
-using ViewModel.Services;
+using ViewModel.Interfaces;
 
 namespace ViewModel.VMs.Request
 {
@@ -19,6 +19,7 @@ namespace ViewModel.VMs.Request
             }
         }
 
-        public ViewDataRequestsVM(IMessageService messageService) : base(messageService) { }
+        public ViewDataRequestsVM(IDataBaseContextCreator dataBaseContextCreator,
+            IMessageService messageService) : base(dataBaseContextCreator, messageService) { }
     }
 }

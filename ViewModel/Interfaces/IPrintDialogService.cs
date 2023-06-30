@@ -1,4 +1,4 @@
-﻿namespace ViewModel.Services
+﻿namespace ViewModel.Interfaces
 {
     public interface IPrintDialogService
     {

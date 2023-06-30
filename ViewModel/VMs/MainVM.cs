@@ -1,14 +1,15 @@
-﻿using System;
-using System.Windows;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 
-using ViewModel.Services;
+using ViewModel.Interfaces;
 
 namespace ViewModel.VMs
 {
     public class MainVM : ObservableObject
     {
+        public IDataBaseContextCreator DataBaseContextCreator { get; private set; }
+
         public IConfigurational Configurational { get; private set; }
 
         public RelayCommand SaveCommand { get; private set; }
@@ -19,53 +20,54 @@ namespace ViewModel.VMs
 
         public RelayCommand InformationCommand { get; private set; }
 
-        public RelayCommand DepartmentsCommand { get; private set; }
+        public RelayCommand DepartmentsCallCommand { get; private set; }
 
-        public RelayCommand PassportsCommand { get; private set; }
+        public RelayCommand PassportsCallCommand { get; private set; }
 
-        public RelayCommand PositionsCommand { get; private set; }
+        public RelayCommand PositionsCallCommand { get; private set; }
 
-        public RelayCommand GradeModesCommand { get; private set; }
+        public RelayCommand GradeModesCallCommand { get; private set; }
 
-        public RelayCommand RolesCommand { get; private set; }
+        public RelayCommand RolesCallCommand { get; private set; }
 
-        public RelayCommand ScholarshipsCommand { get; private set; }
+        public RelayCommand ScholarshipsCallCommand { get; private set; }
 
-        public RelayCommand DisciplinesCommand { get; private set; }
+        public RelayCommand DisciplinesCallCommand { get; private set; }
 
-        public RelayCommand GradesCommand { get; private set; }
+        public RelayCommand GradesCallCommand { get; private set; }
 
-        public RelayCommand GradeStatementsCommand { get; private set; }
+        public RelayCommand GradeStatementsCallCommand { get; private set; }
 
-        public RelayCommand PersonsCommand { get; private set; }
+        public RelayCommand PersonsCallCommand { get; private set; }
 
-        public RelayCommand SpecialtiesCommand { get; private set; }
+        public RelayCommand SpecialtiesCallCommand { get; private set; }
 
-        public RelayCommand StudentsCommand { get; private set; }
+        public RelayCommand StudentsCallCommand { get; private set; }
 
-        public RelayCommand GroupsCommand { get; private set; }
+        public RelayCommand GroupsCallCommand { get; private set; }
 
-        public RelayCommand StudyFormsCommand { get; private set; }
+        public RelayCommand StudyFormsCallCommand { get; private set; }
 
-        public RelayCommand TeachersCommand { get; private set; }
+        public RelayCommand TeachersCallCommand { get; private set; }
 
-        public RelayCommand StudentDisciplineConnectionsCommand { get; private set; }
+        public RelayCommand StudentDisciplineConnectionsCallCommand { get; private set; }
 
-        public RelayCommand TeacherDisciplineConnectionsCommand { get; private set; }
+        public RelayCommand TeacherDisciplineConnectionsCallCommand { get; private set; }
 
-        public RelayCommand RequestsCommand { get; private set; }
+        public RelayCommand RequestsCallCommand { get; private set; }
 
-        public RelayCommand ReportsCommand { get; private set; }
+        public RelayCommand ReportsCallCommand { get; private set; }
 
-        public MainVM(IConfigurational configurational, IMessageService exitMessageService,
-            IMessageService informationMessageService, Action departmentsAction,
-            Action passportsAction, Action positionsAction, Action gradeModesAction,
-            Action rolesAction, Action scholarshipsAction, Action disciplinesAction,
-            Action gradesAction, Action gradeStatementsAction, Action personsAction,
-            Action specialtiesAction, Action studentsAction, Action groupsAction,
-            Action studyFormsAction, Action teachersAction,
-            Action studentDisciplineConnectionsAction, Action teacherDisciplineConnectionsAction,
-            Action requestsAction, Action reportsAction)
+        public MainVM(IDataBaseContextCreator dataBaseContextCreator,
+            IConfigurational configurational, IMessageService exitMessageService,
+            IMessageService informationMessageService, IAppCloseable appCloseable,
+            Action departmentsCall, Action passportsCall, Action positionsCall,
+            Action gradeModesCall, Action rolesCall, Action scholarshipsCall,
+            Action disciplinesCall, Action gradesCall, Action gradeStatementsCall,
+            Action personsCall, Action specialtiesCall, Action studentsCall,
+            Action groupsCall, Action studyFormsCall, Action teachersCall,
+            Action studentDisciplineConnectionsCall, Action teacherDisciplineConnectionsCall,
+            Action requestsCall, Action reportsCall)
         {
             Configurational = configurational;
 
@@ -76,40 +78,41 @@ namespace ViewModel.VMs
             {
                 if (exitMessageService.ShowMessage("Do you want to close the program?", "Exit"))
                 {
-                    Application.Current.Shutdown();
+                    appCloseable.CloseApp();
                 }
             });
             InformationCommand = new RelayCommand(() =>
                 informationMessageService.ShowMessage("(C)TUSUR, KSUB, Pchelintsev Andrew" +
                     " Alexandrovich, group 571-2, 2023.", "About program"));
 
-            DepartmentsCommand = new RelayCommand(() => departmentsAction());
-            PassportsCommand = new RelayCommand(() => passportsAction());
-            PositionsCommand = new RelayCommand(() => positionsAction());
-            GradeModesCommand = new RelayCommand(() => gradeModesAction());
-            ScholarshipsCommand = new RelayCommand(() => scholarshipsAction());
-            RolesCommand = new RelayCommand(() => rolesAction());
+            DepartmentsCallCommand = new RelayCommand(() => departmentsCall());
+            PassportsCallCommand = new RelayCommand(() => passportsCall());
+            PositionsCallCommand = new RelayCommand(() => positionsCall());
+            GradeModesCallCommand = new RelayCommand(() => gradeModesCall());
+            ScholarshipsCallCommand = new RelayCommand(() => scholarshipsCall());
+            RolesCallCommand = new RelayCommand(() => rolesCall());
 
-            DisciplinesCommand = new RelayCommand(() => disciplinesAction());
-            GradesCommand = new RelayCommand(() => gradesAction());
-            GradeStatementsCommand = new RelayCommand(() => gradeStatementsAction());
-            PersonsCommand = new RelayCommand(() => personsAction());
-            SpecialtiesCommand = new RelayCommand(() => specialtiesAction());
-            StudentsCommand = new RelayCommand(() => studentsAction());
-            GroupsCommand = new RelayCommand(() => groupsAction());
-            StudyFormsCommand = new RelayCommand(() => studyFormsAction());
-            TeachersCommand = new RelayCommand(() => teachersAction());
+            DisciplinesCallCommand = new RelayCommand(() => disciplinesCall());
+            GradesCallCommand = new RelayCommand(() => gradesCall());
+            GradeStatementsCallCommand = new RelayCommand(() => gradeStatementsCall());
+            PersonsCallCommand = new RelayCommand(() => personsCall());
+            SpecialtiesCallCommand = new RelayCommand(() => specialtiesCall());
+            StudentsCallCommand = new RelayCommand(() => studentsCall());
+            GroupsCallCommand = new RelayCommand(() => groupsCall());
+            StudyFormsCallCommand = new RelayCommand(() => studyFormsCall());
+            TeachersCallCommand = new RelayCommand(() => teachersCall());
 
-            StudentDisciplineConnectionsCommand = new RelayCommand(() =>
-                studentDisciplineConnectionsAction());
-            TeacherDisciplineConnectionsCommand = new RelayCommand(() =>
-                teacherDisciplineConnectionsAction());
+            StudentDisciplineConnectionsCallCommand = new RelayCommand(() =>
+                studentDisciplineConnectionsCall());
+            TeacherDisciplineConnectionsCallCommand = new RelayCommand(() =>
+                teacherDisciplineConnectionsCall());
 
-            RequestsCommand = new RelayCommand(() => requestsAction());
-            ReportsCommand = new RelayCommand(() => reportsAction());
+            RequestsCallCommand = new RelayCommand(() => requestsCall());
+            ReportsCallCommand = new RelayCommand(() => reportsCall());
 
             LoadCommand.Execute(null);
-            DataBaseContext.DataBaseConnection = Configurational.DataBasePath;
+            DataBaseContextCreator = dataBaseContextCreator;
+            DataBaseContextCreator.Create(Configurational.DataBaseConnectionString);
         }
     }
 }

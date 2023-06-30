@@ -4,8 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using System.Data;
 using System.Windows.Media;
 using System.Windows;
-
-using ViewModel.Services;
+using ViewModel.Interfaces;
 
 namespace ViewModel.VMs.Request
 {
@@ -24,8 +23,9 @@ namespace ViewModel.VMs.Request
 
         public RelayCommand DepartmentsCommand { get; private set; }
 
-        public ReportsVM(IMessageService messageService, IPrintDialogService printDialog) :
-            base(messageService)
+        public ReportsVM(IDataBaseContextCreator dataBaseContextCreator,
+            IMessageService messageService, IPrintDialogService printDialog) :
+            base(dataBaseContextCreator, messageService)
         {
             _printDialogService = printDialog;
 
@@ -138,7 +138,7 @@ namespace ViewModel.VMs.Request
                 var tableColumn = new TableColumn();
                 table.Columns.Add(tableColumn);
                 var cell = new TableCell(new Paragraph(new Run(column.ColumnName)));
-                cell.BorderBrush = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0));
+                cell.BorderBrush = new SolidColorBrush(Color.FromRgb(0, 0, 0));
                 cell.BorderThickness = new Thickness(1);
                 header.Cells.Add(cell);
             }
@@ -151,7 +151,7 @@ namespace ViewModel.VMs.Request
                 {
                     var value = row[column].ToString();
                     var cell = new TableCell(new Paragraph(new Run(value)));
-                    cell.BorderBrush = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0));
+                    cell.BorderBrush = new SolidColorBrush(Color.FromRgb(0, 0, 0));
                     cell.BorderThickness = new Thickness(1);
                     tableRow.Cells.Add(cell);
                 }
