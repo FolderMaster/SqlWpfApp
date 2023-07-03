@@ -1,8 +1,8 @@
 ﻿namespace ViewModel.Interfaces
 {
-    public interface IDataBaseContextCreator
+    public interface IDbContextCreator
     {
-        public IDataBaseContext? Result { get; }
+        public IDbContext? Result { get; }
 
         public void Create(string connectionString);
     }

@@ -1,54 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
+
+using ViewModel.VMs.DbSet;
+using ViewModel.Interfaces;
 
 using Model.Dependent;
 using Model.Independent;
-using ViewModel.VMs.DbSet;
-using View.Implementations.MessageBoxes;
-using ViewModel.Interfaces;
 
 namespace View.Windows.DbSet.Dependent
 {
     public partial class StudentsWindow : Window
     {
-        private static StudentsWindow? _instance = null;
-
-        private static Action _call = () =>
-        {
-            var instance = Instance;
-            instance.Show();
-        };
-
-        public static StudentsWindow Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new StudentsWindow();
-                }
-                return _instance;
-            }
-        }
-
-        public static Action Call => _call;
-
-        public static IDataBaseContextCreator? DataBaseContextCreator { get; set; }
-
-        public StudentsWindow()
+        public StudentsWindow(IDbContextCreator dbContextCreator, IMessageService messageService)
         {
             InitializeComponent();
 
-            var messageService = new ErrorMessageBoxService();
-
             DataContext = new List<object>()
             {
-                new ControlDbSetVM<Student>(DataBaseContextCreator, messageService),
-                new DbSetVM<Group>(DataBaseContextCreator, messageService),
-                new DbSetVM<Scholarship>(DataBaseContextCreator, messageService),
-                new DbSetVM<Person>(DataBaseContextCreator, messageService),
-                (Action)(() => _instance = null)
+                new ControlDbSetVM<Student>(dbContextCreator, messageService),
+                new DbSetVM<Group>(dbContextCreator, messageService),
+                new DbSetVM<Scholarship>(dbContextCreator, messageService),
+                new DbSetVM<Person>(dbContextCreator, messageService)
             };
         }
     }

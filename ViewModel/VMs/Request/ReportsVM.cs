@@ -1,9 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System.Windows.Documents;
 using CommunityToolkit.Mvvm.Input;
+using System.Windows.Documents;
 using System.Data;
 using System.Windows.Media;
 using System.Windows;
+
 using ViewModel.Interfaces;
 
 namespace ViewModel.VMs.Request
@@ -23,7 +24,7 @@ namespace ViewModel.VMs.Request
 
         public RelayCommand DepartmentsCommand { get; private set; }
 
-        public ReportsVM(IDataBaseContextCreator dataBaseContextCreator,
+        public ReportsVM(IDbContextCreator dataBaseContextCreator,
             IMessageService messageService, IPrintDialogService printDialog) :
             base(dataBaseContextCreator, messageService)
         {

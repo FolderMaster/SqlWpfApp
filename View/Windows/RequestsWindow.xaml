@@ -4,27 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Windows"
-        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:behaviors="clr-namespace:View.Behaviors"
         xmlns:controls="clr-namespace:View.Controls.Request"
         mc:Ignorable="d"
         Icon="{StaticResource RequestsIcon}" Title="{StaticResource RequestsHeader}"
         Height="{StaticResource TableWindowHeight}" Width="{StaticResource TableWindowWidth}">
-    <i:Interaction.Behaviors>
-        <behaviors:CloseWindowBehavior CloseAction="{Binding}"/>
-    </i:Interaction.Behaviors>
     <TabControl>
         <TabItem Header="{StaticResource ChangeDataRequestsHeader}">
-            <controls:ChangeDataRequestsControl/>
+            <controls:ChangeDataRequestsControl DataContext="{Binding [0]}"/>
         </TabItem>
         <TabItem Header="{StaticResource SpecialChangeDataRequestsHeader}">
-            <controls:SpecialChangeDataRequestsControl/>
+            <controls:SpecialChangeDataRequestsControl DataContext="{Binding [1]}"/>
         </TabItem>
         <TabItem Header="{StaticResource ViewDataRequestsHeader}">
-            <controls:ViewDataRequestsControl/>
+            <controls:ViewDataRequestsControl DataContext="{Binding [2]}"/>
         </TabItem>
         <TabItem Header="{StaticResource SpecialViewDataRequestsHeader}">
-            <controls:SpecialViewDataRequestsControl/>
+            <controls:SpecialViewDataRequestsControl DataContext="{Binding [3]}"/>
         </TabItem>
     </TabControl>
 </Window>

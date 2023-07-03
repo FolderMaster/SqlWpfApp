@@ -1,8 +1,9 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Documents;
+
 using ViewModel.Interfaces;
 
-namespace View.Implementations
+namespace View.Implementations.Dialogs
 {
     public class PrintDialogService : IPrintDialogService
     {

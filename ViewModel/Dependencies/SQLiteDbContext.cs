@@ -8,7 +8,7 @@ using ViewModel.Interfaces;
 
 namespace ViewModel.Dependencies
 {
-    public class SQLiteDataBaseContext : DbContext, IDataBaseContext
+    public class SQLiteDbContext : DbContext, IDbContext
     {
         public string ConnectionString { get; private set; } = null!;
 
@@ -48,7 +48,7 @@ namespace ViewModel.Dependencies
 
         public DbSet<Scholarship> Scholarships { get; set; } = null!;
 
-        public SQLiteDataBaseContext(string connectionString)
+        public SQLiteDbContext(string connectionString)
         {
             ConnectionString = connectionString;
             Database.EnsureCreated();

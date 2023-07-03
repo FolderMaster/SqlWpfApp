@@ -2,7 +2,7 @@
 
 namespace ViewModel.Interfaces
 {
-    public interface IDataBaseContext
+    public interface IDbContext
     {
         public string ConnectionString { get; }
 

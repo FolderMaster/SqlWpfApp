@@ -5,18 +5,18 @@ using System;
 
 using ViewModel.Interfaces;
 
-namespace ViewModel.VMs
+namespace ViewModel.VMs.Request
 {
     public partial class RequestsVM : ObservableObject
     {
         [ObservableProperty]
         private DataTable executingResult;
 
-        public IDataBaseContextCreator DataBaseContextCreator { get; private set; }
+        public IDbContextCreator DataBaseContextCreator { get; private set; }
 
         public IMessageService MessageService { get; private set; }
 
-        public RequestsVM(IDataBaseContextCreator dataBaseContextCreator,
+        public RequestsVM(IDbContextCreator dataBaseContextCreator,
             IMessageService messageService)
         {
             MessageService = messageService;

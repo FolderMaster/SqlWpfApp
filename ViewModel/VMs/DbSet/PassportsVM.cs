@@ -13,7 +13,7 @@ namespace ViewModel.VMs.DbSet
 
         public RelayCommand SaveImageCommand { get; private set; }
 
-        public PassportsVM(IDataBaseContextCreator dataBaseContextCreator, 
+        public PassportsVM(IDbContextCreator dataBaseContextCreator, 
             IMessageService messageService, IGettingFileService openFileService,
             IGettingFileService saveFileService) : base(dataBaseContextCreator, messageService)
         {

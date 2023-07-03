@@ -22,75 +22,75 @@
                 </MenuItem>
                 <MenuItem Header="{StaticResource TablesHeader}">
                     <MenuItem Header="{StaticResource IndependentTablesHeader}">
-                        <MenuItem Command="{Binding DepartmentsCallCommand}"
+                        <MenuItem Command="{Binding DepartmentsProcInvokeCommand}"
                                   Header="{StaticResource DepartmentsHeader}"
                                   InputGestureText="{StaticResource DepartmentsInput}"
                                   Icon="{StaticResource DepartmentsImage}"/>
-                        <MenuItem Command="{Binding PositionsCallCommand}"
+                        <MenuItem Command="{Binding PositionsProcInvokeCommand}"
                                   Header="{StaticResource PositionsHeader}"
                                   InputGestureText="{StaticResource PositionsInput}"
                                   Icon="{StaticResource PositionsImage}"/>
-                        <MenuItem Command="{Binding PassportsCallCommand}"
+                        <MenuItem Command="{Binding PassportsProcInvokeCommand}"
                                   Header="{StaticResource PassportsHeader}"
                                   InputGestureText="{StaticResource PassportsInput}"
                                   Icon="{StaticResource PassportsImage}"/>
-                        <MenuItem Command="{Binding GradeModesCallCommand}"
+                        <MenuItem Command="{Binding GradeModesProcInvokeCommand}"
                                   Header="{StaticResource GradeModesHeader}"
                                   InputGestureText="{StaticResource GradeModesInput}"
                                   Icon="{StaticResource GradeModesImage}"/>
-                        <MenuItem Command="{Binding ScholarshipsCallCommand}"
+                        <MenuItem Command="{Binding ScholarshipsProcInvokeCommand}"
                                   Header="{StaticResource ScholarshipsHeader}"
                                   InputGestureText="{StaticResource ScholarshipsInput}"
                                   Icon="{StaticResource ScholarshipsImage}"/>
-                        <MenuItem Command="{Binding RolesCallCommand}"
+                        <MenuItem Command="{Binding RolesProcInvokeCommand}"
                                   Header="{StaticResource RolesHeader}"
                                   InputGestureText="{StaticResource RolesInput}"
                                   Icon="{StaticResource RolesImage}"/>
                     </MenuItem>
                     <MenuItem Header="{StaticResource DependentTablesHeader}">
-                        <MenuItem Command="{Binding DisciplinesCallCommand}"
+                        <MenuItem Command="{Binding DisciplinesProcInvokeCommand}"
                                   Header="{StaticResource DisciplinesHeader}"
                                   InputGestureText="{StaticResource DisciplinesInput}"
                                   Icon="{StaticResource DisciplinesImage}"/>
-                        <MenuItem Command="{Binding GradesCallCommand}"
+                        <MenuItem Command="{Binding GradesProcInvokeCommand}"
                                   Header="{StaticResource GradesHeader}"
                                   InputGestureText="{StaticResource GradesInput}"
                                   Icon="{StaticResource GradesImage}"/>
-                        <MenuItem Command="{Binding GradeStatementsCallCommand}"
+                        <MenuItem Command="{Binding GradeStatementsProcInvokeCommand}"
                                   Header="{StaticResource GradeStatementsHeader}"
                                   InputGestureText="{StaticResource GradeStatementsInput}"
                                   Icon="{StaticResource GradeStatementsImage}"/>
-                        <MenuItem Command="{Binding PersonsCallCommand}"
+                        <MenuItem Command="{Binding PersonsProcInvokeCommand}"
                                   Header="{StaticResource PersonsHeader}"
                                   InputGestureText="{StaticResource PersonsInput}"
                                   Icon="{StaticResource PersonsImage}"/>
-                        <MenuItem Command="{Binding SpecialtiesCallCommand}"
+                        <MenuItem Command="{Binding SpecialtiesProcInvokeCommand}"
                                   Header="{StaticResource SpecialtiesHeader}"
                                   InputGestureText="{StaticResource SpecialtiesInput}"
                                   Icon="{StaticResource SpecialtiesImage}"/>
-                        <MenuItem Command="{Binding GroupsCallCommand}"
+                        <MenuItem Command="{Binding GroupsProcInvokeCommand}"
                                   Header="{StaticResource GroupsHeader}"
                                   InputGestureText="{StaticResource GroupsInput}"
                                   Icon="{StaticResource GroupsImage}"/>
-                        <MenuItem Command="{Binding StudentsCallCommand}"
+                        <MenuItem Command="{Binding StudentsProcInvokeCommand}"
                                   Header="{StaticResource StudentsHeader}"
                                   InputGestureText="{StaticResource StudentsInput}"
                                   Icon="{StaticResource StudentsImage}"/>
-                        <MenuItem Command="{Binding StudyFormsCallCommand}"
+                        <MenuItem Command="{Binding StudyFormsProcInvokeCommand}"
                                   Header="{StaticResource StudyFormsHeader}"
                                   InputGestureText="{StaticResource StudyFormsInput}"
                                   Icon="{StaticResource StudyFormsImage}"/>
-                        <MenuItem Command="{Binding TeachersCallCommand}"
+                        <MenuItem Command="{Binding TeachersProcInvokeCommand}"
                                   Header="{StaticResource TeachersHeader}"
                                   InputGestureText="{StaticResource TeachersInput}"
                                   Icon="{StaticResource TeachersImage}"/>
                         <Separator/>
-                        <MenuItem Command="{Binding StudentDisciplineConnectionsCallCommand}"
+                        <MenuItem Command="{Binding StudentDisciplineConnectionsProcInvokeCommand}"
                                   Header="{StaticResource StudentDisciplineConnectionsHeader}"
                                   InputGestureText="{StaticResource
                                   StudentDisciplineConnectionsInput}"
                                   Icon="{StaticResource StudentDisciplineConnectionsImage}"/>
-                        <MenuItem Command="{Binding TeacherDisciplineConnectionsCallCommand}"
+                        <MenuItem Command="{Binding TeacherDisciplineConnectionsProcInvokeCommand}"
                                   Header="{StaticResource TeacherDisciplineConnectionsHeader}"
                                   InputGestureText="{StaticResource
                                   TeacherDisciplineConnectionsInput}"
@@ -98,11 +98,11 @@
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{StaticResource OperationsHeader}">
-                    <MenuItem Command="{Binding RequestsCallCommand}"
+                    <MenuItem Command="{Binding RequestsProcInvokeCommand}"
                               Header="{StaticResource RequestsHeader}"
                               InputGestureText="{StaticResource RequestsInput}"
                               Icon="{StaticResource RequestsImage}"/>
-                    <MenuItem Command="{Binding ReportsCallCommand}"
+                    <MenuItem Command="{Binding ReportsProcInvokeCommand}"
                               Header="{StaticResource ReportsHeader}"
                               InputGestureText="{StaticResource ReportsInput}"
                               Icon="{StaticResource ReportsImage}"/>
@@ -118,31 +118,31 @@
     <Window.InputBindings>
         <KeyBinding Key="X" Modifiers="Alt" Command="{Binding ExitCommand}"/>
         <KeyBinding Key="I" Modifiers="Alt" Command="{Binding InformationCommand}"/>
-        
-        <KeyBinding Key="A" Modifiers="Alt" Command="{Binding PassportsCallCommand}"/>
-        <KeyBinding Key="D" Modifiers="Alt" Command="{Binding DepartmentsCallCommand}"/>
-        <KeyBinding Key="P" Modifiers="Alt" Command="{Binding PositionsCallCommand}"/>
-        <KeyBinding Key="G" Modifiers="Alt" Command="{Binding GradeModesCallCommand}"/>
-        <KeyBinding Key="S" Modifiers="Alt" Command="{Binding ScholarshipsCallCommand}"/>
-        <KeyBinding Key="R" Modifiers="Alt" Command="{Binding RolesCallCommand}"/>
 
-        <KeyBinding Key="F" Modifiers="Alt" Command="{Binding DisciplinesCallCommand}"/>
-        <KeyBinding Key="H" Modifiers="Alt" Command="{Binding GradesCallCommand}"/>
-        <KeyBinding Key="Y" Modifiers="Alt" Command="{Binding GradeStatementsCallCommand}"/>
-        <KeyBinding Key="O" Modifiers="Alt" Command="{Binding PersonsCallCommand}"/>
-        <KeyBinding Key="Z" Modifiers="Alt" Command="{Binding SpecialtiesCallCommand}"/>
-        <KeyBinding Key="Q" Modifiers="Alt" Command="{Binding StudentsCallCommand}"/>
-        <KeyBinding Key="B" Modifiers="Alt" Command="{Binding GroupsCallCommand}"/>
-        <KeyBinding Key="E" Modifiers="Alt" Command="{Binding StudyFormsCallCommand}"/>
-        <KeyBinding Key="T" Modifiers="Alt" Command="{Binding TeachersCallCommand}"/>
+        <KeyBinding Key="A" Modifiers="Alt" Command="{Binding PassportsProcInvokeCommand}"/>
+        <KeyBinding Key="D" Modifiers="Alt" Command="{Binding DepartmentsProcInvokeCommand}"/>
+        <KeyBinding Key="P" Modifiers="Alt" Command="{Binding PositionsProcInvokeCommand}"/>
+        <KeyBinding Key="G" Modifiers="Alt" Command="{Binding GradeModesProcInvokeCommand}"/>
+        <KeyBinding Key="S" Modifiers="Alt" Command="{Binding ScholarshipsProcInvokeCommand}"/>
+        <KeyBinding Key="R" Modifiers="Alt" Command="{Binding RolesProcInvokeCommand}"/>
+
+        <KeyBinding Key="F" Modifiers="Alt" Command="{Binding DisciplinesProcInvokeCommand}"/>
+        <KeyBinding Key="H" Modifiers="Alt" Command="{Binding GradesProcInvokeCommand}"/>
+        <KeyBinding Key="Y" Modifiers="Alt" Command="{Binding GradeStatementsProcInvokeCommand}"/>
+        <KeyBinding Key="O" Modifiers="Alt" Command="{Binding PersonsProcInvokeCommand}"/>
+        <KeyBinding Key="Z" Modifiers="Alt" Command="{Binding SpecialtiesProcInvokeCommand}"/>
+        <KeyBinding Key="Q" Modifiers="Alt" Command="{Binding StudentsProcInvokeCommand}"/>
+        <KeyBinding Key="B" Modifiers="Alt" Command="{Binding GroupsProcInvokeCommand}"/>
+        <KeyBinding Key="E" Modifiers="Alt" Command="{Binding StudyFormsProcInvokeCommand}"/>
+        <KeyBinding Key="T" Modifiers="Alt" Command="{Binding TeachersProcInvokeCommand}"/>
 
         <KeyBinding Key="C" Modifiers="Alt"
-                    Command="{Binding StudentDisciplineConnectionsCallCommand}"/>
+                    Command="{Binding StudentDisciplineConnectionsProcInvokeCommand}"/>
         <KeyBinding Key="K" Modifiers="Alt"
-                    Command="{Binding TeacherDisciplineConnectionsCallCommand}"/>
+                    Command="{Binding TeacherDisciplineConnectionsProcInvokeCommand}"/>
 
-        <KeyBinding Key="W" Modifiers="Alt" Command="{Binding RequestsCallCommand}"/>
-        <KeyBinding Key="N" Modifiers="Alt" Command="{Binding ReportsCallCommand}"/>
+        <KeyBinding Key="W" Modifiers="Alt" Command="{Binding RequestsProcInvokeCommand}"/>
+        <KeyBinding Key="N" Modifiers="Alt" Command="{Binding ReportsProcInvokeCommand}"/>
     </Window.InputBindings>
     <Window.ContextMenu>
         <ContextMenu ItemsSource="{StaticResource MenuItems}"/>
@@ -165,42 +165,42 @@
                 </Button.ToolTip>
             </Button>
             <Separator/>
-            <Button Command="{Binding DepartmentsCallCommand}"
+            <Button Command="{Binding DepartmentsProcInvokeCommand}"
                     Content="{StaticResource DepartmentsImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource DepartmentsHeader}"/>
                 </Button.ToolTip>
             </Button>
-            <Button Command="{Binding PositionsCallCommand}"
+            <Button Command="{Binding PositionsProcInvokeCommand}"
                     Content="{StaticResource PositionsImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource PositionsHeader}"/>
                 </Button.ToolTip>
             </Button>
-            <Button Command="{Binding PassportsCallCommand}"
+            <Button Command="{Binding PassportsProcInvokeCommand}"
                     Content="{StaticResource PassportsImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource PassportsHeader}"/>
                 </Button.ToolTip>
             </Button>
-            <Button Command="{Binding GradeModesCallCommand}"
+            <Button Command="{Binding GradeModesProcInvokeCommand}"
                     Content="{StaticResource GradeModesImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource GradeModesHeader}"/>
                 </Button.ToolTip>
             </Button>
-            <Button Command="{Binding ScholarshipsCallCommand}"
+            <Button Command="{Binding ScholarshipsProcInvokeCommand}"
                     Content="{StaticResource ScholarshipsImage}" 
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource ScholarshipsHeader}"/>
                 </Button.ToolTip>
             </Button>
-            <Button Command="{Binding RolesCallCommand}"
+            <Button Command="{Binding RolesProcInvokeCommand}"
                     Content="{StaticResource RolesImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
@@ -208,63 +208,63 @@
                 </Button.ToolTip>
             </Button>
             <Separator/>
-            <Button Command="{Binding DisciplinesCallCommand}"
+            <Button Command="{Binding DisciplinesProcInvokeCommand}"
                     Content="{StaticResource DisciplinesImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource DisciplinesHeader}"/>
                 </Button.ToolTip>
             </Button>
-            <Button Command="{Binding GradesCallCommand}"
+            <Button Command="{Binding GradesProcInvokeCommand}"
                     Content="{StaticResource GradesImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource GradesHeader}"/>
                 </Button.ToolTip>
             </Button>
-            <Button Command="{Binding GradeStatementsCallCommand}"
+            <Button Command="{Binding GradeStatementsProcInvokeCommand}"
                     Content="{StaticResource GradeStatementsImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource GradeStatementsHeader}"/>
                 </Button.ToolTip>
             </Button>
-            <Button Command="{Binding PersonsCallCommand}"
+            <Button Command="{Binding PersonsProcInvokeCommand}"
                     Content="{StaticResource PersonsImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource PersonsHeader}"/>
                 </Button.ToolTip>
             </Button>
-            <Button Command="{Binding SpecialtiesCallCommand}"
+            <Button Command="{Binding SpecialtiesProcInvokeCommand}"
                     Content="{StaticResource SpecialtiesImage}" 
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource SpecialtiesHeader}"/>
                 </Button.ToolTip>
             </Button>
-            <Button Command="{Binding StudentsCallCommand}"
+            <Button Command="{Binding StudentsProcInvokeCommand}"
                     Content="{StaticResource StudentsImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource StudentsHeader}"/>
                 </Button.ToolTip>
             </Button>
-            <Button Command="{Binding StudyFormsCallCommand}"
+            <Button Command="{Binding StudyFormsProcInvokeCommand}"
                     Content="{StaticResource StudyFormsImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource StudyFormsHeader}"/>
                 </Button.ToolTip>
             </Button>
-            <Button Command="{Binding GroupsCallCommand}"
+            <Button Command="{Binding GroupsProcInvokeCommand}"
                     Content="{StaticResource GroupsImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource GroupsHeader}"/>
                 </Button.ToolTip>
             </Button>
-            <Button Command="{Binding TeachersCallCommand}"
+            <Button Command="{Binding TeachersProcInvokeCommand}"
                     Content="{StaticResource TeachersImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
@@ -272,14 +272,14 @@
                 </Button.ToolTip>
             </Button>
             <Separator/>
-            <Button Command="{Binding StudentDisciplineConnectionsCallCommand}"
+            <Button Command="{Binding StudentDisciplineConnectionsProcInvokeCommand}"
                     Content="{StaticResource StudentDisciplineConnectionsImage}" 
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource StudentDisciplineConnectionsHeader}"/>
                 </Button.ToolTip>
             </Button>
-            <Button Command="{Binding TeacherDisciplineConnectionsCallCommand}"
+            <Button Command="{Binding TeacherDisciplineConnectionsProcInvokeCommand}"
                     Content="{StaticResource TeacherDisciplineConnectionsImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
@@ -287,14 +287,14 @@
                 </Button.ToolTip>
             </Button>
             <Separator/>
-            <Button Command="{Binding RequestsCallCommand}"
+            <Button Command="{Binding RequestsProcInvokeCommand}"
                     Content="{StaticResource RequestsImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
                     <ToolTip Content="{StaticResource RequestsHeader}"/>
                 </Button.ToolTip>
             </Button>
-            <Button Command="{Binding ReportsCallCommand}"
+            <Button Command="{Binding ReportsProcInvokeCommand}"
                     Content="{StaticResource ReportsImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>

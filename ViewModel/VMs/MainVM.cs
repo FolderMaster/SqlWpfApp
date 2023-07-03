@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
 
 using ViewModel.Interfaces;
 
@@ -8,7 +7,7 @@ namespace ViewModel.VMs
 {
     public class MainVM : ObservableObject
     {
-        public IDataBaseContextCreator DataBaseContextCreator { get; private set; }
+        public IDbContextCreator DataBaseContextCreator { get; private set; }
 
         public IConfigurational Configurational { get; private set; }
 
@@ -20,54 +19,53 @@ namespace ViewModel.VMs
 
         public RelayCommand InformationCommand { get; private set; }
 
-        public RelayCommand DepartmentsCallCommand { get; private set; }
+        public RelayCommand DepartmentsProcInvokeCommand { get; private set; }
 
-        public RelayCommand PassportsCallCommand { get; private set; }
+        public RelayCommand PassportsProcInvokeCommand { get; private set; }
 
-        public RelayCommand PositionsCallCommand { get; private set; }
+        public RelayCommand PositionsProcInvokeCommand { get; private set; }
 
-        public RelayCommand GradeModesCallCommand { get; private set; }
+        public RelayCommand GradeModesProcInvokeCommand { get; private set; }
 
-        public RelayCommand RolesCallCommand { get; private set; }
+        public RelayCommand RolesProcInvokeCommand { get; private set; }
 
-        public RelayCommand ScholarshipsCallCommand { get; private set; }
+        public RelayCommand ScholarshipsProcInvokeCommand { get; private set; }
 
-        public RelayCommand DisciplinesCallCommand { get; private set; }
+        public RelayCommand DisciplinesProcInvokeCommand { get; private set; }
 
-        public RelayCommand GradesCallCommand { get; private set; }
+        public RelayCommand GradesProcInvokeCommand { get; private set; }
 
-        public RelayCommand GradeStatementsCallCommand { get; private set; }
+        public RelayCommand GradeStatementsProcInvokeCommand { get; private set; }
 
-        public RelayCommand PersonsCallCommand { get; private set; }
+        public RelayCommand PersonsProcInvokeCommand { get; private set; }
 
-        public RelayCommand SpecialtiesCallCommand { get; private set; }
+        public RelayCommand SpecialtiesProcInvokeCommand { get; private set; }
 
-        public RelayCommand StudentsCallCommand { get; private set; }
+        public RelayCommand StudentsProcInvokeCommand { get; private set; }
 
-        public RelayCommand GroupsCallCommand { get; private set; }
+        public RelayCommand GroupsProcInvokeCommand { get; private set; }
 
-        public RelayCommand StudyFormsCallCommand { get; private set; }
+        public RelayCommand StudyFormsProcInvokeCommand { get; private set; }
 
-        public RelayCommand TeachersCallCommand { get; private set; }
+        public RelayCommand TeachersProcInvokeCommand { get; private set; }
 
-        public RelayCommand StudentDisciplineConnectionsCallCommand { get; private set; }
+        public RelayCommand StudentDisciplineConnectionsProcInvokeCommand { get; private set; }
 
-        public RelayCommand TeacherDisciplineConnectionsCallCommand { get; private set; }
+        public RelayCommand TeacherDisciplineConnectionsProcInvokeCommand { get; private set; }
 
-        public RelayCommand RequestsCallCommand { get; private set; }
+        public RelayCommand RequestsProcInvokeCommand { get; private set; }
 
-        public RelayCommand ReportsCallCommand { get; private set; }
+        public RelayCommand ReportsProcInvokeCommand { get; private set; }
 
-        public MainVM(IDataBaseContextCreator dataBaseContextCreator,
+        public MainVM(IDbContextCreator dataBaseContextCreator,
             IConfigurational configurational, IMessageService exitMessageService,
-            IMessageService informationMessageService, IAppCloseable appCloseable,
-            Action departmentsCall, Action passportsCall, Action positionsCall,
-            Action gradeModesCall, Action rolesCall, Action scholarshipsCall,
-            Action disciplinesCall, Action gradesCall, Action gradeStatementsCall,
-            Action personsCall, Action specialtiesCall, Action studentsCall,
-            Action groupsCall, Action studyFormsCall, Action teachersCall,
-            Action studentDisciplineConnectionsCall, Action teacherDisciplineConnectionsCall,
-            Action requestsCall, Action reportsCall)
+            IMessageService informationMessageService, IMessageService errorMessageService,
+            IAppCloseable appCloseable, IProc departmentsProc, IProc passportsProc,
+            IProc positionsProc, IProc gradeModesProc, IProc rolesProc, IProc scholarshipsProc,
+            IProc disciplinesProc, IProc gradesProc, IProc gradeStatementsProc, IProc personsProc,
+            IProc specialtiesProc, IProc studentsProc, IProc groupsProc, IProc studyFormsProc,
+            IProc teachersProc, IProc studentDisciplineConnectionsProc,
+            IProc teacherDisciplineConnectionsProc, IProc requestsProc, IProc reportsProc)
         {
             Configurational = configurational;
 
@@ -85,30 +83,30 @@ namespace ViewModel.VMs
                 informationMessageService.ShowMessage("(C)TUSUR, KSUB, Pchelintsev Andrew" +
                     " Alexandrovich, group 571-2, 2023.", "About program"));
 
-            DepartmentsCallCommand = new RelayCommand(() => departmentsCall());
-            PassportsCallCommand = new RelayCommand(() => passportsCall());
-            PositionsCallCommand = new RelayCommand(() => positionsCall());
-            GradeModesCallCommand = new RelayCommand(() => gradeModesCall());
-            ScholarshipsCallCommand = new RelayCommand(() => scholarshipsCall());
-            RolesCallCommand = new RelayCommand(() => rolesCall());
+            DepartmentsProcInvokeCommand = new RelayCommand(departmentsProc.Invoke);
+            PassportsProcInvokeCommand = new RelayCommand(passportsProc.Invoke);
+            PositionsProcInvokeCommand = new RelayCommand(positionsProc.Invoke);
+            GradeModesProcInvokeCommand = new RelayCommand(gradeModesProc.Invoke);
+            ScholarshipsProcInvokeCommand = new RelayCommand(scholarshipsProc.Invoke);
+            RolesProcInvokeCommand = new RelayCommand(rolesProc.Invoke);
 
-            DisciplinesCallCommand = new RelayCommand(() => disciplinesCall());
-            GradesCallCommand = new RelayCommand(() => gradesCall());
-            GradeStatementsCallCommand = new RelayCommand(() => gradeStatementsCall());
-            PersonsCallCommand = new RelayCommand(() => personsCall());
-            SpecialtiesCallCommand = new RelayCommand(() => specialtiesCall());
-            StudentsCallCommand = new RelayCommand(() => studentsCall());
-            GroupsCallCommand = new RelayCommand(() => groupsCall());
-            StudyFormsCallCommand = new RelayCommand(() => studyFormsCall());
-            TeachersCallCommand = new RelayCommand(() => teachersCall());
+            DisciplinesProcInvokeCommand = new RelayCommand(disciplinesProc.Invoke);
+            GradesProcInvokeCommand = new RelayCommand(gradesProc.Invoke);
+            GradeStatementsProcInvokeCommand = new RelayCommand(gradeStatementsProc.Invoke);
+            PersonsProcInvokeCommand = new RelayCommand(personsProc.Invoke);
+            SpecialtiesProcInvokeCommand = new RelayCommand(specialtiesProc.Invoke);
+            StudentsProcInvokeCommand = new RelayCommand(studentsProc.Invoke);
+            GroupsProcInvokeCommand = new RelayCommand(groupsProc.Invoke);
+            StudyFormsProcInvokeCommand = new RelayCommand(studyFormsProc.Invoke);
+            TeachersProcInvokeCommand = new RelayCommand(teachersProc.Invoke);
 
-            StudentDisciplineConnectionsCallCommand = new RelayCommand(() =>
-                studentDisciplineConnectionsCall());
-            TeacherDisciplineConnectionsCallCommand = new RelayCommand(() =>
-                teacherDisciplineConnectionsCall());
+            StudentDisciplineConnectionsProcInvokeCommand =
+                new RelayCommand(studentDisciplineConnectionsProc.Invoke);
+            TeacherDisciplineConnectionsProcInvokeCommand =
+                new RelayCommand(teacherDisciplineConnectionsProc.Invoke);
 
-            RequestsCallCommand = new RelayCommand(() => requestsCall());
-            ReportsCallCommand = new RelayCommand(() => reportsCall());
+            RequestsProcInvokeCommand = new RelayCommand(requestsProc.Invoke);
+            ReportsProcInvokeCommand = new RelayCommand(reportsProc.Invoke);
 
             LoadCommand.Execute(null);
             DataBaseContextCreator = dataBaseContextCreator;

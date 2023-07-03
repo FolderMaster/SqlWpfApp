@@ -132,7 +132,7 @@ namespace ViewModel.VMs.DbSet
 
         public event EventHandler ItemChanged;
 
-        public DbSetVM(IDataBaseContextCreator dataBaseContextCreator, IMessageService messageService)
+        public DbSetVM(IDbContextCreator dataBaseContextCreator, IMessageService messageService)
         {
             MessageService = messageService;
             try

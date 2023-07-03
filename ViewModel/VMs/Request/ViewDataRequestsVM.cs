@@ -19,7 +19,7 @@ namespace ViewModel.VMs.Request
             }
         }
 
-        public ViewDataRequestsVM(IDataBaseContextCreator dataBaseContextCreator,
+        public ViewDataRequestsVM(IDbContextCreator dataBaseContextCreator,
             IMessageService messageService) : base(dataBaseContextCreator, messageService) { }
     }
 }

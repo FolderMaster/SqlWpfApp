@@ -33,7 +33,7 @@ namespace ViewModel.VMs.DbSet
             }
         }
 
-        public ControlDbSetVM(IDataBaseContextCreator dataBaseContextCreator,
+        public ControlDbSetVM(IDbContextCreator dataBaseContextCreator,
             IMessageService messageService) : base(dataBaseContextCreator, messageService)
         {
             FirstCommand = new RelayCommand(() => SelectedIndex = 0,

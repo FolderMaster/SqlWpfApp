@@ -7,11 +7,11 @@ using ViewModel.Interfaces;
 
 namespace ViewModel.Dependencies
 {
-    public class SQLiteDataBaseContextCreator : IDataBaseContextCreator
+    public class SQLiteDbContextCreator : IDbContextCreator
     {
-        public IDataBaseContext? Result { get; private set; }
+        public IDbContext? Result { get; private set; }
 
         public void Create(string connectionString) =>
-            Result = new SQLiteDataBaseContext(connectionString);
+            Result = new SQLiteDbContext(connectionString);
     }
 }

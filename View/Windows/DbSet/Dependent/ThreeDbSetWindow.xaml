@@ -9,9 +9,6 @@
         xmlns:b="clr-namespace:View.Behaviors"
         mc:Ignorable="d"
         Height="{StaticResource TableWindowHeight}" Width="{StaticResource TableWindowWidth}">
-    <i:Interaction.Behaviors>
-        <b:CloseWindowBehavior CloseAction="{Binding [6]}"/>
-    </i:Interaction.Behaviors>
     <DockPanel LastChildFill="True">
         <c:GridDbSetToolBar DockPanel.Dock="Top" SaveCommand="{Binding [0].SaveCommand}"
                             SearchText="{Binding [0].SearchText, Mode=TwoWay}"

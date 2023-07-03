@@ -1,7 +1,7 @@
 ﻿using Microsoft.Win32;
 using ViewModel.Interfaces;
 
-namespace View.Implementations.FileDialogs
+namespace View.Implementations.Dialogs
 {
     public class SaveFileDialogService : IGettingFileService
     {

@@ -7,9 +7,8 @@ using System.Collections.ObjectModel;
 using ViewModel.Classes;
 using ViewModel.Enums;
 using ViewModel.Interfaces;
-using ViewModel.VMs.Request;
 
-namespace ViewModel.VMs
+namespace ViewModel.VMs.Request
 {
     public partial class SpecialViewDataRequestsVM : ViewRequestsVM
     {
@@ -51,7 +50,7 @@ namespace ViewModel.VMs
 
         public RelayCommand ExecuteSqlCommand { get; private set; }
 
-        public SpecialViewDataRequestsVM(IDataBaseContextCreator dataBaseContextCreator,
+        public SpecialViewDataRequestsVM(IDbContextCreator dataBaseContextCreator,
             IMessageService messageService) : base(dataBaseContextCreator, messageService)
         {
             ExecuteSqlCommand = new RelayCommand(() => ExecuteSqlCommand(CreateSpecialCommand()));

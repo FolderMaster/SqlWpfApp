@@ -5,6 +5,7 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\Images\SQLite.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -147,22 +148,7 @@
     <Compile Update="Windows\DbSet\Dependent\TwoGridDbSetWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\DbSet\Independent\DepartmentsWindow.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Windows\DbSet\Independent\GradeModesWindow..cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Windows\DbSet\Independent\PassportsWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Windows\DbSet\Independent\PositionsWindow.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Windows\DbSet\Independent\RolesWindow.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Windows\DbSet\Independent\ScholarshipsWindow.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Windows\ReportsWindow.xaml.cs">

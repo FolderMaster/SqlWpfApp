@@ -2,7 +2,7 @@
 
 using ViewModel.Interfaces;
 
-namespace View.Implementations.FileDialogs
+namespace View.Implementations.Dialogs
 {
     public class OpenFileDialogService : IGettingFileService
     {

@@ -4,25 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Windows"
-        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:behaviors="clr-namespace:View.Behaviors"
         mc:Ignorable="d"
         Title="{StaticResource ReportsHeader}" Icon="{StaticResource ReportsIcon}"
         Height="{StaticResource TableWindowHeight}" Width="{StaticResource TableWindowWidth}">
-    <i:Interaction.Behaviors>
-        <behaviors:CloseWindowBehavior CloseAction="{Binding [1]}"/>
-    </i:Interaction.Behaviors>
     <DockPanel LastChildFill="True">
         <WrapPanel DockPanel.Dock="Top">
             <Button Content="{StaticResource DeductingsHeader}"
-                    Command="{Binding [0].DeductingsCommand}"/>
+                    Command="{Binding DeductingsCommand}"/>
             <Button Content="{StaticResource StudentsHeader}"
-                    Command="{Binding [0].StudentsCommand}"/>
+                    Command="{Binding StudentsCommand}"/>
             <Button Content="{StaticResource DepartmentsHeader}"
-                    Command="{Binding [0].DepartmentsCommand}"/>
+                    Command="{Binding DepartmentsCommand}"/>
         </WrapPanel>
-        <Button DockPanel.Dock="Bottom" Command="{Binding [0].PrintCommand}"
+        <Button DockPanel.Dock="Bottom" Command="{Binding PrintCommand}"
                 Content="{StaticResource PrintHeader}"/>
-        <FlowDocumentReader Document="{Binding [0].Document}"/>
+        <FlowDocumentReader Document="{Binding Document}"/>
     </DockPanel>
 </Window>

@@ -1,30 +1,36 @@
 ﻿using System.Windows;
 
-using View.Windows.DbSet.Dependent;
-using View.Windows.DbSet.Independent;
-using View.Implementations;
-using View.Implementations.MessageBoxes;
-
 using ViewModel.VMs;
 using ViewModel.Interfaces;
+using View.Implementations;
 
 namespace View.Windows
 {
     public partial class MainWindow : Window
     {
-        public MainWindow(IDataBaseContextCreator dataBaseContextCreator)
+        public MainWindow(IDbContextCreator dbContextCreator, /*IConfigurational configurational,*/
+            IMessageService questionMessageService, IMessageService informationMessageService,
+            IMessageService errorMessageService, IAppCloseable appCloseable,
+            IProc departmentsWindowProc, IProc passportsWindowProc, IProc positionsWindowProc,
+            IProc gradeModesWindowProc, IProc rolesWindowProc, IProc scholarshipsWindowProc,
+            IProc disciplinesWindowProc, IProc gradesWindowProc, IProc gradeStatementsWindowProc,
+            IProc personsWindowProc, IProc specialtiesWindowProc, IProc studentsWindowProc,
+            IProc groupsWindowProc, IProc studyFormsWindowProc, IProc teachersWindowProc,
+            IProc studentDisciplineConnectionsWindowProc,
+            IProc teacherDisciplineConnectionsWindowProc, IProc requestsWindowProc,
+            IProc reportsWindowProc)
         {
             InitializeComponent();
 
-            DataContext = new MainVM(dataBaseContextCreator, new WindowConfiguration(this),
-                new QuestionMessageBoxService(), new InformationMessageBoxService(),
-                new AppCloseable(), DepartmentsWindow.Call, PassportsWindow.Call,
-                PositionsWindow.Call, GradeModesWindow.Call, RolesWindow.Call,
-                ScholarshipsWindow.Call, DisciplinesWindow.Call, GradesWindow.Call,
-                GradeStatementsWindow.Call, PersonsWindow.Call, SpecialtiesWindow.Call,
-                StudentsWindow.Call, GroupsWindow.Call, StudyFormsWindow.Call, TeachersWindow.Call,
-                StudentDisciplineConnectionsWindow.Call, TeacherDisciplineConnectionsWindow.Call,
-                RequestsWindow.Call, ReportsWindow.Call);
+            DataContext = new MainVM(dbContextCreator, /*configurational*/ new WindowConfiguration(this),
+                questionMessageService, informationMessageService, errorMessageService,
+                appCloseable, departmentsWindowProc, passportsWindowProc,
+                positionsWindowProc, gradeModesWindowProc, rolesWindowProc,
+                scholarshipsWindowProc, disciplinesWindowProc, gradesWindowProc,
+                gradeStatementsWindowProc, personsWindowProc, specialtiesWindowProc,
+                studentsWindowProc, groupsWindowProc, studyFormsWindowProc, teachersWindowProc,
+                studentDisciplineConnectionsWindowProc, teacherDisciplineConnectionsWindowProc,
+                requestsWindowProc, reportsWindowProc);
         }
     }
 }

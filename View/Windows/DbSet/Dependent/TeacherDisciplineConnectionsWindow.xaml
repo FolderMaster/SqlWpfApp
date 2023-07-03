@@ -5,16 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Windows.DbSet.Dependent"
         mc:Ignorable="d"
-        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:behaviors="clr-namespace:View.Behaviors"
         xmlns:converters="clr-namespace:View.Converters"
         xmlns:controls="clr-namespace:View.Controls.DbSet"
         Width="{StaticResource TableWindowWidth}" Height="{StaticResource TableWindowHeight}"
         Title="{StaticResource TeacherDisciplineConnectionsHeader}"
         Icon="{StaticResource TeacherDisciplineConnectionsIcon}">
-    <i:Interaction.Behaviors>
-        <behaviors:CloseWindowBehavior CloseAction="{Binding [4]}"/>
-    </i:Interaction.Behaviors>
     <Window.Resources>
         <ResourceDictionary>
             <converters:InverseIntToBoolConverter x:Key="InverseIntToBoolConverter"/>

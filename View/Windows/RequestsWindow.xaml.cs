@@ -1,37 +1,24 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Windows;
+
+using ViewModel.Interfaces;
+using ViewModel.VMs.Request;
 
 namespace View.Windows
 {
     public partial class RequestsWindow : Window
     {
-        private static RequestsWindow? _instance = null;
-
-        private static Action _call = () =>
-        {
-            var instance = Instance;
-            instance.Show();
-        };
-
-        public static RequestsWindow Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new RequestsWindow();
-                }
-                return _instance;
-            }
-        }
-
-        public static Action Call => _call;
-
-        public RequestsWindow()
+        public RequestsWindow(IDbContextCreator dbContextCreator, IMessageService messageService)
         {
             InitializeComponent();
 
-            DataContext = (Action)(() => _instance = null);
+            DataContext = new List<object>()
+            {
+                new ChangeDataRequestsVM(dbContextCreator, messageService),
+                new SpecialChangeDataRequestsVM(dbContextCreator, messageService),
+                new ViewDataRequestsVM(dbContextCreator, messageService),
+                new SpecialViewDataRequestsVM(dbContextCreator, messageService)
+            };
         }
     }
 }
