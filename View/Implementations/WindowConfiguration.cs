@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Configuration;
 using System.Windows;
+
 using ViewModel.Interfaces;
 
 namespace View.Implementations
 {
-    public class WindowConfiguration : IConfigurational
+    public class WindowConfiguration : IConfiguration
     {
         private Configuration _configuration;
 
@@ -13,7 +14,8 @@ namespace View.Implementations
 
         private Window _window;
 
-        public string DataBaseConnectionString { get; set; } = "Data Source=UniversityDataBase.db";
+        public string DataBaseConnectionString { get; set; } =
+            "Data Source=UniversityDataBase.db;Mode=ReadWrite";
 
         public double Left
         {
@@ -87,7 +89,8 @@ namespace View.Implementations
 
         public void Load()
         {
-            AssignByConfigurationValue(nameof(DataBaseConnectionString), (value) => DataBaseConnectionString = value);
+            AssignByConfigurationValue(nameof(DataBaseConnectionString),
+                (value) => DataBaseConnectionString = value);
             AssignByConfigurationValue(nameof(Left), (value) => Left = double.Parse(value));
             AssignByConfigurationValue(nameof(Top), (value) => Top = double.Parse(value));
             AssignByConfigurationValue(nameof(Width), (value) => Width = double.Parse(value));

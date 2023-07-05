@@ -3,36 +3,38 @@ using System.Collections.Generic;
 using System.Windows;
 
 using View.Windows.DbSet.Dependent;
+using View.Implementations.ResourceService;
 
 using ViewModel.Interfaces;
 using ViewModel.VMs.DbSet;
 
 using Model.Dependent;
-using View.Services;
 
 namespace View.Implementations.Proces.DbSet.Dependent
 {
     public class GroupsWindowProc : WindowProc
     {
-        public GroupsWindowProc(IDbContextCreator dbContextCreator,
-            IMessageService messageService) : base(dbContextCreator, messageService) { }
+        private static string _keyResource = nameof(Group) + "s";
 
-        protected override Window CreateWindow(IDbContextCreator dbContextCreator,
-            IMessageService messageService)
+        public GroupsWindowProc(IDbContextBuilder dbContextCreator,
+            IWindowResourceService windowResourceService, IMessageService messageService) :
+            base(dbContextCreator, windowResourceService, messageService) { }
+
+        protected override Window CreateWindow(IDbContextBuilder dbContextCreator,
+            IWindowResourceService windowResourceService, IMessageService messageService)
         {
-            var mainVM = new DbSetVM<Group>(dbContextCreator, messageService);
-            var dependentVM = new DbSetVM<Specialty>(dbContextCreator, messageService);
+            var mainVM = new DbSetVM<Group>(dbContextCreator, windowResourceService,
+                messageService);
+            var dependentVM = new DbSetVM<Specialty>(dbContextCreator,
+                windowResourceService, messageService);
 
             mainVM.ItemChanged += (object? sender, EventArgs e) =>
             {
                 dependentVM.SelectedItem = mainVM.SelectedItem?.Specialty;
             };
 
-            return new TwoGridDbSetWindow()
-            {
-                Title = AppResourceService.GetHeader(nameof(Group) + "s"),
-                Icon = AppResourceService.GetIcon(nameof(Group) + "s"),
-                DataContext = new List<object>()
+            return new TwoGridDbSetWindow(windowResourceService, _keyResource, _keyResource,
+                new List<object>()
                 {
                     mainVM, dependentVM,
                     (string nameProperty) => nameProperty != nameof(Group.Students) &&
@@ -40,8 +42,7 @@ namespace View.Implementations.Proces.DbSet.Dependent
                     nameProperty != nameof(Specialty.Groups) &&
                     nameProperty != nameof(Specialty.Department) &&
                     nameProperty != nameof(Specialty.Disciplines)
-                }
-            };
+                });
         }
     }
 }

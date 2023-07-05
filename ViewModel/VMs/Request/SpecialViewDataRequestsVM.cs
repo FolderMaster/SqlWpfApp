@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -50,11 +51,10 @@ namespace ViewModel.VMs.Request
 
         public RelayCommand ExecuteSqlCommand { get; private set; }
 
-        public SpecialViewDataRequestsVM(IDbContextCreator dataBaseContextCreator,
-            IMessageService messageService) : base(dataBaseContextCreator, messageService)
-        {
+        public SpecialViewDataRequestsVM(IDbContextBuilder dataBaseContextCreator,
+            IResourceService resourceService, IMessageService messageService) :
+            base(dataBaseContextCreator, resourceService, messageService) =>
             ExecuteSqlCommand = new RelayCommand(() => ExecuteSqlCommand(CreateSpecialCommand()));
-        }
         
         private string CreateSpecialCommand()
         {

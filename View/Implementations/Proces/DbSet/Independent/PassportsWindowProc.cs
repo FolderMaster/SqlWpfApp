@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 
+using View.Implementations.ResourceService;
 using View.Windows.DbSet.Independent;
 
 using ViewModel.Interfaces;
@@ -12,16 +13,22 @@ namespace View.Implementations.Proces.DbSet.Independent
 
         private IGettingFileService _gettingSaveFileService;
 
-        public PassportsWindowProc(IDbContextCreator dbContextCreator,
-            IMessageService messageService, IGettingFileService gettingOpenFileService,
-            IGettingFileService gettingSaveFileService) : base(dbContextCreator, messageService)
+        private IFileService _fileService;
+
+        public PassportsWindowProc(IDbContextBuilder dbContextCreator,
+            IWindowResourceService windowResourceService, IMessageService messageService,
+            IGettingFileService gettingOpenFileService, IGettingFileService gettingSaveFileService,
+            IFileService fileService) :
+            base(dbContextCreator, windowResourceService, messageService)
         {
             _gettingOpenFileService = gettingOpenFileService;
             _gettingSaveFileService = gettingSaveFileService;
+            _fileService = fileService;
         }
 
-        protected override Window CreateWindow(IDbContextCreator dbContextCreator,
-            IMessageService messageService) => new PassportsWindow(dbContextCreator,
-                messageService, _gettingOpenFileService, _gettingSaveFileService);
+        protected override Window CreateWindow(IDbContextBuilder dbContextCreator,
+            IWindowResourceService windowResourceService, IMessageService messageService) =>
+            new PassportsWindow(dbContextCreator, windowResourceService, messageService,
+                _gettingOpenFileService, _gettingSaveFileService, _fileService);
     }
 }

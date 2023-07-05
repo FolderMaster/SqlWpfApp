@@ -1,50 +1,49 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using System;
-using System.IO;
+
+using ViewModel.Interfaces;
 
 using Model.Independent;
-using ViewModel.Interfaces;
 
 namespace ViewModel.VMs.DbSet
 {
     public class PassportsVM : ControlDbSetVM<Passport>
     {
+        private static string _openFileDialogFilterResourceKey = "ImageOpenFileDialogFilter";
+
+        private static string _saveFileDialogFilterResourceKey = "ImageSaveFileDialogFilter";
+
+        private IFileService _fileService;
+
         public RelayCommand LoadImageCommand { get; private set; }
 
         public RelayCommand SaveImageCommand { get; private set; }
 
-        public PassportsVM(IDbContextCreator dataBaseContextCreator, 
-            IMessageService messageService, IGettingFileService openFileService,
-            IGettingFileService saveFileService) : base(dataBaseContextCreator, messageService)
+        public PassportsVM(IDbContextBuilder dataBaseContextCreator,
+            IResourceService resourceService, IMessageService messageService,
+            IGettingFileService openFileService, IGettingFileService saveFileService,
+            IFileService fileService) :
+            base(dataBaseContextCreator, resourceService, messageService)
         {
+            _fileService = fileService;
+
             LoadImageCommand = new RelayCommand(() =>
             {
-                var filePath = openFileService.GetFilePath();
+                var filePath = openFileService.GetFilePath
+                    (_resourceService.GetString(_openFileDialogFilterResourceKey));
                 if (filePath != null)
                 {
-                    try
-                    {
-                        SelectedItem.Scan = File.ReadAllBytes(filePath);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageService.ShowMessage(ex.Message, "Error!");
-                    }
+                    _messengerService.ExecuteWithExceptionMessage(() =>
+                        SelectedItem.Scan = _fileService.Load(filePath));
                 }
             }, () => SelectedItem != null);
             SaveImageCommand = new RelayCommand(() =>
             {
-                var filePath = saveFileService.GetFilePath();
+                var filePath = saveFileService.GetFilePath
+                    (_resourceService.GetString(_saveFileDialogFilterResourceKey));
                 if (filePath != null)
                 {
-                    try
-                    {
-                        File.WriteAllBytes(filePath, SelectedItem.Scan);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageService.ShowMessage(ex.Message, "Error!");
-                    }
+                    _messengerService.ExecuteWithExceptionMessage(() =>
+                        _fileService.Save(filePath, SelectedItem.Scan));
                 }
             }, () => SelectedItem != null);
         }

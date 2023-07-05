@@ -3,7 +3,7 @@
     /// <summary>
     /// Класс генератора идентификаторов.
     /// </summary>
-    public class IdGenerator
+    public class IdGenerator : IIdGenerator
     {
         /// <summary>
         /// Идентификатор.

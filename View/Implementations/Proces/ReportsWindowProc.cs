@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 
+using View.Implementations.ResourceService;
 using View.Windows;
 
 using ViewModel.Interfaces;
@@ -8,14 +9,17 @@ namespace View.Implementations.Proces
 {
     public class ReportsWindowProc : WindowProc
     {
-        private IPrintDialogService _printDialogService;
+        private IPrintService _printDialogService;
 
-        public ReportsWindowProc(IDbContextCreator dbContextCreator,
-            IMessageService messageService, IPrintDialogService printDialogService) :
-            base(dbContextCreator, messageService) => _printDialogService = printDialogService;
+        public ReportsWindowProc(IDbContextBuilder dbContextCreator,
+            IWindowResourceService windowResourceService, IMessageService messageService,
+            IPrintService printDialogService) :
+            base(dbContextCreator, windowResourceService, messageService) =>
+            _printDialogService = printDialogService;
 
-        protected override Window CreateWindow(IDbContextCreator dbContextCreator,
-            IMessageService messageService) =>
-            new ReportsWindow(dbContextCreator, messageService, _printDialogService);
+        protected override Window CreateWindow(IDbContextBuilder dbContextCreator,
+            IWindowResourceService windowResourceService, IMessageService messageService) =>
+            new ReportsWindow(dbContextCreator, windowResourceService, messageService,
+                _printDialogService);
     }
 }

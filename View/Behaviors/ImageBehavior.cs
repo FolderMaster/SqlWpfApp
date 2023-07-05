@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xaml.Behaviors;
+
 using System;
 using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows;
 using System.IO;
+
 using ViewModel.Interfaces;
 
 namespace View.Behaviors

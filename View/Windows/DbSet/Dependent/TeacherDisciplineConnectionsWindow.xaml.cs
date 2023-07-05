@@ -11,17 +11,18 @@ namespace View.Windows.DbSet.Dependent
 {
     public partial class TeacherDisciplineConnectionsWindow : Window
     {
-        public TeacherDisciplineConnectionsWindow(IDbContextCreator dbContextCreator,
-            IMessageService messageService)
+        public TeacherDisciplineConnectionsWindow(IDbContextBuilder dbContextCreator,
+            IResourceService resourceService, IMessageService messageService)
         {
             InitializeComponent();
 
             DataContext = new List<object>()
             {
-                new ControlDbSetVM<TeacherDisciplineConnection>(dbContextCreator, messageService),
-                new DbSetVM<Teacher>(dbContextCreator, messageService),
-                new DbSetVM<Discipline>(dbContextCreator,messageService),
-                new DbSetVM<Role>(dbContextCreator, messageService)
+                new ControlDbSetVM<TeacherDisciplineConnection>(dbContextCreator, resourceService,
+                    messageService),
+                new DbSetVM<Teacher>(dbContextCreator, resourceService, messageService),
+                new DbSetVM<Discipline>(dbContextCreator, resourceService, messageService),
+                new DbSetVM<Role>(dbContextCreator, resourceService, messageService)
             };
         }
     }

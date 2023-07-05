@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Microsoft.Xaml.Behaviors;
+
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using Microsoft.Xaml.Behaviors;
 
 using View.ValidationRules;
 

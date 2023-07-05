@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,8 +13,13 @@ namespace Model.Independent
     /// </summary>
     [Table("Passports")]
     [PrimaryKey(nameof(SerialNumber))]
-    public class Passport
+    public class Passport : PropertyUpdaterService
     {
+        /// <summary>
+        /// Скан.
+        /// </summary>
+        private byte[]? _scan = null;
+
         /// <summary>
         /// Генератор идентификаторов.
         /// </summary>
@@ -47,7 +53,18 @@ namespace Model.Independent
         /// <summary>
         /// Возвращает и задаёт скан.
         /// </summary>
-        public byte[] Scan { get; set; } = null;
+        public byte[]? Scan
+        {
+            get => _scan;
+            set
+            {
+                if(_scan != value)
+                {
+                    _scan = value;
+                    PropertyChangedEventInvoke();
+                }
+            }
+        } 
 
         /// <summary>
         /// Возвращает и задаёт дата рождения.

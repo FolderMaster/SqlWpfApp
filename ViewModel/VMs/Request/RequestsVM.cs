@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System.Data.SQLite;
+
 using System.Data;
-using System;
 
 using ViewModel.Interfaces;
+using ViewModel.Services;
 
 namespace ViewModel.VMs.Request
 {
@@ -12,41 +12,22 @@ namespace ViewModel.VMs.Request
         [ObservableProperty]
         private DataTable executingResult;
 
-        public IDbContextCreator DataBaseContextCreator { get; private set; }
+        private IDbContextBuilder _dbContextCreator;
 
-        public IMessageService MessageService { get; private set; }
+        protected MessengerService _messengerService;
 
-        public RequestsVM(IDbContextCreator dataBaseContextCreator,
+        protected IResourceService _resourceService;
+
+        public RequestsVM(IDbContextBuilder dbContextCreator, IResourceService resourceService,
             IMessageService messageService)
         {
-            MessageService = messageService;
-            DataBaseContextCreator = dataBaseContextCreator;
+            _resourceService = resourceService;
+            _messengerService = new MessengerService(_resourceService, messageService);
+            _dbContextCreator = dbContextCreator;
         }
 
-        protected void ExecuteSqlCommand(string sqlCommand)
-        {
-            try
-            {
-                using (SQLiteConnection connection = new SQLiteConnection
-                (DataBaseContextCreator.Result.ConnectionString))
-                {
-                    connection.Open();
-
-                    using (SQLiteCommand command = new SQLiteCommand(sqlCommand, connection))
-                    {
-                        using (SQLiteDataReader reader = command.ExecuteReader())
-                        {
-                            var dataTable = new DataTable();
-                            dataTable.Load(reader);
-                            ExecutingResult = dataTable;
-                        }
-                    }
-                }
-            }
-            catch(Exception ex)
-            {
-                MessageService?.ShowMessage(ex.Message, "Error!");
-            }
-        }
+        protected void ExecuteSqlCommand(string sqlCommand) =>
+            _messengerService.ExecuteWithExceptionMessage(() =>
+                ExecutingResult = _dbContextCreator.Result.ExecuteCommand(sqlCommand));
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 
-using View.Services;
 using View.Windows.DbSet.Independent;
+using View.Implementations.ResourceService;
 
 using ViewModel.Interfaces;
 using ViewModel.VMs.DbSet;
@@ -13,20 +13,19 @@ namespace View.Implementations.Proces.DbSet.Independent
 {
     public class PositionsWindowProc : WindowProc
     {
-        public PositionsWindowProc(IDbContextCreator dbContextCreator,
-            IMessageService messageService) : base(dbContextCreator, messageService) { }
+        private static string _keyResource = nameof(Position) + "s";
 
-        protected override Window CreateWindow(IDbContextCreator dbContextCreator,
-            IMessageService messageService) => new GridDbSetWindow()
-            {
-                Title = AppResourceService.GetHeader(nameof(Position) + "s"),
-                Icon = AppResourceService.GetIcon(nameof(Position) + "s"),
+        public PositionsWindowProc(IDbContextBuilder dbContextCreator,
+            IWindowResourceService windowResourceService, IMessageService messageService) :
+            base(dbContextCreator, windowResourceService, messageService) { }
 
-                DataContext = new List<object>()
+        protected override Window CreateWindow(IDbContextBuilder dbContextCreator,
+            IWindowResourceService windowResourceService, IMessageService messageService) =>
+            new GridDbSetWindow(windowResourceService, _keyResource, _keyResource,
+                new List<object>()
                 {
-                    new DbSetVM<Position>(dbContextCreator, messageService),
+                    new DbSetVM<Position>(dbContextCreator, windowResourceService, messageService),
                     (string nameProperty) => nameProperty != nameof(Position.Teachers)
-                }
-            };
+                });
     }
 }

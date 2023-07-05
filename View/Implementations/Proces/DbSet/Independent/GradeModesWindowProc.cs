@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 
-using View.Services;
 using View.Windows.DbSet.Independent;
+using View.Implementations.ResourceService;
 
 using ViewModel.Interfaces;
 using ViewModel.VMs.DbSet;
@@ -13,20 +13,21 @@ namespace View.Implementations.Proces.DbSet.Independent
 {
     public class GradeModesWindowProc : WindowProc
     {
-        public GradeModesWindowProc(IDbContextCreator dbContextCreator,
-            IMessageService messageService) : base(dbContextCreator, messageService) { }
+        private static string _keyResource = nameof(GradeMode) + "s";
 
-        protected override Window CreateWindow(IDbContextCreator dbContextCreator,
-            IMessageService messageService) => new GridDbSetWindow()
-            {
-                Title = AppResourceService.GetHeader(nameof(GradeMode) + "s"),
-                Icon = AppResourceService.GetIcon(nameof(GradeMode) + "s"),
-                DataContext = new List<object>()
+        public GradeModesWindowProc(IDbContextBuilder dbContextCreator,
+            IWindowResourceService windowResourceService, IMessageService messageService) :
+            base(dbContextCreator, windowResourceService, messageService) { }
+
+        protected override Window CreateWindow(IDbContextBuilder dbContextCreator,
+            IWindowResourceService windowResourceService, IMessageService messageService) =>
+            new GridDbSetWindow(windowResourceService, _keyResource, _keyResource,
+                new List<object>()
                 {
-                    new DbSetVM<GradeMode>(dbContextCreator, messageService),
+                    new DbSetVM<GradeMode>(dbContextCreator, windowResourceService,
+                        messageService),
                     (string nameProperty) => nameProperty != nameof(GradeMode.Grades) &&
                     nameProperty != nameof(GradeMode.StudyForms)
-                }
-            };
+                });
     }
 }

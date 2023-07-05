@@ -5,21 +5,15 @@ using ViewModel.Interfaces;
 
 namespace View.Implementations.Dialogs
 {
-    public class PrintDialogService : IPrintDialogService
+    public class PrintDialogService : IPrintService
     {
-        private PrintDialog _dialog;
-
         public void Print(object document, string description)
         {
-            if (_dialog.ShowDialog() == true)
+            var dialog = new PrintDialog();
+            if (dialog.ShowDialog() == true)
             {
-                _dialog.PrintDocument(document as DocumentPaginator, description);
+                dialog.PrintDocument(document as DocumentPaginator, description);
             }
-        }
-
-        public PrintDialogService()
-        {
-            _dialog = new PrintDialog();
         }
     }
 }

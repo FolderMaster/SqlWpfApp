@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+
+using System;
+using System.Collections.ObjectModel;
 
 using ViewModel.Enums;
 using ViewModel.Interfaces;
@@ -28,9 +29,10 @@ namespace ViewModel.VMs.Request
 
         public RelayCommand ExecuteSqlCommand { get; private set; }
 
-        public SpecialChangeDataRequestsVM(IDbContextCreator dataBaseContextCreator,
-            IMessageService messageService) : base(dataBaseContextCreator, messageService)
-            => ExecuteSqlCommand = new RelayCommand(() => ExecuteSqlCommand(CreateSpecialCommand()));
+        public SpecialChangeDataRequestsVM(IDbContextBuilder dataBaseContextCreator,
+            IResourceService resourceService, IMessageService messageService) :
+            base(dataBaseContextCreator, resourceService, messageService) =>
+            ExecuteSqlCommand = new RelayCommand(() => ExecuteSqlCommand(CreateSpecialCommand()));
 
         private string CreateSpecialCommand()
         {

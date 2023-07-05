@@ -10,18 +10,19 @@ namespace View.Windows.DbSet.Dependent
 {
     public partial class GradeStatementsWindow : Window
     {
-        public GradeStatementsWindow(IDbContextCreator dbContextCreator,
-            IMessageService messageService)
+        public GradeStatementsWindow(IDbContextBuilder dbContextCreator,
+            IResourceService resourceService, IMessageService messageService)
         {
             InitializeComponent();
 
             DataContext = new List<object>()
             {
-                new ControlDbSetVM<GradeStatement>(dbContextCreator, messageService),
-                new DbSetVM<Discipline>(dbContextCreator, messageService),
-                new DbSetVM<Student>(dbContextCreator, messageService),
-                new DbSetVM<Teacher>(dbContextCreator, messageService),
-                new DbSetVM<Grade>(dbContextCreator, messageService)
+                new ControlDbSetVM<GradeStatement>(dbContextCreator, resourceService,
+                    messageService),
+                new DbSetVM<Discipline>(dbContextCreator, resourceService, messageService),
+                new DbSetVM<Student>(dbContextCreator, resourceService, messageService),
+                new DbSetVM<Teacher>(dbContextCreator, resourceService, messageService),
+                new DbSetVM<Grade>(dbContextCreator, resourceService, messageService)
             };
         }
     }

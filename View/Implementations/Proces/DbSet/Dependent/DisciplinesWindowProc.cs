@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Windows;
 
-using View.Services;
 using View.Windows.DbSet.Dependent;
+using View.Implementations.ResourceService;
 
 using ViewModel.Interfaces;
 using ViewModel.VMs.DbSet;
@@ -14,15 +14,21 @@ namespace View.Implementations.Proces.DbSet.Dependent
 {
     public class DisciplinesWindowProc : WindowProc
     {
-        public DisciplinesWindowProc(IDbContextCreator dbContextCreator,
-            IMessageService messageService) : base(dbContextCreator, messageService) { }
+        private static string _keyResource = nameof(Discipline) + "s";
 
-        protected override Window CreateWindow(IDbContextCreator dbContextCreator,
-            IMessageService messageService)
+        public DisciplinesWindowProc(IDbContextBuilder dbContextCreator,
+            IWindowResourceService windowResourceService, IMessageService messageService) :
+            base(dbContextCreator, windowResourceService, messageService) { }
+
+        protected override Window CreateWindow(IDbContextBuilder dbContextCreator,
+            IWindowResourceService windowResourceService, IMessageService messageService)
         {
-            var mainVM = new DbSetVM<Discipline>(dbContextCreator, messageService);
-            var dependentVM = new DbSetVM<StudyForm>(dbContextCreator, messageService);
-            var dependent2VM = new DbSetVM<Specialty>(dbContextCreator, messageService);
+            var mainVM = new DbSetVM<Discipline>(dbContextCreator, windowResourceService,
+                messageService);
+            var dependentVM = new DbSetVM<StudyForm>(dbContextCreator, windowResourceService,
+                messageService);
+            var dependent2VM = new DbSetVM<Specialty>(dbContextCreator, windowResourceService,
+                messageService);
 
             mainVM.ItemChanged += (object? sender, EventArgs e) =>
             {
@@ -30,11 +36,8 @@ namespace View.Implementations.Proces.DbSet.Dependent
                 dependent2VM.SelectedItem = mainVM.SelectedItem?.Specialty;
             };
 
-            return new ThreeGridDbSetWindow()
-            {
-                Title = AppResourceService.GetHeader(nameof(Discipline) + "s"),
-                Icon = AppResourceService.GetIcon(nameof(Discipline) + "s"),
-                DataContext = new List<object>()
+            return new ThreeGridDbSetWindow(windowResourceService, _keyResource, _keyResource,
+                new List<object>()
                 {
                     mainVM, dependentVM, dependent2VM,
                     (string nameProperty) => nameProperty != nameof(Discipline.Specialty) &&
@@ -47,8 +50,7 @@ namespace View.Implementations.Proces.DbSet.Dependent
                     (string nameProperty) => nameProperty != nameof(Specialty.Groups) &&
                     nameProperty != nameof(Specialty.Disciplines) &&
                     nameProperty != nameof(Specialty.Department)
-                }
-            };
+                });
         }
     }
 }

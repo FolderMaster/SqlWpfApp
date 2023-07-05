@@ -1,19 +1,28 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using Microsoft.EntityFrameworkCore;
 
 using ViewModel.Interfaces;
+using ViewModel.Services;
 
 namespace ViewModel.VMs.DbSet
 {
     public class DbSetVM<T> : ObservableObject where T : class
     {
+        private IDbContextBuilder _dbContextCreator;
+
+        protected MessengerService _messengerService;
+
+        protected IResourceService _resourceService;
+
         protected DbSet<T> _dbSet;
 
         protected ObservableCollection<T>? _dbSetLocal = null;
@@ -132,29 +141,18 @@ namespace ViewModel.VMs.DbSet
 
         public event EventHandler ItemChanged;
 
-        public DbSetVM(IDbContextCreator dataBaseContextCreator, IMessageService messageService)
+        public DbSetVM(IDbContextBuilder dbContextCreator, IResourceService resourceService,
+            IMessageService messageService)
         {
-            MessageService = messageService;
-            try
-            {
-                DbSet = dataBaseContextCreator.Result.Set<T>();
-            }
-            catch (Exception ex)
-            {
-                MessageService.ShowMessage(ex.Message, "Error!");
-                SaveCommand?.NotifyCanExecuteChanged();
-            }
+            _dbContextCreator = dbContextCreator;
+            _resourceService = resourceService;
+            _messengerService = new MessengerService(_resourceService, messageService);
+            _messengerService.ExecuteWithExceptionMessage(() =>
+                DbSet = _dbContextCreator.Result.Set<T>(), () =>
+                SaveCommand?.NotifyCanExecuteChanged());
             SaveCommand = new RelayCommand(() =>
-            {
-                try
-                {
-                    dataBaseContextCreator.Result.SaveChanges<T>();
-                }
-                catch (Exception ex)
-                {
-                    MessageService.ShowMessage(ex.Message, "Error!");
-                }
-            }, () => DbSet != null);
+            _messengerService.ExecuteWithExceptionMessage(() =>
+                _dbContextCreator.Result.SaveChanges<T>()), () => DbSet != null);
             _getMethodList =
                 typeof(T).GetProperties().Where((p) => p.GetGetMethod() != null).ToList();
         }

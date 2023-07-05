@@ -12,7 +12,7 @@
         /// <param name="checkFunc">Функция проверки в итерации.</param>
         /// <param name="generationAction">Действие генерации значений в итерации.</param>
         /// <param name="endAction">Действие в конце.</param>
-        public static void GenerateValues(IdGenerator idGenerator, Func<bool> checkFunc,
+        public static void GenerateValues(IIdGenerator idGenerator, Func<bool> checkFunc,
             Action<long> generationAction, Action endAction)
         {
             long id = idGenerator.GetId();

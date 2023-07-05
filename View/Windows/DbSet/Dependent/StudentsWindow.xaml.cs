@@ -11,16 +11,17 @@ namespace View.Windows.DbSet.Dependent
 {
     public partial class StudentsWindow : Window
     {
-        public StudentsWindow(IDbContextCreator dbContextCreator, IMessageService messageService)
+        public StudentsWindow(IDbContextBuilder dbContextCreator, IResourceService resourceService,
+            IMessageService messageService)
         {
             InitializeComponent();
 
             DataContext = new List<object>()
             {
-                new ControlDbSetVM<Student>(dbContextCreator, messageService),
-                new DbSetVM<Group>(dbContextCreator, messageService),
-                new DbSetVM<Scholarship>(dbContextCreator, messageService),
-                new DbSetVM<Person>(dbContextCreator, messageService)
+                new ControlDbSetVM<Student>(dbContextCreator, resourceService, messageService),
+                new DbSetVM<Group>(dbContextCreator, resourceService, messageService),
+                new DbSetVM<Scholarship>(dbContextCreator, resourceService, messageService),
+                new DbSetVM<Person>(dbContextCreator, resourceService, messageService)
             };
         }
     }

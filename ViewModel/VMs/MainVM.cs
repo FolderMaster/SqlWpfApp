@@ -2,14 +2,24 @@
 using CommunityToolkit.Mvvm.Input;
 
 using ViewModel.Interfaces;
+using ViewModel.Services;
 
 namespace ViewModel.VMs
 {
     public class MainVM : ObservableObject
     {
-        public IDbContextCreator DataBaseContextCreator { get; private set; }
+        private static string _exitTitleResourceKey = "ImageOpenFileDialogFilter";
 
-        public IConfigurational Configurational { get; private set; }
+        private static string _exitDescriptionResourceKey = "ExitMessageDescription";
+
+        private static string _informationTitleResourceKey = "InformationMessageTitle";
+
+        private static string _informationDescriptionResourceKey =
+            "InformationMessageDescription";
+
+        private MessengerService _messengerService;
+
+        private IConfiguration _configurational;
 
         public RelayCommand SaveCommand { get; private set; }
 
@@ -57,8 +67,8 @@ namespace ViewModel.VMs
 
         public RelayCommand ReportsProcInvokeCommand { get; private set; }
 
-        public MainVM(IDbContextCreator dataBaseContextCreator,
-            IConfigurational configurational, IMessageService exitMessageService,
+        public MainVM(IDbContextBuilder dbContextCreator, IResourceService resourceService,
+            IConfiguration configurational, IMessageService exitMessageService,
             IMessageService informationMessageService, IMessageService errorMessageService,
             IAppCloseable appCloseable, IProc departmentsProc, IProc passportsProc,
             IProc positionsProc, IProc gradeModesProc, IProc rolesProc, IProc scholarshipsProc,
@@ -67,21 +77,25 @@ namespace ViewModel.VMs
             IProc teachersProc, IProc studentDisciplineConnectionsProc,
             IProc teacherDisciplineConnectionsProc, IProc requestsProc, IProc reportsProc)
         {
-            Configurational = configurational;
+            _configurational = configurational;
+            _messengerService = new MessengerService(resourceService, errorMessageService);
 
-            SaveCommand = new RelayCommand(() => Configurational.Save(), () => true);
-            LoadCommand = new RelayCommand(() => Configurational.Load(), () => true);
+            SaveCommand = new RelayCommand(() =>
+                _messengerService.ExecuteWithExceptionMessage(_configurational.Save));
+            LoadCommand = new RelayCommand(() =>
+                _messengerService.ExecuteWithExceptionMessage(_configurational.Load));
 
             ExitCommand = new RelayCommand(() =>
             {
-                if (exitMessageService.ShowMessage("Do you want to close the program?", "Exit"))
+                if (_messengerService.ShowMessage(exitMessageService, _exitTitleResourceKey,
+                    _exitDescriptionResourceKey))
                 {
                     appCloseable.CloseApp();
                 }
             });
             InformationCommand = new RelayCommand(() =>
-                informationMessageService.ShowMessage("(C)TUSUR, KSUB, Pchelintsev Andrew" +
-                    " Alexandrovich, group 571-2, 2023.", "About program"));
+                _messengerService.ShowMessage(informationMessageService,
+                _informationTitleResourceKey, _informationDescriptionResourceKey));
 
             DepartmentsProcInvokeCommand = new RelayCommand(departmentsProc.Invoke);
             PassportsProcInvokeCommand = new RelayCommand(passportsProc.Invoke);
@@ -109,8 +123,9 @@ namespace ViewModel.VMs
             ReportsProcInvokeCommand = new RelayCommand(reportsProc.Invoke);
 
             LoadCommand.Execute(null);
-            DataBaseContextCreator = dataBaseContextCreator;
-            DataBaseContextCreator.Create(Configurational.DataBaseConnectionString);
+
+            _messengerService.ExecuteWithExceptionMessage(() =>
+                dbContextCreator.Create(_configurational.DataBaseConnectionString));
         }
     }
 }

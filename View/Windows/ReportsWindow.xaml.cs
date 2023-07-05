@@ -7,12 +7,13 @@ namespace View.Windows
 {
     public partial class ReportsWindow : Window
     {
-        public ReportsWindow(IDbContextCreator dbContextCreator, IMessageService messageService,
-            IPrintDialogService printDialogService)
+        public ReportsWindow(IDbContextBuilder dbContextCreator, IResourceService resourceService,
+            IMessageService messageService, IPrintService printDialogService)
         {
             InitializeComponent();
 
-            DataContext = new ReportsVM(dbContextCreator, messageService, printDialogService);
+            DataContext = new ReportsVM(dbContextCreator, resourceService, messageService,
+                printDialogService);
         }
     }
 }

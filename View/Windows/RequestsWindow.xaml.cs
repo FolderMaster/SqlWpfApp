@@ -8,16 +8,17 @@ namespace View.Windows
 {
     public partial class RequestsWindow : Window
     {
-        public RequestsWindow(IDbContextCreator dbContextCreator, IMessageService messageService)
+        public RequestsWindow(IDbContextBuilder dbContextCreator, IResourceService resourceService,
+            IMessageService messageService)
         {
             InitializeComponent();
 
             DataContext = new List<object>()
             {
-                new ChangeDataRequestsVM(dbContextCreator, messageService),
-                new SpecialChangeDataRequestsVM(dbContextCreator, messageService),
-                new ViewDataRequestsVM(dbContextCreator, messageService),
-                new SpecialViewDataRequestsVM(dbContextCreator, messageService)
+                new ChangeDataRequestsVM(dbContextCreator, resourceService, messageService),
+                new SpecialChangeDataRequestsVM(dbContextCreator, resourceService, messageService),
+                new ViewDataRequestsVM(dbContextCreator, resourceService, messageService),
+                new SpecialViewDataRequestsVM(dbContextCreator, resourceService, messageService)
             };
         }
     }

@@ -14,7 +14,8 @@ namespace ViewModel.VMs.Request
             (string.IsNullOrEmpty(havingContent) ? "" : $" HAVING {havingContent}") +
             (string.IsNullOrEmpty(orderByContent) ? "" : $" ORDER BY {orderByContent}");
 
-        public ViewRequestsVM(IDbContextCreator dataBaseContextCreator,
-            IMessageService messageService) : base(dataBaseContextCreator, messageService) { }
+        public ViewRequestsVM(IDbContextBuilder dataBaseContextCreator,
+            IResourceService resourceService, IMessageService messageService) :
+            base(dataBaseContextCreator, resourceService, messageService) { }
     }
 }
