@@ -3,7 +3,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 
 using Model.Independent;
+
 using ViewModel.Interfaces;
+using ViewModel.Services;
 
 namespace View.Controls.DbSet
 {
@@ -33,10 +35,22 @@ namespace View.Controls.DbSet
             set => SetValue(SaveImageCommandProperty, value);
         }
 
-        public IMessageService MessageService
+        public MessengerService MessengerService
         {
-            get => (IMessageService)GetValue(MessageServiceProperty);
-            set => SetValue(MessageServiceProperty, value);
+            get => (MessengerService)GetValue(MessengerServiceProperty);
+            set => SetValue(MessengerServiceProperty, value);
+        }
+
+        public IFileService FileService
+        {
+            get => (IFileService)GetValue(FileServiceProperty);
+            set => SetValue(FileServiceProperty, value);
+        }
+
+        public IPathService PathService
+        {
+            get => (IPathService)GetValue(PathServiceProperty);
+            set => SetValue(PathServiceProperty, value);
         }
 
         public static DependencyProperty PassportProperty =
@@ -55,8 +69,16 @@ namespace View.Controls.DbSet
             DependencyProperty.Register(nameof(SaveImageCommand), typeof(ICommand),
                 typeof(PassportControl), new FrameworkPropertyMetadata());
 
-        public static DependencyProperty MessageServiceProperty = DependencyProperty.Register
-            (nameof(MessageService), typeof(IMessageService), typeof(PassportControl),
+        public static DependencyProperty MessengerServiceProperty = DependencyProperty.Register
+            (nameof(MessengerService), typeof(MessengerService), typeof(PassportControl),
+            new FrameworkPropertyMetadata());
+
+        public static DependencyProperty FileServiceProperty = DependencyProperty.Register
+            (nameof(FileService), typeof(IFileService), typeof(PassportControl),
+            new FrameworkPropertyMetadata());
+
+        public static DependencyProperty PathServiceProperty = DependencyProperty.Register
+            (nameof(PathService), typeof(IPathService), typeof(PassportControl),
             new FrameworkPropertyMetadata());
 
         public PassportControl()

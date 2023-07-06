@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xaml.Behaviors;
 
-using System;
 using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows;
-using System.IO;
 
 using ViewModel.Interfaces;
+using ViewModel.Services;
 
 namespace View.Behaviors
 {
@@ -18,17 +17,37 @@ namespace View.Behaviors
             set => SetValue(ImageProperty, value);
         }
 
-        public IMessageService MessageService
+        public MessengerService MessengerService
         {
-            get => (IMessageService)GetValue(MessageServiceProperty);
-            set => SetValue(MessageServiceProperty, value);
+            get => (MessengerService)GetValue(MessengerServiceProperty);
+            set => SetValue(MessengerServiceProperty, value);
+        }
+
+        public IFileService FileService
+        {
+            get => (IFileService)GetValue(FileServiceProperty);
+            set => SetValue(FileServiceProperty, value);
+        }
+
+        public IPathService PathService
+        {
+            get => (IPathService)GetValue(PathServiceProperty);
+            set => SetValue(PathServiceProperty, value);
         }
 
         public static DependencyProperty ImageProperty = DependencyProperty.Register(nameof(Image),
             typeof(byte[]), typeof(DragDropImageBehavior), new FrameworkPropertyMetadata());
 
-        public static DependencyProperty MessageServiceProperty = DependencyProperty.Register
-            (nameof(MessageService), typeof(IMessageService), typeof(DragDropImageBehavior),
+        public static DependencyProperty MessengerServiceProperty = DependencyProperty.Register
+            (nameof(MessengerService), typeof(MessengerService), typeof(DragDropImageBehavior),
+            new FrameworkPropertyMetadata());
+
+        public static DependencyProperty FileServiceProperty = DependencyProperty.Register
+            (nameof(FileService), typeof(IFileService), typeof(DragDropImageBehavior),
+            new FrameworkPropertyMetadata());
+
+        public static DependencyProperty PathServiceProperty = DependencyProperty.Register
+            (nameof(PathService), typeof(IPathService), typeof(DragDropImageBehavior),
             new FrameworkPropertyMetadata());
 
         protected override void OnAttached()
@@ -52,14 +71,8 @@ namespace View.Behaviors
             var fileNames = e.Data.GetData(DataFormats.FileDrop) as string[];
             if (fileNames != null)
             {
-                try
-                {
-                    Image = File.ReadAllBytes(fileNames[0]);
-                }
-                catch(Exception ex)
-                {
-                    MessageService?.ShowMessage(ex.Message, "Error!");
-                }
+                MessengerService.ExecuteWithExceptionMessage(() =>
+                    Image = FileService.Load(fileNames[0]));
             }
         }
 
@@ -69,8 +82,9 @@ namespace View.Behaviors
             if (sender is Image image /*&& image.Source is BitmapSource bitmapSource*/)
             {
                 var fileName = "temp";
-                var filePath = Path.GetFullPath(fileName);
-                File.WriteAllBytes(fileName, Image);
+                var filePath = PathService.GetFullPath(fileName);
+                MessengerService.ExecuteWithExceptionMessage(() =>
+                    FileService.Save(filePath, Image));
 
                 var dataObject = new DataObject();
                 dataObject.SetData(DataFormats.FileDrop, new string[] { filePath }, true);

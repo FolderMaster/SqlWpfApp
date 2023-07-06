@@ -15,8 +15,8 @@ namespace ViewModel.VMs.Request
         protected string CreateDeleteCommand(string table, string condition) =>
             $"DELETE FROM {table} WHERE {condition}";
 
-        public ChangeRequestsVM(IDbContextBuilder dataBaseContextCreator,
+        public ChangeRequestsVM(IDbContextBuilder dataBaseContextBuilder,
             IResourceService resourceService, IMessageService messageService) :
-            base(dataBaseContextCreator, resourceService, messageService) { }
+            base(dataBaseContextBuilder, resourceService, messageService) { }
     }
 }

@@ -41,10 +41,10 @@ namespace ViewModel.VMs.Request
 
         public RelayCommand DepartmentsCommand { get; private set; }
 
-        public ReportsVM(IDbContextBuilder dataBaseContextCreator,
+        public ReportsVM(IDbContextBuilder dataBaseContextBuilder,
             IResourceService resourceService, IMessageService messageService,
             IPrintService printDialog) :
-            base(dataBaseContextCreator, resourceService, messageService)
+            base(dataBaseContextBuilder, resourceService, messageService)
         {
             _printDialogService = printDialog;
             _documentEditService = new DocumentEditService(Document);

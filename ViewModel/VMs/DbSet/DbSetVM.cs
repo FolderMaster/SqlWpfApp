@@ -15,28 +15,68 @@ using ViewModel.Services;
 
 namespace ViewModel.VMs.DbSet
 {
+    /// <summary>
+    /// Класс представления модели представления таблицы из базы данных с финальным и локальными
+    /// представлениями таблицы из базы данных, количеством элементов, выбранным элементом,
+    /// выбранным индексом, текстом поиска, текстом фильтра, названием выбранного свойства и
+    /// командой сохранения.
+    /// </summary>
+    /// <typeparam name="T">Тип сущности таблицы.</typeparam>
     public class DbSetVM<T> : ObservableObject where T : class
     {
-        private IDbContextBuilder _dbContextCreator;
+        /// <summary>
+        /// Создатель контекста базы данных.
+        /// </summary>
+        private IDbContextBuilder _dbContextBuilder;
 
+        /// <summary>
+        /// Сервис послания сообщений.
+        /// </summary>
         protected MessengerService _messengerService;
 
+        /// <summary>
+        /// Сервис ресурсов.
+        /// </summary>
         protected IResourceService _resourceService;
 
+        /// <summary>
+        /// Представление таблицы из базы данных.
+        /// </summary>
         protected DbSet<T> _dbSet;
 
+        /// <summary>
+        /// Локальное представление таблицы из базы данных.
+        /// </summary>
         protected ObservableCollection<T>? _dbSetLocal = null;
 
+        /// <summary>
+        /// Финальное локальное представление таблицы из базы данных.
+        /// </summary>
         protected ObservableCollection<T>? _finalDbSetLocal = null;
 
+        /// <summary>
+        /// Выбранный элемент.
+        /// </summary>
         protected T? _selectedItem = null;
 
+        /// <summary>
+        /// Текст поиска.
+        /// </summary>
         protected string _searchText = "";
 
+        /// <summary>
+        /// Текст фильтра.
+        /// </summary>
         protected string _filterText = "";
 
+        /// <summary>
+        /// Список методов возврата свойств.
+        /// </summary>
         protected List<PropertyInfo> _getMethodList;
 
+        /// <summary>
+        /// Возвращает и задаёт представление таблицы из базы данных.
+        /// </summary>
         protected DbSet<T> DbSet
         {
             get => _dbSet;
@@ -50,8 +90,9 @@ namespace ViewModel.VMs.DbSet
             }
         }
 
-        public IMessageService MessageService { get; private set; }
-
+        /// <summary>
+        /// Возвращает и задаёт локальное представление таблицы из базы данных.
+        /// </summary>
         public ObservableCollection<T>? DbSetLocal
         {
             get => _dbSetLocal;
@@ -65,6 +106,9 @@ namespace ViewModel.VMs.DbSet
             }
         }
 
+        /// <summary>
+        /// Возвращает и задаёт финальное локальное представление таблицы из базы данных.
+        /// </summary>
         public ObservableCollection<T>? FinalDbSetLocal
         {
             get => _finalDbSetLocal;
@@ -82,8 +126,15 @@ namespace ViewModel.VMs.DbSet
             }
         }
 
+        /// <summary>
+        /// Возвращает количество элементов финального локального представления таблицы из базы
+        /// данных.
+        /// </summary>
         public int Count => FinalDbSetLocal != null ? FinalDbSetLocal.Count : 0;
 
+        /// <summary>
+        /// Возвращает и задаёт выбранный элемент.
+        /// </summary>
         public T? SelectedItem
         {
             get => _selectedItem;
@@ -92,13 +143,16 @@ namespace ViewModel.VMs.DbSet
                 if (SetProperty(ref _selectedItem, value))
                 {
                     OnPropertyChanged(nameof(SelectedIndex));
-                    SelectedIndexChanged();
-                    SelectedItemChanged();
-                    ItemChanged?.Invoke(this, EventArgs.Empty);
+                    OnSelectedIndexChanged();
+                    OnSelectedItemChanged();
+                    SelectedItemChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
 
+        /// <summary>
+        /// Возвращает и задаёт выбранный индекс.
+        /// </summary>
         public int SelectedIndex
         {
             get => Count > 0 ? FinalDbSetLocal.IndexOf(SelectedItem) : -1;
@@ -106,10 +160,13 @@ namespace ViewModel.VMs.DbSet
             {
                 SelectedItem = value != -1 ? FinalDbSetLocal[value] : null;
                 OnPropertyChanged(nameof(SelectedIndex));
-                SelectedIndexChanged();
+                OnSelectedIndexChanged();
             }
         }
 
+        /// <summary>
+        /// Возвращает и задаёт текст поиска.
+        /// </summary>
         public string SearchText
         {
             get => _searchText;
@@ -122,6 +179,9 @@ namespace ViewModel.VMs.DbSet
             }
         }
 
+        /// <summary>
+        /// Возвращает и задаёт текст фильтра.
+        /// </summary>
         public string FilterText
         {
             get => _filterText;
@@ -135,32 +195,56 @@ namespace ViewModel.VMs.DbSet
             }
         }
 
+        /// <summary>
+        /// Возвращает и задаёт название выбранного свойства.
+        /// </summary>
         public string SelectedPropertyName { get; set; } = "";
 
+        /// <summary>
+        /// Возвращает и задаёт команду сохранения.
+        /// </summary>
         public RelayCommand SaveCommand { get; private set; }
 
-        public event EventHandler ItemChanged;
+        /// <summary>
+        /// Обработчик события изменения выбранного элемента.
+        /// </summary>
+        public event EventHandler SelectedItemChanged;
 
-        public DbSetVM(IDbContextBuilder dbContextCreator, IResourceService resourceService,
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="DbSetVM{T}"/>.
+        /// </summary>
+        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="resourceService">Сервис ресурсов.</param>
+        /// <param name="messageService">Сервис сообщений.</param>
+        public DbSetVM(IDbContextBuilder dbContextBuilder, IResourceService resourceService,
             IMessageService messageService)
         {
-            _dbContextCreator = dbContextCreator;
+            _dbContextBuilder = dbContextBuilder;
             _resourceService = resourceService;
             _messengerService = new MessengerService(_resourceService, messageService);
             _messengerService.ExecuteWithExceptionMessage(() =>
-                DbSet = _dbContextCreator.Result.Set<T>(), () =>
+                DbSet = _dbContextBuilder.Result.Set<T>(), () =>
                 SaveCommand?.NotifyCanExecuteChanged());
             SaveCommand = new RelayCommand(() =>
             _messengerService.ExecuteWithExceptionMessage(() =>
-                _dbContextCreator.Result.SaveChanges<T>()), () => DbSet != null);
+                _dbContextBuilder.Result.SaveChanges<T>()), () => DbSet != null);
             _getMethodList =
                 typeof(T).GetProperties().Where((p) => p.GetGetMethod() != null).ToList();
         }
 
-        protected virtual void SelectedIndexChanged() { }
+        /// <summary>
+        /// Метод, выполняющийся после изменения выбранного индекса.
+        /// </summary>
+        protected virtual void OnSelectedIndexChanged() { }
 
-        protected virtual void SelectedItemChanged() { }
+        /// <summary>
+        /// Метод, выполняющийся после изменения выбранного элемента.
+        /// </summary>
+        protected virtual void OnSelectedItemChanged() { }
 
+        /// <summary>
+        /// Осуществляет фильтрацию.
+        /// </summary>
         private void Filter()
         {
             var selectedIndex = SelectedIndex;
@@ -198,11 +282,14 @@ namespace ViewModel.VMs.DbSet
             else if (selectedIndex != SelectedIndex)
             {
                 OnPropertyChanged(nameof(SelectedIndex));
-                SelectedIndexChanged();
+                OnSelectedIndexChanged();
             }
             OnPropertyChanged(nameof(Count));
         }
 
+        /// <summary>
+        /// Осуществляет поиск.
+        /// </summary>
         private void Search()
         {
             if (!string.IsNullOrEmpty(SearchText))
@@ -229,6 +316,14 @@ namespace ViewModel.VMs.DbSet
             }
         }
 
+        /// <summary>
+        /// Проверяет найдено ли совпадение текста в значении свойства.
+        /// </summary>
+        /// <param name="matchText">Текст для поиска совпадения.</param>
+        /// <param name="property">Свойство.</param>
+        /// <param name="item">Элемент.</param>
+        /// <returns>Логическое значение, указывающее было ли найдено совпадение в значении
+        /// свойства.</returns>
         private bool IsMatchTextInValueOfProperty(string matchText, PropertyInfo property, T item)
         {
             var value = property.GetValue(item);
@@ -236,6 +331,10 @@ namespace ViewModel.VMs.DbSet
             return text.IndexOf(matchText, StringComparison.OrdinalIgnoreCase) != -1;
         }
 
+        /// <summary>
+        /// Возвращает свойства по условию.
+        /// </summary>
+        /// <returns>Список свойств.</returns>
         private List<PropertyInfo> GetPropertiesForCondition() =>
             string.IsNullOrEmpty(SelectedPropertyName) ? _getMethodList : new List<PropertyInfo>()
             { _getMethodList.First((p) => p.Name == SelectedPropertyName) };

@@ -4,7 +4,7 @@ namespace ViewModel.Dependencies
 {
     /// <summary>
     /// Класс создателя контекста базы данных SQLite <seealso cref="SQLiteDbContext"/> с методом
-    /// создания и свойством результата. Реализует <see cref="IDbContextBuilder"/>.
+    /// создания и результатом. Реализует <see cref="IDbContextBuilder"/>.
     /// </summary>
     public class SQLiteDbContextBuilder : IDbContextBuilder
     {

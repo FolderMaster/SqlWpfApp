@@ -28,33 +28,31 @@ namespace View
             {
                 services.AddSingleton<IAppCloseable, AppCloseable>();
                 services.AddSingleton<IFileService, FileService>();
+                services.AddSingleton<IPathService, PathService>();
 
                 services.AddSingleton<IDbContextBuilder, SQLiteDbContextBuilder>();
 
                 services.AddSingleton<IPrintService, PrintDialogService>();
 
                 services.AddSingleton<ErrorMessageBoxService>();
-                services.AddSingleton<IMessageService>(provider =>
-                    provider.GetRequiredService<ErrorMessageBoxService>());
+                services.AddSingleton<IMessageService>((s) =>
+                    s.GetRequiredService<ErrorMessageBoxService>());
                 services.AddSingleton<InformationMessageBoxService>();
                 services.AddSingleton<QuestionMessageBoxService>();
 
                 services.AddSingleton<IWindowResourceService, WindowResourceService>();
-                services.AddSingleton<IResourceService>(provider =>
-                    provider.GetRequiredService<IWindowResourceService>());
+                services.AddSingleton<IResourceService>((s) =>
+                    s.GetRequiredService<IWindowResourceService>());
 
                 services.AddSingleton<OpenFileDialogService>();
                 services.AddSingleton<SaveFileDialogService>();
 
+                services.AddSingleton<PassportsWindowProcCreator>();
+
                 services.AddSingleton<DepartmentsWindowProc>();
                 services.AddSingleton<GradeModesWindowProc>();
                 services.AddSingleton<PassportsWindowProc>((s) =>
-                    new PassportsWindowProc(s.GetRequiredService<IDbContextBuilder>(),
-                        s.GetRequiredService<IWindowResourceService>(),
-                        s.GetRequiredService<ErrorMessageBoxService>(),
-                        s.GetRequiredService<OpenFileDialogService>(),
-                        s.GetRequiredService<SaveFileDialogService>(),
-                        s.GetRequiredService<IFileService>()));
+                    s.GetRequiredService<PassportsWindowProcCreator>().Create());
                 services.AddSingleton<PositionsWindowProc>();
                 services.AddSingleton<RolesWindowProc>();
                 services.AddSingleton<ScholarshipsWindowProc>();
@@ -79,45 +77,7 @@ namespace View
                 services.AddSingleton<IConfiguration, WindowConfiguration>((s) =>
                     new WindowConfiguration(s.GetRequiredService<MainWindow>()));
 
-                services.AddSingleton<MainWindowConfigurator>((s) => new MainWindowConfigurator()
-                {
-                    MainWindow = s.GetRequiredService<MainWindow>(),
-
-                    DbContextCreator = s.GetRequiredService<IDbContextBuilder>(),
-                    ResourceService = s.GetRequiredService<IResourceService>(),
-                    Configurational = s.GetRequiredService<IConfiguration>(),
-                    QuestionMessageService = s.GetRequiredService<QuestionMessageBoxService>(),
-                    InformationMessageService =
-                            s.GetRequiredService<InformationMessageBoxService>(),
-                    ErrorMessageService = s.GetRequiredService<ErrorMessageBoxService>(),
-                    AppCloseable = s.GetRequiredService<IAppCloseable>(),
-
-                    DepartmentsProc = s.GetRequiredService<DepartmentsWindowProc>(),
-                    PassportsProc = s.GetRequiredService<PassportsWindowProc>(),
-                    PositionsProc = s.GetRequiredService<PositionsWindowProc>(),
-                    GradeModesProc = s.GetRequiredService<GradeModesWindowProc>(),
-                    RolesProc = s.GetRequiredService<RolesWindowProc>(),
-                    ScholarshipsProc = s.GetRequiredService<ScholarshipsWindowProc>(),
-
-                    DisciplinesProc = s.GetRequiredService<DisciplinesWindowProc>(),
-                    GradesProc = s.GetRequiredService<GradesWindowProc>(),
-                    GradeStatementsProc = s.GetRequiredService<GradeStatementsWindowProc>(),
-                    PersonsProc = s.GetRequiredService<PersonsWindowProc>(),
-                    SpecialtiesProc = s.GetRequiredService<SpecialtiesWindowProc>(),
-                    StudentsProc = s.GetRequiredService<StudentsWindowProc>(),
-                    GroupsProc = s.GetRequiredService<GroupsWindowProc>(),
-                    StudyFormsProc = s.GetRequiredService<StudyFormsWindowProc>(),
-                    TeachersProc = s.GetRequiredService<TeachersWindowProc>(),
-
-                    StudentDisciplineConnectionsProc =
-                            s.GetRequiredService<StudentDisciplineConnectionsWindowProc>(),
-                    TeacherDisciplineConnectionsProc =
-                            s.GetRequiredService<TeacherDisciplineConnectionsWindowProc>(),
-
-                    RequestsProc = s.GetRequiredService<RequestsWindowProc>(),
-                    ReportsProc = s.GetRequiredService<ReportsWindowProc>()
-                });
-
+                services.AddSingleton<MainWindowConfigurator>();
             }).Build();
         }
 
@@ -127,7 +87,7 @@ namespace View
             _host.Start();
 
             var configurator = _host.Services.GetRequiredService<MainWindowConfigurator>();
-            configurator.Confugure();
+            configurator.Configure();
 
             MainWindow = _host.Services.GetRequiredService<MainWindow>();
             MainWindow.Show();

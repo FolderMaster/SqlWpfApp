@@ -29,7 +29,7 @@ namespace View.Implementations.Proces.DbSet.Dependent
             var dependentVM = new DbSetVM<Passport>(dbContextCreator, windowResourceService,
                 messageService);
 
-            mainVM.ItemChanged += (object? sender, EventArgs e) =>
+            mainVM.SelectedItemChanged += (object? sender, EventArgs e) =>
             {
                 dependentVM.SelectedItem = mainVM.SelectedItem?.Passport;
             };

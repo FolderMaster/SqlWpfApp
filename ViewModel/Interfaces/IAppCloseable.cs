@@ -1,7 +1,7 @@
 ﻿namespace ViewModel.Interfaces
 {
     /// <summary>
-    /// Интерфейс закрытия приложения с методом.
+    /// Интерфейс закрытия приложения с методом закрытия приложения.
     /// </summary>
     public interface IAppCloseable
     {

@@ -5,25 +5,60 @@ using System.Windows.Media;
 
 namespace ViewModel.Services
 {
+    /// <summary>
+    /// Класс сервиса изменения документа с методами.
+    /// </summary>
     public class DocumentEditService
     {
+        /// <summary>
+        /// Интервал между ячейками.
+        /// </summary>
         private static double _cellSpacing = 0;
 
-        private static Brush _borderBrush = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+        /// <summary>
+        /// Кисть границ ячеек.
+        /// </summary>
+        private static Brush _cellBorderBrush = new SolidColorBrush(Color.FromRgb(0, 0, 0));
 
-        private static Thickness _borderThickness = new Thickness(1);
+        /// <summary>
+        /// Толщина границ ячеек.
+        /// </summary>
+        private static Thickness _cellBorderThickness = new Thickness(1);
 
+        /// <summary>
+        /// Документ.
+        /// </summary>
         private FlowDocument _document;
 
+        /// <summary>
+        /// Создаёт экземлпляр класса <see cref="DocumentEditService"/>,
+        /// </summary>
+        /// <param name="document">Документ.</param>
         public DocumentEditService(FlowDocument document) => _document = document;
 
-        public void AddParagraph(string paragraph) =>
-            _document.Blocks.Add(new Paragraph(new Run(paragraph)));
+        /// <summary>
+        /// Добавляет параграф документу.
+        /// </summary>
+        /// <param name="containedValue">Значениие для размещения.</param>
+        public void AddParagraph(object containedValue) =>
+            _document.Blocks.Add(new Paragraph(new Run(containedValue.ToString())));
 
+        /// <summary>
+        /// Добавляет таблицу документу.
+        /// </summary>
+        /// <param name="dataTable">Таблица данных.</param>
         public void AddTable(DataTable dataTable) => _document.Blocks.Add(CreateTable(dataTable));
 
+        /// <summary>
+        /// Очищает документ.
+        /// </summary>
         public void Clear() => _document.Blocks.Clear();
 
+        /// <summary>
+        /// Создаёт таблицу.
+        /// </summary>
+        /// <param name="dataTable">Таблица данных.</param>
+        /// <returns>Таблица на основе таблицы данных.</returns>
         private Table CreateTable(DataTable dataTable)
         {
             var table = new Table();
@@ -60,11 +95,16 @@ namespace ViewModel.Services
             return table;
         }
 
+        /// <summary>
+        /// Создаёт ячейку таблицы.
+        /// </summary>
+        /// <param name="containedValue">Значениие для размещения.</param>
+        /// <returns>Ячейка таблицы.</returns>
         private TableCell CreateTableCell(object containedValue)
         {
             var cell = new TableCell(new Paragraph(new Run(containedValue.ToString())));
-            cell.BorderBrush = _borderBrush;
-            cell.BorderThickness = _borderThickness;
+            cell.BorderBrush = _cellBorderBrush;
+            cell.BorderThickness = _cellBorderThickness;
             return cell;
         }
     }

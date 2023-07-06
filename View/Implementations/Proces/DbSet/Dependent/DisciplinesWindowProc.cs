@@ -30,7 +30,7 @@ namespace View.Implementations.Proces.DbSet.Dependent
             var dependent2VM = new DbSetVM<Specialty>(dbContextCreator, windowResourceService,
                 messageService);
 
-            mainVM.ItemChanged += (object? sender, EventArgs e) =>
+            mainVM.SelectedItemChanged += (object? sender, EventArgs e) =>
             {
                 dependentVM.SelectedItem = mainVM.SelectedItem?.StudyForm;
                 dependent2VM.SelectedItem = mainVM.SelectedItem?.Specialty;

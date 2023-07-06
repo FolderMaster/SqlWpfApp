@@ -15,20 +15,23 @@ namespace View.Implementations.Proces.DbSet.Independent
 
         private IFileService _fileService;
 
+        private IPathService _pathService;
+
         public PassportsWindowProc(IDbContextBuilder dbContextCreator,
             IWindowResourceService windowResourceService, IMessageService messageService,
             IGettingFileService gettingOpenFileService, IGettingFileService gettingSaveFileService,
-            IFileService fileService) :
+            IFileService fileService, IPathService pathService) :
             base(dbContextCreator, windowResourceService, messageService)
         {
             _gettingOpenFileService = gettingOpenFileService;
             _gettingSaveFileService = gettingSaveFileService;
             _fileService = fileService;
+            _pathService = pathService;
         }
 
         protected override Window CreateWindow(IDbContextBuilder dbContextCreator,
             IWindowResourceService windowResourceService, IMessageService messageService) =>
             new PassportsWindow(dbContextCreator, windowResourceService, messageService,
-                _gettingOpenFileService, _gettingSaveFileService, _fileService);
+                _gettingOpenFileService, _gettingSaveFileService, _fileService, _pathService);
     }
 }

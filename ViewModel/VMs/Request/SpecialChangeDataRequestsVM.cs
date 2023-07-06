@@ -29,9 +29,9 @@ namespace ViewModel.VMs.Request
 
         public RelayCommand ExecuteSqlCommand { get; private set; }
 
-        public SpecialChangeDataRequestsVM(IDbContextBuilder dataBaseContextCreator,
+        public SpecialChangeDataRequestsVM(IDbContextBuilder dataBaseContextBuilder,
             IResourceService resourceService, IMessageService messageService) :
-            base(dataBaseContextCreator, resourceService, messageService) =>
+            base(dataBaseContextBuilder, resourceService, messageService) =>
             ExecuteSqlCommand = new RelayCommand(() => ExecuteSqlCommand(CreateSpecialCommand()));
 
         private string CreateSpecialCommand()

@@ -121,8 +121,10 @@
                     TargetNullValue={StaticResource NoImage}}" AllowDrop="True">
                     <i:Interaction.Behaviors>
                         <b:DragDropImageBehavior Image="{Binding ElementName=passportControl,
-                            Path=Passport.Scan, Mode=TwoWay}" MessageService="{Binding
-                            ElementName=passportControl, Path=MessageService}"/>
+                            Path=Passport.Scan, Mode=TwoWay}" MessengerService="{Binding
+                            ElementName=passportControl, Path=MessengerService}"
+                            FileService="{Binding ElementName=passportControl, Path=FileService}"
+                            PathService="{Binding ElementName=passportControl, Path=PathService}"/>
                     </i:Interaction.Behaviors>
                 </Image>
             </GroupBox>

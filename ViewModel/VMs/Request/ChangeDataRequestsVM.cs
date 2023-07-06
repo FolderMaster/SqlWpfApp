@@ -30,9 +30,9 @@ namespace ViewModel.VMs.Request
 
         public RelayCommand ExecuteSqlCommand { get; private set; }
 
-        public ChangeDataRequestsVM(IDbContextBuilder dataBaseContextCreator,
+        public ChangeDataRequestsVM(IDbContextBuilder dataBaseContextBuilder,
             IResourceService resourceService, IMessageService messageService) :
-            base(dataBaseContextCreator, resourceService, messageService) => 
+            base(dataBaseContextBuilder, resourceService, messageService) => 
             ExecuteSqlCommand = new RelayCommand(() => ExecuteSqlCommand(CreateCommand()));
 
         private string CreateCommand()

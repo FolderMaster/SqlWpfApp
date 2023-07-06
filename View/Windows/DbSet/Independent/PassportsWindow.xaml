@@ -36,7 +36,9 @@
         <controls:PassportControl Passport="{Binding SelectedItem}"
                                   LoadImageCommand="{Binding LoadImageCommand}"
                                   SaveImageCommand="{Binding SaveImageCommand}"
-                                  MessageService="{Binding MessageService}"
+                                  MessengerService="{Binding MessengerService}"
+                                  FileService="{Binding FileService}"
+                                  PathService="{Binding PathService}"
                                   IsReadOnly="{Binding SelectedNumber,
                                   Converter={StaticResource InverseIntToBoolConverter}}"/>
     </DockPanel>

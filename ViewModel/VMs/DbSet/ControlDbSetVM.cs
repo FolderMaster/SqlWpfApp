@@ -4,20 +4,49 @@ using ViewModel.Interfaces;
 
 namespace ViewModel.VMs.DbSet
 {
+    /// <summary>
+    /// Класс представления модели представления таблицы из базы данных с финальным и локальными
+    /// представлениями таблицы из базы данных, количеством элементов, выбранным элементом,
+    /// выбранным индексом, выбранным номером, текстом поиска, текстом фильтра, названием
+    /// выбранного свойства и командами сохранения, переходами к первому, последнему, предыдущему,
+    /// следующему элементу, удаления и добавления элемента.
+    /// </summary>
+    /// <typeparam name="T">Тип сущности таблицы.</typeparam>
     public class ControlDbSetVM<T> : DbSetVM<T> where T : class, new()
     {
+        /// <summary>
+        /// Возвращает и задаёт команду перехода к первому элементу.
+        /// </summary>
         public RelayCommand FirstCommand { get; private set; }
 
+        /// <summary>
+        /// Возвращает и задаёт команду перехода к предыдущему элементу.
+        /// </summary>
         public RelayCommand BackCommand { get; private set; }
 
+        /// <summary>
+        /// Возвращает и задаёт команду перехода к следующему элементу.
+        /// </summary>
         public RelayCommand NextCommand { get; private set; }
 
+        /// <summary>
+        /// Возвращает и задаёт команду перехода к последнему элементу.
+        /// </summary>
         public RelayCommand LastCommand { get; private set; }
 
+        /// <summary>
+        /// Возвращает и задаёт команду добавления элемента.
+        /// </summary>
         public RelayCommand AddCommand { get; private set; }
 
+        /// <summary>
+        /// Возвращает и задаёт команду удаления элемента.
+        /// </summary>
         public RelayCommand RemoveCommand { get; private set; }
 
+        /// <summary>
+        /// Возвращает и задаёт выбранного номера.
+        /// </summary>
         public int SelectedNumber
         {
             get => SelectedIndex + 1;
@@ -34,9 +63,15 @@ namespace ViewModel.VMs.DbSet
             }
         }
 
-        public ControlDbSetVM(IDbContextBuilder dataBaseContextCreator,
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="ControlDbSetVM{T}"/>.
+        /// </summary>
+        /// <param name="dataBaseContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="resourceService">Сервис ресурсов.</param>
+        /// <param name="messageService">Сервис сообщений.</param>
+        public ControlDbSetVM(IDbContextBuilder dataBaseContextBuilder,
             IResourceService resourceService, IMessageService messageService) :
-            base(dataBaseContextCreator, resourceService, messageService)
+            base(dataBaseContextBuilder, resourceService, messageService)
         {
             FirstCommand = new RelayCommand(() => SelectedIndex = 0,
                 () => Count > 0 && SelectedIndex != 0);
@@ -71,7 +106,10 @@ namespace ViewModel.VMs.DbSet
             }, () => Count > 0);
         }
 
-        protected override void SelectedIndexChanged()
+        /// <summary>
+        /// Метод, выполняющийся после изменения выбранного индекса.
+        /// </summary>
+        protected override void OnSelectedIndexChanged()
         {
             OnPropertyChanged(nameof(SelectedNumber));
             FirstCommand?.NotifyCanExecuteChanged();

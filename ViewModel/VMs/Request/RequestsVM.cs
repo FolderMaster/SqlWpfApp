@@ -14,16 +14,19 @@ namespace ViewModel.VMs.Request
 
         private IDbContextBuilder _dbContextCreator;
 
+        /// <summary>
+        /// Cервис послания сообщений.
+        /// </summary>
         protected MessengerService _messengerService;
 
         protected IResourceService _resourceService;
 
-        public RequestsVM(IDbContextBuilder dbContextCreator, IResourceService resourceService,
+        public RequestsVM(IDbContextBuilder dbContextBuilder, IResourceService resourceService,
             IMessageService messageService)
         {
             _resourceService = resourceService;
             _messengerService = new MessengerService(_resourceService, messageService);
-            _dbContextCreator = dbContextCreator;
+            _dbContextCreator = dbContextBuilder;
         }
 
         protected void ExecuteSqlCommand(string sqlCommand) =>

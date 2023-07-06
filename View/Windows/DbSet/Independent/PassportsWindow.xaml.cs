@@ -10,12 +10,12 @@ namespace View.Windows.DbSet.Independent
         public PassportsWindow(IDbContextBuilder dbContextCreator,
             IResourceService resourceService, IMessageService messageService,
             IGettingFileService gettingOpenFileService, IGettingFileService gettingSaveFileService,
-            IFileService fileService)
+            IFileService fileService, IPathService pathService)
         {
             InitializeComponent();
 
             DataContext = new PassportsVM(dbContextCreator, resourceService, messageService,
-                gettingOpenFileService, gettingSaveFileService, fileService);
+                gettingOpenFileService, gettingSaveFileService, fileService, pathService);
         }
     }
 }
