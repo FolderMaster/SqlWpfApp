@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-
-using ViewModel.Interfaces;
+using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Messages;
 
 namespace ViewModel.VMs.DbSet
 {
@@ -45,7 +46,7 @@ namespace ViewModel.VMs.DbSet
         public RelayCommand RemoveCommand { get; private set; }
 
         /// <summary>
-        /// Возвращает и задаёт выбранного номера.
+        /// Возвращает и задаёт выбранный номер.
         /// </summary>
         public int SelectedNumber
         {

@@ -1,6 +1,5 @@
 ﻿using System.IO;
-
-using ViewModel.Interfaces;
+using ViewModel.Interfaces.Services.Files;
 
 namespace ViewModel.Dependencies
 {

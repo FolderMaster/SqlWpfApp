@@ -9,28 +9,46 @@ using View.ValidationRules;
 
 namespace View.Behaviors
 {
+    /// <summary>
+    /// Класс поведения <see cref="DataGrid"/> для представления таблицы из базы данных.
+    /// </summary>
     public class DbSetDataGridBehavior : Behavior<DataGrid>
     {
+        /// <summary>
+        /// Возвращает и задаёт предикат создания столбцов.
+        /// </summary>
         public Func<string, bool> CreateColumnPredicate
         {
             get => (Func<string, bool>)GetValue(CreateColumnPredicateProperty);
             set => SetValue(CreateColumnPredicateProperty, value);
         }
 
+        /// <summary>
+        /// Возвращает и задаёт названия выбранного свойства.
+        /// </summary>
         public string SelectedPropertyName
         {
             get => (string)GetValue(SelectedPropertyNameProperty);
             set => SetValue(SelectedPropertyNameProperty, value);
         }
 
+        /// <summary>
+        /// Свойство зависимости <see cref="CreateColumnPredicate"/>.
+        /// </summary>
         public static DependencyProperty CreateColumnPredicateProperty =
             DependencyProperty.Register(nameof(CreateColumnPredicate), typeof(Func<string, bool>),
                 typeof(DbSetDataGridBehavior), new FrameworkPropertyMetadata());
 
+        /// <summary>
+        /// Свойство зависимости <see cref="SelectedPropertyName"/>.
+        /// </summary>
         public static DependencyProperty SelectedPropertyNameProperty =
             DependencyProperty.Register(nameof(SelectedPropertyName), typeof(string),
                 typeof(DbSetDataGridBehavior), new FrameworkPropertyMetadata(""));
 
+        /// <summary>
+        /// Прикрепляет поведение к элементу управления.
+        /// </summary>
         protected override void OnAttached()
         {
             base.OnAttached();
@@ -38,6 +56,9 @@ namespace View.Behaviors
             AssociatedObject.SelectedCellsChanged += SelectedCellsChanged;
         }
 
+        /// <summary>
+        /// Открепляет поведение к элементу управления.
+        /// </summary>
         protected override void OnDetaching()
         {
             base.OnDetaching();

@@ -4,27 +4,48 @@ using System.Windows;
 using View.Windows.DbSet.Independent;
 using View.Implementations.ResourceService;
 
-using ViewModel.Interfaces;
 using ViewModel.VMs.DbSet;
+using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.Services.Messages;
 
 using Model.Independent;
 
 namespace View.Implementations.Proces.DbSet.Independent
 {
+    /// <summary>
+    /// Класс оконной процедуры для работы с должностями с методами вызова и создания окна.
+    /// Реализует <see cref="WindowProc"/>.
+    /// </summary>
     public class PositionsWindowProc : WindowProc
     {
+        /// <summary>
+        /// Ключ ресурсов.
+        /// </summary>
         private static string _keyResource = nameof(Position) + "s";
 
-        public PositionsWindowProc(IDbContextBuilder dbContextCreator,
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="PositionsWindowProc"/>.
+        /// </summary>
+        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="windowResourceService">Сервис ресурсов окна.</param>
+        /// <param name="messageService">Сервис сообщений.</param>
+        public PositionsWindowProc(IDbContextBuilder dbContextBuilder,
             IWindowResourceService windowResourceService, IMessageService messageService) :
-            base(dbContextCreator, windowResourceService, messageService) { }
+            base(dbContextBuilder, windowResourceService, messageService) { }
 
-        protected override Window CreateWindow(IDbContextBuilder dbContextCreator,
+        /// <summary>
+        /// Создаёт окно.
+        /// </summary>
+        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="windowResourceService">Сервис ресурсов окна.</param>
+        /// <param name="messageService">Сервис сообщений.</param>
+        /// <returns>Окно.</returns>
+        protected override Window CreateWindow(IDbContextBuilder dbContextBuilder,
             IWindowResourceService windowResourceService, IMessageService messageService) =>
             new GridDbSetWindow(windowResourceService, _keyResource, _keyResource,
                 new List<object>()
                 {
-                    new DbSetVM<Position>(dbContextCreator, windowResourceService, messageService),
+                    new DbSetVM<Position>(dbContextBuilder, windowResourceService, messageService),
                     (string nameProperty) => nameProperty != nameof(Position.Teachers)
                 });
     }

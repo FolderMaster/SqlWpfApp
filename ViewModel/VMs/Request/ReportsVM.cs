@@ -2,57 +2,108 @@
 using CommunityToolkit.Mvvm.Input;
 
 using System.Windows.Documents;
-
-using ViewModel.Interfaces;
+using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Messages;
 using ViewModel.Services;
 
 namespace ViewModel.VMs.Request
 {
+    /// <summary>
+    /// Класс представления модели для создания отчётов с документом и команды печати и вывода
+    /// отчётов.
+    /// </summary>
     public partial class ReportsVM : ViewRequestsVM
     {
+        /// <summary>
+        /// Ключ ресурса параграфа о студентах в отчёте об отчислениях.
+        /// </summary>
         private static string _deductingsStudentsParagraphResourceKey =
             "DeductingsStudentsParagraph";
 
+        /// <summary>
+        /// Ключ ресурса параграфа о средне статистических оценках в отчёте о студентах.
+        /// </summary>
         private static string _studentsAverageGradesParagraphResourceKey =
             "StudentsAverageGradesParagraph";
 
+        /// <summary>
+        /// Ключ ресурса параграфа о оценках в отчёте о студентах.
+        /// </summary>
         private static string _studentsGradesParagraphResourceKey = "StudentsGradesParagraph";
 
+        /// <summary>
+        /// Ключ ресурса параграфа о стипендиях в отчёте о факультетах.
+        /// </summary>
         private static string _departmentsScholarshipsParagraphResourceKey =
             "DepartmentsScholarshipsParagraph";
 
+        /// <summary>
+        /// Ключ ресурса параграфа о средне статистических оценках в отчёте о факультетах.
+        /// </summary>
         private static string _departmentsAverageGradesParagraphResourceKey =
             "DepartmentsAverageGradesParagraph";
 
+        /// <summary>
+        /// Ключ ресурса описания документа.
+        /// </summary>
         private static string _documentDescriptionResourceKey = "DocumentDescription";
 
-        private IPrintService _printDialogService;
+        /// <summary>
+        /// Сервис печати.
+        /// </summary>
+        private IPrintService _printService;
 
+        /// <summary>
+        /// Сервис изменения документа.
+        /// </summary>
         private DocumentEditService _documentEditService;
 
+        /// <summary>
+        /// Документ.
+        /// </summary>
         [ObservableProperty]
         private FlowDocument document = new();
 
+        /// <summary>
+        /// Возвращает и задаёт команду печати.
+        /// </summary>
         public RelayCommand PrintCommand { get; private set; }
 
+        /// <summary>
+        /// Возвращает и задаёт команду вывода отчёта по отчислениям.
+        /// </summary>
         public RelayCommand DeductingsCommand { get; private set; }
 
+        /// <summary>
+        /// Возвращает и задаёт команду вывода отчёта по студентам.
+        /// </summary>
         public RelayCommand StudentsCommand { get; private set; }
 
+        /// <summary>
+        /// Возвращает и задаёт команду вывода отчёта по факультетам.
+        /// </summary>
         public RelayCommand DepartmentsCommand { get; private set; }
 
-        public ReportsVM(IDbContextBuilder dataBaseContextBuilder,
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="ChangeDataRequestsVM"/>.
+        /// </summary>
+        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="resourceService">Сервис ресурсов.</param>
+        /// <param name="messageService">Сервис сообщений.</param>
+        /// <param name="printService">Сервис печати.</param>
+        public ReportsVM(IDbContextBuilder dbContextBuilder,
             IResourceService resourceService, IMessageService messageService,
-            IPrintService printDialog) :
-            base(dataBaseContextBuilder, resourceService, messageService)
+            IPrintService printService) :
+            base(dbContextBuilder, resourceService, messageService)
         {
-            _printDialogService = printDialog;
+            _printService = printService;
             _documentEditService = new DocumentEditService(Document);
 
             DeductingsCommand = new RelayCommand(() =>
             {
                 _documentEditService.Clear();
-                ExecuteSqlCommand(CreateSelectCommand("s.ID, p.Name, s.GroupNumber, " +
+                ExecuteCommand(CreateSelectCommand("s.ID, p.Name, s.GroupNumber, " +
                     "s.GroupFormationYear, sp.DepartmentName AS Department",
                     "Students s, Persons p, Groups g, Specialties sp",
                     "IsDeductible = 1 AND s.ID = p.ID AND s.GroupNumber = g.Number AND " +
@@ -65,7 +116,7 @@ namespace ViewModel.VMs.Request
             StudentsCommand = new RelayCommand(() =>
             {
                 _documentEditService.Clear();
-                ExecuteSqlCommand(CreateSelectCommand("s.ID, p.Name, " +
+                ExecuteCommand(CreateSelectCommand("s.ID, p.Name, " +
                     "sp.DepartmentName AS Department, g.Number AS GroupNumber, " +
                     "g.FormationYear AS GroupFormationYear, " +
                     "AVG(studentGrades.Coefficient) AS AverageGrade",
@@ -84,7 +135,7 @@ namespace ViewModel.VMs.Request
                 _documentEditService.AddParagraph(_resourceService.GetString
                     (_studentsAverageGradesParagraphResourceKey));
                 _documentEditService.AddTable(ExecutingResult);
-                ExecuteSqlCommand(CreateSelectCommand("s.ID, p.Name, " +
+                ExecuteCommand(CreateSelectCommand("s.ID, p.Name, " +
                     "sp.DepartmentName AS Department, g.Number AS GroupNumber, " +
                     "g.FormationYear AS GroupFormationYear, d.ID AS DisciplineID, " +
                     "d.Name AS DisciplineName, studentGrades.GradeName AS Grade",
@@ -107,7 +158,7 @@ namespace ViewModel.VMs.Request
             DepartmentsCommand = new RelayCommand(() =>
             {
                 _documentEditService.Clear();
-                ExecuteSqlCommand(CreateSelectCommand("sp.DepartmentName AS Department, " +
+                ExecuteCommand(CreateSelectCommand("sp.DepartmentName AS Department, " +
                     "s.GroupNumber, s.GroupFormationYear, s.ScholarshipName AS Scholarship, " +
                     "Count(s.ID) AS Count",
                     "Students s, Groups g, Specialties sp",
@@ -119,7 +170,7 @@ namespace ViewModel.VMs.Request
                 _documentEditService.AddParagraph(_resourceService.GetString
                     (_departmentsScholarshipsParagraphResourceKey));
                 _documentEditService.AddTable(ExecutingResult);
-                ExecuteSqlCommand(CreateSelectCommand("sp.DepartmentName AS Department, " +
+                ExecuteCommand(CreateSelectCommand("sp.DepartmentName AS Department, " +
                     "g.Number AS GroupNumber, g.FormationYear AS GroupFormationYear, " +
                     "AVG(studentGrades.Coefficient) AS AverageGrade",
                     "Students s, Groups g, Specialties sp " +
@@ -143,7 +194,7 @@ namespace ViewModel.VMs.Request
             PrintCommand = new RelayCommand(() =>
             {
                 var source = Document as IDocumentPaginatorSource;
-                _printDialogService.Print(source.DocumentPaginator,
+                _printService.Print(source.DocumentPaginator,
                     _resourceService.GetString(_documentDescriptionResourceKey));
             });
         }

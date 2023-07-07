@@ -5,18 +5,34 @@ using System;
 using System.Collections.ObjectModel;
 
 using ViewModel.Enums;
-using ViewModel.Interfaces;
+using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Messages;
 
 namespace ViewModel.VMs.Request
 {
+    /// <summary>
+    /// Класс представления модели для выполнения запросов изменения данных с режимом изменения
+    /// данных, названием таблицы, коллекцией представлений модели для параметров и командой
+    /// выполнения.
+    /// </summary>
     public partial class ChangeDataRequestsVM : ChangeRequestsVM
     {
+        /// <summary>
+        /// Режим изменения данных.
+        /// </summary>
         [ObservableProperty]
         private ChangeDataMode changeDataMode = ChangeDataMode.Insert;
 
+        /// <summary>
+        /// Название таблицы.
+        /// </summary>
         [ObservableProperty]
         private TableName tableName = TableName.Students;
 
+        /// <summary>
+        /// Коллекция представлений модели для параметров.
+        /// </summary>
         [ObservableProperty]
         private ObservableCollection<ParametersVM> parametersVMs = new()
         {
@@ -28,13 +44,26 @@ namespace ViewModel.VMs.Request
             new ParametersVM(new object[] { 0 }),
         };
 
-        public RelayCommand ExecuteSqlCommand { get; private set; }
+        /// <summary>
+        /// Возвращает и задаёт команду выполнения.
+        /// </summary>
+        public RelayCommand ExecuteCommand { get; private set; }
 
-        public ChangeDataRequestsVM(IDbContextBuilder dataBaseContextBuilder,
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="ChangeDataRequestsVM"/>.
+        /// </summary>
+        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="resourceService">Сервис ресурсов.</param>
+        /// <param name="messageService">Сервис сообщений.</param>
+        public ChangeDataRequestsVM(IDbContextBuilder dbContextBuilder,
             IResourceService resourceService, IMessageService messageService) :
-            base(dataBaseContextBuilder, resourceService, messageService) => 
-            ExecuteSqlCommand = new RelayCommand(() => ExecuteSqlCommand(CreateCommand()));
+            base(dbContextBuilder, resourceService, messageService) => 
+            ExecuteCommand = new RelayCommand(() => ExecuteCommand(CreateCommand()));
 
+        /// <summary>
+        /// Создаёт команду.
+        /// </summary>
+        /// <returns>Команда.</returns>
         private string CreateCommand()
         {
             var parametersIndex = 3 * ((int)TableName - 1) + ((int)ChangeDataMode - 1);

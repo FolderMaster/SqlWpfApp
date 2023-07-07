@@ -1,7 +1,7 @@
-﻿namespace ViewModel.Interfaces
+﻿namespace ViewModel.Interfaces.Services.Files
 {
     /// <summary>
-    /// Интерфейс сервиса получения файла.
+    /// Интерфейс сервиса получения файла с методом получения пути к файлу.
     /// </summary>
     public interface IGettingFileService
     {

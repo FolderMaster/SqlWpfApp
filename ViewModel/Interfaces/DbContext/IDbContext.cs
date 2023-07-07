@@ -2,11 +2,11 @@
 
 using System.Data;
 
-namespace ViewModel.Interfaces
+namespace ViewModel.Interfaces.DbContext
 {
     /// <summary>
     /// Интерфейс контекста базы данных с методами создания представления таблицы из базы данных,
-    /// сохранения изменения в таблице и выполения команды.
+    /// сохранения изменения в таблице и выполнения команды.
     /// </summary>
     public interface IDbContext
     {

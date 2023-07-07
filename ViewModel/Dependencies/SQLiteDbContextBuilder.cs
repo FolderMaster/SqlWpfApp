@@ -1,4 +1,4 @@
-﻿using ViewModel.Interfaces;
+﻿using ViewModel.Interfaces.DbContext;
 
 namespace ViewModel.Dependencies
 {

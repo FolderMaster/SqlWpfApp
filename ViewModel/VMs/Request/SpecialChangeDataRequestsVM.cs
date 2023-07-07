@@ -5,16 +5,29 @@ using System;
 using System.Collections.ObjectModel;
 
 using ViewModel.Enums;
-using ViewModel.Interfaces;
+using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Messages;
 
 namespace ViewModel.VMs.Request
 {
+    /// <summary>
+    /// Класс представления модели для выполнения специализированных запросов изменения данных с
+    /// специализированным запросом изменения данных, коллекцией представлений модели для
+    /// параметров и командой выполнения.
+    /// </summary>
     public partial class SpecialChangeDataRequestsVM : ChangeRequestsVM
     {
+        /// <summary>
+        /// Специализированный запрос изменения данных.
+        /// </summary>
         [ObservableProperty]
         private SpecialChangeDataRequest request =
             SpecialChangeDataRequest.SetNullStudentDeductings;
 
+        /// <summary>
+        /// Коллекция представлений модели для параметров.
+        /// </summary>
         [ObservableProperty]
         private ObservableCollection<ParametersVM> parametersVMs = new()
         {
@@ -27,13 +40,26 @@ namespace ViewModel.VMs.Request
             new ParametersVM(new object[] { "Без стипендии", 1, 1, "%%" })
         };
 
-        public RelayCommand ExecuteSqlCommand { get; private set; }
+        /// <summary>
+        /// Возвращает и задаёт команду выполнения.
+        /// </summary>
+        public RelayCommand ExecuteCommand { get; private set; }
 
-        public SpecialChangeDataRequestsVM(IDbContextBuilder dataBaseContextBuilder,
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="SpecialChangeDataRequestsVM"/>.
+        /// </summary>
+        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="resourceService">Сервис ресурсов.</param>
+        /// <param name="messageService">Сервис сообщений.</param>
+        public SpecialChangeDataRequestsVM(IDbContextBuilder dbContextBuilder,
             IResourceService resourceService, IMessageService messageService) :
-            base(dataBaseContextBuilder, resourceService, messageService) =>
-            ExecuteSqlCommand = new RelayCommand(() => ExecuteSqlCommand(CreateSpecialCommand()));
+            base(dbContextBuilder, resourceService, messageService) =>
+            ExecuteCommand = new RelayCommand(() => ExecuteCommand(CreateSpecialCommand()));
 
+        /// <summary>
+        /// Создаёт специализированную команду.
+        /// </summary>
+        /// <returns>Специализированная команда.</returns>
         private string CreateSpecialCommand()
         {
             var table = "";

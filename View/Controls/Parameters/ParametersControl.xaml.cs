@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows.Controls;
 
 namespace View.Controls.Request
 {
+    /// <summary>
+    /// Класс элемента управления для редактирования параметров.
+    /// </summary>
     public partial class ParametersControl : UserControl
     {
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="ParametersControl"/> по умолчанию.
+        /// </summary>
         public ParametersControl()
         {
             InitializeComponent();

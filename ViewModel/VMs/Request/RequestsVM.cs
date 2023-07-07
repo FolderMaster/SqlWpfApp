@@ -1,26 +1,46 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 using System.Data;
-
-using ViewModel.Interfaces;
+using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Messages;
 using ViewModel.Services;
 
 namespace ViewModel.VMs.Request
 {
+    /// <summary>
+    /// Класс представления модели для выполнения запросов с результатом выполнения и методом
+    /// выполнения.
+    /// </summary>
     public partial class RequestsVM : ObservableObject
     {
+        /// <summary>
+        /// Результат выполнения.
+        /// </summary>
         [ObservableProperty]
         private DataTable executingResult;
 
+        /// <summary>
+        /// Создатель контекста базы данных.
+        /// </summary>
         private IDbContextBuilder _dbContextCreator;
 
         /// <summary>
-        /// Cервис послания сообщений.
+        /// Сервис послания сообщений.
         /// </summary>
-        protected MessengerService _messengerService;
+        protected IMessengerService _messengerService;
 
+        /// <summary>
+        /// Сервис ресурсов.
+        /// </summary>
         protected IResourceService _resourceService;
 
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="RequestsVM"/>.
+        /// </summary>
+        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="resourceService">Сервис ресурсов.</param>
+        /// <param name="messageService">Сервис сообщений.</param>
         public RequestsVM(IDbContextBuilder dbContextBuilder, IResourceService resourceService,
             IMessageService messageService)
         {
@@ -29,8 +49,12 @@ namespace ViewModel.VMs.Request
             _dbContextCreator = dbContextBuilder;
         }
 
-        protected void ExecuteSqlCommand(string sqlCommand) =>
+        /// <summary>
+        /// Выполняет команду.
+        /// </summary>
+        /// <param name="сommandString">Строка команды.</param>
+        protected void ExecuteCommand(string сommandString) =>
             _messengerService.ExecuteWithExceptionMessage(() =>
-                ExecutingResult = _dbContextCreator.Result.ExecuteCommand(sqlCommand));
+                ExecutingResult = _dbContextCreator.Result.ExecuteCommand(сommandString));
     }
 }

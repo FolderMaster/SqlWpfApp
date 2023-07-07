@@ -5,28 +5,49 @@ using System.Windows;
 using View.Windows.DbSet.Dependent;
 using View.Implementations.ResourceService;
 
-using ViewModel.Interfaces;
 using ViewModel.VMs.DbSet;
+using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.Services.Messages;
 
 using Model.Dependent;
 using Model.Independent;
 
 namespace View.Implementations.Proces.DbSet.Dependent
 {
+    /// <summary>
+    /// Класс оконной процедуры для работы с оценками с методами вызова и создания окна. Реализует
+    /// <see cref="WindowProc"/>.
+    /// </summary>
     public class GradesWindowProc : WindowProc
     {
+        /// <summary>
+        /// Ключ ресурсов.
+        /// </summary>
         private static string _keyResource = nameof(Grade) + "s";
 
-        public GradesWindowProc(IDbContextBuilder dbContextCreator,
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="GradesWindowProc"/>.
+        /// </summary>
+        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="windowResourceService">Сервис ресурсов окна.</param>
+        /// <param name="messageService">Сервис сообщений.</param>
+        public GradesWindowProc(IDbContextBuilder dbContextBuilder,
             IWindowResourceService windowResourceService, IMessageService messageService) :
-            base(dbContextCreator, windowResourceService, messageService) { }
+            base(dbContextBuilder, windowResourceService, messageService) { }
 
-        protected override Window CreateWindow(IDbContextBuilder dbContextCreator,
+        /// <summary>
+        /// Создаёт окно.
+        /// </summary>
+        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="windowResourceService">Сервис ресурсов окна.</param>
+        /// <param name="messageService">Сервис сообщений.</param>
+        /// <returns>Окно.</returns>
+        protected override Window CreateWindow(IDbContextBuilder dbContextBuilder,
             IWindowResourceService windowResourceService, IMessageService messageService)
         {
-            var mainVM = new DbSetVM<Grade>(dbContextCreator, windowResourceService,
+            var mainVM = new DbSetVM<Grade>(dbContextBuilder, windowResourceService,
                 messageService);
-            var dependentVM = new DbSetVM<GradeMode>(dbContextCreator, windowResourceService,
+            var dependentVM = new DbSetVM<GradeMode>(dbContextBuilder, windowResourceService,
                 messageService);
 
             mainVM.SelectedItemChanged += (object? sender, EventArgs e) =>

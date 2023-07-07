@@ -10,7 +10,7 @@
         /// </summary>
         None,
         /// <summary>
-        /// Среднестатичесческие последние оценки по дисциплинам.
+        /// Средне статические последние оценки по дисциплинам.
         /// </summary>
         AverageDisciplineLastGrades,
         /// <summary>
@@ -26,7 +26,7 @@
         /// </summary>
         PassingDisciplineCounts,
         /// <summary>
-        /// Среднестатические последние оценки по группе и факультету.
+        /// Средне статические последние оценки по группе и факультету.
         /// </summary>
         AverageDepartmentGroupLastGrades,
         /// <summary>

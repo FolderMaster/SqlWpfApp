@@ -1,4 +1,4 @@
-﻿namespace ViewModel.Interfaces
+﻿namespace ViewModel.Interfaces.Services.Files
 {
     /// <summary>
     /// Интерфейс файлового сервиса с методами сохранения и загрузки.

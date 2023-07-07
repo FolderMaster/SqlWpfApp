@@ -1,14 +1,14 @@
 ﻿using System;
-
-using ViewModel.Interfaces;
+using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Messages;
 
 namespace ViewModel.Services
 {
     /// <summary>
     /// Класс сервиса послания сообщений с методами показа сообщения и исполнения действия с
-    /// сообщением о исключении.
+    /// сообщением о исключении. Реализует <see cref="IMessengerService"/>.
     /// </summary>
-    public class MessengerService
+    public class MessengerService : IMessengerService
     {
         /// <summary>
         /// Ключ к ресурсу заголовка ошибки.

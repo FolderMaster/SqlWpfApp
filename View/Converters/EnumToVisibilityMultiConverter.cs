@@ -5,8 +5,20 @@ using System.Windows.Data;
 
 namespace View.Converters
 {
+    /// <summary>
+    /// Класс мульти конвертора перечислений и <see cref="Visibility"/>.
+    /// </summary>
     public class EnumToVisibilityMultiConverter : IMultiValueConverter
     {
+        /// <summary>
+        /// Конвертирует значения перечисления к <see cref="Visibility"/>.
+        /// </summary>
+        /// <param name="values">Значение конвертации.</param>
+        /// <param name="targetType">Тип назначения конвертации.</param>
+        /// <param name="parameter">Дополнительный параметр.</param>
+        /// <param name="culture">Сведения о культуре.</param>
+        /// <returns>Если параметр и значения совпадают, то true, иначе false.</returns>
+        /// <exception cref="NotImplementedException"></exception>
         public object Convert(object[] values, Type targetType, object parameter,
             CultureInfo culture)
         {
@@ -27,6 +39,15 @@ namespace View.Converters
             return Visibility.Visible;
         }
 
+        /// <summary>
+        /// Конвертирует значения <see cref="Visibility"/> к перечислению (не используется).
+        /// </summary>
+        /// <param name="value">Значение конвертации.</param>
+        /// <param name="targetTypes">Тип назначения конвертации.</param>
+        /// <param name="parameter">Дополнительный параметр.</param>
+        /// <param name="culture">Сведения о культуре.</param>
+        /// <returns>Исключение (не используется).</returns>
+        /// <exception cref="NotImplementedException"></exception>
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter,
             CultureInfo culture) => throw new NotImplementedException();
     }

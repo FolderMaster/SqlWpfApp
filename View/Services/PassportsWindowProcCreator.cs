@@ -2,7 +2,10 @@
 using View.Implementations.Proces.DbSet.Independent;
 using View.Implementations.ResourceService;
 
-using ViewModel.Interfaces;
+using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.Services.Files;
+using ViewModel.Interfaces.Services.Messages;
+using ViewModel.Interfaces.Technicals;
 
 namespace View.Services
 {

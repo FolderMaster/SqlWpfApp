@@ -1,18 +1,30 @@
 ﻿using System.Windows;
 
 using ViewModel.VMs.Request;
-using ViewModel.Interfaces;
+using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Messages;
 
 namespace View.Windows
 {
+    /// <summary>
+    /// Класс окна для работы с отчётами.
+    /// </summary>
     public partial class ReportsWindow : Window
     {
-        public ReportsWindow(IDbContextBuilder dbContextCreator, IResourceService resourceService,
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="ReportsWindow"/>.
+        /// </summary>
+        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="resourceService">Сервис ресурсов.</param>
+        /// <param name="messageService">Сервис сообщений.</param>
+        /// <param name="printDialogService">Сервис печати.</param>
+        public ReportsWindow(IDbContextBuilder dbContextBuilder, IResourceService resourceService,
             IMessageService messageService, IPrintService printDialogService)
         {
             InitializeComponent();
 
-            DataContext = new ReportsVM(dbContextCreator, resourceService, messageService,
+            DataContext = new ReportsVM(dbContextBuilder, resourceService, messageService,
                 printDialogService);
         }
     }

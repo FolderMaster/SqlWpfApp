@@ -1,4 +1,4 @@
-﻿namespace ViewModel.Interfaces
+﻿namespace ViewModel.Interfaces.Services.Files
 {
     /// <summary>
     /// Интерфейс сервиса путей с методом получения полного пути.

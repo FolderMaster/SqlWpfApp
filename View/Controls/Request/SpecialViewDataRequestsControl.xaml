@@ -214,7 +214,7 @@
                 </Grid>
             </GroupBox>
             <Button Grid.Row="1" Content="{StaticResource ExecuteRequestHeader}"
-                    Command="{Binding ExecuteSqlCommand}"/>
+                    Command="{Binding ExecuteCommand}"/>
         </Grid>
         <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top"
                       ShowsPreview="True" ResizeDirection="Rows" Height="3px"/>

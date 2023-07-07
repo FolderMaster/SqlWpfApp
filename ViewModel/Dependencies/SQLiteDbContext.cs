@@ -5,22 +5,21 @@ using System.Linq;
 using System.Data;
 using System.Data.SQLite;
 
-using ViewModel.Interfaces;
-
 using Model.Independent;
 using Model.Dependent;
+using ViewModel.Interfaces.DbContext;
 
 namespace ViewModel.Dependencies
 {
     /// <summary>
     /// Класс контекста базы данных SQLite с строкой подключения и представлениями таблиц, методами
-    /// создания представления таблицы из базы данных, сохранения изменения в таблице и выполения
+    /// создания представления таблицы из базы данных, сохранения изменения в таблице и выполнения
     /// команды. Реализует <see cref="IDbContext"/>.
     /// </summary>
     public class SQLiteDbContext : DbContext, IDbContext
     {
         /// <summary>
-        /// Строка поключения.
+        /// Строка подключения.
         /// </summary>
         private string _connectionString;
 

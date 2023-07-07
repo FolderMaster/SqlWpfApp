@@ -25,7 +25,7 @@ namespace Model.Dependent
         public static ObservableCollection<Person> Persons { get; set; } = new();
 
         /// <summary>
-        /// Возвращает и задаёт индентификатор.
+        /// Возвращает и задаёт идентификатор.
         /// </summary>
         public long ID { get; set; }
 

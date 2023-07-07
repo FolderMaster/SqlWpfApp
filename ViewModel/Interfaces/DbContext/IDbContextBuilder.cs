@@ -1,4 +1,4 @@
-﻿namespace ViewModel.Interfaces
+﻿namespace ViewModel.Interfaces.DbContext
 {
     /// <summary>
     /// Интерфейс создателя контекста базы данных с методом создания и результатом.

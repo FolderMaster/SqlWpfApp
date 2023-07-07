@@ -4,52 +4,82 @@ using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows;
 
-using ViewModel.Interfaces;
-using ViewModel.Services;
+using ViewModel.Interfaces.Services.Files;
+using ViewModel.Interfaces.Services.Messages;
 
 namespace View.Behaviors
 {
+    /// <summary>
+    /// Класс поведения <see cref="Image"/> перетаскивания изображения.
+    /// </summary>
     public class DragDropImageBehavior : Behavior<Image>
     {
+        /// <summary>
+        /// Возвращает и задаёт изображение.
+        /// </summary>
         public byte[] Image
         {
             get => (byte[])GetValue(ImageProperty);
             set => SetValue(ImageProperty, value);
         }
 
-        public MessengerService MessengerService
+        /// <summary>
+        /// Возвращает и задаёт сервис послания сообщений.
+        /// </summary>
+        public IMessengerService MessengerService
         {
-            get => (MessengerService)GetValue(MessengerServiceProperty);
+            get => (IMessengerService)GetValue(MessengerServiceProperty);
             set => SetValue(MessengerServiceProperty, value);
         }
 
+        /// <summary>
+        /// Возвращает и задаёт файловый сервис.
+        /// </summary>
         public IFileService FileService
         {
             get => (IFileService)GetValue(FileServiceProperty);
             set => SetValue(FileServiceProperty, value);
         }
 
+        /// <summary>
+        /// Возвращает и задаёт сервис путей.
+        /// </summary>
         public IPathService PathService
         {
             get => (IPathService)GetValue(PathServiceProperty);
             set => SetValue(PathServiceProperty, value);
         }
 
+        /// <summary>
+        /// Свойство зависимости <see cref="Image"/>.
+        /// </summary>
         public static DependencyProperty ImageProperty = DependencyProperty.Register(nameof(Image),
             typeof(byte[]), typeof(DragDropImageBehavior), new FrameworkPropertyMetadata());
 
+        /// <summary>
+        /// Свойство зависимости <see cref="MessengerService"/>.
+        /// </summary>
         public static DependencyProperty MessengerServiceProperty = DependencyProperty.Register
-            (nameof(MessengerService), typeof(MessengerService), typeof(DragDropImageBehavior),
+            (nameof(MessengerService), typeof(IMessengerService), typeof(DragDropImageBehavior),
             new FrameworkPropertyMetadata());
 
+        /// <summary>
+        /// Свойство зависимости <see cref="FileService"/>.
+        /// </summary>
         public static DependencyProperty FileServiceProperty = DependencyProperty.Register
             (nameof(FileService), typeof(IFileService), typeof(DragDropImageBehavior),
             new FrameworkPropertyMetadata());
 
+        /// <summary>
+        /// Свойство зависимости <see cref="PathService"/>.
+        /// </summary>
         public static DependencyProperty PathServiceProperty = DependencyProperty.Register
             (nameof(PathService), typeof(IPathService), typeof(DragDropImageBehavior),
             new FrameworkPropertyMetadata());
 
+        /// <summary>
+        /// Прикрепляет поведение к элементу управления.
+        /// </summary>
         protected override void OnAttached()
         {
             base.OnAttached();
@@ -58,6 +88,9 @@ namespace View.Behaviors
                 AssociatedObject_PreviewMouseLeftButtonDown;
         }
 
+        /// <summary>
+        /// Открепляет поведение к элементу управления.
+        /// </summary>
         protected override void OnDetaching()
         {
             base.OnDetaching();

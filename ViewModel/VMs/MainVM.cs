@@ -2,6 +2,9 @@
 using CommunityToolkit.Mvvm.Input;
 
 using ViewModel.Interfaces;
+using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Messages;
 using ViewModel.Services;
 
 namespace ViewModel.VMs
@@ -35,7 +38,7 @@ namespace ViewModel.VMs
         /// <summary>
         /// Сервис послания сообщений.
         /// </summary>
-        private MessengerService _messengerService;
+        private IMessengerService _messengerService;
 
         /// <summary>
         /// Конфигурация.

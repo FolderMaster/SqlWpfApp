@@ -41,7 +41,7 @@ namespace Model.Independent
         public string Name { get; set; }
 
         /// <summary>
-        /// Возвращает и задаёт адресс постоянной прописки.
+        /// Возвращает и задаёт адрес постоянной прописки.
         /// </summary>
         public string PermanentResidenceAddress { get; set; }
 

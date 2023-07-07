@@ -1,4 +1,4 @@
-﻿namespace ViewModel.Interfaces
+﻿namespace ViewModel.Interfaces.Services.Messages
 {
     /// <summary>
     /// Интерфейс сервиса сообщений с методом показа сообщения.

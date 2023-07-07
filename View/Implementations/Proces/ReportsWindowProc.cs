@@ -3,23 +3,46 @@
 using View.Implementations.ResourceService;
 using View.Windows;
 
-using ViewModel.Interfaces;
+using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Messages;
 
 namespace View.Implementations.Proces
 {
+    /// <summary>
+    /// Класс оконной процедуры для работы с отчётами с методами вызова и создания окна. Реализует
+    /// <see cref="WindowProc"/>.
+    /// </summary>
     public class ReportsWindowProc : WindowProc
     {
-        private IPrintService _printDialogService;
+        /// <summary>
+        /// Сервис печати.
+        /// </summary>
+        private IPrintService _printService;
 
-        public ReportsWindowProc(IDbContextBuilder dbContextCreator,
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="ReportsWindowProc"/>.
+        /// </summary>
+        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="windowResourceService">Сервис ресурсов окна.</param>
+        /// <param name="messageService">Сервис сообщений.</param>
+        /// <param name="printService">Сервис печати.</param>
+        public ReportsWindowProc(IDbContextBuilder dbContextBuilder,
             IWindowResourceService windowResourceService, IMessageService messageService,
-            IPrintService printDialogService) :
-            base(dbContextCreator, windowResourceService, messageService) =>
-            _printDialogService = printDialogService;
+            IPrintService printService) :
+            base(dbContextBuilder, windowResourceService, messageService) =>
+            _printService = printService;
 
-        protected override Window CreateWindow(IDbContextBuilder dbContextCreator,
+        /// <summary>
+        /// Создаёт окно.
+        /// </summary>
+        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="windowResourceService">Сервис ресурсов окна.</param>
+        /// <param name="messageService">Сервис сообщений.</param>
+        /// <returns>Окно.</returns>
+        protected override Window CreateWindow(IDbContextBuilder dbContextBuilder,
             IWindowResourceService windowResourceService, IMessageService messageService) =>
-            new ReportsWindow(dbContextCreator, windowResourceService, messageService,
-                _printDialogService);
+            new ReportsWindow(dbContextBuilder, windowResourceService, messageService,
+                _printService);
     }
 }

@@ -6,8 +6,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Model.Dependent
 {
     /// <summary>
-    /// Класс ведомости оценивания с идентификатором, индентификатором студента, индентификатором 
-    /// дисциплины, индентификатором преподавателя, названием оценки и датой сдачи.
+    /// Класс ведомости оценивания с идентификатором, идентификатором студента, идентификатором 
+    /// дисциплины, идентификатором преподавателя, названием оценки и датой сдачи.
     /// </summary>
     [Table("GradeStatements")]
     [PrimaryKey(nameof(ID))]
@@ -24,12 +24,12 @@ namespace Model.Dependent
         public static ObservableCollection<GradeStatement> GradeStatements { get; set; } = new();
 
         /// <summary>
-        /// Возвращает и задаёт индентификатор.
+        /// Возвращает и задаёт идентификатор.
         /// </summary>
         public long ID { get; set; }
 
         /// <summary>
-        /// Возвращает и задаёт индентификатор студента.
+        /// Возвращает и задаёт идентификатор студента.
         /// </summary>
         public long StudentID { get; set; }
 
@@ -39,7 +39,7 @@ namespace Model.Dependent
         public virtual Student Student { get; set; }
 
         /// <summary>
-        /// Возвращает и задаёт индентификатор дисциплины.
+        /// Возвращает и задаёт идентификатор дисциплины.
         /// </summary>
         public long DisciplineID { get; set; }
 
@@ -49,7 +49,7 @@ namespace Model.Dependent
         public virtual Discipline Discipline { get; set; }
 
         /// <summary>
-        /// Возвращает и задаёт индентификатор преподавателя.
+        /// Возвращает и задаёт идентификатор преподавателя.
         /// </summary>
         public long TeacherID { get; set; }
 

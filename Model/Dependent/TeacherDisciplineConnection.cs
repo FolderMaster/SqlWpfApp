@@ -8,8 +8,8 @@ using Model.Independent;
 namespace Model.Dependent
 {
     /// <summary>
-    /// Класс связи между дисциплинами и преподавателями с индентификатором преподавателя, 
-    /// индентификатором дисциплины и названием роли.
+    /// Класс связи между дисциплинами и преподавателями с идентификатором преподавателя, 
+    /// идентификатором дисциплины и названием роли.
     /// </summary>
     [Table("TeacherDisciplineConnections")]
     [PrimaryKey(nameof(TeacherID), new string[] { nameof(DisciplineID) })]
@@ -27,7 +27,7 @@ namespace Model.Dependent
             TeacherDisciplineConnections { get; set; } = new();
 
         /// <summary>
-        /// Возвращает и задаёт индентификатор преподавателя.
+        /// Возвращает и задаёт идентификатор преподавателя.
         /// </summary>
         public long TeacherID { get; set; }
 
@@ -37,7 +37,7 @@ namespace Model.Dependent
         public virtual Teacher Teacher { get; set; }
 
         /// <summary>
-        /// Возвращает и задаёт индентификатор дисциплины.
+        /// Возвращает и задаёт идентификатор дисциплины.
         /// </summary>
         public long DisciplineID { get; set; }
 

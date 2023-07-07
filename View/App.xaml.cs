@@ -15,13 +15,26 @@ using View.Windows;
 
 using ViewModel.Dependencies;
 using ViewModel.Interfaces;
+using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Files;
+using ViewModel.Interfaces.Services.Messages;
 
 namespace View
 {
+    /// <summary>
+    /// Класс приложения.
+    /// </summary>
     public partial class App : Application
     {
+        /// <summary>
+        /// Хост.
+        /// </summary>
         private readonly IHost _host;
 
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="App"/> по умолчанию.
+        /// </summary>
         public App()
         {
             _host = Host.CreateDefaultBuilder().ConfigureServices((services) =>
@@ -81,6 +94,9 @@ namespace View
             }).Build();
         }
 
+        /// <summary>
+        /// Метод, выполняющийся при запуске.
+        /// </summary>
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -93,6 +109,9 @@ namespace View
             MainWindow.Show();
         }
 
+        /// <summary>
+        /// Метод, выполняющийся при выходе.
+        /// </summary>
         protected override void OnExit(ExitEventArgs e)
         {
             _host.StopAsync();

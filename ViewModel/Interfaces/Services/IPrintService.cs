@@ -1,4 +1,4 @@
-﻿namespace ViewModel.Interfaces
+﻿namespace ViewModel.Interfaces.Services
 {
     /// <summary>
     /// Интерфейс сервиса печати с методом печати документа.

@@ -9,9 +9,10 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
-
-using ViewModel.Interfaces;
 using ViewModel.Services;
+using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Messages;
 
 namespace ViewModel.VMs.DbSet
 {
@@ -32,7 +33,7 @@ namespace ViewModel.VMs.DbSet
         /// <summary>
         /// Сервис послания сообщений.
         /// </summary>
-        protected MessengerService _messengerService;
+        protected IMessengerService _messengerService;
 
         /// <summary>
         /// Сервис ресурсов.

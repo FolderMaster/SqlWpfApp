@@ -3,18 +3,36 @@
 using View.Implementations.ResourceService;
 using View.Windows.DbSet.Dependent;
 
-using ViewModel.Interfaces;
+using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.Services.Messages;
 
 namespace View.Implementations.Proces.DbSet.Dependent
 {
+    /// <summary>
+    /// Класс оконной процедуры для работы с преподавателями с методами вызова и создания окна.
+    /// Реализует <see cref="WindowProc"/>.
+    /// </summary>
     public class TeachersWindowProc : WindowProc
     {
-        public TeachersWindowProc(IDbContextBuilder dbContextCreator,
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="TeachersWindowProc"/>.
+        /// </summary>
+        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="windowResourceService">Сервис ресурсов окна.</param>
+        /// <param name="messageService">Сервис сообщений.</param>
+        public TeachersWindowProc(IDbContextBuilder dbContextBuilder,
             IWindowResourceService windowResourceService, IMessageService messageService) :
-            base(dbContextCreator, windowResourceService, messageService) { }
+            base(dbContextBuilder, windowResourceService, messageService) { }
 
-        protected override Window CreateWindow(IDbContextBuilder dbContextCreator,
+        /// <summary>
+        /// Создаёт окно.
+        /// </summary>
+        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="windowResourceService">Сервис ресурсов окна.</param>
+        /// <param name="messageService">Сервис сообщений.</param>
+        /// <returns>Окно.</returns>
+        protected override Window CreateWindow(IDbContextBuilder dbContextBuilder,
             IWindowResourceService windowResourceService, IMessageService messageService) =>
-            new TeachersWindow(dbContextCreator, windowResourceService, messageService);
+            new TeachersWindow(dbContextBuilder, windowResourceService, messageService);
     }
 }

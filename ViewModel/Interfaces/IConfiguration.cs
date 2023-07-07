@@ -6,7 +6,7 @@
     public interface IConfiguration
     {
         /// <summary>
-        /// Возращает и задаёт строку подключения к базе данных.
+        /// Возвращает и задаёт строку подключения к базе данных.
         /// </summary>
         public string DataBaseConnectionString { get; set; }
 

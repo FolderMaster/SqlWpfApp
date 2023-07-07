@@ -1,4 +1,8 @@
 ﻿using ViewModel.Interfaces;
+using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Messages;
+using ViewModel.Interfaces.Technicals;
 using ViewModel.VMs;
 
 namespace ViewModel.Services
@@ -50,7 +54,7 @@ namespace ViewModel.Services
         public IProc DepartmentsProc { get; set; }
 
         /// <summary>
-        /// Возвращает и задаёт процедуру для работы с пасспортами.
+        /// Возвращает и задаёт процедуру для работы с паспортами.
         /// </summary>
         public IProc PassportsProc { get; set; }
 

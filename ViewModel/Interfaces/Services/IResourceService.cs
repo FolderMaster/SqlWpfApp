@@ -1,4 +1,4 @@
-﻿namespace ViewModel.Interfaces
+﻿namespace ViewModel.Interfaces.Services
 {
     /// <summary>
     /// Интерфейс сервиса ресурсов с методами получения ресурсов и строк.

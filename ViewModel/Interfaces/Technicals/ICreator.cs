@@ -1,4 +1,4 @@
-﻿namespace ViewModel.Interfaces
+﻿namespace ViewModel.Interfaces.Technicals
 {
     /// <summary>
     /// Интерфейс создателя с методом создания.

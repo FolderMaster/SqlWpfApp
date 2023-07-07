@@ -31,7 +31,7 @@ namespace ViewModel.Services
         private FlowDocument _document;
 
         /// <summary>
-        /// Создаёт экземлпляр класса <see cref="DocumentEditService"/>,
+        /// Создаёт экземпляр класса <see cref="DocumentEditService"/>,
         /// </summary>
         /// <param name="document">Документ.</param>
         public DocumentEditService(FlowDocument document) => _document = document;
@@ -39,7 +39,7 @@ namespace ViewModel.Services
         /// <summary>
         /// Добавляет параграф документу.
         /// </summary>
-        /// <param name="containedValue">Значениие для размещения.</param>
+        /// <param name="containedValue">Значение для размещения.</param>
         public void AddParagraph(object containedValue) =>
             _document.Blocks.Add(new Paragraph(new Run(containedValue.ToString())));
 
@@ -98,7 +98,7 @@ namespace ViewModel.Services
         /// <summary>
         /// Создаёт ячейку таблицы.
         /// </summary>
-        /// <param name="containedValue">Значениие для размещения.</param>
+        /// <param name="containedValue">Значение для размещения.</param>
         /// <returns>Ячейка таблицы.</returns>
         private TableCell CreateTableCell(object containedValue)
         {

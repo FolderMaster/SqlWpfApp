@@ -1,9 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 
-using ViewModel.Interfaces;
-using ViewModel.Services;
-
 using Model.Independent;
+using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Files;
+using ViewModel.Interfaces.Services.Messages;
 
 namespace ViewModel.VMs.DbSet
 {
@@ -41,7 +42,7 @@ namespace ViewModel.VMs.DbSet
         /// <summary>
         /// Возвращает сервис послания сообщений.
         /// </summary>
-        public MessengerService MessengerService => _messengerService;
+        public IMessengerService MessengerService => _messengerService;
 
         /// <summary>
         /// Возвращает сервис ресурсов.

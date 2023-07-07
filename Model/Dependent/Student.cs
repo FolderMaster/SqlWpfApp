@@ -26,7 +26,7 @@ namespace Model.Dependent
         public static ObservableCollection<Student> Students { get; set; } = new();
 
         /// <summary>
-        /// Возвращает и задаёт индетификатор.
+        /// Возвращает и задаёт идентификатор.
         /// </summary>
         public long ID { get; set; }
 

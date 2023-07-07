@@ -6,8 +6,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Model.Dependent
 {
     /// <summary>
-    /// Класс связи между дисциплинами и студентами с индентификатором студентами, 
-    /// индентификатором дисциплины и логическим значением, указывающее, что дисциплина сдана.
+    /// Класс связи между дисциплинами и студентами с идентификатором студентами, 
+    /// идентификатором дисциплины и логическим значением, указывающее, что дисциплина сдана.
     /// </summary>
     [Table("StudentDisciplineConnections")]
     [PrimaryKey(nameof(StudentID), new string[] { nameof(DisciplineID) })]
@@ -25,7 +25,7 @@ namespace Model.Dependent
             StudentDisciplineConnections { get; set; } = new();
 
         /// <summary>
-        /// Возвращает и задаёт индентификатор студента.
+        /// Возвращает и задаёт идентификатор студента.
         /// </summary>
         public long StudentID { get; set; }
 
@@ -35,7 +35,7 @@ namespace Model.Dependent
         public virtual Student Student { get; set; }
 
         /// <summary>
-        /// Возвращает и задаёт индентификатор дисциплины.
+        /// Возвращает и задаёт идентификатор дисциплины.
         /// </summary>
         public long DisciplineID { get; set; }
 

@@ -5,6 +5,10 @@ using View.Implementations.Proces.DbSet.Independent;
 using View.Windows;
 
 using ViewModel.Interfaces;
+using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Messages;
+using ViewModel.Interfaces.Technicals;
 using ViewModel.Services;
 
 namespace View.Services

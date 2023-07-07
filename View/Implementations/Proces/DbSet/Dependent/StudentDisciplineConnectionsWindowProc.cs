@@ -5,29 +5,50 @@ using System.Windows;
 using View.Windows.DbSet.Dependent;
 using View.Implementations.ResourceService;
 
-using ViewModel.Interfaces;
 using ViewModel.VMs.DbSet;
+using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.Services.Messages;
 
 using Model.Dependent;
 
 namespace View.Implementations.Proces.DbSet.Dependent
 {
+    /// <summary>
+    /// Класс оконной процедуры для работы со связями между дисциплинами и студентами с методами
+    /// вызова и создания окна. Реализует <see cref="WindowProc"/>.
+    /// </summary>
     public class StudentDisciplineConnectionsWindowProc : WindowProc
     {
+        /// <summary>
+        /// Ключ ресурсов.
+        /// </summary>
         private static string _keyResource = nameof(StudentDisciplineConnection) + "s";
 
-        public StudentDisciplineConnectionsWindowProc(IDbContextBuilder dbContextCreator,
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="StudentDisciplineConnectionsWindowProc"/>.
+        /// </summary>
+        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="windowResourceService">Сервис ресурсов окна.</param>
+        /// <param name="messageService">Сервис сообщений.</param>
+        public StudentDisciplineConnectionsWindowProc(IDbContextBuilder dbContextBuilder,
             IWindowResourceService windowResourceService, IMessageService messageService) :
-            base(dbContextCreator, windowResourceService, messageService) { }
+            base(dbContextBuilder, windowResourceService, messageService) { }
 
-        protected override Window CreateWindow(IDbContextBuilder dbContextCreator,
+        /// <summary>
+        /// Создаёт окно.
+        /// </summary>
+        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="windowResourceService">Сервис ресурсов окна.</param>
+        /// <param name="messageService">Сервис сообщений.</param>
+        /// <returns>Окно.</returns>
+        protected override Window CreateWindow(IDbContextBuilder dbContextBuilder,
             IWindowResourceService windowResourceService, IMessageService messageService)
         {
-            var mainVM = new DbSetVM<StudentDisciplineConnection>(dbContextCreator,
+            var mainVM = new DbSetVM<StudentDisciplineConnection>(dbContextBuilder,
                 windowResourceService, messageService);
-            var dependentVM = new DbSetVM<Student>(dbContextCreator, windowResourceService,
+            var dependentVM = new DbSetVM<Student>(dbContextBuilder, windowResourceService,
                 messageService);
-            var dependent2VM = new DbSetVM<Discipline>(dbContextCreator, windowResourceService,
+            var dependent2VM = new DbSetVM<Discipline>(dbContextBuilder, windowResourceService,
                 messageService);
 
             mainVM.SelectedItemChanged += (object? sender, EventArgs e) =>
