@@ -31,7 +31,8 @@ namespace View.Implementations
         ///  Возвращает и задаёт строку подключения к базе данных.
         /// </summary>
         public string DataBaseConnectionString { get; set; } =
-            "Data Source=UniversityDataBase.db;Mode=ReadWrite";
+            //"Data Source=UniversityDataBase.db;Mode=ReadWrite"
+            "Server=(localdb)\\mssqllocaldb;Database=UniversityDb;User Id=deaneryEmployee1;Password=1056";
 
         /// <summary>
         /// Возвращает и задаёт положение окна слева.

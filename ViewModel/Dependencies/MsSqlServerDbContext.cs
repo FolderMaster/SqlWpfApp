@@ -3,20 +3,19 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 using System.Linq;
 using System.Data;
-using System.Data.SQLite;
 
 using Model.Independent;
 using Model.Dependent;
+
 using ViewModel.Interfaces.DbContext;
+
+using SqlCommand = System.Data.SqlClient.SqlCommand;
+using SqlConnection = System.Data.SqlClient.SqlConnection;
+using SqlDataReader = System.Data.SqlClient.SqlDataReader;
 
 namespace ViewModel.Dependencies
 {
-    /// <summary>
-    /// Класс контекста базы данных SQLite с строкой подключения и представлениями таблиц, методами
-    /// создания представления таблицы из базы данных, сохранения изменения в таблице и выполнения
-    /// команды. Реализует <see cref="IDbContext"/>.
-    /// </summary>
-    public class SqliteDbContext : DbContext, IDbContext
+    public class MsSqlServerDbContext : DbContext, IDbContext
     {
         /// <summary>
         /// Строка подключения.
@@ -77,17 +76,17 @@ namespace ViewModel.Dependencies
         public DbSet<Group> Groups { get; set; } = null!;
 
         /// <summary>
-        /// Возвращает и задаёт представление таблицы связей между дисциплинами и студентами
-        /// <seealso cref="StudentDisciplineConnection"/> из базы данных.
-        /// </summary>
-        public DbSet<StudentDisciplineConnection> StudentDisciplineConnections { get; set; } =
-            null!;
-
-        /// <summary>
         /// Возвращает и задаёт представление таблицы связей между дисциплинами и преподавателями
         /// <seealso cref="TeacherDisciplineConnection"/> из базы данных.
         /// </summary>
         public DbSet<TeacherDisciplineConnection> TeacherDisciplineConnections { get; set; } =
+            null!;
+
+        /// <summary>
+        /// Возвращает и задаёт представление таблицы связей между дисциплинами и студентами
+        /// <seealso cref="StudentDisciplineConnection"/> из базы данных.
+        /// </summary>
+        public DbSet<StudentDisciplineConnection> StudentDisciplineConnections { get; set; } =
             null!;
 
         /// <summary>
@@ -129,7 +128,7 @@ namespace ViewModel.Dependencies
         /// Создаёт экземпляр класса <see cref="SqliteDbContext"/>.
         /// </summary>
         /// <param name="connectionString">Строка подключения.</param>
-        public SqliteDbContext(string connectionString)
+        public MsSqlServerDbContext(string connectionString)
         {
             _connectionString = connectionString;
         }
@@ -154,8 +153,12 @@ namespace ViewModel.Dependencies
         /// <param name="optionsBuilder">Создатель опций.</param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            //var builder = new SqlConnectionStringBuilder();
+            //builder.ConnectionString = _connectionString;
+            //builder.Encrypt = true;
+            //builder.ColumnEncryptionSetting = SqlConnectionColumnEncryptionSetting.Enabled;
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlite(_connectionString).EnableDetailedErrors();
+            optionsBuilder.UseSqlServer(_connectionString);
         }
 
         /// <summary>
@@ -194,12 +197,12 @@ namespace ViewModel.Dependencies
         /// <returns>Результат выполнения команды.</returns>
         public DataTable ExecuteCommand(string commandString)
         {
-            using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                using (SQLiteCommand command = new SQLiteCommand(commandString, connection))
+                using (SqlCommand command = new SqlCommand(commandString, connection))
                 {
-                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
                         var dataTable = new DataTable();
                         dataTable.Load(reader);

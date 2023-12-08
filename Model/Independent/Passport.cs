@@ -33,7 +33,7 @@ namespace Model.Independent
         /// <summary>
         /// Возвращает и задаёт серию и номер.
         /// </summary>
-        public long SerialNumber { get; set; }
+        public string SerialNumber { get; set; }
 
         /// <summary>
         /// Возвращает и задаёт ФИО.
@@ -48,7 +48,7 @@ namespace Model.Independent
         /// <summary>
         /// Возвращает и задаёт пол.
         /// </summary>
-        public Sex Sex { get; set; } = Sex.Male;
+        public bool Sex { get; set; } = true;
 
         /// <summary>
         /// Возвращает и задаёт скан.
@@ -74,7 +74,7 @@ namespace Model.Independent
         /// <summary>
         /// Возвращает и задаёт возраст.
         /// </summary>
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public int Age { get; set; }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Model.Independent
         /// </summary>
         public Passport() => ValuesGenerator.GenerateValues(_idGenerator, () =>
             Passports.FirstOrDefault((p) => p.SerialNumber == SerialNumber) != null, (id) => {
-                SerialNumber = id;
+                SerialNumber = id.ToString();
                 Name = nameof(Name) + "_" + id;
                 PermanentResidenceAddress = nameof(PermanentResidenceAddress) + "_" + id;
             }, () => Passports.Add(this));

@@ -249,9 +249,6 @@ namespace ViewModel.VMs
             ReportsProcInvokeCommand = new RelayCommand(reportsProc.Invoke);
 
             LoadCommand.Execute(null);
-
-            _messengerService.ExecuteWithExceptionMessage(() =>
-                dbContextBuilder.Create(_configuration.DataBaseConnectionString));
         }
     }
 }

@@ -3,10 +3,10 @@
 namespace ViewModel.Dependencies
 {
     /// <summary>
-    /// Класс создателя контекста базы данных SQLite <seealso cref="SqliteDbContext"/> с методом
-    /// создания и результатом. Реализует <see cref="IDbContextBuilder"/>.
+    /// Класс создателя контекста базы данных Microsoft SQL Server
+    /// <seealso cref="SqliteDbContext"/> с методом создания и результатом. Реализует <see cref="IDbContextBuilder"/>.
     /// </summary>
-    public class SqliteDbContextBuilder : IDbContextBuilder
+    public class MsSqlServerDbContextBuilder : IDbContextBuilder
     {
         /// <summary>
         /// Возвращает результат создания контекста базы данных.
@@ -18,6 +18,8 @@ namespace ViewModel.Dependencies
         /// </summary>
         /// <param name="connectionString">Строка подключения.</param>
         public void Create(string connectionString) =>
-            Result = new SqliteDbContext(connectionString);
+            Result = new MsSqlServerDbContext(connectionString);
+
+
     }
 }

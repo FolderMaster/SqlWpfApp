@@ -37,13 +37,13 @@ namespace Model.Independent
         /// <summary>
         /// Возвращает и задаёт коэффициент.
         /// </summary>
-        public double Coefficient { get; set; } = 1;
+        public Single Coefficient { get; set; } = 1;
 
         /// <summary>
         /// Возвращает и задаёт размер.
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public double Amount { get; set; }
+        public Single Amount { get; set; }
 
         /// <summary>
         /// Возвращает и задаёт связанные студенты.

@@ -39,7 +39,7 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт номер зачётной книжки.
         /// </summary>
-        public long RecordBookNumber { get; set; }
+        public int RecordBookNumber { get; set; }
 
         /// <summary>
         /// Возвращает и задаёт логическое значение, указывающее, что отчислен.
@@ -87,7 +87,7 @@ namespace Model.Dependent
         public Student() => ValuesGenerator.GenerateValues(_idGenerator, () =>
             Students.FirstOrDefault((d) => d.ID == ID) != null, (id) => {
                 ID = id;
-                RecordBookNumber = id;
+                RecordBookNumber = (int)id;
             }, () => Students.Add(this));
     }
 }

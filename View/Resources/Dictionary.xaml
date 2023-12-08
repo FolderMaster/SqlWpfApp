@@ -5,6 +5,11 @@
     <sys:String x:Key="InformationMessageTitle">Information.</sys:String>
     <sys:String x:Key="QuestionMessageTitle">Question?</sys:String>
 
+    <sys:String x:Key="ConnectionHeader">Connection</sys:String>
+    <sys:String x:Key="DataBaseHeader">Data base</sys:String>
+    <sys:String x:Key="LoginHeader">Login</sys:String>
+    <sys:String x:Key="PasswordHeader">Password</sys:String>
+    <sys:String x:Key="ConnectHeader">Connect</sys:String>
 
     <sys:String x:Key="InformationMessageDescription">
         (C)TUSUR, KSUB, Pchelintsev Andrew Alexandrovich, group 571-2, 2023.

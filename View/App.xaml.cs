@@ -43,7 +43,7 @@ namespace View
                 services.AddSingleton<IFileService, FileService>();
                 services.AddSingleton<IPathService, PathService>();
 
-                services.AddSingleton<IDbContextBuilder, SQLiteDbContextBuilder>();
+                services.AddSingleton<IDbContextBuilder, MsSqlServerDbContextBuilder>();
 
                 services.AddSingleton<IPrintService, PrintDialogService>();
 
@@ -87,6 +87,8 @@ namespace View
 
                 services.AddSingleton<MainWindow>();
 
+                services.AddSingleton<ConnectionWindowProc>();
+
                 services.AddSingleton<IConfiguration, WindowConfiguration>((s) =>
                     new WindowConfiguration(s.GetRequiredService<MainWindow>()));
 
@@ -107,6 +109,8 @@ namespace View
 
             MainWindow = _host.Services.GetRequiredService<MainWindow>();
             MainWindow.Show();
+
+            _host.Services.GetRequiredService<ConnectionWindowProc>().Invoke();
         }
 
         /// <summary>

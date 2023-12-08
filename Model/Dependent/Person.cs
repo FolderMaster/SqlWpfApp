@@ -37,7 +37,7 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт серию и номер паспорта.
         /// </summary>
-        public long PassportSerialNumber { get; set; }
+        public string PassportSerialNumber { get; set; }
 
         /// <summary>
         /// Возвращает и задаёт связанный паспорт.
@@ -57,7 +57,6 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт ФИО.
         /// </summary>
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string? Name { get; set; }
 
         /// <summary>
