@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 
 namespace ViewModel.Classes
 {
@@ -11,8 +6,14 @@ namespace ViewModel.Classes
     {
         public ObservableCollection<Authorization> Authorizations { get; set; } = new();
 
-        public string Server { get; set; } = "";
+        public string DataSource { get; set; } = "";
 
-        public string DataBase { get; set; } = "";
+        public string InitialCatalog { get; set; } = "";
+
+        public bool IsTlsConnection { get; set; } = true;
+
+        public bool IsColumnEncryption { get; set; } = true;
+
+        public bool IsTrustServerCertificate { get; set; } = true;
     }
 }

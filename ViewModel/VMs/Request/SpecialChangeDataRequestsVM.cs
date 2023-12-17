@@ -5,7 +5,7 @@ using System;
 using System.Collections.ObjectModel;
 
 using ViewModel.Enums;
-using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Messages;
 
@@ -16,7 +16,7 @@ namespace ViewModel.VMs.Request
     /// специализированным запросом изменения данных, коллекцией представлений модели для
     /// параметров и командой выполнения.
     /// </summary>
-    public partial class SpecialChangeDataRequestsVM : ChangeRequestsVM
+    public partial class SpecialChangeDataRequestsVM : RequestsVM
     {
         /// <summary>
         /// Специализированный запрос изменения данных.
@@ -64,7 +64,7 @@ namespace ViewModel.VMs.Request
         {
             var table = "";
             var command = "";
-            var parametersIndex = (int)Request - 1;
+            /**var parametersIndex = (int)Request - 1;
             switch (Request)
             {
                 case SpecialChangeDataRequest.SetNullStudentPassings:
@@ -191,9 +191,8 @@ namespace ViewModel.VMs.Request
                         $"{ParametersVMs[parametersIndex].Parameters[2]} " +
                         "AND passings.ScholarshipName LIKE " +
                         $"'{ParametersVMs[parametersIndex].Parameters[3]}'") + ")"); break;
-            }
-
-            return command + ";" + CreateSelectCommand("*", table);
+            }**/
+            return $"{command}; SELECT * FROM {table}";
         }
     }
 }

@@ -14,8 +14,9 @@ using View.Services;
 using View.Windows;
 
 using ViewModel.Dependencies;
+using ViewModel.Dependencies.DataBase.MsSqlServer;
 using ViewModel.Interfaces;
-using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Files;
 using ViewModel.Interfaces.Services.Messages;
@@ -107,10 +108,10 @@ namespace View
             var configurator = _host.Services.GetRequiredService<MainWindowConfigurator>();
             configurator.Configure();
 
+            _host.Services.GetRequiredService<ConnectionWindowProc>().Invoke();
+
             MainWindow = _host.Services.GetRequiredService<MainWindow>();
             MainWindow.Show();
-
-            _host.Services.GetRequiredService<ConnectionWindowProc>().Invoke();
         }
 
         /// <summary>

@@ -2,7 +2,7 @@
 using System.Windows;
 
 using ViewModel.VMs.DbSet;
-using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Messages;
 

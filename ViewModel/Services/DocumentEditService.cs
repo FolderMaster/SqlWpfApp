@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 
@@ -24,6 +25,10 @@ namespace ViewModel.Services
         /// Толщина границ ячеек.
         /// </summary>
         private static Thickness _cellBorderThickness = new Thickness(1);
+
+        private static VerticalAlignment _cellVerticalAlignment = VerticalAlignment.Center;
+
+        private static HorizontalAlignment _cellHorizontalAlignment = HorizontalAlignment.Center;
 
         /// <summary>
         /// Документ.
@@ -102,10 +107,16 @@ namespace ViewModel.Services
         /// <returns>Ячейка таблицы.</returns>
         private TableCell CreateTableCell(object containedValue)
         {
-            var cell = new TableCell(new Paragraph(new Run(containedValue.ToString())));
-            cell.BorderBrush = _cellBorderBrush;
-            cell.BorderThickness = _cellBorderThickness;
-            return cell;
+            var paragraph = new Paragraph(new Run(containedValue.ToString())
+                { BaselineAlignment = BaselineAlignment.TextBottom })
+            {
+                TextAlignment = TextAlignment.Center
+            };
+            return new TableCell(paragraph)
+            {
+                BorderBrush = _cellBorderBrush,
+                BorderThickness = _cellBorderThickness
+            };
         }
     }
 }

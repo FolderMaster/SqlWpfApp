@@ -1,4 +1,6 @@
-﻿namespace ViewModel.Interfaces.DbContext
+﻿using System;
+
+namespace ViewModel.Interfaces.DataBase
 {
     /// <summary>
     /// Интерфейс создателя контекста базы данных с методом создания и результатом.
@@ -9,6 +11,8 @@
         /// Возвращает результат создания контекста базы данных.
         /// </summary>
         public IDbContext? Result { get; }
+
+        public event EventHandler? ResultConnectionCreated;
 
         /// <summary>
         /// Создаёт контекст базы данных.

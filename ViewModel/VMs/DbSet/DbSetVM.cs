@@ -10,7 +10,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
 using ViewModel.Services;
-using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Messages;
 
@@ -74,22 +74,6 @@ namespace ViewModel.VMs.DbSet
         /// Список методов возврата свойств.
         /// </summary>
         protected List<PropertyInfo> _getMethodList;
-
-        /// <summary>
-        /// Возвращает и задаёт представление таблицы из базы данных.
-        /// </summary>
-        protected DbSet<T> DbSet
-        {
-            get => _dbSet;
-            set
-            {
-                if (SetProperty(ref _dbSet, value))
-                {
-                    DbSet.Load();
-                    DbSetLocal = DbSet.Local.ToObservableCollection();
-                }
-            }
-        }
 
         /// <summary>
         /// Возвращает и задаёт локальное представление таблицы из базы данных.
@@ -224,11 +208,18 @@ namespace ViewModel.VMs.DbSet
             _resourceService = resourceService;
             _messengerService = new MessengerService(_resourceService, messageService);
             _messengerService.ExecuteWithExceptionMessage(() =>
-                DbSet = _dbContextBuilder.Result.Set<T>(), () =>
+                DbSetLocal = _dbContextBuilder.Result.GetDbSetLocal<T>(), () =>
                 SaveCommand?.NotifyCanExecuteChanged());
             SaveCommand = new RelayCommand(() =>
-            _messengerService.ExecuteWithExceptionMessage(() =>
-                _dbContextBuilder.Result.SaveChanges<T>()), () => DbSet != null);
+                _messengerService.ExecuteWithExceptionMessage(() =>
+                {
+                    _dbContextBuilder.Result.SaveChanges<T>();
+                    _dbContextBuilder.Result.Reload<T>();
+                }, () =>
+                {
+                    _dbContextBuilder.Result.RejectChanges<T>();
+                }
+                ), () => DbSetLocal != null);
             _getMethodList =
                 typeof(T).GetProperties().Where((p) => p.GetGetMethod() != null).ToList();
         }
@@ -345,9 +336,13 @@ namespace ViewModel.VMs.DbSet
         {
             switch (e.Action)
             {
-                case NotifyCollectionChangedAction.Add: DbSetLocal.Add((T)e.NewItems[0]); break;
+                case NotifyCollectionChangedAction.Add:
+                    var newItem = e.NewItems[0];
+                    DbSetLocal.Add((T)newItem);
+                    break;
                 case NotifyCollectionChangedAction.Remove:
-                    DbSetLocal.Remove((T)e.OldItems[0]);
+                    var oldItem = e.OldItems[0];
+                    DbSetLocal.Remove((T)oldItem);
                     break;
             }
         }

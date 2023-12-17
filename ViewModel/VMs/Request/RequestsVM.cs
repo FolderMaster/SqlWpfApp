@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
+using System.Collections.Generic;
 using System.Data;
-using ViewModel.Interfaces.DbContext;
+
+using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Messages;
 using ViewModel.Services;
@@ -53,8 +55,8 @@ namespace ViewModel.VMs.Request
         /// Выполняет команду.
         /// </summary>
         /// <param name="сommandString">Строка команды.</param>
-        protected void ExecuteCommand(string сommandString) =>
+        protected void ExecuteCommand(string сommandString, Dictionary<string, object>? parameters = null) =>
             _messengerService.ExecuteWithExceptionMessage(() =>
-                ExecutingResult = _dbContextCreator.Result.ExecuteCommand(сommandString));
+                ExecutingResult = _dbContextCreator.Result.ExecuteCommand(сommandString, parameters));
     }
 }

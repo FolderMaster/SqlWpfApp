@@ -1,5 +1,5 @@
 ﻿using ViewModel.Enums;
-using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Messages;
 
@@ -8,7 +8,7 @@ namespace ViewModel.VMs.Request
     /// <summary>
     /// Класс представления модели для выполнения запросов просмотра данных с названием таблицы.
     /// </summary>
-    public class ViewDataRequestsVM : ViewRequestsVM
+    public class ViewDataRequestsVM : RequestsVM
     {
         /// <summary>
         /// Название таблицы.
@@ -25,7 +25,7 @@ namespace ViewModel.VMs.Request
             {
                 if (SetProperty(ref _tableName, value))
                 {
-                    ExecuteCommand(CreateSelectCommand("*", $"{TableName}"));
+                    ExecuteCommand($"SELECT * FROM {TableName}");
                 }
             }
         }

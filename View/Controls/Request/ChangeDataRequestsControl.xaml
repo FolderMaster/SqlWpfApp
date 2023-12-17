@@ -113,28 +113,27 @@
                         <StackPanel>
                             <Label Content="{Binding Source={StaticResource IDHeader},
                                Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding ParametersVMs[1].Parameters[0], Mode=TwoWay,
+                            <TextBox Text="{Binding StudentsUpdateParametersVM.ID, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
                             <Label Content="{Binding Source={StaticResource
                                 RecordBookNumberHeader}, Converter={StaticResource
                                 StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding ParametersVMs[1].Parameters[1], Mode=TwoWay,
+                            <TextBox Text="{Binding StudentsUpdateParametersVM.RecordBookNumber, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
-                            <CheckBox IsChecked="{Binding ParametersVMs[0].Parameters[2],
-                                      Converter={StaticResource IntToBoolConverter}}"
+                            <CheckBox IsChecked="{Binding StudentsUpdateParametersVM.IsDeductible}"
                                       Content="{StaticResource IsDeductibleHeader}"/>
                             <Label Content="{Binding Source={StaticResource GroupNumberHeader},
                                Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding ParametersVMs[1].Parameters[3], Mode=TwoWay,
+                            <TextBox Text="{Binding StudentsUpdateParametersVM.GroupNumber, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
                             <Label Content="{Binding Source={StaticResource
                                 GroupFormationYearHeader}, Converter={StaticResource
                                 StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding ParametersVMs[1].Parameters[4], Mode=TwoWay,
+                            <TextBox Text="{Binding StudentsUpdateParametersVM.GroupFormationYear, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
                             <Label Content="{Binding Source={StaticResource ScholarshipNameHeader},
                                Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding ParametersVMs[1].Parameters[5], Mode=TwoWay,
+                            <TextBox Text="{Binding StudentsUpdateParametersVM.ScholarshipName, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                     </Grid>

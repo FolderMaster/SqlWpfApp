@@ -2,10 +2,11 @@
 using CommunityToolkit.Mvvm.Input;
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 using ViewModel.Enums;
-using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Messages;
 
@@ -16,7 +17,7 @@ namespace ViewModel.VMs.Request
     /// данных, названием таблицы, коллекцией представлений модели для параметров и командой
     /// выполнения.
     /// </summary>
-    public partial class ChangeDataRequestsVM : ChangeRequestsVM
+    public partial class ChangeDataRequestsVM : RequestsVM
     {
         /// <summary>
         /// Режим изменения данных.
@@ -29,6 +30,9 @@ namespace ViewModel.VMs.Request
         /// </summary>
         [ObservableProperty]
         private TableName tableName = TableName.Students;
+
+        [ObservableProperty]
+        public StudentsUpdateParametersVM studentsUpdateParametersVM = new();
 
         /// <summary>
         /// Коллекция представлений модели для параметров.
@@ -58,7 +62,7 @@ namespace ViewModel.VMs.Request
         public ChangeDataRequestsVM(IDbContextBuilder dbContextBuilder,
             IResourceService resourceService, IMessageService messageService) :
             base(dbContextBuilder, resourceService, messageService) => 
-            ExecuteCommand = new RelayCommand(() => ExecuteCommand(CreateCommand()));
+            ExecuteCommand = new RelayCommand(() => ExecuteCommand(CreateCommand(), CreateParameters()));
 
         /// <summary>
         /// Создаёт команду.
@@ -66,48 +70,113 @@ namespace ViewModel.VMs.Request
         /// <returns>Команда.</returns>
         private string CreateCommand()
         {
-            var parametersIndex = 3 * ((int)TableName - 1) + ((int)ChangeDataMode - 1);
-            var parametersVM = ParametersVMs[parametersIndex];
             var command = "";
             switch (TableName)
             {
-                case TableName.Students: switch(ChangeDataMode)
+                case TableName.Students:
+                    switch (ChangeDataMode)
                     {
-                        case ChangeDataMode.Insert: command = CreateInsertCommand($"{TableName}",
-                            "ID, RecordBookNumber, IsDeductible, GroupNumber, " +
-                            "GroupFormationYear, ScholarshipName",
-                            $"{parametersVM.Parameters[0]}, {parametersVM.Parameters[1]}, " +
-                            $"{parametersVM.Parameters[2]}, '{parametersVM.Parameters[3]}', " +
-                            $"{parametersVM.Parameters[4]}, '{parametersVM.Parameters[5]}'"); break;
-                        case ChangeDataMode.Update: command = CreateUpdateCommand($"{TableName}",
-                            $"RecordBookNumber = {parametersVM.Parameters[1]}, " +
-                            $"IsDeductible = {parametersVM.Parameters[2]}, " +
-                            $"GroupNumber = '{parametersVM.Parameters[3]}', " +
-                            $"GroupFormationYear = {parametersVM.Parameters[4]}, " +
-                            $"ScholarshipName = '{parametersVM.Parameters[5]}'",
-                            $"ID = {ParametersVMs[parametersIndex].Parameters[0]}"); break;
-                        case ChangeDataMode.Delete: command = CreateDeleteCommand($"{TableName}",
-                            $"ID = {ParametersVMs[parametersIndex].Parameters[0]}"); break;
-                    } break;
-                case TableName.GradeStatements: switch (ChangeDataMode)
+                        case ChangeDataMode.Insert:
+                            command = "INSERT INTO Students" +
+                                "(ID, RecordBookNumber, IsDeductible, GroupNumber, " +
+                                "GroupFormationYear, ScholarshipName) " +
+                                "VALUES (@ID, @RecordBookNumber, @IsDeductible, @GroupNumber, " +
+                                "@GroupFormationYear, @ScholarshipName)";
+                            break;
+                        case ChangeDataMode.Update:
+                            command = "UPDATE Students " +
+                                "SET RecordBookNumber = @RecordBookNumber, " +
+                                "IsDeductible = @IsDeductible, GroupNumber = @GroupNumber, " +
+                                "GroupFormationYear = @GroupFormationYear, " +
+                                "ScholarshipName = @ScholarshipName " +
+                                "WHERE ID = @ID";
+                            break;
+                        case ChangeDataMode.Delete:
+                            command = "DELETE FROM Students " +
+                                "WHERE ID = @ID";
+                            break;
+                    }
+                    break;
+                case TableName.GradeStatements:
+                    switch (ChangeDataMode)
                     {
-                        case ChangeDataMode.Insert: command = CreateInsertCommand($"{TableName}",
-                            "ID, StudentID, DisciplineID, TeacherID, GradeName, PassingDate",
-                            $"{parametersVM.Parameters[0]}, {parametersVM.Parameters[1]}, " +
-                            $"{parametersVM.Parameters[2]}, {parametersVM.Parameters[3]}, " +
-                            $"'{parametersVM.Parameters[4]}', '{parametersVM.Parameters[5]}'"); break;
-                        case ChangeDataMode.Update: command = CreateUpdateCommand($"{TableName}",
-                            $"StudentID = {parametersVM.Parameters[1]}, " +
-                            $"DisciplineID = {parametersVM.Parameters[2]}, " +
-                            $"TeacherID = {parametersVM.Parameters[3]}, " +
-                            $"GradeName = '{parametersVM.Parameters[4]}', " +
-                            $"PassingDate = '{parametersVM.Parameters[5]}'",
-                            $"ID = {parametersVM.Parameters[0]}"); break;
-                        case ChangeDataMode.Delete: command = CreateDeleteCommand($"{TableName}",
-                            $"ID = {parametersVM.Parameters[0]}"); break;
-                    } break;
+                        case ChangeDataMode.Insert:
+                            command = "INSERT INTO GradeStatements " +
+                                "(StudentID, DisciplineID, TeacherID, GradeName, PassingDate) " +
+                                "VALUES (@StudentID, @DisciplineID, @TeacherID, @GradeName, " +
+                                "@PassingDate)";
+                            break;
+                        case ChangeDataMode.Update:
+                            command = "UPDATE GradeStatements" +
+                                "SET StudentID = @StudentID, DisciplineID = @DisciplineID, " +
+                                "TeacherID = @TeacherID, GradeName = @GradeName, " +
+                                "PassingDate = @PassingDate " +
+                                "WHERE ID = @ID";
+                            break;
+                        case ChangeDataMode.Delete:
+                            command = "DELETE FROM GradeStatements " +
+                                "WHERE ID = @ID";
+                            break;
+                    }
+                    break;
             }
-            return command + ";" + CreateSelectCommand("*", $"{TableName}");
+            return $"{command}; SELECT * FROM {TableName}";
+        }
+
+        private Dictionary<string, object> CreateParameters()
+        {
+            var parameters = new Dictionary<string, object>();
+            switch (TableName)
+            {
+                case TableName.Students:
+                    switch (ChangeDataMode)
+                    {
+                        case ChangeDataMode.Insert:
+                            parameters.Add("@ID", null);
+                            parameters.Add("@RecordBookNumber", null);
+                            parameters.Add("@IsDeductible", null);
+                            parameters.Add("@GroupNumber", null);
+                            parameters.Add("@GroupFormationYear", null);
+                            parameters.Add("@ScholarshipName", null);
+                            break;
+                        case ChangeDataMode.Update:
+                            parameters.Add("@ID", StudentsUpdateParametersVM.ID);
+                            parameters.Add("@RecordBookNumber", StudentsUpdateParametersVM.RecordBookNumber);
+                            parameters.Add("@IsDeductible", StudentsUpdateParametersVM.IsDeductible);
+                            parameters.Add("@GroupNumber", StudentsUpdateParametersVM.GroupNumber);
+                            parameters.Add("@GroupFormationYear", StudentsUpdateParametersVM.GroupFormationYear);
+                            parameters.Add("@ScholarshipName", StudentsUpdateParametersVM.ScholarshipName);
+                            break;
+                        case ChangeDataMode.Delete:
+                            parameters.Add("@ID", null);
+                            break;
+                    }
+                    break;
+                case TableName.GradeStatements:
+                    switch (ChangeDataMode)
+                    {
+                        case ChangeDataMode.Insert:
+                            parameters.Add("@StudentID", null);
+                            parameters.Add("@DisciplineID", null);
+                            parameters.Add("@TeacherID", null);
+                            parameters.Add("@GradeName", null);
+                            parameters.Add("@PassingDate", null);
+                            break;
+                        case ChangeDataMode.Update:
+                            parameters.Add("@ID", null);
+                            parameters.Add("@StudentID", null);
+                            parameters.Add("@DisciplineID", null);
+                            parameters.Add("@TeacherID", null);
+                            parameters.Add("@GradeName", null);
+                            parameters.Add("@PassingDate", null);
+                            break;
+                        case ChangeDataMode.Delete:
+                            parameters.Add("@ID", null);
+                            break;
+                    }
+                    break;
+            }
+            return parameters;
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 
 using ViewModel.Classes;
 using ViewModel.Enums;
-using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Messages;
 
@@ -18,7 +18,7 @@ namespace ViewModel.VMs.Request
     /// специализированным запросом просмотра данных, коллекцией представлений модели для
     /// параметров и командой выполнения.
     /// </summary>
-    public partial class SpecialViewDataRequestsVM : ViewRequestsVM
+    public partial class SpecialViewDataRequestsVM : RequestsVM
     {
         /// <summary>
         /// Специализированный запрос просмотра данных.
@@ -100,11 +100,10 @@ namespace ViewModel.VMs.Request
                         "AVG(studentGrades.Coefficient) AS AverageGrade";
                     fromContent = "Disciplines d " +
                         "JOIN (" +
-                        CreateSelectCommand("gs.StudentID, gs.DisciplineID, MAX(gs.PassingDate), " +
-                        "g.Coefficient",
-                        "Grades g, GradeStatements gs",
-                        "g.Name = gs.GradeName",
-                        "gs.StudentID, gs.DisciplineID") +
+                        "SELECT gs.StudentID, gs.DisciplineID, MAX(gs.PassingDate), g.Coefficient " +
+                        "FROM Grades g, GradeStatements gs " +
+                        "WHERE g.Name = gs.GradeName " +
+                        "GROUP BY gs.StudentID, gs.DisciplineID" +
                         ") AS studentGrades";
                     whereContent = "studentGrades.DisciplineID = d.ID AND d.Name LIKE " +
                         $"'{parametersVM.Parameters[2]}' " +
@@ -145,11 +144,11 @@ namespace ViewModel.VMs.Request
                         "AVG(studentGrades.Coefficient) AS AverageGrade";
                     fromContent = "Students s, Groups g, Specialties sp " +
                         "JOIN (" +
-                        CreateSelectCommand("gs.StudentID, gs.DisciplineID, MAX(gs.PassingDate), " +
-                        "g.Coefficient",
-                        "Grades g, GradeStatements gs",
-                        "g.Name = gs.GradeName",
-                        "gs.StudentID, gs.DisciplineID") +
+                        "SELECT gs.StudentID, gs.DisciplineID, MAX(gs.PassingDate), " +
+                        "g.Coefficient " +
+                        "FROM Grades g, GradeStatements gs" +
+                        "WHERE g.Name = gs.GradeName" +
+                        "ORDER BY gs.StudentID, gs.DisciplineID" +
                         ") AS studentGrades";
                     whereContent = "studentGrades.StudentID = s.ID AND " +
                         "s.GroupFormationYear = g.FormationYear AND s.GroupNumber = g.Number AND " +
@@ -188,8 +187,7 @@ namespace ViewModel.VMs.Request
                 orderByContent = string.Join(',', sortCollectionStrings);
             }
 
-            return CreateSelectCommand(selectContent, fromContent, whereContent, groupByContent,
-                havingContent, orderByContent);
+            return selectContent + fromContent + whereContent + groupByContent + havingContent + orderByContent;
         }
     }
 }

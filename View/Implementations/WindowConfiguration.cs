@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Windows;
 
+using ViewModel.Classes;
 using ViewModel.Interfaces;
 
 namespace View.Implementations
@@ -26,13 +28,6 @@ namespace View.Implementations
         /// Окно.
         /// </summary>
         private Window _window;
-
-        /// <summary>
-        ///  Возвращает и задаёт строку подключения к базе данных.
-        /// </summary>
-        public string DataBaseConnectionString { get; set; } =
-            //"Data Source=UniversityDataBase.db;Mode=ReadWrite"
-            "Server=(localdb)\\mssqllocaldb;Database=UniversityDb;User Id=deaneryEmployee1;Password=1056";
 
         /// <summary>
         /// Возвращает и задаёт положение окна слева.
@@ -78,6 +73,7 @@ namespace View.Implementations
             get => _window.WindowState;
             set => _window.WindowState = value;
         }
+        public ObservableCollection<Connection> Connections { get; set; }
 
         /// <summary>
         /// Создаёт экземпляр класса <see cref="WindowConfiguration"/>.
@@ -127,13 +123,12 @@ namespace View.Implementations
         /// </summary>
         public void Save()
         {
-            SetConfigurationValue(nameof(DataBaseConnectionString), DataBaseConnectionString);
             SetConfigurationValue(nameof(Left), Left);
             SetConfigurationValue(nameof(Top), Top);
             SetConfigurationValue(nameof(Width), Width);
             SetConfigurationValue(nameof(Height), Height);
             SetConfigurationValue(nameof(WindowState), WindowState);
-            _configuration.Save();
+            _configuration.Save(ConfigurationSaveMode.Modified);
         }
 
         /// <summary>
@@ -141,8 +136,8 @@ namespace View.Implementations
         /// </summary>
         public void Load()
         {
-            AssignByConfigurationValue(nameof(DataBaseConnectionString),
-                (value) => DataBaseConnectionString = value);
+            var section = _configuration.Sections.Get(nameof(Connections)) as ConnectionConfigurationSection;
+            Connections = section?.Connections;
             AssignByConfigurationValue(nameof(Left), (value) => Left = double.Parse(value));
             AssignByConfigurationValue(nameof(Top), (value) => Top = double.Parse(value));
             AssignByConfigurationValue(nameof(Width), (value) => Width = double.Parse(value));

@@ -1,4 +1,7 @@
-﻿namespace ViewModel.Interfaces
+﻿using System.Collections.ObjectModel;
+using ViewModel.Classes;
+
+namespace ViewModel.Interfaces
 {
     /// <summary>
     /// Интерфейс конфигурации с методами сохранения и загрузки, строкой подключения к базе данных.
@@ -8,7 +11,7 @@
         /// <summary>
         /// Возвращает и задаёт строку подключения к базе данных.
         /// </summary>
-        public string DataBaseConnectionString { get; set; }
+        public ObservableCollection<Connection> Connections { get; set; }
 
         /// <summary>
         /// Сохраняет.

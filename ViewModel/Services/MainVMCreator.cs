@@ -1,5 +1,5 @@
 ﻿using ViewModel.Interfaces;
-using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Messages;
 using ViewModel.Interfaces.Technicals;

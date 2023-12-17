@@ -1,9 +1,6 @@
 ﻿using System;
-
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Messages;
-
-using SystemSqlException = System.Data.SqlClient.SqlException;
 
 namespace ViewModel.Services
 {
@@ -66,7 +63,7 @@ namespace ViewModel.Services
             }
             catch (Exception ex)
             {
-                _errorMessageService.ShowMessage(ex.Message + ex.InnerException,
+                _errorMessageService.ShowMessage($"{ex.Message}\n{ex.InnerException}",
                     _resourceService.GetString(_errorTitleResourceKey));
                 errorAction?.Invoke();
             }

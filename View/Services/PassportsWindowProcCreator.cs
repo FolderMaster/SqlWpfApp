@@ -2,7 +2,7 @@
 using View.Implementations.Proces.DbSet.Independent;
 using View.Implementations.ResourceService;
 
-using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Services.Files;
 using ViewModel.Interfaces.Services.Messages;
 using ViewModel.Interfaces.Technicals;

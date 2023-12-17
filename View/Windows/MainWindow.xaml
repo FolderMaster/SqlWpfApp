@@ -23,74 +23,91 @@
                 <MenuItem Header="{StaticResource TablesHeader}">
                     <MenuItem Header="{StaticResource IndependentTablesHeader}">
                         <MenuItem Command="{Binding DepartmentsProcInvokeCommand}"
+                                  IsEnabled="{Binding IsDbConnected}"
                                   Header="{StaticResource DepartmentsHeader}"
                                   InputGestureText="{StaticResource DepartmentsInput}"
                                   Icon="{StaticResource DepartmentsImage}"/>
                         <MenuItem Command="{Binding PositionsProcInvokeCommand}"
+                                  IsEnabled="{Binding IsDbConnected}"
                                   Header="{StaticResource PositionsHeader}"
                                   InputGestureText="{StaticResource PositionsInput}"
                                   Icon="{StaticResource PositionsImage}"/>
                         <MenuItem Command="{Binding PassportsProcInvokeCommand}"
+                                  IsEnabled="{Binding IsDbConnected}"
                                   Header="{StaticResource PassportsHeader}"
                                   InputGestureText="{StaticResource PassportsInput}"
                                   Icon="{StaticResource PassportsImage}"/>
                         <MenuItem Command="{Binding GradeModesProcInvokeCommand}"
+                                  IsEnabled="{Binding IsDbConnected}"
                                   Header="{StaticResource GradeModesHeader}"
                                   InputGestureText="{StaticResource GradeModesInput}"
                                   Icon="{StaticResource GradeModesImage}"/>
                         <MenuItem Command="{Binding ScholarshipsProcInvokeCommand}"
+                                  IsEnabled="{Binding IsDbConnected}"
                                   Header="{StaticResource ScholarshipsHeader}"
                                   InputGestureText="{StaticResource ScholarshipsInput}"
                                   Icon="{StaticResource ScholarshipsImage}"/>
                         <MenuItem Command="{Binding RolesProcInvokeCommand}"
+                                  IsEnabled="{Binding IsDbConnected}"
                                   Header="{StaticResource RolesHeader}"
                                   InputGestureText="{StaticResource RolesInput}"
                                   Icon="{StaticResource RolesImage}"/>
                     </MenuItem>
                     <MenuItem Header="{StaticResource DependentTablesHeader}">
                         <MenuItem Command="{Binding DisciplinesProcInvokeCommand}"
+                                  IsEnabled="{Binding IsDbConnected}"
                                   Header="{StaticResource DisciplinesHeader}"
                                   InputGestureText="{StaticResource DisciplinesInput}"
                                   Icon="{StaticResource DisciplinesImage}"/>
                         <MenuItem Command="{Binding GradesProcInvokeCommand}"
+                                  IsEnabled="{Binding IsDbConnected}"
                                   Header="{StaticResource GradesHeader}"
                                   InputGestureText="{StaticResource GradesInput}"
                                   Icon="{StaticResource GradesImage}"/>
                         <MenuItem Command="{Binding GradeStatementsProcInvokeCommand}"
+                                  IsEnabled="{Binding IsDbConnected}"
                                   Header="{StaticResource GradeStatementsHeader}"
                                   InputGestureText="{StaticResource GradeStatementsInput}"
                                   Icon="{StaticResource GradeStatementsImage}"/>
                         <MenuItem Command="{Binding PersonsProcInvokeCommand}"
+                                  IsEnabled="{Binding IsDbConnected}"
                                   Header="{StaticResource PersonsHeader}"
                                   InputGestureText="{StaticResource PersonsInput}"
                                   Icon="{StaticResource PersonsImage}"/>
                         <MenuItem Command="{Binding SpecialtiesProcInvokeCommand}"
+                                  IsEnabled="{Binding IsDbConnected}"
                                   Header="{StaticResource SpecialtiesHeader}"
                                   InputGestureText="{StaticResource SpecialtiesInput}"
                                   Icon="{StaticResource SpecialtiesImage}"/>
                         <MenuItem Command="{Binding GroupsProcInvokeCommand}"
+                                  IsEnabled="{Binding IsDbConnected}"
                                   Header="{StaticResource GroupsHeader}"
                                   InputGestureText="{StaticResource GroupsInput}"
                                   Icon="{StaticResource GroupsImage}"/>
                         <MenuItem Command="{Binding StudentsProcInvokeCommand}"
+                                  IsEnabled="{Binding IsDbConnected}"
                                   Header="{StaticResource StudentsHeader}"
                                   InputGestureText="{StaticResource StudentsInput}"
                                   Icon="{StaticResource StudentsImage}"/>
                         <MenuItem Command="{Binding StudyFormsProcInvokeCommand}"
+                                  IsEnabled="{Binding IsDbConnected}"
                                   Header="{StaticResource StudyFormsHeader}"
                                   InputGestureText="{StaticResource StudyFormsInput}"
                                   Icon="{StaticResource StudyFormsImage}"/>
                         <MenuItem Command="{Binding TeachersProcInvokeCommand}"
+                                  IsEnabled="{Binding IsDbConnected}"
                                   Header="{StaticResource TeachersHeader}"
                                   InputGestureText="{StaticResource TeachersInput}"
                                   Icon="{StaticResource TeachersImage}"/>
                         <Separator/>
                         <MenuItem Command="{Binding StudentDisciplineConnectionsProcInvokeCommand}"
+                                  IsEnabled="{Binding IsDbConnected}"
                                   Header="{StaticResource StudentDisciplineConnectionsHeader}"
                                   InputGestureText="{StaticResource
                                   StudentDisciplineConnectionsInput}"
                                   Icon="{StaticResource StudentDisciplineConnectionsImage}"/>
                         <MenuItem Command="{Binding TeacherDisciplineConnectionsProcInvokeCommand}"
+                                  IsEnabled="{Binding IsDbConnected}"
                                   Header="{StaticResource TeacherDisciplineConnectionsHeader}"
                                   InputGestureText="{StaticResource
                                   TeacherDisciplineConnectionsInput}"
@@ -99,10 +116,12 @@
                 </MenuItem>
                 <MenuItem Header="{StaticResource OperationsHeader}">
                     <MenuItem Command="{Binding RequestsProcInvokeCommand}"
+                              IsEnabled="{Binding IsDbConnected}"
                               Header="{StaticResource RequestsHeader}"
                               InputGestureText="{StaticResource RequestsInput}"
                               Icon="{StaticResource RequestsImage}"/>
                     <MenuItem Command="{Binding ReportsProcInvokeCommand}"
+                              IsEnabled="{Binding IsDbConnected}"
                               Header="{StaticResource ReportsHeader}"
                               InputGestureText="{StaticResource ReportsInput}"
                               Icon="{StaticResource ReportsImage}"/>
@@ -166,6 +185,7 @@
             </Button>
             <Separator/>
             <Button Command="{Binding DepartmentsProcInvokeCommand}"
+                    IsEnabled="{Binding IsDbConnected}"
                     Content="{StaticResource DepartmentsImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
@@ -173,6 +193,7 @@
                 </Button.ToolTip>
             </Button>
             <Button Command="{Binding PositionsProcInvokeCommand}"
+                    IsEnabled="{Binding IsDbConnected}"
                     Content="{StaticResource PositionsImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
@@ -180,6 +201,7 @@
                 </Button.ToolTip>
             </Button>
             <Button Command="{Binding PassportsProcInvokeCommand}"
+                    IsEnabled="{Binding IsDbConnected}"
                     Content="{StaticResource PassportsImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
@@ -187,6 +209,7 @@
                 </Button.ToolTip>
             </Button>
             <Button Command="{Binding GradeModesProcInvokeCommand}"
+                    IsEnabled="{Binding IsDbConnected}"
                     Content="{StaticResource GradeModesImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
@@ -194,6 +217,7 @@
                 </Button.ToolTip>
             </Button>
             <Button Command="{Binding ScholarshipsProcInvokeCommand}"
+                    IsEnabled="{Binding IsDbConnected}"
                     Content="{StaticResource ScholarshipsImage}" 
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
@@ -201,6 +225,7 @@
                 </Button.ToolTip>
             </Button>
             <Button Command="{Binding RolesProcInvokeCommand}"
+                    IsEnabled="{Binding IsDbConnected}"
                     Content="{StaticResource RolesImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
@@ -209,6 +234,7 @@
             </Button>
             <Separator/>
             <Button Command="{Binding DisciplinesProcInvokeCommand}"
+                    IsEnabled="{Binding IsDbConnected}"
                     Content="{StaticResource DisciplinesImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
@@ -216,6 +242,7 @@
                 </Button.ToolTip>
             </Button>
             <Button Command="{Binding GradesProcInvokeCommand}"
+                    IsEnabled="{Binding IsDbConnected}"
                     Content="{StaticResource GradesImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
@@ -223,6 +250,7 @@
                 </Button.ToolTip>
             </Button>
             <Button Command="{Binding GradeStatementsProcInvokeCommand}"
+                    IsEnabled="{Binding IsDbConnected}"
                     Content="{StaticResource GradeStatementsImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
@@ -230,6 +258,7 @@
                 </Button.ToolTip>
             </Button>
             <Button Command="{Binding PersonsProcInvokeCommand}"
+                    IsEnabled="{Binding IsDbConnected}"
                     Content="{StaticResource PersonsImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
@@ -237,6 +266,7 @@
                 </Button.ToolTip>
             </Button>
             <Button Command="{Binding SpecialtiesProcInvokeCommand}"
+                    IsEnabled="{Binding IsDbConnected}"
                     Content="{StaticResource SpecialtiesImage}" 
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
@@ -244,6 +274,7 @@
                 </Button.ToolTip>
             </Button>
             <Button Command="{Binding StudentsProcInvokeCommand}"
+                    IsEnabled="{Binding IsDbConnected}"
                     Content="{StaticResource StudentsImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
@@ -251,6 +282,7 @@
                 </Button.ToolTip>
             </Button>
             <Button Command="{Binding StudyFormsProcInvokeCommand}"
+                    IsEnabled="{Binding IsDbConnected}"
                     Content="{StaticResource StudyFormsImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
@@ -258,6 +290,7 @@
                 </Button.ToolTip>
             </Button>
             <Button Command="{Binding GroupsProcInvokeCommand}"
+                    IsEnabled="{Binding IsDbConnected}"
                     Content="{StaticResource GroupsImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
@@ -265,6 +298,7 @@
                 </Button.ToolTip>
             </Button>
             <Button Command="{Binding TeachersProcInvokeCommand}"
+                    IsEnabled="{Binding IsDbConnected}"
                     Content="{StaticResource TeachersImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
@@ -273,6 +307,7 @@
             </Button>
             <Separator/>
             <Button Command="{Binding StudentDisciplineConnectionsProcInvokeCommand}"
+                    IsEnabled="{Binding IsDbConnected}"
                     Content="{StaticResource StudentDisciplineConnectionsImage}" 
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
@@ -280,6 +315,7 @@
                 </Button.ToolTip>
             </Button>
             <Button Command="{Binding TeacherDisciplineConnectionsProcInvokeCommand}"
+                    IsEnabled="{Binding IsDbConnected}"
                     Content="{StaticResource TeacherDisciplineConnectionsImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
@@ -288,6 +324,7 @@
             </Button>
             <Separator/>
             <Button Command="{Binding RequestsProcInvokeCommand}"
+                    IsEnabled="{Binding IsDbConnected}"
                     Content="{StaticResource RequestsImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>
@@ -295,6 +332,7 @@
                 </Button.ToolTip>
             </Button>
             <Button Command="{Binding ReportsProcInvokeCommand}"
+                    IsEnabled="{Binding IsDbConnected}"
                     Content="{StaticResource ReportsImage}"
                     Height="{StaticResource ToolbarButtonSize}">
                 <Button.ToolTip>

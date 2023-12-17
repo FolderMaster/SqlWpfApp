@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Dependent
@@ -26,6 +27,7 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт идентификатор.
         /// </summary>
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long ID { get; set; }
 
         /// <summary>
@@ -77,7 +79,7 @@ namespace Model.Dependent
         /// Создаёт экземпляр класса <see cref="GradeStatement"/> по умолчанию.
         /// </summary>
         public GradeStatement() => ValuesGenerator.GenerateValues(_idGenerator, () =>
-            GradeStatements.FirstOrDefault((d) => d.ID == ID) != null, (id) =>  ID = id,
+            GradeStatements.FirstOrDefault((d) => d.ID == ID) != null, (id) => { },
             () => GradeStatements.Add(this));
     }
 }

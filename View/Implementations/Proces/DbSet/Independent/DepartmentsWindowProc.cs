@@ -5,7 +5,7 @@ using View.Windows.DbSet.Independent;
 using View.Implementations.ResourceService;
 
 using ViewModel.VMs.DbSet;
-using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Services.Messages;
 
 using Model.Independent;

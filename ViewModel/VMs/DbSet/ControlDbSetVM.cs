@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Messages;
 

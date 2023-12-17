@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:View.Controls.DbSet"
+             xmlns:ctrl="clr-namespace:View.Controls"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:v="clr-namespace:View.ValidationRules"
              xmlns:c="clr-namespace:View.Converters"
@@ -22,6 +23,7 @@
             </ObjectDataProvider>
             <c:InverseBoolConverter x:Key="InverseBoolConverter"/>
             <c:StringToHeaderConverter x:Key="StringToHeaderConverter"/>
+            <c:BoolToEnumConverter x:Key="BoolToEnumConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -47,30 +49,14 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Content="{Binding Source={StaticResource SerialNumberHeader},
                     Converter={StaticResource StringToHeaderConverter}}"/>
-                <TextBox Grid.Row="1" IsReadOnly="{Binding ElementName=passportControl,
-                    Path=IsReadOnly}">
-                    <TextBox.Text>
-                        <Binding Path="Passport.SerialNumber" ElementName="passportControl"
-                                     UpdateSourceTrigger="PropertyChanged">
-                            <Binding.ValidationRules>
-                                <ExceptionValidationRule/>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
+                <ctrl:MaskedTextBox Grid.Row="1" OriginalText="{Binding ElementName=passportControl,
+                    Path=Passport.SerialNumber, UpdateSourceTrigger=PropertyChanged}"
+                    IsReadOnly="{Binding ElementName=passportControl, Path=IsReadOnly}"/>
                 <Label Grid.Row="2" Content="{Binding Source={StaticResource NameHeader},
                     Converter={StaticResource StringToHeaderConverter}}"/>
-                <TextBox Grid.Row="3" IsReadOnly="{Binding ElementName=passportControl,
-                    Path=IsReadOnly}">
-                    <TextBox.Text>
-                        <Binding Path="Passport.Name" ElementName="passportControl"
-                                     UpdateSourceTrigger="PropertyChanged">
-                            <Binding.ValidationRules>
-                                <v:NotEmptyValidationRule/>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
+                <TextBox Grid.Row="3" Text="{Binding ElementName=passportControl,
+                    Path=Passport.Name, UpdateSourceTrigger=PropertyChanged}"
+                    IsReadOnly="{Binding ElementName=passportControl, Path=IsReadOnly}"/>
                 <Label Grid.Row="4" Content="{Binding Source={StaticResource BirthDateHeader},
                     Converter={StaticResource StringToHeaderConverter}}"/>
                 <DatePicker Grid.Row="5" SelectedDate="{Binding ElementName=passportControl,
@@ -84,7 +70,8 @@
                 <Label Grid.Row="8" Content="{Binding Source={StaticResource SexHeader},
                     Converter={StaticResource StringToHeaderConverter}}"/>
                 <ComboBox Grid.Row="9" ItemsSource="{Binding Source={StaticResource SexEnum}}"
-                          SelectedItem="{Binding ElementName=passportControl,Path=Passport.Sex}"
+                          SelectedItem="{Binding ElementName=passportControl,Path=Passport.Sex,
+                          Converter={StaticResource BoolToEnumConverter}, ConverterParameter='Model.Sex'}"
                           IsEnabled="{Binding ElementName=passportControl, Path=IsReadOnly,
                           Converter={StaticResource InverseBoolConverter}}"/>
                 <Label Grid.Row="10" Content="{Binding

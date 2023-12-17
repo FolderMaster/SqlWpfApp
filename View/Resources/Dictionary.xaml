@@ -5,11 +5,25 @@
     <sys:String x:Key="InformationMessageTitle">Information.</sys:String>
     <sys:String x:Key="QuestionMessageTitle">Question?</sys:String>
 
+    <sys:String x:Key="ErrorConnectionMessageDescription">Connection failed!</sys:String>
+
+    <sys:Double x:Key="ConnectionButtonSize">20</sys:Double>
+
     <sys:String x:Key="ConnectionHeader">Connection</sys:String>
     <sys:String x:Key="DataBaseHeader">Data base</sys:String>
+    <sys:String x:Key="DataSourceHeader">Data source</sys:String>
+    <sys:String x:Key="InitialCatalogHeader">Initial catalog</sys:String>
+    <sys:String x:Key="IsTlsConnectionHeader">Is TLS connection?</sys:String>
+    <sys:String x:Key="IsColumnEncryptionHeader">Is column encryption?</sys:String>
+    <sys:String x:Key="IsTrustServerCertificateHeader">Is trust server certificate?</sys:String>
     <sys:String x:Key="LoginHeader">Login</sys:String>
+    <sys:String x:Key="UserHeader">User</sys:String>
     <sys:String x:Key="PasswordHeader">Password</sys:String>
     <sys:String x:Key="ConnectHeader">Connect</sys:String>
+
+    <sys:String x:Key="ConnectionWindowHeader">Connection</sys:String>
+    <sys:Double x:Key="ConnectionWindowWidth">250</sys:Double>
+    <sys:Double x:Key="ConnectionWindowHeight">350</sys:Double>
 
     <sys:String x:Key="InformationMessageDescription">
         (C)TUSUR, KSUB, Pchelintsev Andrew Alexandrovich, group 571-2, 2023.
@@ -250,6 +264,19 @@
     </DataTemplate>
     <DataTemplate x:Key="RoleTemplate">
         <Label Content="{Binding Name}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="ConnectionTemplate">
+        <TextBlock>
+            <TextBlock.Text>
+                <MultiBinding StringFormat=" {0} {1} ">
+                    <Binding Path="DataSource"/>
+                    <Binding Path="InitialCatalog"/>
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+    </DataTemplate>
+    <DataTemplate x:Key="AuthorizationTemplate">
+        <TextBlock Text="{Binding User}"/>
     </DataTemplate>
 
     <sys:String x:Key="OperationsHeader">Operations</sys:String>

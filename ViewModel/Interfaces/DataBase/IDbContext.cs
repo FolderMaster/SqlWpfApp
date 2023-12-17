@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 
-namespace ViewModel.Interfaces.DbContext
+namespace ViewModel.Interfaces.DataBase
 {
     /// <summary>
     /// Интерфейс контекста базы данных с методами создания представления таблицы из базы данных,
@@ -15,7 +15,13 @@ namespace ViewModel.Interfaces.DbContext
         /// </summary>
         /// <typeparam name="TEntity">Тип сущности таблицы.</typeparam>
         /// <returns>Представление таблицы из базы данных.</returns>
-        public DbSet<TEntity> Set<TEntity>() where TEntity : class;
+        public ObservableCollection<TEntity> GetDbSetLocal<TEntity>() where TEntity : class;
+
+        public void Reload<TEntity>() where TEntity : class;
+
+        public void RejectChanges<TEntity>() where TEntity : class;
+
+        public bool CanConnect();
 
         /// <summary>
         /// Сохраняет изменения в таблице.
@@ -29,6 +35,7 @@ namespace ViewModel.Interfaces.DbContext
         /// </summary>
         /// <param name="commandString">Строка команды.</param>
         /// <returns>Результат выполнения команды.</returns>
-        public DataTable ExecuteCommand(string commandString);
+        public DataTable ExecuteCommand(string commandString,
+            Dictionary<string, object>? parameters = null);
     }
 }

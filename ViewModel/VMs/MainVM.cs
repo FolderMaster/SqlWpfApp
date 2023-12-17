@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
+using System;
+
 using ViewModel.Interfaces;
-using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Messages;
 using ViewModel.Services;
@@ -12,8 +14,13 @@ namespace ViewModel.VMs
     /// <summary>
     /// Класс основного представления модели с командами.
     /// </summary>
-    public class MainVM : ObservableObject
+    public partial class MainVM : ObservableObject
     {
+        private static string _errorTitleResourceKey = "ErrorMessageTitle";
+
+        private static string _errorConnectionDescriptionResourceKey = 
+            "ErrorConnectionMessageDescription";
+
         /// <summary>
         /// Ключ ресурса заголовка выхода.
         /// </summary>
@@ -44,6 +51,9 @@ namespace ViewModel.VMs
         /// Конфигурация.
         /// </summary>
         private IConfiguration _configuration;
+
+        [ObservableProperty]
+        private bool isDbConnected = false;
 
         /// <summary>
         /// Возвращает и задаёт команду сохранения.
@@ -205,6 +215,23 @@ namespace ViewModel.VMs
         {
             _configuration = configuration;
             _messengerService = new MessengerService(resourceService, errorMessageService);
+            dbContextBuilder.ResultConnectionCreated += (object? sender, EventArgs e) =>
+            {
+                if (dbContextBuilder.Result == null)
+                {
+                    IsDbConnected = false;
+                }
+                else
+                {
+                    IsDbConnected = dbContextBuilder.Result.CanConnect();
+                    if (!IsDbConnected)
+                    {
+                        _messengerService.ShowMessage(errorMessageService, _errorTitleResourceKey,
+                            _errorConnectionDescriptionResourceKey);
+                    }
+                }
+            };
+                
 
             SaveCommand = new RelayCommand(() =>
                 _messengerService.ExecuteWithExceptionMessage(_configuration.Save));

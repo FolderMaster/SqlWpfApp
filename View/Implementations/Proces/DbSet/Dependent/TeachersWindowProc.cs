@@ -3,7 +3,7 @@
 using View.Implementations.ResourceService;
 using View.Windows.DbSet.Dependent;
 
-using ViewModel.Interfaces.DbContext;
+using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Services.Messages;
 
 namespace View.Implementations.Proces.DbSet.Dependent

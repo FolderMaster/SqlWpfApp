@@ -1,6 +1,7 @@
-﻿using ViewModel.Interfaces.DbContext;
+﻿using System;
+using ViewModel.Interfaces.DataBase;
 
-namespace ViewModel.Dependencies
+namespace ViewModel.Dependencies.DataBase.Sqlite
 {
     /// <summary>
     /// Класс создателя контекста базы данных SQLite <seealso cref="SqliteDbContext"/> с методом
@@ -13,11 +14,16 @@ namespace ViewModel.Dependencies
         /// </summary>
         public IDbContext? Result { get; private set; }
 
+        public event EventHandler? ResultConnectionCreated;
+
         /// <summary>
         /// Создаёт контекст базы данных.
         /// </summary>
         /// <param name="connectionString">Строка подключения.</param>
-        public void Create(string connectionString) =>
+        public void Create(string connectionString)
+        {
             Result = new SqliteDbContext(connectionString);
+            ResultConnectionCreated?.Invoke(this, EventArgs.Empty);
+        }
     }
 }
