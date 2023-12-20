@@ -59,8 +59,8 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт название должности.
         /// </summary>
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string? PositionName { get; set; }
+        [NotMapped]
+        public string? PositionName => Teacher?.PositionName;
 
         /// <summary>
         /// Создаёт экземпляр класса <see cref="TeacherDisciplineConnection"/> по умолчанию.

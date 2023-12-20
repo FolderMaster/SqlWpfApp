@@ -65,7 +65,7 @@
                     Path=IsReadOnly, Converter={StaticResource InverseBoolConverter}}"/>
                 <Label Grid.Row="6" Content="{Binding Source={StaticResource AgeHeader},
                     Converter={StaticResource StringToHeaderConverter}}"/>
-                <TextBox Grid.Row="7" Text="{Binding ElementName=passportControl, Path=Passport.Age}"
+                <TextBox Grid.Row="7" Text="{Binding ElementName=passportControl, Path=Passport.Age, Mode=OneWay}"
                          IsReadOnly="True"/>
                 <Label Grid.Row="8" Content="{Binding Source={StaticResource SexHeader},
                     Converter={StaticResource StringToHeaderConverter}}"/>

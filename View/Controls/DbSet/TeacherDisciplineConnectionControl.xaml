@@ -25,7 +25,7 @@
                 <Label Content="{Binding Source={StaticResource PositionNameHeader},
                     Converter={StaticResource StringToHeaderConverter}}"/>
                 <TextBox Text="{Binding ElementName=teacherDisciplineConnectionControl,
-                    Path=TeacherDisciplineConnection.PositionName}" IsReadOnly="True"/>
+                    Path=TeacherDisciplineConnection.PositionName, Mode=OneWay}" IsReadOnly="True"/>
             </StackPanel>
         </GroupBox>
         <GroupBox Grid.Column="1" Header="{StaticResource TeachersHeader}">

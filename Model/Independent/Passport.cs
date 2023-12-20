@@ -30,8 +30,6 @@ namespace Model.Independent
         /// </summary>
         private byte[]? _scanValue = null;
 
-        private int _ageValue = 0;
-
         /// <summary>
         /// Генератор идентификаторов.
         /// </summary>
@@ -146,6 +144,7 @@ namespace Model.Independent
                 {
                     _birthDateValue = value;
                     PropertyChangedEventInvoke();
+                    PropertyChangedEventInvoke(nameof(Age));
                 }
             }
         }
@@ -153,19 +152,8 @@ namespace Model.Independent
         /// <summary>
         /// Возвращает и задаёт возраст.
         /// </summary>
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public int Age
-        {
-            get => _ageValue;
-            set
-            {
-                if(_ageValue != value)
-                {
-                    _ageValue = value;
-                    PropertyChangedEventInvoke();
-                }
-            }
-        }
+        [NotMapped]
+        public int Age => new DateTime(DateTime.Now.Subtract(BirthDate).Ticks).Year - 1;
 
         /// <summary>
         /// Возвращает и задаёт связанные персоны.

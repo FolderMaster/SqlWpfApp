@@ -120,7 +120,7 @@ namespace ViewModel.VMs.Request
                 _documentEditService.Clear();
                 ExecuteCommand("SELECT s.ID, p.Name, sp.DepartmentName AS Department, " +
                     "g.Number AS GroupNumber, g.FormationYear AS GroupFormationYear, " +
-                    "AVG(studentGrades.Coefficient) AS AverageGrade " +
+                    "AVG(CAST(studentGrades.Coefficient AS REAL)) AS AverageGrade " +
                     "FROM Students s, Persons p, Groups g, Specialties sp, (" +
                     "SELECT StudentID, DisciplineID, PassingDate, Coefficient " +
                     "FROM GradeStatements gs, Grades gr " +
@@ -176,7 +176,8 @@ namespace ViewModel.VMs.Request
                     (_departmentsScholarshipsParagraphResourceKey));
                 _documentEditService.AddTable(ExecutingResult);
                 ExecuteCommand("SELECT sp.DepartmentName AS Department, s.GroupNumber, " +
-                    "s.GroupFormationYear, AVG(studentGrades.Coefficient) AS AverageGrade " +
+                    "s.GroupFormationYear, " +
+                    "AVG(CAST(studentGrades.Coefficient AS REAL)) AS AverageGrade " +
                     "FROM Students s, Groups g, Specialties sp, (" +
                     "SELECT StudentID, DisciplineID, PassingDate, Coefficient " +
                     "FROM GradeStatements gs, Grades gr " +
