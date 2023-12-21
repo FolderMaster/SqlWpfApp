@@ -8,9 +8,9 @@ namespace ViewModel.VMs.Request.ParameterRequest.SpecialViewData
         public override ObservableCollection<string> Columns => new()
         { "Department", "Scholarship", "Count" };
 
-        public string DisciplineName { get; set; } = "%";
+        public string DepartmentName { get; set; } = "%";
 
-        public string StudyFormName { get; set; } = "%";
+        public string ScholarshipName { get; set; } = "%";
 
         public override string GetMainPartRequest() =>
             "SELECT sp.DepartmentName AS Department, " +
@@ -24,8 +24,8 @@ namespace ViewModel.VMs.Request.ParameterRequest.SpecialViewData
 
         public override Dictionary<string, object> GetParameters() => new()
         {
-            ["@DisciplineName"] = DisciplineName,
-            ["@StudyFormName"] = StudyFormName
+            ["@DepartmentName"] = DepartmentName,
+            ["@ScholarshipName"] = ScholarshipName
         };
     }
 }

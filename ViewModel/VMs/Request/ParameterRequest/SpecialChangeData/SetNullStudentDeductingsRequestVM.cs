@@ -7,17 +7,26 @@ namespace ViewModel.VMs.Request.ParameterRequest.SpecialChangeData
     {
         public override string Table => "Students";
 
+        public string GroupNumber { get; set; } = "%";
+
+        public int MinGroupFormationYear { get; set; } = DateTime.Now.Year;
+
+        public int MaxGroupFormationYear { get; set; } = DateTime.Now.Year;
+
         public override string GetRequest() =>
-            $"UPDATE Students " +
+            "UPDATE Students " +
             "SET IsDeductible = NULL " +
-            "WHERE StudentID IN " +
+            "WHERE ID IN " +
             "(SELECT ID " +
             "FROM Students " +
-            "(GroupFormationYear BETWEEN @MinGroupFormationYear AND " +
+            "WHERE (GroupFormationYear BETWEEN @MinGroupFormationYear AND " +
             "@MaxGroupFormationYear) AND GroupNumber LIKE @GroupNumber)";
 
         public override Dictionary<string, object> GetParameters() => new()
         {
+            ["@GroupNumber"] = GroupNumber,
+            ["@MinGroupFormationYear"] = MinGroupFormationYear,
+            ["@MaxGroupFormationYear"] = MaxGroupFormationYear
         };
     }
 }

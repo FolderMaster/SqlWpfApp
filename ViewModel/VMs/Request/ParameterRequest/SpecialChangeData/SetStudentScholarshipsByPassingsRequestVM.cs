@@ -1,11 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ViewModel.VMs.Request.ParameterRequest.SpecialChangeData
 {
     public class SetStudentScholarshipsByPassingsRequestVM : ParameterRequestVM
     {
         public override string Table => "Students";
+
+        public bool IsPassed { get; set; } = false;
+
+        public string FutureScholarshipName { get; set; } = "";
+
+        public int MinCountIsPassed { get; set; } = 1;
+
+        public string CurrentScholarshipName { get; set; } = "";
 
         public override string GetRequest() =>
             "UPDATE Students " +
@@ -24,6 +31,10 @@ namespace ViewModel.VMs.Request.ParameterRequest.SpecialChangeData
 
         public override Dictionary<string, object> GetParameters() => new()
         {
+            ["@FutureScholarshipName"] = FutureScholarshipName,
+            ["@IsPassed"] = IsPassed,
+            ["@MinCountIsPassed"] = MinCountIsPassed,
+            ["@CurrentScholarshipName"] = CurrentScholarshipName
         };
     }
 }

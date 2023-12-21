@@ -73,19 +73,19 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
                             <Label Content="{Binding Source={StaticResource NameHeader},
-                                   Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding ParametersVMs[0].Parameters[2], Mode=TwoWay,
-                                 UpdateSourceTrigger=PropertyChanged}"/>
+                                Converter={StaticResource StringToHeaderConverter}}"/>
+                            <TextBox Text="{Binding AverageDisciplineLastGradesViewRequestVM.DisciplineName,
+                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <Label Content="{Binding Source={StaticResource StudyFormHeader},
-                                   Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding ParametersVMs[0].Parameters[3], Mode=TwoWay,
-                                 UpdateSourceTrigger=PropertyChanged}"/>
+                                Converter={StaticResource StringToHeaderConverter}}"/>
+                            <TextBox Text="{Binding AverageDisciplineLastGradesViewRequestVM.StudyFormName,
+                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                         <GroupBox Header="{StaticResource SortHeader}" Grid.Column="1">
                             <local:SortControl SortCollection="{Binding
-                                               ParametersVMs[0].Parameters[1]}"
+                                               AverageDisciplineLastGradesViewRequestVM.Sort}"
                                                ColumnNames="{Binding
-                                               ParametersVMs[0].Parameters[0]}"/>
+                                               AverageDisciplineLastGradesViewRequestVM.Columns}"/>
                         </GroupBox>
                     </Grid>
                     <Grid Visibility="{Binding Request,
@@ -98,18 +98,18 @@
                         <StackPanel Grid.Column="0">
                             <Label Content="{Binding Source={StaticResource DepartmentHeader},
                                    Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding ParametersVMs[1].Parameters[2], Mode=TwoWay,
-                                 UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding DepartmentScholarshipCountsViewRequestVM.DepartmentName,
+                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <Label Content="{Binding Source={StaticResource ScholarshipHeader},
-                                   Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding ParametersVMs[1].Parameters[3], Mode=TwoWay,
-                                 UpdateSourceTrigger=PropertyChanged}"/>
+                                Converter={StaticResource StringToHeaderConverter}}"/>
+                            <TextBox Text="{Binding DepartmentScholarshipCountsViewRequestVM.ScholarshipName,
+                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                         <GroupBox Header="{StaticResource SortHeader}" Grid.Column="1">
                             <local:SortControl SortCollection="{Binding
-                                               ParametersVMs[1].Parameters[1]}"
+                                               DepartmentScholarshipCountsViewRequestVM.Sort}"
                                                ColumnNames="{Binding
-                                               ParametersVMs[1].Parameters[0]}"/>
+                                               DepartmentScholarshipCountsViewRequestVM.Columns}"/>
                         </GroupBox>
                     </Grid>
                     <Grid Visibility="{Binding Request,
@@ -121,15 +121,15 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
                             <Label Content="{Binding Source={StaticResource DepartmentHeader},
-                                   Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding ParametersVMs[2].Parameters[2], Mode=TwoWay,
-                                 UpdateSourceTrigger=PropertyChanged}"/>
+                                Converter={StaticResource StringToHeaderConverter}}"/>
+                            <TextBox Text="{Binding DeductibleDepartmentStudentsViewRequestVM.DepartmentName,
+                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                         <GroupBox Header="{StaticResource SortHeader}" Grid.Column="1">
                             <local:SortControl SortCollection="{Binding
-                                               ParametersVMs[2].Parameters[1]}"
+                                               DeductibleDepartmentStudentsViewRequestVM.Sort}"
                                                ColumnNames="{Binding
-                                               ParametersVMs[2].Parameters[0]}"/>
+                                               DeductibleDepartmentStudentsViewRequestVM.Columns}"/>
                         </GroupBox>
                     </Grid>
                     <Grid Visibility="{Binding Request,
@@ -141,23 +141,22 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
                             <CheckBox Content="{StaticResource IsPassedHeader}"
-                                      IsChecked="{Binding ParametersVMs[3].Parameters[2],
-                                      Converter={StaticResource IntToBoolConverter}, Mode=TwoWay,
-                                      UpdateSourceTrigger=PropertyChanged}"/>
+                                      IsChecked="{Binding PassingDisciplineCountsViewRequestVM.IsPassed,
+                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <Label Content="{Binding Source={StaticResource NameHeader},
                                    Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding ParametersVMs[3].Parameters[3], Mode=TwoWay,
-                                 UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding PassingDisciplineCountsViewRequestVM.DisciplineName,
+                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <Label Content="{Binding Source={StaticResource StudyFormHeader},
                                    Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding ParametersVMs[3].Parameters[4], Mode=TwoWay,
-                                 UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding PassingDisciplineCountsViewRequestVM.StudyFormName,
+                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                         <GroupBox Header="{StaticResource SortHeader}" Grid.Column="1">
                             <local:SortControl SortCollection="{Binding
-                                               ParametersVMs[3].Parameters[1]}"
+                                               PassingDisciplineCountsViewRequestVM.Sort}"
                                                ColumnNames="{Binding
-                                               ParametersVMs[3].Parameters[0]}"/>
+                                               PassingDisciplineCountsViewRequestVM.Columns}"/>
                         </GroupBox>
                     </Grid>
                     <Grid Visibility="{Binding Request,
@@ -170,25 +169,24 @@
                         <StackPanel Grid.Column="0">
                             <Label Content="{Binding Source={StaticResource DepartmentHeader},
                                    Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding ParametersVMs[4].Parameters[2], Mode=TwoWay,
-                                 UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding AverageDepartmentGroupLastGradesViewRequestVM.DepartmentName,
+                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <Label Content="{Binding Source={StaticResource GroupNumberHeader},
                                    Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding ParametersVMs[4].Parameters[3], Mode=TwoWay,
-                                 UpdateSourceTrigger=PropertyChanged}"/>
-                            <Label Content="{Binding Source={StaticResource
-                                   GroupFormationYearHeader},
+                            <TextBox Text="{Binding AverageDepartmentGroupLastGradesViewRequestVM.GroupNumber,
+                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label Content="{Binding Source={StaticResource GroupFormationYearHeader},
                                    Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding ParametersVMs[4].Parameters[4], Mode=TwoWay,
-                                 UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBox Text="{Binding ParametersVMs[4].Parameters[5], Mode=TwoWay,
-                                 UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding AverageDepartmentGroupLastGradesViewRequestVM.MinGroupFormationYear,
+                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding AverageDepartmentGroupLastGradesViewRequestVM.MaxGroupFormationYear,
+                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                         <GroupBox Header="{StaticResource SortHeader}" Grid.Column="1">
                             <local:SortControl SortCollection="{Binding
-                                               ParametersVMs[4].Parameters[1]}"
+                                               AverageDepartmentGroupLastGradesViewRequestVM.Sort}"
                                                ColumnNames="{Binding
-                                               ParametersVMs[4].Parameters[0]}"/>
+                                               AverageDepartmentGroupLastGradesViewRequestVM.Columns}"/>
                         </GroupBox>
                     </Grid>
                     <Grid Visibility="{Binding Request,
@@ -200,15 +198,14 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
                             <CheckBox Content="{StaticResource IsPassedHeader}"
-                                      IsChecked="{Binding ParametersVMs[5].Parameters[2],
-                                      Converter={StaticResource IntToBoolConverter}, Mode=TwoWay,
-                                      UpdateSourceTrigger=PropertyChanged}"/>
+                                      IsChecked="{Binding PassedDepartmentStudentDisciplinesViewRequestVM.IsPassed,
+                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                         <GroupBox Header="{StaticResource SortHeader}" Grid.Column="1">
                             <local:SortControl SortCollection="{Binding
-                                               ParametersVMs[5].Parameters[1]}"
+                                               PassedDepartmentStudentDisciplinesViewRequestVM.Sort}"
                                                ColumnNames="{Binding
-                                               ParametersVMs[5].Parameters[0]}"/>
+                                               PassedDepartmentStudentDisciplinesViewRequestVM.Columns}"/>
                         </GroupBox>
                     </Grid>
                 </Grid>

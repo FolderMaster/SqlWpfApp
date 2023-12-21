@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using System.Data;
 
 using System.Collections.Generic;
+using System;
 
 namespace ViewModel.Dependencies.DataBase.MsSqlServer
 {
@@ -56,7 +57,7 @@ namespace ViewModel.Dependencies.DataBase.MsSqlServer
                     {
                         foreach (var key in parameters.Keys)
                         {
-                            command.Parameters.AddWithValue(key, parameters[key]);
+                            command.Parameters.AddWithValue(key, parameters[key] ?? DBNull.Value);
                         }
                     }
                     using (SqlDataReader reader = command.ExecuteReader())

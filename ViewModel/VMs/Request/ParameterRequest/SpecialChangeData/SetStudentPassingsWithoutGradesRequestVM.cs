@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ViewModel.VMs.Request.ParameterRequest.SpecialChangeData
 {
@@ -10,22 +6,20 @@ namespace ViewModel.VMs.Request.ParameterRequest.SpecialChangeData
     {
         public override string Table => "StudentDisciplineConnections";
 
-        public override string GetRequest()
-        {
-            /**
-             * $"UPDATE {table} " +
-                        "SET IsPassed = @IsPassed " +
-                        "SET IsPassed = @IsPassed " +
-                        $"{ParametersVMs[parametersIndex].Parameters[0]}",
-                        "WHERE(StudentID, DisciplineID) NOT IN (" +
-                        CreateSelectCommand("DISTINCT gs.StudentID, gs.DisciplineID",
-                        "GradeStatements gs") + ")");
-            **/
-            throw new NotImplementedException();
-        }
+        public bool IsPassed { get; set; } = false;
+
+        public override string GetRequest() =>
+            "UPDATE sdc " +
+            "SET sdc.IsPassed = @IsPassed " +
+            "FROM StudentDisciplineConnections sdc " +
+            "WHERE NOT EXISTS" +
+            "(SELECT 1 " +
+            "FROM GradeStatements gs " +
+            "WHERE gs.StudentID = sdc.StudentID AND gs.DisciplineID  = sdc.DisciplineID)";
 
         public override Dictionary<string, object> GetParameters() => new()
         {
+            ["@IsPassed"] = IsPassed
         };
     }
 }

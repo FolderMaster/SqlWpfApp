@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ViewModel.VMs.Request.ParameterRequest.SpecialChangeData
 {
@@ -10,51 +7,58 @@ namespace ViewModel.VMs.Request.ParameterRequest.SpecialChangeData
     {
         public override string Table => "Students";
 
-        public override Dictionary<string, object> GetParameters()
-        {
-            throw new NotImplementedException();
-        }
+        public string FutureScholarshipName { get; set; } = "";
 
-        public override string GetRequest()
+        public int MinLastGradesCount { get; set; } = 1;
+
+        public int MinLastGradeCoefficient { get; set; } = 3;
+
+        public string CurrentScholarshipName { get; set; } = "";
+
+        public string PermanentResidenceAddress { get; set; } = "%";
+
+        public override string GetRequest() =>
+            "UPDATE Students " +
+            "SET ScholarshipName = @FutureScholarshipName " +
+            "WHERE ID IN" +
+            "(SELECT minLastGrades.StudentID " +
+            "FROM Students st, Persons p, Passports pa, (" +
+            "SELECT StudentID, MIN(lastGrades.Coefficient) AS MinCoefficient " +
+            "FROM (" +
+            "SELECT StudentID, DisciplineID, Coefficient " +
+            "FROM GradeStatements gs, Grades gr " +
+            "WHERE gr.Name = gs.GradeName AND NOT EXISTS" +
+            "(SELECT 1 " +
+            "FROM GradeStatements grs " +
+            "WHERE grs.StudentID = gs.StudentID AND grs.DisciplineID = gs.DisciplineID AND " +
+            "grs.PassingDate > gs.PassingDate)" +
+            ") AS lastGrades " +
+            "GROUP BY StudentID" +
+            ") AS minLastGrades, (" +
+            "SELECT StudentID, DisciplineID, Coefficient " +
+            "FROM GradeStatements gs, Grades gr " +
+            "WHERE gr.Name = gs.GradeName AND NOT EXISTS " +
+            "(SELECT 1 " +
+            "FROM GradeStatements grs " +
+            "WHERE grs.StudentID = gs.StudentID AND grs.DisciplineID = gs.DisciplineID AND " +
+            "grs.PassingDate > gs.PassingDate)" +
+            ") AS lastGrades " +
+            "WHERE lastGrades.Coefficient = MinCoefficient AND " +
+            "st.ID = minLastGrades.StudentID AND st.ID = lastGrades.StudentID AND " +
+            "st.ID = p.ID AND p.PassportSerialNumber = pa.SerialNumber AND " +
+            "pa.PermanentResidenceAddress LIKE @PermanentResidenceAddress AND " +
+            "st.ScholarshipName LIKE @CurrentScholarshipName AND " +
+            "MinCoefficient = @MinLastGradeCoefficient " +
+            "GROUP BY minLastGrades.StudentID, MinCoefficient " +
+            "HAVING COUNT(Coefficient) = @MinLastGradesCount)";
+
+        public override Dictionary<string, object> GetParameters() => new()
         {
-            throw new NotImplementedException();
-            /**table = "Students";
-                    command = CreateUpdateCommand(table,
-                        "ScholarshipName = " +
-                        $"\"{ParametersVMs[parametersIndex].Parameters[0]}\"",
-                        "ID IN (" +
-                        CreateSelectCommand("s.ID",
-                        "Students s " +
-                        "JOIN (" +
-                        CreateSelectCommand("s.ID, " +
-                        "COUNT(MinLastGradeCoefficient) AS CountMinLastGrades, " +
-                        "MIN(MinLastGradeCoefficient) AS MinLastGradeCoefficient, " +
-                        "pa.PermanentResidenceAddress, " +
-                        "s.ScholarshipName",
-                        "Students s, Persons p, Passports pa " +
-                        "LEFT JOIN (" +
-                        CreateSelectCommand("gs.StudentID, " +
-                        "MIN(g.Coefficient) AS MinLastGradeCoefficient",
-                        "GradeStatements gs " +
-                        "INNER JOIN Grades g ON gs.GradeName = g.Name",
-                        "gs.PassingDate = (" +
-                        CreateSelectCommand("MAX(PassingDate)",
-                        "GradeStatements",
-                        "StudentID = gs.StudentID") + ")",
-                        "gs.StudentID") + ")" +
-                        "t ON s.ID = t.StudentID",
-                        "s.ID = p.ID AND p.PassportSerialNumber = pa.SerialNumber",
-                        "S.ID") + ") AS minStatements",
-                        "minStatements.ID = s.ID AND " +
-                        "minStatements.CountMinLastGrades <= " +
-                        $"{ParametersVMs[parametersIndex].Parameters[1]} " +
-                        "AND minStatements.MinLastGradeCoefficient = " +
-                        $"{ParametersVMs[parametersIndex].Parameters[2]} " +
-                        "AND minStatements.ScholarshipName LIKE" +
-                        $"'{ParametersVMs[parametersIndex].Parameters[3]}' " +
-                        "AND minStatements.PermanentResidenceAddress NOT LIKE " +
-                        $"'{ParametersVMs[parametersIndex].Parameters[4]}'") + ")");
-            **/
-        }
+            ["@FutureScholarshipName"] = FutureScholarshipName,
+            ["@MinLastGradesCount"] = MinLastGradesCount,
+            ["@MinLastGradeCoefficient"] = MinLastGradeCoefficient,
+            ["@CurrentScholarshipName"] = CurrentScholarshipName,
+            ["@PermanentResidenceAddress"] = PermanentResidenceAddress
+        };
     }
 }

@@ -13,9 +13,9 @@ namespace ViewModel.VMs.Request.ParameterRequest.SpecialViewData
 
         public string GroupNumber { get; set; } = "%";
 
-        public int MinFormationYear { get; set; } = DateTime.Now.Year;
+        public int MinGroupFormationYear { get; set; } = DateTime.Now.Year;
 
-        public int MaxFormationYear { get; set; } = DateTime.Now.Year;
+        public int MaxGroupFormationYear { get; set; } = DateTime.Now.Year;
 
         public override string GetMainPartRequest() =>
             "SELECT sp.DepartmentName AS Department, g.Number AS GroupNumber, " +
@@ -37,14 +37,14 @@ namespace ViewModel.VMs.Request.ParameterRequest.SpecialViewData
             "GROUP BY sp.DepartmentName, g.Number, g.FormationYear " +
             "HAVING sp.DepartmentName LIKE @DepartmentName AND " +
             "g.Number LIKE @GroupNumber AND " +
-            "g.FormationYear BETWEEN @MinFormationYear AND @MaxFormationYear";
+            "g.FormationYear BETWEEN @MinGroupFormationYear AND @MaxGroupFormationYear";
 
         public override Dictionary<string, object> GetParameters() => new()
         {
             ["@DepartmentName"] = DepartmentName,
             ["@GroupNumber"] = GroupNumber,
-            ["@MinFormationYear"] = MinFormationYear,
-            ["@MaxFormationYear"] = MaxFormationYear
+            ["@MinGroupFormationYear"] = MinGroupFormationYear,
+            ["@MaxGroupFormationYear"] = MaxGroupFormationYear
         };
     }
 }

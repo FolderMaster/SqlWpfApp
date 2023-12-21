@@ -7,6 +7,7 @@ using System.Data.SQLite;
 using ViewModel.Interfaces.DataBase;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using System;
 
 namespace ViewModel.Dependencies.DataBase.Sqlite
 {
@@ -64,7 +65,7 @@ namespace ViewModel.Dependencies.DataBase.Sqlite
                     {
                         foreach (var key in parameters.Keys)
                         {
-                            command.Parameters.AddWithValue(key, parameters[key]);
+                            command.Parameters.AddWithValue(key, parameters[key] ?? DBNull.Value);
                         }
                     }
                     using (SQLiteDataReader reader = command.ExecuteReader())

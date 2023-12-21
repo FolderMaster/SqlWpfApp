@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ViewModel.VMs.Request.ParameterRequest.SpecialChangeData
 {
@@ -10,41 +6,37 @@ namespace ViewModel.VMs.Request.ParameterRequest.SpecialChangeData
     {
         public override string Table => "StudentDisciplineConnections";
 
-        public override Dictionary<string, object> GetParameters()
-        {
-            throw new NotImplementedException();
-        }
+        public bool IsPassed { get; set; } = true;
 
-        public override string GetRequest()
+        public int MinGradeCoefficient { get; set; } = 3;
+
+        public int MaxGradeCoefficient { get; set; } = 5;
+
+        public override string GetRequest() =>
+            "UPDATE sdc " +
+            "SET IsPassed = @IsPassed " +
+            "FROM StudentDisciplineConnections sdc " +
+            "WHERE EXISTS " +
+            "(SELECT 1 " +
+            "FROM (" +
+            "SELECT Coefficient, StudentID, DisciplineID " +
+            "FROM GradeStatements gst, Grades gr " +
+            "WHERE gr.Name = gst.GradeName AND StudentID = gst.StudentID AND " +
+            "DisciplineID = gst.DisciplineID AND NOT EXISTS (" +
+            "SELECT 1 " +
+            "FROM GradeStatements gs " +
+            "WHERE gs.StudentID = gst.StudentID AND gs.DisciplineID = gst.DisciplineID AND " +
+            "gs.PassingDate > gst.PassingDate)" +
+            ") AS lastGrades " +
+            "WHERE lastGrades.StudentID = sdc.StudentID AND " +
+            "lastGrades.DisciplineID = sdc.DisciplineID AND " +
+            "(lastGrades.Coefficient BETWEEN @MinGradeCoefficient AND @MaxGradeCoefficient))";
+
+        public override Dictionary<string, object> GetParameters() => new()
         {
-            throw new NotImplementedException();
-            /** table = "StudentDisciplineConnections";
-                    command = $"UPDATE {table} " +
-                        "SET IsPassed = @IsPassed " +
-                        "(StudentID, DisciplineID) IN " +
-                        "" +
-                        "FROM Students " +
-                        "(GroupFormationYear BETWEEN @MinGroupFormationYear AND " +
-                        "@MaxGroupFormationYear) AND GroupNumber LIKE @GroupNumber)";
-                    command = CreateUpdateCommand(table, "IsPassed = " +
-                        $"{ParametersVMs[parametersIndex].Parameters[0]}",
-                        "(StudentID, DisciplineID) IN (" +
-                        CreateSelectCommand("gs.StudentID, gs.DisciplineID",
-                        "GradeStatements gs " +
-                        "INNER JOIN(" +
-                        CreateSelectCommand("gs.StudentID, gs.DisciplineID, MAX(gs.PassingDate), " +
-                        "g.Coefficient",
-                        "Grades g, GradeStatements gs",
-                        "g.Name = gs.GradeName",
-                        "gs.StudentID, gs.DisciplineID") +
-                        ") AS lastGrades " +
-                        "ON gs.StudentID = lastGrades.StudentID AND " +
-                        "gs.DisciplineID = lastGrades.DisciplineID AND " +
-                        "lastGrades.Coefficient BETWEEN " +
-                        $"{ParametersVMs[parametersIndex].Parameters[1]} " +
-                        "AND " +
-                        $"{ParametersVMs[parametersIndex].Parameters[2]}") + ")");
-            **/
-        }
+            ["@IsPassed"] = IsPassed,
+            ["@MinGradeCoefficient"] = MinGradeCoefficient,
+            ["@MaxGradeCoefficient"] = MaxGradeCoefficient
+        };
     }
 }

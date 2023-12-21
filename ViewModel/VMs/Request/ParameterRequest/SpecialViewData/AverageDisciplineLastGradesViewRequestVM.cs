@@ -26,7 +26,8 @@ namespace ViewModel.VMs.Request.ParameterRequest.SpecialViewData
             "AND grs.PassingDate > gs.PassingDate)" +
             ") AS studentGrades " +
             "WHERE studentGrades.DisciplineID = d.ID AND " +
-            "d.Name LIKE @DisciplineName AND d.StudyFormName LIKE @StudyFormName";
+            "d.Name LIKE @DisciplineName AND d.StudyFormName LIKE @StudyFormName " +
+            "GROUP BY d.ID, d.Name, d.StudyFormName";
 
         public override Dictionary<string, object> GetParameters() => new()
         {
