@@ -4,7 +4,7 @@ namespace ViewModel.Classes
 {
     public class Connection
     {
-        public ObservableCollection<Authorization> Authorizations { get; set; } = new();
+        public ObservableCollection<Credential> Credentials { get; set; } = new();
 
         public string DataSource { get; set; } = "";
 

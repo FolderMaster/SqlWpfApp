@@ -72,34 +72,34 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <ComboBox Grid.Column="0" IsEditable="True" TextSearch.TextPath="User"
-                              IsTextSearchEnabled="True" Text="{Binding AuthorizationText}"
+                              IsTextSearchEnabled="True" Text="{Binding CredentialText}"
                               ItemTemplate="{StaticResource AuthorizationTemplate}"
-                              SelectedItem="{Binding SelectedAuthorization}"
-                              ItemsSource="{Binding SelectedConnection.Authorizations}"
+                              SelectedItem="{Binding SelectedCredential}"
+                              ItemsSource="{Binding SelectedConnection.Credentials}"
                               IsEnabled="{Binding SelectedConnection,
                               Converter={StaticResource ObjectToBoolConverter}}"/>
                     <Button Grid.Column="1" Content="{StaticResource AddImage}"
                             Width="{StaticResource ConnectionButtonSize}"
                             Height="{StaticResource ConnectionButtonSize}"
-                            Command="{Binding AddAuthorizationCommand}"
+                            Command="{Binding AddCredentialCommand}"
                             IsEnabled="{Binding SelectedConnection,
                             Converter={StaticResource ObjectToBoolConverter}}"/>
                     <Button Grid.Column="2" Content="{StaticResource RemoveImage}"
                             Width="{StaticResource ConnectionButtonSize}"
                             Height="{StaticResource ConnectionButtonSize}"
-                            Command="{Binding RemoveSelectedAuthorizationCommand}"
+                            Command="{Binding RemoveSelectedCredentialCommand}"
                             IsEnabled="{Binding SelectedConnection,
                             Converter={StaticResource ObjectToBoolConverter}}"/>
                 </Grid>
                 <Label Content="{Binding Source={StaticResource PasswordHeader},
                        Converter={StaticResource StringToHeaderConverter}}"/>
-                <controls:PasswordTextBox Password="{Binding SelectedAuthorization.Password}"
-                                          IsEnabled="{Binding SelectedAuthorization,
+                <controls:PasswordTextBox Password="{Binding SelectedCredential.Password}"
+                                          IsEnabled="{Binding SelectedCredential,
                                           Converter={StaticResource ObjectToBoolConverter}}"/>
             </StackPanel>
         </GroupBox>
         <Button Content="{StaticResource ConnectHeader}" HorizontalAlignment="Center"
-                Command="{Binding ConnectCommand}" IsEnabled="{Binding SelectedAuthorization,
+                Command="{Binding ConnectCommand}" IsEnabled="{Binding SelectedCredential,
                 Converter={StaticResource ObjectToBoolConverter}}"/>
     </StackPanel>
 </Window>

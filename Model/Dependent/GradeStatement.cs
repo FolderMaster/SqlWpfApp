@@ -78,8 +78,6 @@ namespace Model.Dependent
         /// <summary>
         /// Создаёт экземпляр класса <see cref="GradeStatement"/> по умолчанию.
         /// </summary>
-        public GradeStatement() => ValuesGenerator.GenerateValues(_idGenerator, () =>
-            GradeStatements.FirstOrDefault((d) => d.ID == ID) != null, (id) => { },
-            () => GradeStatements.Add(this));
+        public GradeStatement() { }
     }
 }

@@ -79,10 +79,6 @@ namespace Model.Dependent
         /// <summary>
         /// Создаёт экземпляр класса <see cref="Discipline"/> по умолчанию.
         /// </summary>
-        public Discipline() => ValuesGenerator.GenerateValues(_idGenerator, () =>
-            Disciplines.FirstOrDefault((d) => d.ID == ID) != null, (id) => {
-                ID = id;
-                Name = nameof(Name) + "_" + id;
-            }, () => Disciplines.Add(this));
+        public Discipline() { }
     }
 }

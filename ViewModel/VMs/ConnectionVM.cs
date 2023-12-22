@@ -24,36 +24,38 @@ namespace ViewModel.VMs
         private Connection? _selectedConnection;
 
         [ObservableProperty]
-        private Authorization? selectedAuthorization;
+        private Credential? selectedCredential;
 
         [ObservableProperty]
         private ObservableCollection<Connection> connections = new()
         {
             new Connection() {
-                Authorizations = new() {
-                    new Authorization() { User = "dean1", Password = "dean1" },
-                    new Authorization() { User = "deaneryEmployee1", Password = "deaneryEmployee1" },
-                    new Authorization() { User = "deaneryEmployee2", Password = "deaneryEmployee2" },
-                    new Authorization() { User = "teacher1", Password = "teacher1" },
-                    new Authorization() { User = "teacher2", Password = "teacher2" }
+                Credentials = new() {
+                    new Credential() { User = "dean1", Password = "dean1" },
+                    new Credential() { User = "deaneryEmployee1", Password = "deaneryEmployee1" },
+                    new Credential() { User = "deaneryEmployee2", Password = "deaneryEmployee2" },
+                    new Credential() { User = "teacher1", Password = "teacher1" },
+                    new Credential() { User = "teacher2", Password = "teacher2" }
                 },
                 DataSource = "(localdb)\\mssqllocaldb",
                 InitialCatalog = "UniversityDb",
-                IsTlsConnection = true,
+                IsTlsConnection = false,
                 IsColumnEncryption = true,
+                IsTrustServerCertificate = false
             },
             new Connection() {
-                Authorizations = new() {
-                    new Authorization() { User = "dean1", Password = "dean1" },
-                    new Authorization() { User = "deaneryEmployee1", Password = "deaneryEmployee1" },
-                    new Authorization() { User = "deaneryEmployee2", Password = "deaneryEmployee2" },
-                    new Authorization() { User = "teacher1", Password = "teacher1" },
-                    new Authorization() { User = "teacher2", Password = "teacher2" }
+                Credentials = new() {
+                    new Credential() { User = "dean1", Password = "dean1" },
+                    new Credential() { User = "deaneryEmployee1", Password = "deaneryEmployee1" },
+                    new Credential() { User = "deaneryEmployee2", Password = "deaneryEmployee2" },
+                    new Credential() { User = "teacher1", Password = "teacher1" },
+                    new Credential() { User = "teacher2", Password = "teacher2" }
                 },
                 DataSource = "127.0.0.1",
                 InitialCatalog = "UniversityDb",
                 IsTlsConnection = true,
                 IsColumnEncryption = true,
+                IsTrustServerCertificate = true
             }
         };
 
@@ -61,7 +63,7 @@ namespace ViewModel.VMs
         private string connectionText;
 
         [ObservableProperty]
-        private string authorizationText;
+        private string credentialText;
 
         public Connection? SelectedConnection
         {
@@ -72,9 +74,9 @@ namespace ViewModel.VMs
                 {
                     if(value != null)
                     {
-                        if (value.Authorizations.Any())
+                        if (value.Credentials.Any())
                         {
-                            SelectedAuthorization = value.Authorizations[0];
+                            SelectedCredential = value.Credentials[0];
                         }
                     }
                 }
@@ -85,9 +87,9 @@ namespace ViewModel.VMs
 
         public RelayCommand RemoveSelectedConnectionCommand { get; private set; }
 
-        public RelayCommand RemoveSelectedAuthorizationCommand { get; private set; }
+        public RelayCommand RemoveSelectedCredentialCommand { get; private set; }
 
-        public RelayCommand AddAuthorizationCommand { get; private set; }
+        public RelayCommand AddCredentialCommand { get; private set; }
 
         public RelayCommand ConnectCommand { get; private set; }
 
@@ -112,8 +114,8 @@ namespace ViewModel.VMs
             SelectedConnection = Connections.Count > 0 ? Connections[0] : null;
             if(SelectedConnection != null)
             {
-                SelectedAuthorization = SelectedConnection.Authorizations.Count > 0 ?
-                    SelectedConnection.Authorizations[0] : null;
+                SelectedCredential = SelectedConnection.Credentials.Count > 0 ?
+                    SelectedConnection.Credentials[0] : null;
             }
 
             AddConnectionCommand = new RelayCommand(() => {
@@ -139,28 +141,28 @@ namespace ViewModel.VMs
                 }
             });
 
-            AddAuthorizationCommand = new RelayCommand(() =>
+            AddCredentialCommand = new RelayCommand(() =>
             {
-                var newAuthorization = new Authorization()
+                var newAuthorization = new Credential()
                 {
-                    User = AuthorizationText
+                    User = CredentialText
                 };
-                SelectedConnection.Authorizations.Add(newAuthorization);
-                SelectedAuthorization = newAuthorization;
+                SelectedConnection.Credentials.Add(newAuthorization);
+                SelectedCredential = newAuthorization;
             });
-            RemoveSelectedAuthorizationCommand = new RelayCommand(() =>
+            RemoveSelectedCredentialCommand = new RelayCommand(() =>
             {
-                var authorizations = SelectedConnection.Authorizations;
-                int selectedIndex = authorizations.IndexOf(SelectedAuthorization);
-                authorizations.Remove(SelectedAuthorization);
+                var authorizations = SelectedConnection.Credentials;
+                int selectedIndex = authorizations.IndexOf(SelectedCredential);
+                authorizations.Remove(SelectedCredential);
                 if (authorizations.Count > 0)
                 {
-                    SelectedAuthorization = selectedIndex < authorizations.Count ?
+                    SelectedCredential = selectedIndex < authorizations.Count ?
                         authorizations[selectedIndex] : authorizations[authorizations.Count - 1];
                 }
                 else
                 {
-                    SelectedAuthorization = null;
+                    SelectedCredential = null;
                 }
             });
 
@@ -171,8 +173,8 @@ namespace ViewModel.VMs
                     {
                         DataSource = SelectedConnection?.DataSource,
                         InitialCatalog = SelectedConnection?.InitialCatalog,
-                        UserID = SelectedAuthorization?.User,
-                        Password = SelectedAuthorization?.Password,
+                        UserID = SelectedCredential?.User,
+                        Password = SelectedCredential?.Password,
                         Encrypt = SelectedConnection?.IsTlsConnection,
                         ColumnEncryptionSetting = SelectedConnection?.IsColumnEncryption == true ?
                             SqlConnectionColumnEncryptionSetting.Enabled :

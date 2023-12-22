@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ViewModel.Classes
 {
-    public class Authorization
+    public class Credential
     {
         public string User { get; set; } = "";
 

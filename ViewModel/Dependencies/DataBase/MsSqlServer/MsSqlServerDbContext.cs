@@ -6,6 +6,9 @@ using System.Data;
 using System.Collections.Generic;
 using System;
 
+using Model.Dependent;
+using Model.Independent;
+
 namespace ViewModel.Dependencies.DataBase.MsSqlServer
 {
     public class MsSqlServerDbContext : BaseDbContext
@@ -20,8 +23,12 @@ namespace ViewModel.Dependencies.DataBase.MsSqlServer
         /// Создаёт модель.
         /// </summary>
         /// <param name="modelBuilder">Создатель моделей.</param>
-        protected override void OnModelCreating(ModelBuilder modelBuilder) =>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Person>().ToTable((t) => t.HasTrigger("GenerateNameOnUpdate"));
+            modelBuilder.Entity<Passport>().ToTable((t) => t.HasTrigger("GenerateNameOnInsert"));
             base.OnModelCreating(modelBuilder);
+        }
 
         /// <summary>
         /// Настраивает соглашения.

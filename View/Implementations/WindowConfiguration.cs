@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Configuration;
+using System.Linq;
 using System.Windows;
 
 using ViewModel.Classes;
@@ -118,17 +119,104 @@ namespace View.Implementations
             }
         }
 
+        public void SaveConnections()
+        {
+            foreach (var key in _settings.AllKeys.Where((k) => k.StartsWith(nameof(Connections))))
+            {
+                _settings.Remove(key);
+            }
+            for (var i = 0; i < Connections.Count; ++i)
+            {
+                var connection = Connections[i];
+                var connectionKey = $"{nameof(Connections)}[{i}].";
+
+                SetConfigurationValue($"{connectionKey}{nameof(Connection.DataSource)}",
+                    connection.DataSource);
+                SetConfigurationValue($"{connectionKey}{nameof(Connection.InitialCatalog)}",
+                    connection.InitialCatalog);
+                SetConfigurationValue($"{connectionKey}{nameof(Connection.IsColumnEncryption)}",
+                    connection.IsColumnEncryption);
+                SetConfigurationValue($"{connectionKey}{nameof(Connection.IsTlsConnection)}",
+                    connection.IsTlsConnection);
+                SetConfigurationValue
+                    ($"{connectionKey}{nameof(Connection.IsTrustServerCertificate)}",
+                    connection.IsTrustServerCertificate);
+                for(var n = 0; n < connection.Credentials.Count; ++n)
+                {
+                    var credential = connection.Credentials[n];
+                    var credentialKey = $"{nameof(Connection.Credentials)}[{n}].";
+                    SetConfigurationValue
+                        ($"{connectionKey}{credentialKey}{nameof(Credential.User)}",
+                        credential.User);
+                    SetConfigurationValue
+                        ($"{connectionKey}{credentialKey}{nameof(Credential.Password)}",
+                        credential.Password);
+                }
+            }
+        }
+
+        public void LoadConnections()
+        {
+            Connections = new ObservableCollection<Connection>();
+            var i = 0;
+            var connectionKey = $"{nameof(Connections)}[{i}].";
+            var isExistConnection = _settings.AllKeys.Any((k) => k.StartsWith(connectionKey));
+            while (isExistConnection)
+            {
+                var connection = new Connection();
+                AssignByConfigurationValue($"{connectionKey}{nameof(Connection.DataSource)}",
+                    (v) => connection.DataSource = v);
+                AssignByConfigurationValue($"{connectionKey}{nameof(Connection.InitialCatalog)}",
+                    (v) => connection.InitialCatalog = v);
+                AssignByConfigurationValue
+                    ($"{connectionKey}{nameof(Connection.IsColumnEncryption)}",
+                    (v) => connection.IsColumnEncryption = bool.Parse(v));
+                AssignByConfigurationValue($"{connectionKey}{nameof(Connection.IsTlsConnection)}",
+                        (v) => connection.IsTlsConnection = bool.Parse(v));
+                AssignByConfigurationValue
+                    ($"{connectionKey}{nameof(Connection.IsTrustServerCertificate)}",
+                    (v) => connection.IsTrustServerCertificate = bool.Parse(v));
+                
+                var n = 0;
+                var credentialKey = $"{nameof(Connection.Credentials)}[{n}].";
+                var isExistCredential = _settings.AllKeys.Any
+                    ((k) => k.StartsWith($"{connectionKey}{credentialKey}"));
+                while (isExistCredential)
+                {
+                    var credential = new Credential();
+                    AssignByConfigurationValue
+                        ($"{connectionKey}{credentialKey}{nameof(Credential.User)}",
+                        (v) => credential.User = v);
+                    AssignByConfigurationValue
+                        ($"{connectionKey}{credentialKey}{nameof(Credential.Password)}",
+                        (v) => credential.Password = v);
+                    connection.Credentials.Add(credential);
+
+                    ++n;
+                    credentialKey = $"{nameof(Connection.Credentials)}[{n}].";
+                    isExistCredential = _settings.AllKeys.Any
+                        ((k) => k.StartsWith($"{connectionKey}{credentialKey}"));
+                }
+                Connections.Add(connection);
+
+                ++i;
+                connectionKey = $"{nameof(Connections)}[{i}].";
+                isExistConnection = _settings.AllKeys.Any((k) => k.StartsWith(connectionKey));
+            }
+        }
+
         /// <summary>
         /// Сохраняет.
         /// </summary>
         public void Save()
         {
+            SaveConnections();
             SetConfigurationValue(nameof(Left), Left);
             SetConfigurationValue(nameof(Top), Top);
             SetConfigurationValue(nameof(Width), Width);
             SetConfigurationValue(nameof(Height), Height);
             SetConfigurationValue(nameof(WindowState), WindowState);
-            _configuration.Save(ConfigurationSaveMode.Modified);
+            _configuration.Save();
         }
 
         /// <summary>
@@ -136,8 +224,7 @@ namespace View.Implementations
         /// </summary>
         public void Load()
         {
-            var section = _configuration.Sections.Get(nameof(Connections)) as ConnectionConfigurationSection;
-            Connections = section?.Connections;
+            LoadConnections();
             AssignByConfigurationValue(nameof(Left), (value) => Left = double.Parse(value));
             AssignByConfigurationValue(nameof(Top), (value) => Top = double.Parse(value));
             AssignByConfigurationValue(nameof(Width), (value) => Width = double.Parse(value));

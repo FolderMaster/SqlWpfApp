@@ -15,11 +15,6 @@ namespace Model.Dependent
     public class Person
     {
         /// <summary>
-        /// Генератор идентификаторов.
-        /// </summary>
-        private static IdGenerator _idGenerator = new(1);
-
-        /// <summary>
         /// Возвращает и задаёт все персоны.
         /// </summary>
         public static ObservableCollection<Person> Persons { get; set; } = new();
@@ -27,6 +22,7 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт идентификатор.
         /// </summary>
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long ID { get; set; }
 
         /// <summary>
@@ -62,10 +58,6 @@ namespace Model.Dependent
         /// <summary>
         /// Создаёт экземпляр класса <see cref="Person"/> по умолчанию.
         /// </summary>
-        public Person() => ValuesGenerator.GenerateValues(_idGenerator, () =>
-            Persons.FirstOrDefault((d) => d.ID == ID) != null, (id) => {
-                ID = id;
-                ResidentialAddress = nameof(ResidentialAddress) + "_" + id;
-            }, () => Persons.Add(this));
+        public Person() { }
     }
 }

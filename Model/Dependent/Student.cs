@@ -28,7 +28,6 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт идентификатор.
         /// </summary>
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long ID { get; set; }
 
         /// <summary>
