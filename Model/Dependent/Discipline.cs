@@ -14,11 +14,6 @@ namespace Model.Dependent
     public class Discipline
     {
         /// <summary>
-        /// Генератор идентификаторов.
-        /// </summary>
-        private static IdGenerator _idGenerator = new(1);
-
-        /// <summary>
         /// Возвращает и задаёт все дисциплины.
         /// </summary>
         public static ObservableCollection<Discipline> Disciplines { get; set; } = new();

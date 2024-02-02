@@ -4,6 +4,11 @@
     <sys:String x:Key="ErrorMessageTitle">Error!</sys:String>
     <sys:String x:Key="InformationMessageTitle">Information.</sys:String>
     <sys:String x:Key="QuestionMessageTitle">Question?</sys:String>
+    
+    <Image x:Shared="False" Source="Images/Connection.ico" x:Key="ConnectionImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Connection.ico" x:Key="ConnectionIcon"/>
+    <KeyGesture x:Key="ConnectionInput">Alt+J</KeyGesture>
+    <sys:String x:Key="ConnectionInputText">Alt+J</sys:String>
 
     <sys:String x:Key="ErrorConnectionMessageDescription">Connection failed!</sys:String>
 
@@ -43,11 +48,13 @@
 
     <Image x:Shared="False" Source="Images/Exit.ico" x:Key="ExitImage"/>
     <sys:String x:Key="ExitHeader">Exit</sys:String>
-    <sys:String x:Key="ExitInput">Alt+X</sys:String>
+    <KeyGesture x:Key="ExitInput">Alt+X</KeyGesture>
+    <sys:String x:Key="ExitInputText">Alt+X</sys:String>
 
     <Image x:Shared="False" Source="Images/Information.ico" x:Key="InformationImage"/>
     <sys:String x:Key="InformationHeader">About program</sys:String>
-    <sys:String x:Key="InformationInput">Alt+I</sys:String>
+    <KeyGesture x:Key="InformationInput">Alt+I</KeyGesture>
+    <sys:String x:Key="InformationInputText">Alt+I</sys:String>
 
     <sys:String x:Key="FileHeader">File</sys:String>
 
@@ -58,70 +65,83 @@
     <Image x:Shared="False" Source="Images/Departments.ico" x:Key="DepartmentsImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Departments.ico" x:Key="DepartmentsIcon"/>
     <sys:String x:Key="DepartmentsHeader">Departments</sys:String>
-    <sys:String x:Key="DepartmentsInput">Alt+D</sys:String>
+    <sys:String x:Key="DepartmentsInputText">Alt+D</sys:String>
+    <KeyGesture x:Key="DepartmentsInput">Alt+D</KeyGesture>
 
     <Image x:Shared="False" Source="Images/Positions.ico" x:Key="PositionsImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Positions.ico" x:Key="PositionsIcon"/>
     <sys:String x:Key="PositionsHeader">Positions</sys:String>
-    <sys:String x:Key="PositionsInput">Alt+P</sys:String>
+    <sys:String x:Key="PositionsInputText">Alt+P</sys:String>
+    <KeyGesture x:Key="PositionsInput">Alt+P</KeyGesture>
 
     <Image x:Shared="False" Source="Images/Passports.ico" x:Key="PassportsImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Passports.ico" x:Key="PassportsIcon"/>
     <sys:String x:Key="PassportsHeader">Passports</sys:String>
-    <sys:String x:Key="PassportsInput">Alt+A</sys:String>
+    <sys:String x:Key="PassportsInputText">Alt+A</sys:String>
+    <KeyGesture x:Key="PassportsInput">Alt+A</KeyGesture>
 
     <Image x:Shared="False" Source="Images/GradeModes.ico" x:Key="GradeModesImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/GradeModes.ico" x:Key="GradeModesIcon"/>
     <sys:String x:Key="GradeModesHeader">Grade modes</sys:String>
-    <sys:String x:Key="GradeModesInput">Alt+G</sys:String>
+    <sys:String x:Key="GradeModesInputText">Alt+G</sys:String>
+    <KeyGesture x:Key="GradeModesInput" >Alt+G</KeyGesture>
 
     <Image x:Shared="False" Source="Images/Scholarships.ico" x:Key="ScholarshipsImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Scholarships.ico" x:Key="ScholarshipsIcon"/>
     <sys:String x:Key="ScholarshipsHeader">Scholarships</sys:String>
-    <sys:String x:Key="ScholarshipsInput">Alt+S</sys:String>
+    <sys:String x:Key="ScholarshipsInputText">Alt+S</sys:String>
+    <KeyGesture x:Key="ScholarshipsInput">Alt+S</KeyGesture>
 
     <Image x:Shared="False" Source="Images/Roles.ico" x:Key="RolesImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Roles.ico" x:Key="RolesIcon"/>
     <sys:String x:Key="RolesHeader">Roles</sys:String>
-    <sys:String x:Key="RolesInput">Alt+R</sys:String>
+    <sys:String x:Key="RolesInputText">Alt+R</sys:String>
+    <KeyGesture x:Key="RolesInput">Alt+R</KeyGesture>
 
     <sys:String x:Key="DependentTablesHeader">Dependent</sys:String>
 
     <Image x:Shared="False" Source="Images/Disciplines.ico" x:Key="DisciplinesImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Disciplines.ico" x:Key="DisciplinesIcon"/>
     <sys:String x:Key="DisciplinesHeader">Disciplines</sys:String>
-    <sys:String x:Key="DisciplinesInput">Alt+F</sys:String>
+    <sys:String x:Key="DisciplinesInputText">Alt+F</sys:String>
+    <KeyGesture x:Key="DisciplinesInput">Alt+F</KeyGesture>
 
     <Image x:Shared="False" Source="Images/Grades.ico" x:Key="GradesImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Grades.ico" x:Key="GradesIcon"/>
     <sys:String x:Key="GradesHeader">Grades</sys:String>
-    <sys:String x:Key="GradesInput">Alt+H</sys:String>
+    <sys:String x:Key="GradesInputText">Alt+H</sys:String>
+    <KeyGesture x:Key="GradesInput">Alt+H</KeyGesture>
 
     <Image x:Shared="False" Source="Images/GradeStatements.ico" x:Key="GradeStatementsImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/GradeStatements.ico"
                  x:Key="GradeStatementsIcon"/>
     <sys:String x:Key="GradeStatementsHeader">Grade statements</sys:String>
-    <sys:String x:Key="GradeStatementsInput">Alt+Y</sys:String>
+    <sys:String x:Key="GradeStatementsInputText">Alt+Y</sys:String>
+    <KeyGesture x:Key="GradeStatementsInput">Alt+Y</KeyGesture>
 
     <Image x:Shared="False" Source="Images/Persons.ico" x:Key="PersonsImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Persons.ico" x:Key="PersonsIcon"/>
     <sys:String x:Key="PersonsHeader">Persons</sys:String>
-    <sys:String x:Key="PersonsInput">Alt+O</sys:String>
+    <sys:String x:Key="PersonsInputText">Alt+O</sys:String>
+    <KeyGesture x:Key="PersonsInput">Alt+O</KeyGesture>
 
     <Image x:Shared="False" Source="Images/Specialties.ico" x:Key="SpecialtiesImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Specialties.ico" x:Key="SpecialtiesIcon"/>
     <sys:String x:Key="SpecialtiesHeader">Specialties</sys:String>
-    <sys:String x:Key="SpecialtiesInput">Alt+Z</sys:String>
+    <sys:String x:Key="SpecialtiesInputText">Alt+Z</sys:String>
+    <KeyGesture x:Key="SpecialtiesInput">Alt+Z</KeyGesture>
 
     <Image x:Shared="False" Source="Images/Students.ico" x:Key="StudentsImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Students.ico" x:Key="StudentsIcon"/>
     <sys:String x:Key="StudentsHeader">Students</sys:String>
-    <sys:String x:Key="StudentsInput">Alt+Q</sys:String>
+    <sys:String x:Key="StudentsInputText">Alt+Q</sys:String>
+    <KeyGesture x:Key="StudentsInput">Alt+Q</KeyGesture>
 
     <Image x:Shared="False" Source="Images/Groups.ico" x:Key="GroupsImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Groups.ico" x:Key="GroupsIcon"/>
     <sys:String x:Key="GroupsHeader">Groups</sys:String>
-    <sys:String x:Key="GroupsInput">Alt+B</sys:String>
+    <sys:String x:Key="GroupsInputText">Alt+B</sys:String>
+    <KeyGesture x:Key="GroupsInput">Alt+B</KeyGesture>
 
     <Image x:Shared="False" Source="Images/StudentDisciplineConnections.ico"
            x:Key="StudentDisciplineConnectionsImage"/>
@@ -130,17 +150,20 @@
     <sys:String x:Key="StudentDisciplineConnectionsHeader">
         Student-discipline connections
     </sys:String>
-    <sys:String x:Key="StudentDisciplineConnectionsInput">Alt+C</sys:String>
+    <sys:String x:Key="StudentDisciplineConnectionsInputText">Alt+C</sys:String>
+    <KeyGesture x:Key="StudentDisciplineConnectionsInput">Alt+C</KeyGesture>
 
     <Image x:Shared="False" Source="Images/StudyForms.ico" x:Key="StudyFormsImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/StudyForms.ico" x:Key="StudyFormsIcon"/>
     <sys:String x:Key="StudyFormsHeader">Study forms</sys:String>
-    <sys:String x:Key="StudyFormsInput">Alt+E</sys:String>
+    <sys:String x:Key="StudyFormsInputText">Alt+E</sys:String>
+    <KeyGesture x:Key="StudyFormsInput">Alt+E</KeyGesture>
 
     <Image x:Shared="False" Source="Images/Teachers.ico" x:Key="TeachersImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Teachers.ico" x:Key="TeachersIcon"/>
     <sys:String x:Key="TeachersHeader">Teachers</sys:String>
-    <sys:String x:Key="TeachersInput">Alt+S</sys:String>
+    <sys:String x:Key="TeachersInputText">Alt+S</sys:String>
+    <KeyGesture x:Key="TeachersInput">Alt+S</KeyGesture>
 
     <Image x:Shared="False" Source="Images/TeacherDisciplineConnections.ico"
            x:Key="TeacherDisciplineConnectionsImage"/>
@@ -149,7 +172,8 @@
     <sys:String x:Key="TeacherDisciplineConnectionsHeader">
         Teacher-discipline connections
     </sys:String>
-    <sys:String x:Key="TeacherDisciplineConnectionsInput">Alt+K</sys:String>
+    <sys:String x:Key="TeacherDisciplineConnectionsInputText">Alt+K</sys:String>
+    <KeyGesture x:Key="TeacherDisciplineConnectionsInput">Alt+K</KeyGesture>
 
     <Image x:Shared="False" Source="Images/RightArrow.ico" x:Key="RightArrowImage"/>
     <Image x:Shared="False" Source="Images/LeftArrow.ico" x:Key="LeftArrowImage"/>
@@ -284,7 +308,8 @@
     <Image x:Shared="False" Source="Images/Requests.ico" x:Key="RequestsImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Requests.ico" x:Key="RequestsIcon"/>
     <sys:String x:Key="RequestsHeader">Requests</sys:String>
-    <sys:String x:Key="RequestsInput">Alt+W</sys:String>
+    <sys:String x:Key="RequestsInputText">Alt+W</sys:String>
+    <KeyGesture x:Key="RequestsInput">Alt+W</KeyGesture>
     
     <sys:String x:Key="ExecuteRequestHeader">Execute request</sys:String>
     <sys:String x:Key="ResultHeader">Result</sys:String>
@@ -352,7 +377,8 @@
     <Image x:Shared="False" Source="Images/Reports.ico" x:Key="ReportsImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Reports.ico" x:Key="ReportsIcon"/>
     <sys:String x:Key="ReportsHeader">Reports</sys:String>
-    <sys:String x:Key="ReportsInput">Alt+N</sys:String>
+    <sys:String x:Key="ReportsInputText">Alt+N</sys:String>
+    <KeyGesture x:Key="ReportsInput">Alt+N</KeyGesture>
 
     <sys:String x:Key="DeductingsHeader">Deductings</sys:String>
     <sys:String x:Key="PrintHeader">Print</sys:String>

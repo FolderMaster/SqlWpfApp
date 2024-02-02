@@ -8,6 +8,7 @@
         xmlns:controls="clr-namespace:View.Controls"
         mc:Ignorable="d"
         Title="{StaticResource ConnectionWindowHeader}"
+        Icon="{StaticResource ConnectionIcon}"
         Height="{StaticResource ConnectionWindowHeight}"
         Width="{StaticResource ConnectionWindowWidth}">
     <Window.Resources>

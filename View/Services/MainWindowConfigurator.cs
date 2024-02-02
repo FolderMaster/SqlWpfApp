@@ -59,6 +59,8 @@ namespace View.Services
         /// </summary>
         public IAppCloseable AppCloseable { get; set; }
 
+        public IProc ConnectionProc { get; set; }
+
         /// <summary>
         /// Возвращает и задаёт процедуру для работы с факультетами.
         /// </summary>
@@ -192,6 +194,7 @@ namespace View.Services
             QuestionMessageBoxService questionMessageService,
             InformationMessageBoxService informationMessageService,
             ErrorMessageBoxService errorMessageService, IAppCloseable appCloseable,
+            ConnectionWindowProc connectionProc,
             DepartmentsWindowProc departmentsProc, PassportsWindowProc passportsProc,
             PositionsWindowProc positionsProc, GradeModesWindowProc gradeModesProc,
             RolesWindowProc rolesProc, ScholarshipsWindowProc scholarshipsProc,
@@ -212,6 +215,7 @@ namespace View.Services
             InformationMessageService = informationMessageService;
             ErrorMessageService = errorMessageService;
             AppCloseable = appCloseable;
+            ConnectionProc = connectionProc;
             DepartmentsProc = departmentsProc;
             PassportsProc = passportsProc;
             PositionsProc = positionsProc;
@@ -247,6 +251,7 @@ namespace View.Services
                 InformationMessageService = InformationMessageService,
                 ErrorMessageService = ErrorMessageService,
                 AppCloseable = AppCloseable,
+                ConnectionProc = ConnectionProc,
                 DepartmentsProc = DepartmentsProc,
                 PassportsProc = PassportsProc,
                 PositionsProc = PositionsProc,

@@ -9,5 +9,7 @@
         /// Вызывает процедуру.
         /// </summary>
         public void Invoke();
+
+        public void Abort();
     }
 }

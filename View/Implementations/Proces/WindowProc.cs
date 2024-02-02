@@ -93,6 +93,15 @@ namespace View.Implementations.Proces
             }
         }
 
+        public void Abort()
+        {
+            var window = Window;
+            if (window.IsVisible)
+            {
+                window.Close();
+            }
+        }
+
         private void Window_Closed(object? sender, EventArgs e) => _window = null;
     }
 }

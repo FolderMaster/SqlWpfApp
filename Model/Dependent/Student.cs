@@ -16,11 +16,6 @@ namespace Model.Dependent
     public class Student
     {
         /// <summary>
-        /// Генератор идентификаторов.
-        /// </summary>
-        private static IdGenerator _idGenerator = new(1);
-
-        /// <summary>
         /// Возвращает и задаёт всех студентов.
         /// </summary>
         public static ObservableCollection<Student> Students { get; set; } = new();
@@ -84,10 +79,6 @@ namespace Model.Dependent
         /// <summary>
         /// Создаёт экземпляр класса <see cref="Student"/> по умолчанию.
         /// </summary>
-        public Student() => ValuesGenerator.GenerateValues(_idGenerator, () =>
-            Students.FirstOrDefault((d) => d.ID == ID) != null, (id) => {
-                ID = id;
-                RecordBookNumber = (int)id;
-            }, () => Students.Add(this));
+        public Student() {}
     }
 }

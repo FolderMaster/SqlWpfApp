@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 
 using System;
+using System.Collections.Generic;
 
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.DataBase;
@@ -52,6 +53,8 @@ namespace ViewModel.VMs
         /// </summary>
         private IConfiguration _configuration;
 
+        private IEnumerable<IProc>? _processes;
+
         [ObservableProperty]
         private bool isDbConnected = false;
 
@@ -74,6 +77,8 @@ namespace ViewModel.VMs
         /// Возвращает и задаёт команду получения информации.
         /// </summary>
         public RelayCommand InformationCommand { get; private set; }
+
+        public RelayCommand ConnectionCommand { get; private set; }
 
         /// <summary>
         /// Возвращает и задаёт команду вызова процедуры работы с факультетами.
@@ -206,7 +211,7 @@ namespace ViewModel.VMs
         public MainVM(IDbContextBuilder dbContextBuilder, IResourceService resourceService,
             IConfiguration configuration, IMessageService exitMessageService,
             IMessageService informationMessageService, IMessageService errorMessageService,
-            IAppCloseable appCloseable, IProc departmentsProc, IProc passportsProc,
+            IAppCloseable appCloseable, IProc connectionProc, IProc departmentsProc, IProc passportsProc,
             IProc positionsProc, IProc gradeModesProc, IProc rolesProc, IProc scholarshipsProc,
             IProc disciplinesProc, IProc gradesProc, IProc gradeStatementsProc, IProc personsProc,
             IProc specialtiesProc, IProc studentsProc, IProc groupsProc, IProc studyFormsProc,
@@ -215,6 +220,13 @@ namespace ViewModel.VMs
         {
             _configuration = configuration;
             _messengerService = new MessengerService(resourceService, errorMessageService);
+            _processes = [
+                departmentsProc, passportsProc, positionsProc, gradeModesProc, rolesProc, scholarshipsProc,
+                disciplinesProc, gradesProc, gradeStatementsProc, personsProc, specialtiesProc, studentsProc, 
+                groupsProc, studyFormsProc, teachersProc, studentDisciplineConnectionsProc,
+                teacherDisciplineConnectionsProc, requestsProc, reportsProc
+            ];
+
             dbContextBuilder.ResultConnectionCreated += (object? sender, EventArgs e) =>
             {
                 if (dbContextBuilder.Result == null)
@@ -230,8 +242,8 @@ namespace ViewModel.VMs
                             _errorConnectionDescriptionResourceKey);
                     }
                 }
+                UpdateConnectionState();
             };
-                
 
             SaveCommand = new RelayCommand(() =>
                 _messengerService.ExecuteWithExceptionMessage(_configuration.Save));
@@ -246,36 +258,64 @@ namespace ViewModel.VMs
                     appCloseable.CloseApp();
                 }
             });
+            ConnectionCommand = new RelayCommand(connectionProc.Invoke);
             InformationCommand = new RelayCommand(() =>
                 _messengerService.ShowMessage(informationMessageService,
                 _informationTitleResourceKey, _informationDescriptionResourceKey));
 
-            DepartmentsProcInvokeCommand = new RelayCommand(departmentsProc.Invoke);
-            PassportsProcInvokeCommand = new RelayCommand(passportsProc.Invoke);
-            PositionsProcInvokeCommand = new RelayCommand(positionsProc.Invoke);
-            GradeModesProcInvokeCommand = new RelayCommand(gradeModesProc.Invoke);
-            ScholarshipsProcInvokeCommand = new RelayCommand(scholarshipsProc.Invoke);
-            RolesProcInvokeCommand = new RelayCommand(rolesProc.Invoke);
+            DepartmentsProcInvokeCommand = new RelayCommand(departmentsProc.Invoke, () => IsDbConnected);
+            PassportsProcInvokeCommand = new RelayCommand(passportsProc.Invoke, () => IsDbConnected);
+            PositionsProcInvokeCommand = new RelayCommand(positionsProc.Invoke, () => IsDbConnected);
+            GradeModesProcInvokeCommand = new RelayCommand(gradeModesProc.Invoke, () => IsDbConnected);
+            ScholarshipsProcInvokeCommand = new RelayCommand(scholarshipsProc.Invoke, () => IsDbConnected);
+            RolesProcInvokeCommand = new RelayCommand(rolesProc.Invoke, () => IsDbConnected);
 
-            DisciplinesProcInvokeCommand = new RelayCommand(disciplinesProc.Invoke);
-            GradesProcInvokeCommand = new RelayCommand(gradesProc.Invoke);
-            GradeStatementsProcInvokeCommand = new RelayCommand(gradeStatementsProc.Invoke);
-            PersonsProcInvokeCommand = new RelayCommand(personsProc.Invoke);
-            SpecialtiesProcInvokeCommand = new RelayCommand(specialtiesProc.Invoke);
-            StudentsProcInvokeCommand = new RelayCommand(studentsProc.Invoke);
-            GroupsProcInvokeCommand = new RelayCommand(groupsProc.Invoke);
-            StudyFormsProcInvokeCommand = new RelayCommand(studyFormsProc.Invoke);
-            TeachersProcInvokeCommand = new RelayCommand(teachersProc.Invoke);
+            DisciplinesProcInvokeCommand = new RelayCommand(disciplinesProc.Invoke, () => IsDbConnected);
+            GradesProcInvokeCommand = new RelayCommand(gradesProc.Invoke, () => IsDbConnected);
+            GradeStatementsProcInvokeCommand = new RelayCommand(gradeStatementsProc.Invoke, () => IsDbConnected);
+            PersonsProcInvokeCommand = new RelayCommand(personsProc.Invoke, () => IsDbConnected);
+            SpecialtiesProcInvokeCommand = new RelayCommand(specialtiesProc.Invoke, () => IsDbConnected);
+            StudentsProcInvokeCommand = new RelayCommand(studentsProc.Invoke, () => IsDbConnected);
+            GroupsProcInvokeCommand = new RelayCommand(groupsProc.Invoke, () => IsDbConnected);
+            StudyFormsProcInvokeCommand = new RelayCommand(studyFormsProc.Invoke, () => IsDbConnected);
+            TeachersProcInvokeCommand = new RelayCommand(teachersProc.Invoke, () => IsDbConnected);
 
             StudentDisciplineConnectionsProcInvokeCommand =
-                new RelayCommand(studentDisciplineConnectionsProc.Invoke);
+                new RelayCommand(studentDisciplineConnectionsProc.Invoke, () => IsDbConnected);
             TeacherDisciplineConnectionsProcInvokeCommand =
-                new RelayCommand(teacherDisciplineConnectionsProc.Invoke);
+                new RelayCommand(teacherDisciplineConnectionsProc.Invoke, () => IsDbConnected);
 
-            RequestsProcInvokeCommand = new RelayCommand(requestsProc.Invoke);
-            ReportsProcInvokeCommand = new RelayCommand(reportsProc.Invoke);
+            RequestsProcInvokeCommand = new RelayCommand(requestsProc.Invoke, () => IsDbConnected);
+            ReportsProcInvokeCommand = new RelayCommand(reportsProc.Invoke, () => IsDbConnected);
 
             LoadCommand.Execute(null);
+        }
+
+        private void UpdateConnectionState()
+        {
+            DepartmentsProcInvokeCommand.NotifyCanExecuteChanged();
+            PassportsProcInvokeCommand.NotifyCanExecuteChanged();
+            PositionsProcInvokeCommand.NotifyCanExecuteChanged();
+            GradeModesProcInvokeCommand.NotifyCanExecuteChanged();
+            ScholarshipsProcInvokeCommand.NotifyCanExecuteChanged();
+            RolesProcInvokeCommand.NotifyCanExecuteChanged();
+            DisciplinesProcInvokeCommand.NotifyCanExecuteChanged();
+            GradesProcInvokeCommand.NotifyCanExecuteChanged();
+            GradeStatementsProcInvokeCommand.NotifyCanExecuteChanged();
+            PersonsProcInvokeCommand.NotifyCanExecuteChanged();
+            SpecialtiesProcInvokeCommand.NotifyCanExecuteChanged();
+            StudentsProcInvokeCommand.NotifyCanExecuteChanged();
+            GroupsProcInvokeCommand.NotifyCanExecuteChanged();
+            StudyFormsProcInvokeCommand.NotifyCanExecuteChanged();
+            TeachersProcInvokeCommand.NotifyCanExecuteChanged();
+            StudentDisciplineConnectionsProcInvokeCommand.NotifyCanExecuteChanged();
+            TeacherDisciplineConnectionsProcInvokeCommand.NotifyCanExecuteChanged();
+            RequestsProcInvokeCommand.NotifyCanExecuteChanged();
+            ReportsProcInvokeCommand.NotifyCanExecuteChanged();
+            foreach(var proces in _processes)
+            {
+                proces.Abort();
+            }
         }
     }
 }

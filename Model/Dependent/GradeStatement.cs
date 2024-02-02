@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Dependent
@@ -14,11 +13,6 @@ namespace Model.Dependent
     [PrimaryKey(nameof(ID))]
     public class GradeStatement
     {
-        /// <summary>
-        /// Генератор идентификаторов.
-        /// </summary>
-        private static IdGenerator _idGenerator = new(1);
-
         /// <summary>
         /// Возвращает и задаёт все ведомости оценивания.
         /// </summary>

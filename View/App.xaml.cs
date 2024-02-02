@@ -108,8 +108,6 @@ namespace View
             var configurator = _host.Services.GetRequiredService<MainWindowConfigurator>();
             configurator.Configure();
 
-            _host.Services.GetRequiredService<ConnectionWindowProc>().Invoke();
-
             MainWindow = _host.Services.GetRequiredService<MainWindow>();
             MainWindow.Show();
         }

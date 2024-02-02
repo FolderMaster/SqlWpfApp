@@ -27,37 +27,7 @@ namespace ViewModel.VMs
         private Credential? selectedCredential;
 
         [ObservableProperty]
-        private ObservableCollection<Connection> connections = new()
-        {
-            new Connection() {
-                Credentials = new() {
-                    new Credential() { User = "dean1", Password = "dean1" },
-                    new Credential() { User = "deaneryEmployee1", Password = "deaneryEmployee1" },
-                    new Credential() { User = "deaneryEmployee2", Password = "deaneryEmployee2" },
-                    new Credential() { User = "teacher1", Password = "teacher1" },
-                    new Credential() { User = "teacher2", Password = "teacher2" }
-                },
-                DataSource = "(localdb)\\mssqllocaldb",
-                InitialCatalog = "UniversityDb",
-                IsTlsConnection = false,
-                IsColumnEncryption = true,
-                IsTrustServerCertificate = false
-            },
-            new Connection() {
-                Credentials = new() {
-                    new Credential() { User = "dean1", Password = "dean1" },
-                    new Credential() { User = "deaneryEmployee1", Password = "deaneryEmployee1" },
-                    new Credential() { User = "deaneryEmployee2", Password = "deaneryEmployee2" },
-                    new Credential() { User = "teacher1", Password = "teacher1" },
-                    new Credential() { User = "teacher2", Password = "teacher2" }
-                },
-                DataSource = "127.0.0.1",
-                InitialCatalog = "UniversityDb",
-                IsTlsConnection = true,
-                IsColumnEncryption = true,
-                IsTrustServerCertificate = true
-            }
-        };
+        private ObservableCollection<Connection> connections;
 
         [ObservableProperty]
         private string connectionText;
@@ -93,8 +63,6 @@ namespace ViewModel.VMs
 
         public RelayCommand ConnectCommand { get; private set; }
 
-        public RelayCommand ExitCommand { get; private set; }
-
         public ConnectionVM(IDbContextBuilder dbContextBuilder, IResourceService resourceService,
             IConfiguration configuration, IMessageService errorMessageService)
         {
@@ -102,15 +70,7 @@ namespace ViewModel.VMs
             _messengerService = new MessengerService(resourceService, errorMessageService);
 
             _messengerService.ExecuteWithExceptionMessage(_configuration.Load, () => { });
-            if(_configuration.Connections != null)
-            {
-                Connections.Clear();
-                foreach (var connection in _configuration.Connections)
-                {
-                    Connections.Add(connection);
-                }
-            }
-            _configuration.Connections = Connections;
+            Connections = _configuration.Connections ?? new();
             SelectedConnection = Connections.Count > 0 ? Connections[0] : null;
             if(SelectedConnection != null)
             {

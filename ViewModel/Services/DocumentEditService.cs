@@ -1,6 +1,5 @@
 ﻿using System.Data;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 
@@ -25,10 +24,6 @@ namespace ViewModel.Services
         /// Толщина границ ячеек.
         /// </summary>
         private static Thickness _cellBorderThickness = new Thickness(1);
-
-        private static VerticalAlignment _cellVerticalAlignment = VerticalAlignment.Center;
-
-        private static HorizontalAlignment _cellHorizontalAlignment = HorizontalAlignment.Center;
 
         /// <summary>
         /// Документ.

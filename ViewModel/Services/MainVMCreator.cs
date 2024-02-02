@@ -48,6 +48,8 @@ namespace ViewModel.Services
         /// </summary>
         public IAppCloseable AppCloseable { get; set; }
 
+        public IProc ConnectionProc { get; set; }
+
         /// <summary>
         /// Возвращает и задаёт процедуру для работы с факультетами.
         /// </summary>
@@ -150,6 +152,7 @@ namespace ViewModel.Services
         /// <returns>Основное представление модели <seealso cref="MainVM"/>.</returns>
         public MainVM Create() => new MainVM(DbContextBuilder, ResourceService, Configuration,
             QuestionMessageService, InformationMessageService, ErrorMessageService, AppCloseable,
+            ConnectionProc,
             DepartmentsProc, PassportsProc, PositionsProc, GradeModesProc, RolesProc,
             ScholarshipsProc, DisciplinesProc, GradesProc, GradeStatementsProc, PersonsProc,
             SpecialtiesProc, StudentsProc, GroupsProc, StudyFormsProc, TeachersProc,
