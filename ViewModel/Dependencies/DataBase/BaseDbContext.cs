@@ -121,6 +121,8 @@ namespace ViewModel.Dependencies.DataBase
         /// </summary>
         public DbSet<Scholarship> Scholarships { get; set; }
 
+        public bool CanConnect => Database.CanConnect();
+
         /// <summary>
         /// Создаёт экземпляр класса <see cref="SqliteDbContext"/>.
         /// </summary>
@@ -190,7 +192,19 @@ namespace ViewModel.Dependencies.DataBase
 
         public void RejectChanges<TEntity>() where TEntity : class
         {
-            
+            foreach (var entry in ChangeTracker.Entries<TEntity>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.State = EntityState.Detached;
+                        break;
+                    case EntityState.Modified:
+                    case EntityState.Deleted:
+                        entry.State = EntityState.Unchanged;
+                        break;
+                }
+            }
         }
 
         public ObservableCollection<TEntity> GetDbSetLocal<TEntity>() where TEntity : class
@@ -202,8 +216,6 @@ namespace ViewModel.Dependencies.DataBase
             }
             return dbSet.Local.ToObservableCollection();
         }
-
-        public bool CanConnect() => Database.CanConnect();
 
         public abstract DataTable ExecuteCommand(string commandString, Dictionary<string, object>? parameters = null);
     }

@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="View.Controls.Connections.MsSqlServerDbConnectionControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:View.Controls.Connections"
+             xmlns:c="clr-namespace:View.Controls"
+             xmlns:converters="clr-namespace:View.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converters:StringToHeaderConverter x:Key="StringToHeaderConverter"/>
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel>
+        <GroupBox Header="{StaticResource ConnectionHeader}">
+            <StackPanel>
+                <Label Content="{Binding Source={StaticResource DataSourceHeader},
+                    Converter={StaticResource StringToHeaderConverter}}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox Grid.Column="0" IsEditable="True" TextSearch.TextPath="DataSource" 
+                        IsTextSearchEnabled="True" Text="{Binding ConnectionText}"
+                        ItemTemplate="{StaticResource ConnectionTemplate}"
+                        ItemsSource="{Binding Connections}"
+                        SelectedItem="{Binding SelectedConnection}"/>
+                    <Button Grid.Column="1" Content="{StaticResource AddImage}"
+                        Width="{StaticResource ConnectionButtonSize}"
+                        Height="{StaticResource ConnectionButtonSize}"
+                        Command="{Binding AddConnectionCommand}"/>
+                    <Button Grid.Column="2" Content="{StaticResource RemoveImage}"
+                        Width="{StaticResource ConnectionButtonSize}"
+                        Height="{StaticResource ConnectionButtonSize}"
+                        Command="{Binding RemoveSelectedConnectionCommand}"/>
+                </Grid>
+                <Label Content="{Binding Source={StaticResource InitialCatalogHeader},
+                    Converter={StaticResource StringToHeaderConverter}}"/>
+                <TextBox Text="{Binding SelectedConnection.InitialCatalog,
+                    UpdateSourceTrigger=PropertyChanged}"
+                    IsEnabled="{Binding SelectedConnection,
+                    Converter={StaticResource ObjectToBoolConverter}}"/>
+                <CheckBox Content="{StaticResource IsTlsConnectionHeader}"
+                    IsChecked="{Binding SelectedConnection.IsTlsConnection}"
+                    IsEnabled="{Binding SelectedConnection,
+                    Converter={StaticResource ObjectToBoolConverter}}"/>
+                <CheckBox Content="{StaticResource IsColumnEncryptionHeader}"
+                    IsChecked="{Binding SelectedConnection.IsColumnEncryption}"
+                    IsEnabled="{Binding SelectedConnection,
+                    Converter={StaticResource ObjectToBoolConverter}}"/>
+                <CheckBox Content="{StaticResource IsTrustServerCertificateHeader}"
+                    IsChecked="{Binding SelectedConnection.IsTrustServerCertificate}"
+                    IsEnabled="{Binding SelectedConnection,
+                    Converter={StaticResource ObjectToBoolConverter}}"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="{StaticResource LoginHeader}">
+            <StackPanel>
+                <Label Content="{Binding Source={StaticResource UserHeader},
+                    Converter={StaticResource StringToHeaderConverter}}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox Grid.Column="0" IsEditable="True" TextSearch.TextPath="User"
+                        IsTextSearchEnabled="True" Text="{Binding CredentialText}"
+                        ItemTemplate="{StaticResource AuthorizationTemplate}"
+                        SelectedItem="{Binding SelectedCredential}"
+                        ItemsSource="{Binding SelectedConnection.Credentials}"
+                        IsEnabled="{Binding SelectedConnection,
+                        Converter={StaticResource ObjectToBoolConverter}}"/>
+                    <Button Grid.Column="1" Content="{StaticResource AddImage}"
+                        Width="{StaticResource ConnectionButtonSize}"
+                        Height="{StaticResource ConnectionButtonSize}"
+                        Command="{Binding AddCredentialCommand}"
+                        IsEnabled="{Binding SelectedConnection,
+                        Converter={StaticResource ObjectToBoolConverter}}"/>
+                    <Button Grid.Column="2" Content="{StaticResource RemoveImage}"
+                        Width="{StaticResource ConnectionButtonSize}"
+                        Height="{StaticResource ConnectionButtonSize}"
+                        Command="{Binding RemoveSelectedCredentialCommand}"
+                        IsEnabled="{Binding SelectedConnection,
+                        Converter={StaticResource ObjectToBoolConverter}}"/>
+                </Grid>
+                <Label Content="{Binding Source={StaticResource PasswordHeader},
+                    Converter={StaticResource StringToHeaderConverter}}"/>
+                <c:PasswordTextBox Password="{Binding SelectedCredential.Password}"
+                    IsEnabled="{Binding SelectedCredential,
+                    Converter={StaticResource ObjectToBoolConverter}}"/>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</UserControl>

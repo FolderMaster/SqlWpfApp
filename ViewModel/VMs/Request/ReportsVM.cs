@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 
 using System.Windows.Documents;
 using System.Windows.Forms;
-using ViewModel.Interfaces.DataBase;
+using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Messages;
 using ViewModel.Services;
@@ -93,7 +93,7 @@ namespace ViewModel.VMs.Request
         /// <param name="resourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
         /// <param name="printService">Сервис печати.</param>
-        public ReportsVM(IDbContextBuilder dbContextBuilder,
+        public ReportsVM(ISession dbContextBuilder,
             IResourceService resourceService, IMessageService messageService,
             IPrintService printService) :
             base(dbContextBuilder, resourceService, messageService)

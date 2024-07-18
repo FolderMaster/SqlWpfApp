@@ -2,8 +2,7 @@
 
 using System.Collections.Generic;
 using System.Data;
-
-using ViewModel.Interfaces.DataBase;
+using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Messages;
 using ViewModel.Services;
@@ -25,7 +24,7 @@ namespace ViewModel.VMs.Request
         /// <summary>
         /// Создатель контекста базы данных.
         /// </summary>
-        private IDbContextBuilder _dbContextCreator;
+        private ISession _dbContextCreator;
 
         /// <summary>
         /// Сервис послания сообщений.
@@ -43,7 +42,7 @@ namespace ViewModel.VMs.Request
         /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
         /// <param name="resourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
-        public RequestsVM(IDbContextBuilder dbContextBuilder, IResourceService resourceService,
+        public RequestsVM(ISession dbContextBuilder, IResourceService resourceService,
             IMessageService messageService)
         {
             _resourceService = resourceService;
@@ -57,6 +56,6 @@ namespace ViewModel.VMs.Request
         /// <param name="сommandString">Строка команды.</param>
         protected void ExecuteCommand(string сommandString, Dictionary<string, object>? parameters = null) =>
             _messengerService.ExecuteWithExceptionMessage(() =>
-                ExecutingResult = _dbContextCreator.Result.ExecuteCommand(сommandString, parameters));
+                ExecutingResult = _dbContextCreator.DbContext.ExecuteCommand(сommandString, parameters));
     }
 }

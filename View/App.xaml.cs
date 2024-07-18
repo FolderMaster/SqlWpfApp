@@ -6,17 +6,20 @@ using System.Windows;
 using View.Implementations;
 using View.Implementations.Dialogs;
 using View.Implementations.MessageBoxes;
-using View.Implementations.Proces;
-using View.Implementations.Proces.DbSet.Dependent;
-using View.Implementations.Proces.DbSet.Independent;
+using View.Implementations.Proces.MessageBoxes;
+using View.Implementations.Proces.Windows;
+using View.Implementations.Proces.Windows.DbSet.Dependent;
+using View.Implementations.Proces.Windows.DbSet.Independent;
 using View.Implementations.ResourceService;
 using View.Services;
 using View.Windows;
 
 using ViewModel.Dependencies;
 using ViewModel.Dependencies.DataBase.MsSqlServer;
+using ViewModel.Dependencies.DataBase.Sqlite;
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.DataBase;
+using ViewModel.Interfaces.Proces;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Files;
 using ViewModel.Interfaces.Services.Messages;
@@ -44,8 +47,6 @@ namespace View
                 services.AddSingleton<IFileService, FileService>();
                 services.AddSingleton<IPathService, PathService>();
 
-                services.AddSingleton<IDbContextBuilder, MsSqlServerDbContextBuilder>();
-
                 services.AddSingleton<IPrintService, PrintDialogService>();
 
                 services.AddSingleton<ErrorMessageBoxService>();
@@ -61,37 +62,44 @@ namespace View
                 services.AddSingleton<OpenFileDialogService>();
                 services.AddSingleton<SaveFileDialogService>();
 
+                services.AddSingleton<ISession, Session>();
+
+                services.AddSingleton<IDbConnection, SqliteDbConnection>();
+                services.AddSingleton<IDbConnection, MsSqlServerDbConnection>();
+
+                services.AddSingleton<IProc, ExitMessageBoxProc>();
+                services.AddSingleton<IProc, InformationMessageBoxProc>();
+
+                services.AddSingleton<IProc, ConnectionWindowProc>();
+
                 services.AddSingleton<PassportsWindowProcCreator>();
 
-                services.AddSingleton<DepartmentsWindowProc>();
-                services.AddSingleton<GradeModesWindowProc>();
-                services.AddSingleton<PassportsWindowProc>((s) =>
+                services.AddSingleton<IProc, DepartmentsWindowProc>();
+                services.AddSingleton<IProc, GradeModesWindowProc>();
+                services.AddSingleton<IProc, PassportsWindowProc>((s) =>
                     s.GetRequiredService<PassportsWindowProcCreator>().Create());
-                services.AddSingleton<PositionsWindowProc>();
-                services.AddSingleton<RolesWindowProc>();
-                services.AddSingleton<ScholarshipsWindowProc>();
+                services.AddSingleton<IProc, PositionsWindowProc>();
+                services.AddSingleton<IProc, RolesWindowProc>();
+                services.AddSingleton<IProc, ScholarshipsWindowProc>();
 
-                services.AddSingleton<DisciplinesWindowProc>();
-                services.AddSingleton<GradeStatementsWindowProc>();
-                services.AddSingleton<GradesWindowProc>();
-                services.AddSingleton<GroupsWindowProc>();
-                services.AddSingleton<PersonsWindowProc>();
-                services.AddSingleton<SpecialtiesWindowProc>();
-                services.AddSingleton<StudentDisciplineConnectionsWindowProc>();
-                services.AddSingleton<StudentsWindowProc>();
-                services.AddSingleton<StudyFormsWindowProc>();
-                services.AddSingleton<TeachersWindowProc>();
-                services.AddSingleton<TeacherDisciplineConnectionsWindowProc>();
+                services.AddSingleton<IProc, DisciplinesWindowProc>();
+                services.AddSingleton<IProc, GradeStatementsWindowProc>();
+                services.AddSingleton<IProc, GradesWindowProc>();
+                services.AddSingleton<IProc, GroupsWindowProc>();
+                services.AddSingleton<IProc, PersonsWindowProc>();
+                services.AddSingleton<IProc, SpecialtiesWindowProc>();
+                services.AddSingleton<IProc, StudentDisciplineConnectionsWindowProc>();
+                services.AddSingleton<IProc, StudentsWindowProc>();
+                services.AddSingleton<IProc, StudyFormsWindowProc>();
+                services.AddSingleton<IProc, TeachersWindowProc>();
+                services.AddSingleton<IProc, TeacherDisciplineConnectionsWindowProc>();
 
-                services.AddSingleton<RequestsWindowProc>();
-                services.AddSingleton<ReportsWindowProc>();
+                services.AddSingleton<IProc, RequestsWindowProc>();
+                services.AddSingleton<IProc, ReportsWindowProc>();
 
                 services.AddSingleton<MainWindow>();
 
-                services.AddSingleton<ConnectionWindowProc>();
-
-                services.AddSingleton<IConfiguration, WindowConfiguration>((s) =>
-                    new WindowConfiguration(s.GetRequiredService<MainWindow>()));
+                services.AddSingleton<IConfiguration, WindowConfiguration>();
 
                 services.AddSingleton<MainWindowConfigurator>();
             }).Build();
@@ -105,10 +113,11 @@ namespace View
             base.OnStartup(e);
             _host.Start();
 
+            MainWindow = _host.Services.GetRequiredService<MainWindow>();
+
             var configurator = _host.Services.GetRequiredService<MainWindowConfigurator>();
             configurator.Configure();
 
-            MainWindow = _host.Services.GetRequiredService<MainWindow>();
             MainWindow.Show();
         }
 

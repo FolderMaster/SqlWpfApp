@@ -1,0 +1,42 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <BitmapImage x:Shared="False" UriSource="Images/SQLite.ico" x:Key="MainIcon"/>
+
+    <BitmapImage x:Shared="False" UriSource="Images/Exit.ico" x:Key="ExitIcon"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Information.ico" x:Key="InformationIcon"/>
+
+    <BitmapImage x:Shared="False" UriSource="Images/Connection.ico" x:Key="ConnectionIcon"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Departments.ico" x:Key="DepartmentsIcon"/>
+    <BitmapImage x:Shared="False" UriSource="Images/GradeStatements.ico"
+             x:Key="GradeStatementsIcon"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Positions.ico" x:Key="PositionsIcon"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Passports.ico" x:Key="PassportsIcon"/>
+    <BitmapImage x:Shared="False" UriSource="Images/GradeModes.ico" x:Key="GradeModesIcon"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Scholarships.ico" x:Key="ScholarshipsIcon"/>
+
+    <BitmapImage x:Shared="False" UriSource="Images/Roles.ico" x:Key="RolesIcon"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Disciplines.ico" x:Key="DisciplinesIcon"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Grades.ico" x:Key="GradesIcon"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Persons.ico" x:Key="PersonsIcon"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Specialties.ico" x:Key="SpecialtiesIcon"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Students.ico" x:Key="StudentsIcon"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Groups.ico" x:Key="GroupsIcon"/>
+    <BitmapImage x:Shared="False" UriSource="Images/StudentDisciplineConnections.ico"
+             x:Key="StudentDisciplineConnectionsIcon"/>
+    <BitmapImage x:Shared="False" UriSource="Images/StudyForms.ico" x:Key="StudyFormsIcon"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Teachers.ico" x:Key="TeachersIcon"/>
+    <BitmapImage x:Shared="False" UriSource="Images/TeacherDisciplineConnections.ico"
+             x:Key="TeacherDisciplineConnectionsIcon"/>
+
+    <BitmapImage x:Shared="False" UriSource="Images/Requests.ico" x:Key="RequestsIcon"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Reports.ico" x:Key="ReportsIcon"/>
+
+    <BitmapImage x:Shared="False" UriSource="Images/NoImage.ico" x:Key="NoImage"/>
+    <Image x:Shared="False" Source="Images/RightArrow.ico" x:Key="RightArrowImage"/>
+    <Image x:Shared="False" Source="Images/LeftArrow.ico" x:Key="LeftArrowImage"/>
+    <Image x:Shared="False" Source="Images/RightDoubleArrow.ico" x:Key="RightDoubleArrowImage"/>
+    <Image x:Shared="False" Source="Images/LeftDoubleArrow.ico" x:Key="LeftDoubleArrowImage"/>
+    <Image x:Shared="False" Source="Images/Add.ico" x:Key="AddImage"/>
+    <Image x:Shared="False" Source="Images/Remove.ico" x:Key="RemoveImage"/>
+    <Image x:Shared="False" Source="Images/Save.ico" x:Key="SaveImage"/>
+</ResourceDictionary>

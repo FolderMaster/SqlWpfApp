@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using ViewModel.Classes;
+using ViewModel.Classes.Connections.MsSqlServer;
 
 namespace ViewModel.Interfaces
 {
@@ -11,7 +11,7 @@ namespace ViewModel.Interfaces
         /// <summary>
         /// Возвращает и задаёт строку подключения к базе данных.
         /// </summary>
-        public ObservableCollection<Connection> Connections { get; set; }
+        public ObservableCollection<MsSqlServerConnection> Connections { get; set; }
 
         /// <summary>
         /// Сохраняет.

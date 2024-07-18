@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using ViewModel.Interfaces.DataBase;
+using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Messages;
 
@@ -70,7 +70,7 @@ namespace ViewModel.VMs.DbSet
         /// <param name="dataBaseContextBuilder">Создатель контекста базы данных.</param>
         /// <param name="resourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
-        public ControlDbSetVM(IDbContextBuilder dataBaseContextBuilder,
+        public ControlDbSetVM(ISession dataBaseContextBuilder,
             IResourceService resourceService, IMessageService messageService) :
             base(dataBaseContextBuilder, resourceService, messageService)
         {

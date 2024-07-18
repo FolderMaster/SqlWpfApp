@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <KeyGesture x:Key="ConnectionInput">Alt+J</KeyGesture>
+    <KeyGesture x:Key="ExitInput">Alt+X</KeyGesture>
+    <KeyGesture x:Key="InformationInput">Alt+I</KeyGesture>
+
+    <KeyGesture x:Key="DepartmentsInput">Alt+D</KeyGesture>
+    <KeyGesture x:Key="PositionsInput">Alt+P</KeyGesture>
+    <KeyGesture x:Key="PassportsInput">Alt+A</KeyGesture>
+    <KeyGesture x:Key="GradeModesInput" >Alt+G</KeyGesture>
+    <KeyGesture x:Key="ScholarshipsInput">Alt+S</KeyGesture>
+    <KeyGesture x:Key="RolesInput">Alt+R</KeyGesture>
+    <KeyGesture x:Key="GradesInput">Alt+H</KeyGesture>
+    <KeyGesture x:Key="GradeStatementsInput">Alt+Y</KeyGesture>
+    <KeyGesture x:Key="PersonsInput">Alt+O</KeyGesture>
+    <KeyGesture x:Key="SpecialtiesInput">Alt+Z</KeyGesture>
+    <KeyGesture x:Key="StudentsInput">Alt+Q</KeyGesture>
+    <KeyGesture x:Key="GroupsInput">Alt+B</KeyGesture>
+    <KeyGesture x:Key="StudentDisciplineConnectionsInput">Alt+C</KeyGesture>
+    <KeyGesture x:Key="StudyFormsInput">Alt+E</KeyGesture>
+    <KeyGesture x:Key="TeachersInput">Alt+S</KeyGesture>
+    <KeyGesture x:Key="TeacherDisciplineConnectionsInput">Alt+K</KeyGesture>
+    <KeyGesture x:Key="DisciplinesInput">Alt+F</KeyGesture>
+    
+    <KeyGesture x:Key="ReportsInput">Alt+N</KeyGesture>
+    <KeyGesture x:Key="RequestsInput">Alt+W</KeyGesture>
+</ResourceDictionary>

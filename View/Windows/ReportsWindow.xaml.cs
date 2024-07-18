@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 
 using ViewModel.VMs.Request;
-using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Messages;
+using ViewModel.Interfaces;
 
 namespace View.Windows
 {
@@ -19,7 +19,7 @@ namespace View.Windows
         /// <param name="resourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
         /// <param name="printDialogService">Сервис печати.</param>
-        public ReportsWindow(IDbContextBuilder dbContextBuilder, IResourceService resourceService,
+        public ReportsWindow(ISession dbContextBuilder, IResourceService resourceService,
             IMessageService messageService, IPrintService printDialogService)
         {
             InitializeComponent();

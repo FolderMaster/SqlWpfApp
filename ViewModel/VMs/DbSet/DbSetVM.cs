@@ -10,9 +10,9 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
 using ViewModel.Services;
-using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Messages;
+using ViewModel.Interfaces;
 
 namespace ViewModel.VMs.DbSet
 {
@@ -28,7 +28,7 @@ namespace ViewModel.VMs.DbSet
         /// <summary>
         /// Создатель контекста базы данных.
         /// </summary>
-        private IDbContextBuilder _dbContextBuilder;
+        private readonly ISession _dbContextBuilder;
 
         /// <summary>
         /// Сервис послания сообщений.
@@ -201,23 +201,23 @@ namespace ViewModel.VMs.DbSet
         /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
         /// <param name="resourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
-        public DbSetVM(IDbContextBuilder dbContextBuilder, IResourceService resourceService,
+        public DbSetVM(ISession dbContextBuilder, IResourceService resourceService,
             IMessageService messageService)
         {
             _dbContextBuilder = dbContextBuilder;
             _resourceService = resourceService;
             _messengerService = new MessengerService(_resourceService, messageService);
             _messengerService.ExecuteWithExceptionMessage(() =>
-                DbSetLocal = _dbContextBuilder.Result.GetDbSetLocal<T>(), () =>
+                DbSetLocal = _dbContextBuilder.DbContext.GetDbSetLocal<T>(), () =>
                 SaveCommand?.NotifyCanExecuteChanged());
             SaveCommand = new RelayCommand(() =>
                 _messengerService.ExecuteWithExceptionMessage(() =>
                 {
-                    _dbContextBuilder.Result.SaveChanges<T>();
-                    _dbContextBuilder.Result.Reload<T>();
+                    _dbContextBuilder.DbContext.SaveChanges<T>();
+                    _dbContextBuilder.DbContext.Reload<T>();
                 }, () =>
                 {
-                    _dbContextBuilder.Result.RejectChanges<T>();
+                    _dbContextBuilder.DbContext.RejectChanges<T>();
                 }
                 ), () => DbSetLocal != null);
             _getMethodList =
@@ -246,7 +246,7 @@ namespace ViewModel.VMs.DbSet
             {
                 List<PropertyInfo> properties = GetPropertiesForCondition();
 
-                collection = new ObservableCollection<T>();
+                collection = [];
                 foreach (var item in DbSetLocal)
                 {
                     foreach (var property in properties)
@@ -316,7 +316,7 @@ namespace ViewModel.VMs.DbSet
         /// <param name="item">Элемент.</param>
         /// <returns>Логическое значение, указывающее было ли найдено совпадение в значении
         /// свойства.</returns>
-        private bool IsMatchTextInValueOfProperty(string matchText, PropertyInfo property, T item)
+        private static bool IsMatchTextInValueOfProperty(string matchText, PropertyInfo property, T item)
         {
             var value = property.GetValue(item);
             var text = value != null ? value.ToString() : "";
@@ -328,8 +328,8 @@ namespace ViewModel.VMs.DbSet
         /// </summary>
         /// <returns>Список свойств.</returns>
         private List<PropertyInfo> GetPropertiesForCondition() =>
-            string.IsNullOrEmpty(SelectedPropertyName) ? _getMethodList : new List<PropertyInfo>()
-            { _getMethodList.First((p) => p.Name == SelectedPropertyName) };
+            string.IsNullOrEmpty(SelectedPropertyName) ? _getMethodList :
+                [_getMethodList.First((p) => p.Name == SelectedPropertyName)];
 
         private void FinalDbSetLocal_CollectionChanged(object? sender,
             NotifyCollectionChangedEventArgs e)

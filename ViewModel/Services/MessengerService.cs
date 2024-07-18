@@ -56,7 +56,6 @@ namespace ViewModel.Services
         /// <param name="errorAction">Действие после исключения.</param>
         public void ExecuteWithExceptionMessage(Action action, Action? errorAction = null)
         {
-
             try
             {
                 action?.Invoke();

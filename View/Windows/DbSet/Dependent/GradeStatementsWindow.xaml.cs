@@ -2,11 +2,11 @@
 using System.Windows;
 
 using ViewModel.VMs.DbSet;
-using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Messages;
 
 using Model.Dependent;
+using ViewModel.Interfaces;
 
 namespace View.Windows.DbSet.Dependent
 {
@@ -21,7 +21,7 @@ namespace View.Windows.DbSet.Dependent
         /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
         /// <param name="resourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
-        public GradeStatementsWindow(IDbContextBuilder dbContextBuilder,
+        public GradeStatementsWindow(ISession dbContextBuilder,
             IResourceService resourceService, IMessageService messageService)
         {
             InitializeComponent();

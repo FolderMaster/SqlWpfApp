@@ -1,11 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 using System.Data;
 using System.Data.SQLite;
 
 using ViewModel.Interfaces.DataBase;
-using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System;
 
@@ -76,38 +74,6 @@ namespace ViewModel.Dependencies.DataBase.Sqlite
                     }
                 }
             }
-        }
-
-        public void Reload<TEntity>() where TEntity : class
-        {
-            foreach (var row in Set<TEntity>())
-            {
-                Entry(row).Reload();
-            }
-        }
-
-        public void RejectChanges<TEntity>() where TEntity : class
-        {
-            foreach (var entry in ChangeTracker.Entries<TEntity>())
-            {
-                switch (entry.State)
-                {
-                    case EntityState.Added:
-                        entry.State = EntityState.Detached;
-                        break;
-                    case EntityState.Modified:
-                    case EntityState.Deleted:
-                        entry.State = EntityState.Unchanged;
-                        break;
-                }
-            }
-        }
-
-        public ObservableCollection<TEntity> GetDbSetLocal<TEntity>() where TEntity : class
-        {
-            var dbSet = Set<TEntity>();
-            dbSet.Load();
-            return dbSet.Local.ToObservableCollection();
         }
     }
 }

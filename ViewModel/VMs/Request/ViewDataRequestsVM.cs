@@ -1,5 +1,5 @@
 ﻿using ViewModel.Enums;
-using ViewModel.Interfaces.DataBase;
+using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Messages;
 
@@ -36,7 +36,7 @@ namespace ViewModel.VMs.Request
         /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
         /// <param name="resourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
-        public ViewDataRequestsVM(IDbContextBuilder dbContextBuilder,
+        public ViewDataRequestsVM(ISession dbContextBuilder,
             IResourceService resourceService, IMessageService messageService) :
             base(dbContextBuilder, resourceService, messageService) { }
     }

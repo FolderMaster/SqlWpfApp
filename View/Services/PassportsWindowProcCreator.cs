@@ -1,8 +1,7 @@
 ﻿using View.Implementations.Dialogs;
-using View.Implementations.Proces.DbSet.Independent;
+using View.Implementations.Proces.Windows.DbSet.Independent;
 using View.Implementations.ResourceService;
-
-using ViewModel.Interfaces.DataBase;
+using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services.Files;
 using ViewModel.Interfaces.Services.Messages;
 using ViewModel.Interfaces.Technicals;
@@ -19,7 +18,7 @@ namespace View.Services
         /// <summary>
         /// Возвращает и задаёт создателя контекста базы данных.
         /// </summary>
-        public IDbContextBuilder DbContextBuilder { get; set; }
+        public ISession Session { get; set; }
 
         /// <summary>
         /// Возвращает и задаёт сервис ресурсов.
@@ -54,20 +53,20 @@ namespace View.Services
         /// <summary>
         /// Создаёт экземпляр класса <see cref="PassportsWindowProcCreator"/>.
         /// </summary>
-        /// <param name="dbContextCreator">Создатель контекста базы данных.</param>
+        /// <param name="session">Создатель контекста базы данных.</param>
         /// <param name="windowResourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
         /// <param name="openFileDialogService">Сервис диалога открытия файлов.</param>
         /// <param name="saveFileDialogService">Сервис диалога сохранения файлов.</param>
         /// <param name="fileService">Файловый сервис.</param>
         /// <param name="pathService">Сервис путей.</param>
-        public PassportsWindowProcCreator(IDbContextBuilder dbContextCreator,
+        public PassportsWindowProcCreator(ISession session,
             IWindowResourceService windowResourceService, IMessageService messageService,
             OpenFileDialogService openFileDialogService,
             SaveFileDialogService saveFileDialogService, IFileService fileService,
             IPathService pathService)
         {
-            DbContextBuilder = dbContextCreator;
+            Session = session;
             WindowResourceService = windowResourceService;
             MessageService = messageService;
             GettingOpenFileService = openFileDialogService;
@@ -81,7 +80,7 @@ namespace View.Services
         /// </summary>
         /// <returns>Процесс для работы с пасспортами
         /// <seealso cref="PassportsWindowProc"/>.</returns>
-        public PassportsWindowProc Create() => new PassportsWindowProc(DbContextBuilder,
+        public PassportsWindowProc Create() => new PassportsWindowProc(Session,
             WindowResourceService, MessageService, GettingOpenFileService, GettingSaveFileService,
             FileService, PathService);
     }

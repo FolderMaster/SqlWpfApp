@@ -5,7 +5,12 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Dictionary.xaml"/>
+                <ResourceDictionary Source="Resources/Strings.xaml"/>
+                <ResourceDictionary Source="Resources/Sizes.xaml"/>
+                <ResourceDictionary Source="Resources/KeyGestures.xaml"/>
+                <ResourceDictionary Source="Resources/Images.xaml"/>
+                <ResourceDictionary Source="Resources/DataTemplates.xaml"/>
+                <ResourceDictionary Source="Resources/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

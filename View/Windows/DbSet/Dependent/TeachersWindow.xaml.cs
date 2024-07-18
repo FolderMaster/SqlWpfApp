@@ -2,12 +2,12 @@
 using System.Windows;
 
 using ViewModel.VMs.DbSet;
-using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Messages;
 
 using Model.Dependent;
 using Model.Independent;
+using ViewModel.Interfaces;
 
 namespace View.Windows.DbSet.Dependent
 {
@@ -22,7 +22,7 @@ namespace View.Windows.DbSet.Dependent
         /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
         /// <param name="resourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
-        public TeachersWindow(IDbContextBuilder dbContextBuilder, IResourceService resourceService,
+        public TeachersWindow(ISession dbContextBuilder, IResourceService resourceService,
             IMessageService messageService)
         {
             InitializeComponent();

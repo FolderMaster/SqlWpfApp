@@ -3,8 +3,8 @@ using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
 using System.Windows;
-
-using ViewModel.Classes;
+using View.Windows;
+using ViewModel.Classes.Connections.MsSqlServer;
 using ViewModel.Interfaces;
 
 namespace View.Implementations
@@ -74,13 +74,13 @@ namespace View.Implementations
             get => _window.WindowState;
             set => _window.WindowState = value;
         }
-        public ObservableCollection<Connection> Connections { get; set; }
+        public ObservableCollection<MsSqlServerConnection> Connections { get; set; }
 
         /// <summary>
         /// Создаёт экземпляр класса <see cref="WindowConfiguration"/>.
         /// </summary>
         /// <param name="window">Окно.</param>
-        public WindowConfiguration(Window window)
+        public WindowConfiguration(MainWindow window)
         {
             _configuration =
                 ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -130,26 +130,26 @@ namespace View.Implementations
                 var connection = Connections[i];
                 var connectionKey = $"{nameof(Connections)}[{i}].";
 
-                SetConfigurationValue($"{connectionKey}{nameof(Connection.DataSource)}",
+                SetConfigurationValue($"{connectionKey}{nameof(MsSqlServerConnection.DataSource)}",
                     connection.DataSource);
-                SetConfigurationValue($"{connectionKey}{nameof(Connection.InitialCatalog)}",
+                SetConfigurationValue($"{connectionKey}{nameof(MsSqlServerConnection.InitialCatalog)}",
                     connection.InitialCatalog);
-                SetConfigurationValue($"{connectionKey}{nameof(Connection.IsColumnEncryption)}",
+                SetConfigurationValue($"{connectionKey}{nameof(MsSqlServerConnection.IsColumnEncryption)}",
                     connection.IsColumnEncryption);
-                SetConfigurationValue($"{connectionKey}{nameof(Connection.IsTlsConnection)}",
+                SetConfigurationValue($"{connectionKey}{nameof(MsSqlServerConnection.IsTlsConnection)}",
                     connection.IsTlsConnection);
                 SetConfigurationValue
-                    ($"{connectionKey}{nameof(Connection.IsTrustServerCertificate)}",
+                    ($"{connectionKey}{nameof(MsSqlServerConnection.IsTrustServerCertificate)}",
                     connection.IsTrustServerCertificate);
                 for(var n = 0; n < connection.Credentials.Count; ++n)
                 {
                     var credential = connection.Credentials[n];
-                    var credentialKey = $"{nameof(Connection.Credentials)}[{n}].";
+                    var credentialKey = $"{nameof(MsSqlServerConnection.Credentials)}[{n}].";
                     SetConfigurationValue
-                        ($"{connectionKey}{credentialKey}{nameof(Credential.User)}",
+                        ($"{connectionKey}{credentialKey}{nameof(MsSqlServerCredential.User)}",
                         credential.User);
                     SetConfigurationValue
-                        ($"{connectionKey}{credentialKey}{nameof(Credential.Password)}",
+                        ($"{connectionKey}{credentialKey}{nameof(MsSqlServerCredential.Password)}",
                         credential.Password);
                 }
             }
@@ -157,43 +157,43 @@ namespace View.Implementations
 
         public void LoadConnections()
         {
-            Connections = new ObservableCollection<Connection>();
+            Connections = new ObservableCollection<MsSqlServerConnection>();
             var i = 0;
             var connectionKey = $"{nameof(Connections)}[{i}].";
             var isExistConnection = _settings.AllKeys.Any((k) => k.StartsWith(connectionKey));
             while (isExistConnection)
             {
-                var connection = new Connection();
-                AssignByConfigurationValue($"{connectionKey}{nameof(Connection.DataSource)}",
+                var connection = new MsSqlServerConnection();
+                AssignByConfigurationValue($"{connectionKey}{nameof(MsSqlServerConnection.DataSource)}",
                     (v) => connection.DataSource = v);
-                AssignByConfigurationValue($"{connectionKey}{nameof(Connection.InitialCatalog)}",
+                AssignByConfigurationValue($"{connectionKey}{nameof(MsSqlServerConnection.InitialCatalog)}",
                     (v) => connection.InitialCatalog = v);
                 AssignByConfigurationValue
-                    ($"{connectionKey}{nameof(Connection.IsColumnEncryption)}",
+                    ($"{connectionKey}{nameof(MsSqlServerConnection.IsColumnEncryption)}",
                     (v) => connection.IsColumnEncryption = bool.Parse(v));
-                AssignByConfigurationValue($"{connectionKey}{nameof(Connection.IsTlsConnection)}",
+                AssignByConfigurationValue($"{connectionKey}{nameof(MsSqlServerConnection.IsTlsConnection)}",
                         (v) => connection.IsTlsConnection = bool.Parse(v));
                 AssignByConfigurationValue
-                    ($"{connectionKey}{nameof(Connection.IsTrustServerCertificate)}",
+                    ($"{connectionKey}{nameof(MsSqlServerConnection.IsTrustServerCertificate)}",
                     (v) => connection.IsTrustServerCertificate = bool.Parse(v));
                 
                 var n = 0;
-                var credentialKey = $"{nameof(Connection.Credentials)}[{n}].";
+                var credentialKey = $"{nameof(MsSqlServerConnection.Credentials)}[{n}].";
                 var isExistCredential = _settings.AllKeys.Any
                     ((k) => k.StartsWith($"{connectionKey}{credentialKey}"));
                 while (isExistCredential)
                 {
-                    var credential = new Credential();
+                    var credential = new MsSqlServerCredential();
                     AssignByConfigurationValue
-                        ($"{connectionKey}{credentialKey}{nameof(Credential.User)}",
+                        ($"{connectionKey}{credentialKey}{nameof(MsSqlServerCredential.User)}",
                         (v) => credential.User = v);
                     AssignByConfigurationValue
-                        ($"{connectionKey}{credentialKey}{nameof(Credential.Password)}",
+                        ($"{connectionKey}{credentialKey}{nameof(MsSqlServerCredential.Password)}",
                         (v) => credential.Password = v);
                     connection.Credentials.Add(credential);
 
                     ++n;
-                    credentialKey = $"{nameof(Connection.Credentials)}[{n}].";
+                    credentialKey = $"{nameof(MsSqlServerConnection.Credentials)}[{n}].";
                     isExistCredential = _settings.AllKeys.Any
                         ((k) => k.StartsWith($"{connectionKey}{credentialKey}"));
                 }

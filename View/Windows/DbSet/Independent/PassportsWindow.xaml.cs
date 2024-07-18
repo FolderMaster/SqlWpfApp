@@ -1,10 +1,10 @@
 ﻿using System.Windows;
 
 using ViewModel.VMs.DbSet;
-using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Files;
 using ViewModel.Interfaces.Services.Messages;
+using ViewModel.Interfaces;
 
 namespace View.Windows.DbSet.Independent
 {
@@ -23,7 +23,7 @@ namespace View.Windows.DbSet.Independent
         /// <param name="gettingSaveFileService">Сервис получения файла сохранения.</param>
         /// <param name="fileService">Файловый сервис.</param>
         /// <param name="pathService">Сервис путей.</param>
-        public PassportsWindow(IDbContextBuilder dbContextBuilder,
+        public PassportsWindow(ISession dbContextBuilder,
             IResourceService resourceService, IMessageService messageService,
             IGettingFileService gettingOpenFileService, IGettingFileService gettingSaveFileService,
             IFileService fileService, IPathService pathService)

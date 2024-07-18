@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-
-using ViewModel.Interfaces.DataBase;
+using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Messages;
 using ViewModel.VMs.Request;
@@ -19,7 +18,7 @@ namespace View.Windows
         /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
         /// <param name="resourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
-        public RequestsWindow(IDbContextBuilder dbContextBuilder, IResourceService resourceService,
+        public RequestsWindow(ISession dbContextBuilder, IResourceService resourceService,
             IMessageService messageService)
         {
             InitializeComponent();

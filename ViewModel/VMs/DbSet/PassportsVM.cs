@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 
 using Model.Independent;
-using ViewModel.Interfaces.DataBase;
+using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Files;
 using ViewModel.Interfaces.Services.Messages;
@@ -22,12 +22,12 @@ namespace ViewModel.VMs.DbSet
         /// <summary>
         /// Ключ ресурса фильтра открытия файла диалога.
         /// </summary>
-        private static string _openFileDialogFilterResourceKey = "ImageOpenFileDialogFilter";
+        private static readonly string _openFileDialogFilterResourceKey = "ImageOpenFileDialogFilter";
 
         /// <summary>
         /// Ключ ресурса фильтра сохранения файла диалога.
         /// </summary>
-        private static string _saveFileDialogFilterResourceKey = "ImageSaveFileDialogFilter";
+        private static readonly string _saveFileDialogFilterResourceKey = "ImageSaveFileDialogFilter";
 
         /// <summary>
         /// Возвращает и задаёт файловый сервис.
@@ -69,7 +69,7 @@ namespace ViewModel.VMs.DbSet
         /// <param name="saveFileService">Сервис сохранения файлов.</param>
         /// <param name="fileService">Файловый сервис.</param>
         /// <param name="pathService">Сервис путей.</param>
-        public PassportsVM(IDbContextBuilder dataBaseContextBuilder,
+        public PassportsVM(ISession dataBaseContextBuilder,
             IResourceService resourceService, IMessageService messageService,
             IGettingFileService openFileService, IGettingFileService saveFileService,
             IFileService fileService, IPathService pathService) :

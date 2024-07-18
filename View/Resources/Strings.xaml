@@ -1,0 +1,262 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="ErrorMessageTitle">Error!</sys:String>
+    <sys:String x:Key="InformationMessageTitle">Information.</sys:String>
+    <sys:String x:Key="QuestionMessageTitle">Question?</sys:String>
+
+    <sys:String x:Key="ConnectionHeader">Connection</sys:String>
+    <sys:String x:Key="ConnectionPath">File</sys:String>
+    <sys:String x:Key="ConnectionInputText">Alt+J</sys:String>
+
+    <sys:String x:Key="ErrorConnectionMessageDescription">Connection failed!</sys:String>
+    
+    <sys:String x:Key="DataBaseHeader">Data base</sys:String>
+    <sys:String x:Key="DataSourceHeader">Data source</sys:String>
+    <sys:String x:Key="InitialCatalogHeader">Initial catalog</sys:String>
+    <sys:String x:Key="IsTlsConnectionHeader">Is TLS connection?</sys:String>
+    <sys:String x:Key="IsColumnEncryptionHeader">Is column encryption?</sys:String>
+    <sys:String x:Key="IsTrustServerCertificateHeader">Is trust server certificate?</sys:String>
+    <sys:String x:Key="LoginHeader">Login</sys:String>
+    <sys:String x:Key="UserHeader">User</sys:String>
+    <sys:String x:Key="PasswordHeader">Password</sys:String>
+    <sys:String x:Key="ConnectHeader">Connect</sys:String>
+    
+    <sys:String x:Key="InformationMessageDescription">
+        (C)TUSUR, KSUB, Pchelintsev Andrew Alexandrovich, group 571-2, 2023.
+    </sys:String>
+
+    <sys:String x:Key="ExitMessageTitle">Exit?</sys:String>
+    <sys:String x:Key="ExitMessageDescription">Do you want to close the program?</sys:String>
+
+    <sys:String x:Key="MainHeader">SQLite WPF App</sys:String>
+
+    <sys:String x:Key="ExitHeader">Exit</sys:String>
+    <sys:String x:Key="ExitPath">File</sys:String>
+    <sys:String x:Key="ExitInputText">Alt+X</sys:String>
+
+    <sys:String x:Key="InformationHeader">About program</sys:String>
+    <sys:String x:Key="InformationPath">File</sys:String>
+    <sys:String x:Key="InformationInputText">Alt+I</sys:String>
+
+    <sys:String x:Key="FileHeader">File</sys:String>
+
+    <sys:String x:Key="TablesHeader">Tables</sys:String>
+
+    <sys:String x:Key="IndependentHeader">Independent</sys:String>
+    
+    <sys:String x:Key="DepartmentsHeader">Departments</sys:String>
+    <sys:String x:Key="DepartmentsPath">Tables/Independent</sys:String>
+    <sys:String x:Key="DepartmentsInputText">Alt+D</sys:String>
+
+    <sys:String x:Key="PositionsHeader">Positions</sys:String>
+    <sys:String x:Key="PositionsPath">Tables/Independent</sys:String>
+    <sys:String x:Key="PositionsInputText">Alt+P</sys:String>
+
+    <sys:String x:Key="PassportsHeader">Passports</sys:String>
+    <sys:String x:Key="PassportsPath">Tables/Independent</sys:String>
+    <sys:String x:Key="PassportsInputText">Alt+A</sys:String>
+
+    <sys:String x:Key="GradeModesHeader">Grade modes</sys:String>
+    <sys:String x:Key="GradeModesPath">Tables/Independent</sys:String>
+    <sys:String x:Key="GradeModesInputText">Alt+G</sys:String>
+
+    <sys:String x:Key="ScholarshipsHeader">Scholarships</sys:String>
+    <sys:String x:Key="ScholarshipsPath">Tables/Independent</sys:String>
+    <sys:String x:Key="ScholarshipsInputText">Alt+S</sys:String>
+
+    <sys:String x:Key="RolesHeader">Roles</sys:String>
+    <sys:String x:Key="RolesPath">Tables/Independent</sys:String>
+    <sys:String x:Key="RolesInputText">Alt+R</sys:String>
+
+    <sys:String x:Key="DependentHeader">Dependent</sys:String>
+    
+    <sys:String x:Key="DisciplinesHeader">Disciplines</sys:String>
+    <sys:String x:Key="DisciplinesPath">Tables/Dependent</sys:String>
+    <sys:String x:Key="DisciplinesInputText">Alt+F</sys:String>
+
+    <sys:String x:Key="GradesHeader">Grades</sys:String>
+    <sys:String x:Key="GradesPath">Tables/Dependent</sys:String>
+    <sys:String x:Key="GradesInputText">Alt+H</sys:String>
+
+    <sys:String x:Key="GradeStatementsHeader">Grade statements</sys:String>
+    <sys:String x:Key="GradeStatementsPath">Tables/Dependent</sys:String>
+    <sys:String x:Key="GradeStatementsInputText">Alt+Y</sys:String>
+
+    <sys:String x:Key="PersonsHeader">Persons</sys:String>
+    <sys:String x:Key="PersonsPath">Tables/Dependent</sys:String>
+    <sys:String x:Key="PersonsInputText">Alt+O</sys:String>
+
+    <sys:String x:Key="SpecialtiesHeader">Specialties</sys:String>
+    <sys:String x:Key="SpecialtiesPath">Tables/Dependent</sys:String>
+    <sys:String x:Key="SpecialtiesInputText">Alt+Z</sys:String>
+
+    <sys:String x:Key="StudentsHeader">Students</sys:String>
+    <sys:String x:Key="StudentsPath">Tables/Dependent</sys:String>
+    <sys:String x:Key="StudentsInputText">Alt+Q</sys:String>
+
+    <sys:String x:Key="GroupsHeader">Groups</sys:String>
+    <sys:String x:Key="GroupsPath">Tables/Dependent</sys:String>
+    <sys:String x:Key="GroupsInputText">Alt+B</sys:String>
+
+    <sys:String x:Key="StudentDisciplineConnectionsHeader">
+        Student-discipline connections
+    </sys:String>
+    <sys:String x:Key="StudentDisciplineConnectionsPath">Tables/Dependent</sys:String>
+    <sys:String x:Key="StudentDisciplineConnectionsInputText">Alt+C</sys:String>
+
+    <sys:String x:Key="StudyFormsHeader">Study forms</sys:String>
+    <sys:String x:Key="StudyFormsPath">Tables/Dependent</sys:String>
+    <sys:String x:Key="StudyFormsInputText">Alt+E</sys:String>
+
+    <sys:String x:Key="TeachersHeader">Teachers</sys:String>
+    <sys:String x:Key="TeachersPath">Tables/Dependent</sys:String>
+    <sys:String x:Key="TeachersInputText">Alt+S</sys:String>
+
+    <sys:String x:Key="TeacherDisciplineConnectionsHeader">
+        Teacher-discipline connections
+    </sys:String>
+    <sys:String x:Key="TeacherDisciplineConnectionsPath">Tables/Dependent</sys:String>
+    <sys:String x:Key="TeacherDisciplineConnectionsInputText">Alt+K</sys:String>
+
+    <sys:String x:Key="SaveHeader">Save</sys:String>
+    <sys:String x:Key="SearchHeader">Search</sys:String>
+    <sys:String x:Key="FilterHeader">Filter</sys:String>
+    <sys:String x:Key="FirstHeader">First</sys:String>
+    <sys:String x:Key="BackHeader">Back</sys:String>
+    <sys:String x:Key="NextHeader">Next</sys:String>
+    <sys:String x:Key="LastHeader">Last</sys:String>
+    <sys:String x:Key="AddHeader">Add</sys:String>
+    <sys:String x:Key="LoadHeader">Load</sys:String>
+    <sys:String x:Key="RemoveHeader">Remove</sys:String>
+    <sys:String x:Key="OutOfHeader">out of</sys:String>
+    <sys:String x:Key="ThisTableHeader">This table</sys:String>
+    <sys:String x:Key="DependencyTableHeader">Dependency table</sys:String>
+
+    <sys:String x:Key="NameHeader">Name</sys:String>
+    <sys:String x:Key="SymbolHeader">Symbol</sys:String>
+    <sys:String x:Key="ValuesHeader">Values</sys:String>
+    <sys:String x:Key="SerialNumberHeader">Serial number</sys:String>
+    <sys:String x:Key="ScanHeader">Scan</sys:String>
+    <sys:String x:Key="SexHeader">Sex</sys:String>
+    <sys:String x:Key="PermanentResidenceAddressHeader">Permanent residence address</sys:String>
+    <sys:String x:Key="CoefficientHeader">Coefficient</sys:String>
+    <sys:String x:Key="GradeModeNameHeader">Grade mode name</sys:String>
+    <sys:String x:Key="IDHeader">ID</sys:String>
+    <sys:String x:Key="ResidentialAddressHeader">Residential address</sys:String>
+    <sys:String x:Key="PassportSerialNumberHeader">Passport serial number</sys:String>
+    <sys:String x:Key="NumberHeader">Number</sys:String>
+    <sys:String x:Key="DepartmentNameHeader">Department name</sys:String>
+    <sys:String x:Key="FormationYearHeader">Formation year</sys:String>
+    <sys:String x:Key="SpecialtyNumberHeader">Specialty number</sys:String>
+    <sys:String x:Key="HoursCountHeader">Hours count</sys:String>
+    <sys:String x:Key="StudyFormNameHeader">Study form name</sys:String>
+    <sys:String x:Key="GradeHeader">Grade</sys:String>
+    <sys:String x:Key="StudentIDHeader">Student ID</sys:String>
+    <sys:String x:Key="TeacherIDHeader">Teacher ID</sys:String>
+    <sys:String x:Key="DisciplineIDHeader">Discipline ID</sys:String>
+    <sys:String x:Key="GradeNameHeader">Grade name</sys:String>
+    <sys:String x:Key="PassingDateHeader">Passing date</sys:String>
+    <sys:String x:Key="IsPassedHeader">Is passed?</sys:String>
+    <sys:String x:Key="RoleNameHeader">Role name</sys:String>
+    <sys:String x:Key="PositionNameHeader">Position name</sys:String>
+    <sys:String x:Key="RecordBookNumberHeader">Record book number</sys:String>
+    <sys:String x:Key="IsDeductibleHeader">Is deductible?</sys:String>
+    <sys:String x:Key="GroupFormationYearHeader">Group formation year</sys:String>
+    <sys:String x:Key="GroupNumberHeader">Group number</sys:String>
+    <sys:String x:Key="ScholarshipNameHeader">Scholarship name</sys:String>
+    <sys:String x:Key="BirthDateHeader">Birth date</sys:String>
+    <sys:String x:Key="AgeHeader">Age</sys:String>
+    <sys:String x:Key="AmountHeader">Amount</sys:String>
+
+    <sys:String x:Key="ImageOpenFileDialogFilter">
+        Images (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg
+    </sys:String>
+    <sys:String x:Key="ImageSaveFileDialogFilter">
+        PNG image|*.png|JPEG image|*.jpeg|JPG image|*.jpg
+    </sys:String>
+
+    <sys:String x:Key="OperationsHeader">Operations</sys:String>
+    
+    <sys:String x:Key="RequestsHeader">Requests</sys:String>
+    <sys:String x:Key="RequestsPath">Operations</sys:String>
+    <sys:String x:Key="RequestsInputText">Alt+W</sys:String>
+
+    <sys:String x:Key="ExecuteRequestHeader">Execute request</sys:String>
+    <sys:String x:Key="ResultHeader">Result</sys:String>
+
+    <sys:String x:Key="SortHeader">Sort</sys:String>
+    <sys:String x:Key="ColumnNameHeader">Column name</sys:String>
+    <sys:String x:Key="SortModeHeader">Sort mode</sys:String>
+
+    <sys:String x:Key="ChangeDataRequestsHeader">Change data requests</sys:String>
+
+    <sys:String x:Key="ChangeDataModesHeader">Change data modes</sys:String>
+
+    <sys:String x:Key="InsertHeader">Insert</sys:String>
+    <sys:String x:Key="UpdateHeader">Update</sys:String>
+    <sys:String x:Key="DeleteHeader">Delete</sys:String>
+
+    <sys:String x:Key="SpecialChangeDataRequestsHeader">Special change data requests</sys:String>
+
+    <sys:String x:Key="SetNullStudentPassingsHeader">Set null student passings</sys:String>
+    <sys:String x:Key="SetNullStudentDeductingsHeader">Set null student deductings</sys:String>
+    <sys:String x:Key="SetStudentPassingsByLastGradesHeader">
+        Set student passings by last grades
+    </sys:String>
+    <sys:String x:Key="SetStudentPassingsWithoutGradesHeader">
+        Set student passings without grades
+    </sys:String>
+    <sys:String x:Key="SetStudentDeductingsHeader">Set student deductings</sys:String>
+    <sys:String x:Key="SetStudentScholarshipsByGradesHeader">
+        Set student scholarships by grades
+    </sys:String>
+    <sys:String x:Key="SetStudentScholarshipsByPassingsHeader">
+        Set student scholarships by passings
+    </sys:String>
+
+    <sys:String x:Key="GradeCoefficientHeader">Grade coefficient</sys:String>
+    <sys:String x:Key="CountHeader">Count</sys:String>
+
+    <sys:String x:Key="ViewDataRequestsHeader">View data requests</sys:String>
+
+    <sys:String x:Key="SpecialViewDataRequestsHeader">Special view data requests</sys:String>
+
+    <sys:String x:Key="AverageDisciplineLastGradesHeader">
+        Average discipline last grades
+    </sys:String>
+    <sys:String x:Key="DepartmentScholarshipCountsHeader">
+        Department scholarship counts
+    </sys:String>
+    <sys:String x:Key="DeductibleDepartmentStudentsHeader">
+        Deductible department students
+    </sys:String>
+    <sys:String x:Key="PassingDisciplineCountsHeader">Passing discipline counts</sys:String>
+    <sys:String x:Key="AverageDepartmentGroupLastGradesHeader">
+        Average department-group last grades
+    </sys:String>
+    <sys:String x:Key="PassedDepartmentStudentDisciplinesHeader">
+        Passed department-student disciplines
+    </sys:String>
+
+    <sys:String x:Key="StudyFormHeader">Study form</sys:String>
+    <sys:String x:Key="DepartmentHeader">Department</sys:String>
+    <sys:String x:Key="ScholarshipHeader">Scholarship</sys:String>
+
+    <sys:String x:Key="ViewDataModesHeader">View data modes</sys:String>
+    
+    <sys:String x:Key="ReportsHeader">Reports</sys:String>
+    <sys:String x:Key="ReportsPath">Operations</sys:String>
+    <sys:String x:Key="ReportsInputText">Alt+N</sys:String>
+
+    <sys:String x:Key="DeductingsHeader">Deductings</sys:String>
+    <sys:String x:Key="PrintHeader">Print</sys:String>
+
+    <sys:String x:Key="DeductingsStudentsParagraph">Students:</sys:String>
+    <sys:String x:Key="StudentsAverageGradesParagraph">Average grades:</sys:String>
+    <sys:String x:Key="StudentsGradesParagraph">Grades:</sys:String>
+    <sys:String x:Key="DepartmentsScholarshipsParagraph">Scholarships:</sys:String>
+    <sys:String x:Key="DepartmentsAverageGradesParagraph">Average grades:</sys:String>
+
+    <sys:String x:Key="DocumentDescription">Report</sys:String>
+</ResourceDictionary>

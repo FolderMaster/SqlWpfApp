@@ -21,7 +21,7 @@ namespace ViewModel.Interfaces.DataBase
 
         public void RejectChanges<TEntity>() where TEntity : class;
 
-        public bool CanConnect();
+        public bool CanConnect { get; }
 
         /// <summary>
         /// Сохраняет изменения в таблице.
