@@ -9,14 +9,12 @@
              mc:Ignorable="d" 
              Name="sortControl" d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <ResourceDictionary>
-            <ObjectDataProvider x:Key="SortModeEnum" MethodName="GetValues"
+        <ObjectDataProvider x:Key="SortModeEnum" MethodName="GetValues"
                                 ObjectType="{x:Type sys:Enum}">
-                <ObjectDataProvider.MethodParameters>
-                    <x:Type TypeName="enums:SortMode"/>
-                </ObjectDataProvider.MethodParameters>
-            </ObjectDataProvider>
-        </ResourceDictionary>
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:SortMode"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </UserControl.Resources>
     <DataGrid ItemsSource="{Binding ElementName=sortControl, Path=SortCollection}"
               AutoGenerateColumns="False">

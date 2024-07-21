@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.Sqlite;
 
 using System.Data;
-using System.Data.SQLite;
-
-using ViewModel.Interfaces.DataBase;
 using System.Collections.Generic;
 using System;
+
+using ViewModel.Interfaces.DataBase;
 
 namespace ViewModel.Dependencies.DataBase.Sqlite
 {
@@ -54,24 +54,22 @@ namespace ViewModel.Dependencies.DataBase.Sqlite
         public override DataTable ExecuteCommand(string commandString,
             Dictionary<string, object>? parameters = null)
         {
-            using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
+            Database.OpenConnection();
+            using (var command = Database.GetDbConnection().CreateCommand())
             {
-                connection.Open();
-                using (SQLiteCommand command = new SQLiteCommand(commandString, connection))
+                command.CommandText = commandString;
+                if (parameters != null)
                 {
-                    if (parameters != null)
+                    foreach (var pair in parameters)
                     {
-                        foreach (var key in parameters.Keys)
-                        {
-                            command.Parameters.AddWithValue(key, parameters[key] ?? DBNull.Value);
-                        }
+                        command.Parameters.Add(new SqliteParameter(pair.Key, pair.Value ?? DBNull.Value));
                     }
-                    using (SQLiteDataReader reader = command.ExecuteReader())
-                    {
-                        var dataTable = new DataTable();
-                        dataTable.Load(reader);
-                        return dataTable;
-                    }
+                }
+                using (var reader = command.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    var dataTable = new DataTable();
+                    dataTable.Load(reader);
+                    return dataTable;
                 }
             }
         }

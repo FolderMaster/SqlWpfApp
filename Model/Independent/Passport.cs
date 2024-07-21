@@ -46,17 +46,8 @@ namespace Model.Independent
         public string SerialNumber
         {
             get => _serialNumberValue;
-            set
-            {
-                if (_serialNumberValue != value)
-                {
-                    _serialNumberValue = value;
-                    ClearErrors();
-                    AddError(ValueValidator.AssertStringOnEqualLength(value, 10));
-                    PropertyChangedEventInvoke();
-                    ErrorsChangedEventInvoke();
-                }
-            }
+            set => UpdateProperty(ref _serialNumberValue, value,
+                (v, n) => ValueValidator.AssertStringOnEqualLength(v, 10, n));
         }
 
         /// <summary>
@@ -65,17 +56,8 @@ namespace Model.Independent
         public string Name
         {
             get => _nameValue;
-            set
-            {
-                if (_nameValue != value)
-                {
-                    _nameValue = value;
-                    ClearErrors();
-                    AddError(ValueValidator.AssertStringOnLessLength(value, 64));
-                    PropertyChangedEventInvoke();
-                    ErrorsChangedEventInvoke();
-                }
-            }
+            set => UpdateProperty(ref _nameValue, value, (v, n) =>
+                ValueValidator.AssertStringOnLessLength(v, 64, n));
         }
 
         /// <summary>
@@ -84,17 +66,8 @@ namespace Model.Independent
         public string PermanentResidenceAddress
         {
             get => _permanentResidenceAddressValue;
-            set
-            {
-                if (_permanentResidenceAddressValue != value)
-                {
-                    _permanentResidenceAddressValue = value;
-                    ClearErrors();
-                    AddError(ValueValidator.AssertStringOnLessLength(value, 64));
-                    PropertyChangedEventInvoke();
-                    ErrorsChangedEventInvoke();
-                }
-            }
+            set => UpdateProperty(ref _permanentResidenceAddressValue, value,
+                (v, n) => ValueValidator.AssertStringOnLessLength(v, 64, n));
         }
 
         /// <summary>
@@ -103,14 +76,7 @@ namespace Model.Independent
         public bool Sex
         {
             get => _sexValue;
-            set
-            {
-                if (_sexValue != value)
-                {
-                    _sexValue = value;
-                    PropertyChangedEventInvoke();
-                }
-            }
+            set => UpdateProperty(ref _sexValue, value);
         }
 
         /// <summary>
@@ -119,17 +85,8 @@ namespace Model.Independent
         public byte[]? Scan
         {
             get => _scanValue;
-            set
-            {
-                if(_scanValue != value)
-                {
-                    _scanValue = value;
-                    ClearErrors();
-                    AddError(ValueValidator.AssertOnNotNullValue(value));
-                    PropertyChangedEventInvoke();
-                    ErrorsChangedEventInvoke();
-                }
-            }
+            set => UpdateProperty(ref _scanValue, value,
+                ValueValidator.AssertOnNotNullValue);
         } 
 
         /// <summary>
@@ -138,15 +95,8 @@ namespace Model.Independent
         public DateTime BirthDate
         {
             get => _birthDateValue;
-            set
-            {
-                if(_birthDateValue != value)
-                {
-                    _birthDateValue = value;
-                    PropertyChangedEventInvoke();
-                    PropertyChangedEventInvoke(nameof(Age));
-                }
-            }
+            set => UpdateProperty(ref _birthDateValue, value, null,
+                (v) => PropertyChangedEventInvoke(nameof(Age)));
         }
 
         /// <summary>

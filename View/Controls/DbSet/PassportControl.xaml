@@ -8,23 +8,17 @@
              xmlns:ctrl="clr-namespace:View.Controls"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:v="clr-namespace:View.ValidationRules"
-             xmlns:c="clr-namespace:View.Converters"
              xmlns:m="clr-namespace:Model;assembly=Model"
              xmlns:b="clr-namespace:View.Behaviors"
              mc:Ignorable="d" 
              Name="passportControl" d:DesignHeight="400" d:DesignWidth="600">
     <UserControl.Resources>
-        <ResourceDictionary>
-            <ObjectDataProvider x:Key="SexEnum" MethodName="GetValues"
-                                ObjectType="{x:Type sys:Enum}">
-                <ObjectDataProvider.MethodParameters>
-                    <x:Type TypeName="m:Sex"/>
-                </ObjectDataProvider.MethodParameters>
-            </ObjectDataProvider>
-            <c:InverseBoolConverter x:Key="InverseBoolConverter"/>
-            <c:StringToHeaderConverter x:Key="StringToHeaderConverter"/>
-            <c:BoolToEnumConverter x:Key="BoolToEnumConverter"/>
-        </ResourceDictionary>
+        <ObjectDataProvider x:Key="SexEnum" MethodName="GetValues"
+                    ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="m:Sex"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>

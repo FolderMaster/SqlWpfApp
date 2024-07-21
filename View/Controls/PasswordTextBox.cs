@@ -5,7 +5,6 @@ namespace View.Controls
 {
     public class PasswordTextBox : TextBox
     {
-
         private bool isChangePassword = false;
 
         public string Password
@@ -30,20 +29,16 @@ namespace View.Controls
             DependencyProperty.Register(nameof(MaskSymbol), typeof(char),
                 typeof(PasswordTextBox), new FrameworkPropertyMetadata('●'));
 
-        public PasswordTextBox() : base()
+        protected override void OnTextChanged(TextChangedEventArgs e)
         {
-            TextChanged += OnTextChanged;
-        }
-
-        private void OnTextChanged(object sender, TextChangedEventArgs e)
-        {
+            base.OnTextChanged(e);
             var caretIndex = CaretIndex;
             if (!isChangePassword)
             {
                 foreach (var change in e.Changes)
                 {
-                    Password = Password.Remove(change.Offset, change.RemovedLength).
-                        Insert(change.Offset, Text.Substring(change.Offset, change.AddedLength));
+                    Password = Password.Remove(change.Offset, change.RemovedLength).Insert
+                        (change.Offset, Text.Substring(change.Offset, change.AddedLength));
                 }
             }
             Text = MaskPassword(MaskSymbol, Text.Length);
@@ -54,7 +49,8 @@ namespace View.Controls
             DependencyPropertyChangedEventArgs e)
         {
             var control = (PasswordTextBox)d;
-            var newText = (string)e.NewValue;
+            var newText = e.NewValue != null ? (string)e.NewValue : "";
+            control.Password = newText;
             control.isChangePassword = true;
             control.Text = MaskPassword(control.MaskSymbol, newText.Length);
             control.isChangePassword = false;

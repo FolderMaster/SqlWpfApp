@@ -2,7 +2,6 @@
 using Microsoft.Data.SqlClient;
 
 using System.Data;
-
 using System.Collections.Generic;
 using System;
 
@@ -55,24 +54,22 @@ namespace ViewModel.Dependencies.DataBase.MsSqlServer
         public override DataTable ExecuteCommand(string commandString,
             Dictionary<string, object>? parameters = null)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            Database.OpenConnection();
+            using (var command = Database.GetDbConnection().CreateCommand())
             {
-                connection.Open();
-                using (SqlCommand command = new SqlCommand(commandString, connection))
+                command.CommandText = commandString;
+                if (parameters != null)
                 {
-                    if(parameters != null)
+                    foreach (var pair in parameters)
                     {
-                        foreach (var key in parameters.Keys)
-                        {
-                            command.Parameters.AddWithValue(key, parameters[key] ?? DBNull.Value);
-                        }
+                        command.Parameters.Add(new SqlParameter(pair.Key, pair.Value ?? DBNull.Value));
                     }
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        var dataTable = new DataTable();
-                        dataTable.Load(reader);
-                        return dataTable;
-                    }
+                }
+                using (var reader = command.ExecuteReader())
+                {
+                    var dataTable = new DataTable();
+                    dataTable.Load(reader);
+                    return dataTable;
                 }
             }
         }

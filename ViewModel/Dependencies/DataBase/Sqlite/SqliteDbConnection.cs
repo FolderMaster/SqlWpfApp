@@ -1,31 +1,69 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using System.Data.SQLite;
+using System.ComponentModel;
+
 using ViewModel.Interfaces.DataBase;
+using ViewModel.Classes.Connections.Sqlite;
 
 namespace ViewModel.Dependencies.DataBase.Sqlite
 {
-    public class SqliteDbConnection : IDbConnection
+    public class SqliteDbConnection : BaseDbConnection
     {
-        private string? _connectionString;
+        private readonly SQLiteConnectionStringBuilder _builder = new();
 
-        public string? ConnectionString
-        {
-            get => _connectionString;
-            private set => _connectionString = value;
-        }
+        private SqliteConnectionData? _connection;
 
-        private void UpdateConnectionString()
+        public SqliteConnectionData? Connection
         {
-            var builder = new SqliteConnectionStringBuilder()
+            get => _connection;
+            set
             {
-            };
-            ConnectionString = builder.ConnectionString;
+                if (_connection != value)
+                {
+                    _connection = value;
+                    UpdateCanConnect();
+                }
+                var oldValue = _connection;
+                if (_connection != value)
+                {
+                    if (oldValue != null)
+                    {
+                        oldValue.ErrorsChanged -= ErrorsChanged;
+                    }
+                    _connection = value;
+                    if (_connection != null)
+                    {
+                        _connection.ErrorsChanged += ErrorsChanged;
+                    }
+                    UpdateCanConnect();
+                }
+            }
         }
 
-        public bool CanConnect => true;
-
-        public IDbContext Connect() =>
-            new SqliteDbContext(ConnectionString);
+        public override IDbContext Connect() => new SqliteDbContext(GetConnectionString());
 
         public override string ToString() => "SQLite";
+
+        private void UpdateCanConnect()
+        {
+            if (_connection != null && !_connection.HasErrors)
+            {
+                CanConnect = true;
+            }
+            else
+            {
+                CanConnect = false;
+            }
+        }
+
+        private string GetConnectionString()
+        {
+            _builder.DataSource = Connection?.DataSource;
+            _builder.Password = Connection?.Password;
+
+            return _builder.ConnectionString;
+        }
+
+        private void ErrorsChanged(object? sender, DataErrorsChangedEventArgs e) =>
+            UpdateCanConnect();
     }
 }

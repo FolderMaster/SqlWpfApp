@@ -1,16 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
+using System;
 using System.Linq;
 using System.Data;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 using Model.Independent;
 using Model.Dependent;
 
 using ViewModel.Interfaces.DataBase;
-
-using System.Collections.ObjectModel;
-using System.Collections.Generic;
 
 namespace ViewModel.Dependencies.DataBase
 {
@@ -129,6 +129,7 @@ namespace ViewModel.Dependencies.DataBase
         /// <param name="connectionString">Строка подключения.</param>
         public BaseDbContext(string connectionString)
         {
+            ArgumentNullException.ThrowIfNullOrEmpty(connectionString, nameof(connectionString));
             _connectionString = connectionString;
         }
 

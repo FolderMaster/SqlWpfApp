@@ -74,7 +74,7 @@ namespace View.Implementations
             get => _window.WindowState;
             set => _window.WindowState = value;
         }
-        public ObservableCollection<MsSqlServerConnection> Connections { get; set; }
+        public ObservableCollection<MsSqlServerConnectionData> Connections { get; set; }
 
         /// <summary>
         /// Создаёт экземпляр класса <see cref="WindowConfiguration"/>.
@@ -130,18 +130,18 @@ namespace View.Implementations
                 var connection = Connections[i];
                 var connectionKey = $"{nameof(Connections)}[{i}].";
 
-                SetConfigurationValue($"{connectionKey}{nameof(MsSqlServerConnection.DataSource)}",
+                SetConfigurationValue($"{connectionKey}{nameof(MsSqlServerConnectionData.DataSource)}",
                     connection.DataSource);
-                SetConfigurationValue($"{connectionKey}{nameof(MsSqlServerConnection.InitialCatalog)}",
+                SetConfigurationValue($"{connectionKey}{nameof(MsSqlServerConnectionData.InitialCatalog)}",
                     connection.InitialCatalog);
-                SetConfigurationValue($"{connectionKey}{nameof(MsSqlServerConnection.IsColumnEncryption)}",
+                SetConfigurationValue($"{connectionKey}{nameof(MsSqlServerConnectionData.IsColumnEncryption)}",
                     connection.IsColumnEncryption);
-                SetConfigurationValue($"{connectionKey}{nameof(MsSqlServerConnection.IsTlsConnection)}",
+                SetConfigurationValue($"{connectionKey}{nameof(MsSqlServerConnectionData.IsTlsConnection)}",
                     connection.IsTlsConnection);
                 SetConfigurationValue
-                    ($"{connectionKey}{nameof(MsSqlServerConnection.IsTrustServerCertificate)}",
+                    ($"{connectionKey}{nameof(MsSqlServerConnectionData.IsTrustServerCertificate)}",
                     connection.IsTrustServerCertificate);
-                for(var n = 0; n < connection.Credentials.Count; ++n)
+                /**for(var n = 0; n < connection.Credentials.Count; ++n)
                 {
                     var credential = connection.Credentials[n];
                     var credentialKey = $"{nameof(MsSqlServerConnection.Credentials)}[{n}].";
@@ -151,33 +151,33 @@ namespace View.Implementations
                     SetConfigurationValue
                         ($"{connectionKey}{credentialKey}{nameof(MsSqlServerCredential.Password)}",
                         credential.Password);
-                }
+                }**/
             }
         }
 
         public void LoadConnections()
         {
-            Connections = new ObservableCollection<MsSqlServerConnection>();
+            Connections = new ObservableCollection<MsSqlServerConnectionData>();
             var i = 0;
             var connectionKey = $"{nameof(Connections)}[{i}].";
             var isExistConnection = _settings.AllKeys.Any((k) => k.StartsWith(connectionKey));
             while (isExistConnection)
             {
-                var connection = new MsSqlServerConnection();
-                AssignByConfigurationValue($"{connectionKey}{nameof(MsSqlServerConnection.DataSource)}",
+                var connection = new MsSqlServerConnectionData();
+                AssignByConfigurationValue($"{connectionKey}{nameof(MsSqlServerConnectionData.DataSource)}",
                     (v) => connection.DataSource = v);
-                AssignByConfigurationValue($"{connectionKey}{nameof(MsSqlServerConnection.InitialCatalog)}",
+                AssignByConfigurationValue($"{connectionKey}{nameof(MsSqlServerConnectionData.InitialCatalog)}",
                     (v) => connection.InitialCatalog = v);
                 AssignByConfigurationValue
-                    ($"{connectionKey}{nameof(MsSqlServerConnection.IsColumnEncryption)}",
+                    ($"{connectionKey}{nameof(MsSqlServerConnectionData.IsColumnEncryption)}",
                     (v) => connection.IsColumnEncryption = bool.Parse(v));
-                AssignByConfigurationValue($"{connectionKey}{nameof(MsSqlServerConnection.IsTlsConnection)}",
+                AssignByConfigurationValue($"{connectionKey}{nameof(MsSqlServerConnectionData.IsTlsConnection)}",
                         (v) => connection.IsTlsConnection = bool.Parse(v));
                 AssignByConfigurationValue
-                    ($"{connectionKey}{nameof(MsSqlServerConnection.IsTrustServerCertificate)}",
+                    ($"{connectionKey}{nameof(MsSqlServerConnectionData.IsTrustServerCertificate)}",
                     (v) => connection.IsTrustServerCertificate = bool.Parse(v));
                 
-                var n = 0;
+                /**var n = 0;
                 var credentialKey = $"{nameof(MsSqlServerConnection.Credentials)}[{n}].";
                 var isExistCredential = _settings.AllKeys.Any
                     ((k) => k.StartsWith($"{connectionKey}{credentialKey}"));
@@ -197,7 +197,7 @@ namespace View.Implementations
                     isExistCredential = _settings.AllKeys.Any
                         ((k) => k.StartsWith($"{connectionKey}{credentialKey}"));
                 }
-                Connections.Add(connection);
+                Connections.Add(connection);**/
 
                 ++i;
                 connectionKey = $"{nameof(Connections)}[{i}].";

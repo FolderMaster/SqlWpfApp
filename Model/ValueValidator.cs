@@ -21,6 +21,10 @@ namespace Model
             => value.Length > maxLength ? $"Length of {name} must be less than {maxLength}!" :
                 null;
 
+        public static string? AssertStringIsNotNullOrEmpty(string value,
+            [CallerMemberName] string? name = null)
+            => string.IsNullOrEmpty(value) ? $"{name} mustn't be null or empty!" : null;
+
         public static string? AssertStringOnEqualLength(string value, int length,
             [CallerMemberName] string? name = null)
             => value.Length != length ? $"Length of {name} must be equal {length}!" : null;

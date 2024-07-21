@@ -1,4 +1,6 @@
-﻿using System.Windows.Media.Imaging;
+﻿using System.Windows;
+using System.Windows.Media.Imaging;
+
 using ViewModel.Interfaces.Services;
 
 namespace View.Implementations.ResourceService
@@ -15,6 +17,13 @@ namespace View.Implementations.ResourceService
         /// <param name="iconKey">Ключ иконки.</param>
         /// <returns>Иконка.</returns>
         public BitmapSource GetIcon(string iconKey);
+
+        /// <summary>
+        /// Возвращает стиль.
+        /// </summary>
+        /// <param name="styleKey">Ключ стиля.</param>
+        /// <returns>Стиль.</returns>
+        public Style GetStyle(string styleKey);
 
         /// <summary>
         /// Возвращает заголовок.

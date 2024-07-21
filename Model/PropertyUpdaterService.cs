@@ -34,6 +34,29 @@ namespace Model
             return null;
         }
 
+        protected void UpdateProperty<T>(ref T field, T value,
+            [CallerMemberName] string? propertyName = null) =>
+            UpdateProperty(ref field, value, null, null, propertyName);
+
+        protected void UpdateProperty<T>(ref T field, T value,
+            Func<T, string?, string?>? validation,
+            [CallerMemberName] string? propertyName = null) =>
+            UpdateProperty(ref field, value, validation, null, propertyName);
+
+        protected void UpdateProperty<T>(ref T field, T value,
+            Func<T, string?, string?>? validation, Action<T>? callback,
+            [CallerMemberName] string? propertyName = null)
+        {
+            if (!EqualityComparer<T?>.Default.Equals(field, value))
+            {
+                field = value;
+                callback?.Invoke(value);
+                PropertyChangedEventInvoke(propertyName);
+            }
+            ClearErrors(propertyName);
+            AddError(validation?.Invoke(value, propertyName), propertyName);
+        }
+
         /// <summary>
         /// Вызывает событие <see cref="PropertyChanged"/>.
         /// </summary>
@@ -43,18 +66,18 @@ namespace Model
 
         protected void AddError(string? error, [CallerMemberName] string? propertyName = null)
         {
-            if (error == null)
+            if (error != null)
             {
-                return;
+                if (_errors.ContainsKey(propertyName))
+                {
+                    _errors[propertyName].Add(error);
+                }
+                else
+                {
+                    _errors[propertyName] = new() { error };
+                }
             }
-            if (_errors.ContainsKey(propertyName))
-            {
-                _errors[propertyName].Add(error);
-            }
-            else
-            {
-                _errors[propertyName] = new() { error };
-            }
+            ErrorsChangedEventInvoke(propertyName);
         }
 
         protected void ClearErrors([CallerMemberName] string? propertyName = null)

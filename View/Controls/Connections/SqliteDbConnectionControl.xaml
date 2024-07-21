@@ -4,6 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:View.Controls.Connections"
+             xmlns:c="clr-namespace:View.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="200" d:DesignWidth="500">
+    <StackPanel>
+        <Label Content="{Binding Source={StaticResource DataSourceHeader},
+            Converter={StaticResource StringToHeaderConverter}}"/>
+        <local:ListComboBox ItemsSource="{Binding Connections}"
+                        SelectedItem="{Binding SelectedConnection}"
+                        ItemTemplate="{StaticResource SqliteConnectionTemplate}"
+                        Text="{Binding ConnectionText}"
+                        TextPath="DataSource"
+                        AddCommand="{Binding AddConnectionCommand}"
+                        RemoveCommand="{Binding RemoveSelectedConnectionCommand}"/>
+        <Label Content="{Binding Source={StaticResource PasswordHeader},
+            Converter={StaticResource StringToHeaderConverter}}"/>
+        <c:PasswordTextBox Password="{Binding SelectedConnection.Password}"
+                           IsEnabled="{Binding SelectedConnection,
+                           Converter={StaticResource ObjectToBoolConverter}}"/>
+    </StackPanel>
 </UserControl>

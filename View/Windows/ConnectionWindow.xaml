@@ -17,21 +17,22 @@
             <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter"/>
         </ResourceDictionary>
     </Window.Resources>
-    <StackPanel>
-        <Grid>
+    <DockPanel LastChildFill="True">
+        <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Content="{Binding Source={StaticResource DataBaseHeader},
                 Converter={StaticResource StringToHeaderConverter}}"/>
-            <ComboBox Grid.Column="1" IsEditable="True" IsTextSearchEnabled="True" 
-                      ItemsSource="{Binding Connections}"
+            <ComboBox Grid.Column="1" ItemsSource="{Binding Connections}"
                       SelectedItem="{Binding SelectedConnection}"/>
         </Grid>
-        <ContentControl Content="{Binding SelectedConnection}"
-                        ContentTemplateSelector="{StaticResource DbConnectionTemplateSelector}"/>
         <Button Content="{StaticResource ConnectHeader}" HorizontalAlignment="Center"
-                Command="{Binding ConnectCommand}"/>
-    </StackPanel>
+                Command="{Binding ConnectCommand}" DockPanel.Dock="Bottom"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ContentControl ContentTemplateSelector="{StaticResource DbConnectionTemplateSelector}"
+                            Content="{Binding SelectedConnection}"/>
+        </ScrollViewer>
+    </DockPanel>
 </Window>

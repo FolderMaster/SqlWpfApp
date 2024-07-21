@@ -12,22 +12,17 @@ namespace View.Implementations.Proces.Windows
 {
     public class ConnectionWindowProc : WindowProc
     {
-        private IConfiguration _configuration;
-
         private IEnumerable<IDbConnection> _connections;
 
-        public ConnectionWindowProc(ISession session,
-            IEnumerable<IDbConnection> connections, IConfiguration configuration,
+        public ConnectionWindowProc(ISession session, IEnumerable<IDbConnection> connections,
             IWindowResourceService windowResourceService, IMessageService messageService) :
             base("Connection", session, windowResourceService, messageService)
         {
-            _configuration = configuration;
             _connections = connections;
         }
 
         protected override Window CreateWindow(ISession session,
             IWindowResourceService windowResourceService, IMessageService messageService) =>
-            new ConnectionWindow(session, _connections, windowResourceService,
-                _configuration, messageService);
+            new ConnectionWindow(session, _connections, windowResourceService, messageService);
     }
 }

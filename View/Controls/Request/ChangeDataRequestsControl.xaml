@@ -5,17 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:View.Controls.Request"
-             xmlns:converters="clr-namespace:View.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <converters:EnumToBoolConverter x:Key="EnumConverter"/>
-            <converters:StringToHeaderConverter x:Key="StringToHeaderConverter"/>
-            <converters:EnumToVisibilityConverter x:Key="EnumToVisibilityConverter"/>
-            <converters:EnumToVisibilityMultiConverter x:Key="EnumToVisibilityMultiConverter"/>
-        </ResourceDictionary>
-    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -31,11 +22,11 @@
                 <WrapPanel>
                     <RadioButton Content="{StaticResource StudentsHeader}"
                              IsChecked="{Binding TableName, Mode=TwoWay,
-                             Converter={StaticResource EnumConverter},
+                             Converter={StaticResource EnumToBoolConverter},
                              ConverterParameter=Students}"/>
                     <RadioButton Content="{StaticResource GradeStatementsHeader}"
                              IsChecked="{Binding TableName, Mode=TwoWay,
-                             Converter={StaticResource EnumConverter},
+                             Converter={StaticResource EnumToBoolConverter},
                              ConverterParameter=GradeStatements}"/>
                 </WrapPanel>
             </GroupBox>
@@ -43,15 +34,15 @@
                 <WrapPanel>
                     <RadioButton Content="{StaticResource InsertHeader}"
                              IsChecked="{Binding ChangeDataMode, Mode=TwoWay,
-                             Converter={StaticResource EnumConverter},
+                             Converter={StaticResource EnumToBoolConverter},
                              ConverterParameter=Insert}"/>
                     <RadioButton Content="{StaticResource UpdateHeader}"
                              IsChecked="{Binding ChangeDataMode, Mode=TwoWay, 
-                             Converter={StaticResource EnumConverter},
+                             Converter={StaticResource EnumToBoolConverter},
                              ConverterParameter=Update}"/>
                     <RadioButton Content="{StaticResource DeleteHeader}"
                              IsChecked="{Binding ChangeDataMode, Mode=TwoWay, 
-                             Converter={StaticResource EnumConverter},
+                             Converter={StaticResource EnumToBoolConverter},
                              ConverterParameter=Delete}"/>
                 </WrapPanel>
             </GroupBox>

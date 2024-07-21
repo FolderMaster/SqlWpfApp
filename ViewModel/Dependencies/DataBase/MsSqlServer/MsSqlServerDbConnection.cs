@@ -1,23 +1,86 @@
 ﻿using Microsoft.Data.SqlClient;
+using System.ComponentModel;
 
 using ViewModel.Classes.Connections.MsSqlServer;
 using ViewModel.Interfaces.DataBase;
 
 namespace ViewModel.Dependencies.DataBase.MsSqlServer
 {
-    public class MsSqlServerDbConnection : IDbConnection
+    public class MsSqlServerDbConnection : BaseDbConnection
     {
         private readonly SqlConnectionStringBuilder _builder = new();
 
-        public MsSqlServerConnection? Connection { get; set; }
+        private MsSqlServerConnectionData? _connection;
 
-        public MsSqlServerCredential? Credential { get; set; }
+        private MsSqlServerCredentialData? _credential;
 
-        public string? ConnectionString { get; private set; }
+        public MsSqlServerConnectionData? Connection
+        {
+            get => _connection;
+            set
+            {
+                if (_connection != value)
+                {
+                    _connection = value;
+                    UpdateCanConnect();
+                }
+                var oldValue = _connection;
+                if (_connection != value)
+                {
+                    if (oldValue != null)
+                    {
+                        oldValue.ErrorsChanged -= ErrorsChanged;
+                    }
+                    _connection = value;
+                    if (_connection != null)
+                    {
+                        _connection.ErrorsChanged += ErrorsChanged;
+                    }
+                    UpdateCanConnect();
+                }
+            }
+        }
 
-        public bool CanConnect => false;
+        public MsSqlServerCredentialData? Credential
+        {
+            get => _credential;
+            set
+            {
+                var oldValue = _credential;
+                if (_credential != value)
+                {
+                    if(oldValue != null)
+                    {
+                        oldValue.ErrorsChanged -= ErrorsChanged;
+                    }
+                    _credential = value;
+                    if (_credential != null)
+                    {
+                        _credential.ErrorsChanged += ErrorsChanged;
+                    }
+                    UpdateCanConnect();
+                }
+            }
+        }
 
-        private void UpdateConnectionString()
+        public override IDbContext Connect() => new MsSqlServerDbContext(GetConnectionString());
+
+        public override string ToString() => "MS SQL Server";
+
+        private void UpdateCanConnect()
+        {
+            if (_connection != null && _credential != null &&
+                !_connection.HasErrors && !_credential.HasErrors)
+            {
+                CanConnect = true;
+            }
+            else
+            {
+                CanConnect = false;
+            }
+        }
+
+        private string GetConnectionString()
         {
             _builder.DataSource = Connection?.DataSource;
             _builder.InitialCatalog = Connection?.InitialCatalog;
@@ -30,12 +93,10 @@ namespace ViewModel.Dependencies.DataBase.MsSqlServer
             _builder.UserID = Credential?.User;
             _builder.Password = Credential?.Password;
 
-            ConnectionString = _builder.ConnectionString;
+            return _builder.ConnectionString;
         }
 
-        public IDbContext Connect() =>
-            new MsSqlServerDbContext(ConnectionString);
-
-        public override string ToString() => "MS SQL Server";
+        private void ErrorsChanged(object? sender, DataErrorsChangedEventArgs e) =>
+            UpdateCanConnect();
     }
 }

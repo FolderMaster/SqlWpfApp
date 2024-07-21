@@ -13,5 +13,11 @@
             <i:InvokeCommandAction Command="{Binding SaveCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <c:ProcesControl Proces="{Binding Proces}"/>
+    <Window.ContextMenu>
+        <ContextMenu x:Name="contextMenu"/>
+    </Window.ContextMenu>
+    <DockPanel>
+        <Menu x:Name="menu" DockPanel.Dock="Top" VerticalAlignment="Top"/>
+        <ToolBar x:Name="toolBar" DockPanel.Dock="Top" VerticalAlignment="Top"/>
+    </DockPanel>
 </Window>

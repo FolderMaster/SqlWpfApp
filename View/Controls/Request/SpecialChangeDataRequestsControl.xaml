@@ -4,17 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:View.Controls.Request"
-             xmlns:converters="clr-namespace:View.Converters"
-             xmlns:enums="clr-namespace:ViewModel.Enums"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <converters:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
-            <converters:EnumToVisibilityConverter x:Key="EnumToVisibilityConverter"/>
-            <converters:StringToHeaderConverter x:Key="StringToHeaderConverter"/>
-        </ResourceDictionary>
-    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

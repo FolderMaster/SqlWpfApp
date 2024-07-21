@@ -16,11 +16,11 @@ namespace View.Windows
     {
         public ConnectionWindow(ISession dbContextBuilders,
             IEnumerable<IDbConnection> connections, IResourceService resourceService,
-            IConfiguration configuration, IMessageService errorMessageService)
+            IMessageService errorMessageService)
         {
             InitializeComponent();
 
-            DataContext = new ConnectionVM(dbContextBuilders, resourceService, configuration,
+            DataContext = new ConnectionVM(dbContextBuilders, resourceService,
                 errorMessageService, connections);
         }
     }

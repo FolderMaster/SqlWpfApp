@@ -1,8 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:c="clr-namespace:View.Controls.Connections"
-                    xmlns:ms="clr-namespace:ViewModel.Dependencies.DataBase.MsSqlServer;assembly=ViewModel"
-                    xmlns:lite="clr-namespace:ViewModel.Dependencies.DataBase.Sqlite;assembly=ViewModel"
                     xmlns:s="clr-namespace:View.DataTempateSelectors">
     <DataTemplate x:Key="StudentTemplate">
         <StackPanel>
@@ -51,15 +49,18 @@
     <DataTemplate x:Key="RoleTemplate">
         <Label Content="{Binding Name}"/>
     </DataTemplate>
-    <DataTemplate x:Key="ConnectionTemplate">
+    <DataTemplate x:Key="MsSqlServerConnectionTemplate">
         <TextBlock>
             <TextBlock.Text>
-                <MultiBinding StringFormat=" {0} {1} ">
-                    <Binding Path="DataSource"/>
-                    <Binding Path="InitialCatalog"/>
+                <MultiBinding StringFormat=" {0} {1}">
+                    <Binding Path="Connection.DataSource"/>
+                    <Binding Path="Connection.InitialCatalog"/>
                 </MultiBinding>
             </TextBlock.Text>
         </TextBlock>
+    </DataTemplate>
+    <DataTemplate x:Key="SqliteConnectionTemplate">
+        <TextBlock Text="{Binding DataSource}"/>
     </DataTemplate>
     <DataTemplate x:Key="AuthorizationTemplate">
         <TextBlock Text="{Binding User}"/>
@@ -67,12 +68,21 @@
     <s:DbConnectionTemplateSelector x:Key="DbConnectionTemplateSelector">
         <s:DbConnectionTemplateSelector.MsSqlServerTemplate>
             <DataTemplate>
-                <c:MsSqlServerDbConnectionControl/>
+                <ContentControl DataContext="{Binding}" Name="control">
+                    <c:MsSqlServerDbConnectionControl
+                        SelectedConnection="{Binding DataContext.Connection, ElementName=control}"
+                        SelectedCredential="{Binding DataContext.Credential, ElementName=control}"
+                        />
+                </ContentControl>
             </DataTemplate>
         </s:DbConnectionTemplateSelector.MsSqlServerTemplate>
         <s:DbConnectionTemplateSelector.SqliteTemplate>
             <DataTemplate>
-                <c:SqliteDbConnectionControl/>
+                <ContentControl DataContext="{Binding}" Name="control">
+                    <c:SqliteDbConnectionControl
+                        SelectedConnection="{Binding DataContext.Connection, ElementName=control}"
+                        />
+                </ContentControl>
             </DataTemplate>
         </s:DbConnectionTemplateSelector.SqliteTemplate>
     </s:DbConnectionTemplateSelector>

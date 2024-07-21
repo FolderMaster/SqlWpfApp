@@ -20,33 +20,26 @@ namespace View.Implementations.ResourceService
         private static string _iconEndKey = "Icon";
 
         /// <summary>
-        /// Возвращает ресурс.
+        /// Конец ключа стиля.
         /// </summary>
-        /// <param name="resourceKey">Ключ ресурса.</param>
-        /// <returns>Ресурс.</returns>
+        private static string _styleEndKey = "Style";
+
+        /// <inheritdoc/>
         public object GetResource(string resourceKey) =>
             Application.Current.Resources[resourceKey];
 
-        /// <summary>
-        /// Возвращает строку.
-        /// </summary>
-        /// <param name="stringKey">Ключ строки.</param>
-        /// <returns>Строка.</returns>
+        /// <inheritdoc/>
         public string GetString(string stringKey) => GetResource(stringKey) as string;
 
-        /// <summary>
-        /// Возвращает заголовок.
-        /// </summary>
-        /// <param name="headerKey">Ключ заголовка.</param>
-        /// <returns>Заголовок.</returns>
+        /// <inheritdoc/>
         public string GetHeader(string headerKey) => GetString(headerKey + _headerEndKey);
 
-        /// <summary>
-        /// Возвращает иконку.
-        /// </summary>
-        /// <param name="iconKey">Ключ иконки.</param>
-        /// <returns>Иконка.</returns>
+        /// <inheritdoc/>
         public BitmapSource GetIcon(string iconKey) =>
             GetResource(iconKey + _iconEndKey) as BitmapSource;
+
+        /// <inheritdoc/>
+        public Style GetStyle(string styleKey) =>
+            GetResource(styleKey + _styleEndKey) as Style;
     }
 }

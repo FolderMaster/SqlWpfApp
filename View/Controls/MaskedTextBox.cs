@@ -37,31 +37,27 @@ namespace View.Controls
         public static readonly DependencyProperty MaskPredicateProperty =
             DependencyProperty.Register(nameof(MaskPredicate), typeof(Func<string, string>),
                 typeof(MaskedTextBox), new FrameworkPropertyMetadata((string text) =>
-                    new string('●', text.Length)));
+                    new string('●', text != null ? text.Length : 0)));
 
-        public MaskedTextBox() : base()
+        protected override void OnTextChanged(TextChangedEventArgs e)
         {
-            GotFocus += MaskedTextBox_GotFocus;
-            LostFocus += MaskedTextBox_LostFocus;
-            TextChanged += MaskedTextBox_TextChanged;
-        }
-
-        private void MaskedTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if(!IsMasked)
+            base.OnTextChanged(e);
+            if (!IsMasked)
             {
                 OriginalText = Text;
             }
         }
 
-        private void MaskedTextBox_LostFocus(object sender, RoutedEventArgs e)
+        protected override void OnLostFocus(RoutedEventArgs e)
         {
+            base.OnLostFocus(e);
             IsMasked = true;
             Text = MaskPredicate(OriginalText);
         }
 
-        private void MaskedTextBox_GotFocus(object sender, RoutedEventArgs e)
+        protected override void OnGotFocus(RoutedEventArgs e)
         {
+            base.OnGotFocus(e);
             IsMasked = false;
             Text = OriginalText;
         }

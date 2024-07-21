@@ -4,15 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:View.Controls.DbSet"
-             xmlns:c="clr-namespace:View.Converters"
              mc:Ignorable="d" 
              Name="teacherDisciplineConnectionControl" d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <c:InverseBoolConverter x:Key="InverseBoolConverter"/>
-            <c:StringToHeaderConverter x:Key="StringToHeaderConverter"/>
-        </ResourceDictionary>
-    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
