@@ -8,6 +8,8 @@ namespace ViewModel.Dependencies.DataBase
     {
         private bool _canConnect;
 
+        public abstract object Data { get; set; }
+
         public bool CanConnect
         {
             get => _canConnect;

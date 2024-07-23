@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 using ViewModel.Classes.Connections.MsSqlServer;
@@ -14,6 +15,9 @@ namespace ViewModel.Dependencies.DataBase.MsSqlServer
         private MsSqlServerConnectionData? _connection;
 
         private MsSqlServerCredentialData? _credential;
+
+        public override object Data { get; set; } =
+            new ObservableCollection<MsSqlServerConnectionDataSet>();
 
         public MsSqlServerConnectionData? Connection
         {

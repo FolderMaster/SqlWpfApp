@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -26,7 +27,16 @@ namespace ViewModel.VMs.Connections
             {
                 if (SetProperty(ref _connections, value))
                 {
-                    SelectedConnection = value != null && value.Any() ? value[0] : null;
+                    if (value != null && value.Any())
+                    {
+                        SelectedConnection = value[0];
+                        ConnectionText = $"{SelectedConnection.DataSource}";
+                    }
+                    else
+                    {
+                        SelectedConnection = null;
+                        ConnectionText = "";
+                    }
                 }
             }
         }

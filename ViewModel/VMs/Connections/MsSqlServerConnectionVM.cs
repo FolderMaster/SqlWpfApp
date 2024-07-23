@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -15,11 +16,9 @@ namespace ViewModel.VMs.Connections
 
         private MsSqlServerConnectionDataSet? _selectedConnectionData;
 
-        [ObservableProperty]
-        private MsSqlServerCredentialData? selectedCredential;
+        private MsSqlServerConnectionData? _selectedConnection;
 
-        [ObservableProperty]
-        private MsSqlServerConnectionData? selectedConnection;
+        private MsSqlServerCredentialData? _selectedCredential;
 
         [ObservableProperty]
         private string connectionText;
@@ -57,6 +56,30 @@ namespace ViewModel.VMs.Connections
                         SelectedConnection = null;
                         SelectedCredential = null;
                     }
+                }
+            }
+        }
+
+        public MsSqlServerConnectionData? SelectedConnection
+        {
+            get => _selectedConnection;
+            set
+            {
+                if (SetProperty(ref _selectedConnection, value))
+                {
+                    ConnectionText = value != null ? $"{value.DataSource}" : "";
+                }
+            }
+        }
+
+        public MsSqlServerCredentialData? SelectedCredential
+        {
+            get => _selectedCredential;
+            set
+            {
+                if (SetProperty(ref _selectedCredential, value))
+                {
+                    CredentialText = value != null ? $"{value.User}" : "";
                 }
             }
         }

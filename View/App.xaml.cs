@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using System.Windows;
 
 using View.Implementations;
+using View.Implementations.Configuration;
 using View.Implementations.Dialogs;
 using View.Implementations.MessageBoxes;
 using View.Implementations.Proces.MessageBoxes;

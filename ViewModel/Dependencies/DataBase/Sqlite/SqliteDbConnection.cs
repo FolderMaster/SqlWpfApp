@@ -1,5 +1,6 @@
 ﻿using System.Data.SQLite;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 using ViewModel.Interfaces.DataBase;
 using ViewModel.Classes.Connections.Sqlite;
@@ -11,6 +12,9 @@ namespace ViewModel.Dependencies.DataBase.Sqlite
         private readonly SQLiteConnectionStringBuilder _builder = new();
 
         private SqliteConnectionData? _connection;
+
+        public override object Data { get; set; } =
+            new ObservableCollection<SqliteConnectionData>();
 
         public SqliteConnectionData? Connection
         {
