@@ -1,25 +1,22 @@
 ﻿using Model;
+using Model.ObservableObjects;
 
 namespace ViewModel.Classes.Connections.MsSqlServer
 {
-    public class MsSqlServerCredentialData : PropertyUpdaterService
+    public class MsSqlServerCredentialData : ObservableObject
     {
-        public string _user;
-
-        public string _password;
+        public static readonly ObservableProperty UserProperty = RegisterProperty
+            (typeof(MsSqlServerCredentialData), nameof(User), null,
+            [(o) => ValueValidator.AssertStringIsNotNullOrEmpty((string)o.Value, o.Name)]);
 
         public string User
         {
-            get => _user;
-            set => UpdateProperty(ref _user, value,
-                ValueValidator.AssertStringIsNotNullOrEmpty);
+            get => (string)GetProperty(UserProperty);
+            set => SetProperty(value, UserProperty);
         }
 
-        public string Password
-        {
-            get => _password;
-            set => UpdateProperty(ref _password, value,
-                ValueValidator.AssertStringIsNotNullOrEmpty);
-        }
+        public string Password { get; set; }
+
+        static MsSqlServerCredentialData() { }
     }
 }

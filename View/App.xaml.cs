@@ -64,8 +64,8 @@ namespace View
 
                 services.AddSingleton<ISession, Session>();
 
-                services.AddSingleton<IDbConnection, SqliteDbConnection>();
                 services.AddSingleton<IDbConnection, MsSqlServerDbConnection>();
+                services.AddSingleton<IDbConnection, SqliteDbConnection>();
 
                 services.AddSingleton<IProc, ExitMessageBoxProc>();
                 services.AddSingleton<IProc, InformationMessageBoxProc>();

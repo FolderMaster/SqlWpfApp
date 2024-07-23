@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
 using Model.Dependent;
+using Model.ObservableObjects;
 
 namespace Model.Independent
 {
@@ -13,22 +14,27 @@ namespace Model.Independent
     /// </summary>
     [Table("Passports")]
     [PrimaryKey(nameof(SerialNumber))]
-    public class Passport : PropertyUpdaterService
+    public class Passport : ObservableObject
     {
-        private string _serialNumberValue = "";
+        public static ObservableProperty SerialNumberProperty =
+            RegisterProperty(typeof(Passport), nameof(SerialNumber), "",
+                [(o) => ValueValidator.AssertStringOnEqualLength((string)o.Value, 10, o.Name)]);
 
-        private string _nameValue = "";
+        public static ObservableProperty NameProperty =
+            RegisterProperty(typeof(Passport), nameof(Name), "",
+                [(o) => ValueValidator.AssertStringOnLessLength((string)o.Value, 64, o.Name)]);
 
-        private string _permanentResidenceAddressValue = "";
+        public static ObservableProperty PermanentResidenceAddressProperty =
+            RegisterProperty(typeof(Passport), nameof(PermanentResidenceAddress), "",
+                [(o) => ValueValidator.AssertStringOnLessLength((string)o.Value, 64, o.Name)]);
 
-        private bool _sexValue = false;
+        public static ObservableProperty ScanProperty =
+            RegisterProperty(typeof(Passport), nameof(Scan), null,
+                [(o) => ValueValidator.AssertOnNotNullValue(o.Value, o.Name)]);
 
-        private DateTime _birthDateValue = DateTime.Now;
-
-        /// <summary>
-        /// Скан.
-        /// </summary>
-        private byte[]? _scanValue = null;
+        public static ObservableProperty BirthDateProperty =
+            RegisterProperty(typeof(Passport), nameof(BirthDate), DateTime.Now, null,
+                (o) => o.Owner.PropertyChangedEventInvoke(nameof(Age)));
 
         /// <summary>
         /// Генератор идентификаторов.
@@ -45,9 +51,8 @@ namespace Model.Independent
         /// </summary>
         public string SerialNumber
         {
-            get => _serialNumberValue;
-            set => UpdateProperty(ref _serialNumberValue, value,
-                (v, n) => ValueValidator.AssertStringOnEqualLength(v, 10, n));
+            get => (string)GetProperty(SerialNumberProperty);
+            set => SetProperty(value, SerialNumberProperty);
         }
 
         /// <summary>
@@ -55,9 +60,8 @@ namespace Model.Independent
         /// </summary>
         public string Name
         {
-            get => _nameValue;
-            set => UpdateProperty(ref _nameValue, value, (v, n) =>
-                ValueValidator.AssertStringOnLessLength(v, 64, n));
+            get => (string)GetProperty(NameProperty);
+            set => SetProperty(value, NameProperty);
         }
 
         /// <summary>
@@ -65,28 +69,22 @@ namespace Model.Independent
         /// </summary>
         public string PermanentResidenceAddress
         {
-            get => _permanentResidenceAddressValue;
-            set => UpdateProperty(ref _permanentResidenceAddressValue, value,
-                (v, n) => ValueValidator.AssertStringOnLessLength(v, 64, n));
+            get => (string)GetProperty(PermanentResidenceAddressProperty);
+            set => SetProperty(value, PermanentResidenceAddressProperty);
         }
 
         /// <summary>
         /// Возвращает и задаёт пол.
         /// </summary>
-        public bool Sex
-        {
-            get => _sexValue;
-            set => UpdateProperty(ref _sexValue, value);
-        }
+        public bool Sex { get; set; } = false;
 
         /// <summary>
         /// Возвращает и задаёт скан.
         /// </summary>
         public byte[]? Scan
         {
-            get => _scanValue;
-            set => UpdateProperty(ref _scanValue, value,
-                ValueValidator.AssertOnNotNullValue);
+            get => (byte[]?)GetProperty(ScanProperty);
+            set => SetProperty(value, ScanProperty);
         } 
 
         /// <summary>
@@ -94,9 +92,8 @@ namespace Model.Independent
         /// </summary>
         public DateTime BirthDate
         {
-            get => _birthDateValue;
-            set => UpdateProperty(ref _birthDateValue, value, null,
-                (v) => PropertyChangedEventInvoke(nameof(Age)));
+            get => (DateTime)GetProperty(BirthDateProperty);
+            set => SetProperty(value, BirthDateProperty);
         }
 
         /// <summary>
@@ -110,6 +107,8 @@ namespace Model.Independent
         /// </summary>
         public virtual ObservableCollection<Person> Persons { get; set; }
 
+        static Passport() { }
+
         /// <summary>
         /// Создаёт экземпляр класса <see cref="Passport"/> по умолчанию.
         /// </summary>
@@ -122,7 +121,6 @@ namespace Model.Independent
                     Name = nameof(Name) + "_" + id;
                     PermanentResidenceAddress = nameof(PermanentResidenceAddress) + "_" + id;
                 }, () => Passports.Add(this));
-            AddError("Scan is null!", nameof(Scan));
         }
     }
 }

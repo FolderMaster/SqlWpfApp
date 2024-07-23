@@ -1,25 +1,28 @@
 ﻿using Model;
+using Model.ObservableObjects;
 
 namespace ViewModel.Classes.Connections.MsSqlServer
 {
-    public class MsSqlServerConnectionData : PropertyUpdaterService
+    public class MsSqlServerConnectionData : ObservableObject
     {
-        public string _dataSource;
+        public static readonly ObservableProperty DataSourceProperty = RegisterProperty
+            (typeof(MsSqlServerConnectionData), nameof(DataSource), null,
+            [(o) => ValueValidator.AssertStringIsNotNullOrEmpty((string)o.Value, o.Name)]);
 
-        public string _intialCatalog;
+        public static readonly ObservableProperty InitialCatalogProperty = RegisterProperty
+            (typeof(MsSqlServerConnectionData), nameof(InitialCatalog), null,
+            [(o) => ValueValidator.AssertStringIsNotNullOrEmpty((string)o.Value, o.Name)]);
 
         public string DataSource
         {
-            get => _dataSource;
-            set => UpdateProperty(ref _dataSource, value,
-                ValueValidator.AssertStringIsNotNullOrEmpty);
+            get => (string)GetProperty(DataSourceProperty);
+            set => SetProperty(value, DataSourceProperty);
         }
 
         public string InitialCatalog
         {
-            get => _intialCatalog;
-            set => UpdateProperty(ref _intialCatalog, value,
-                ValueValidator.AssertStringIsNotNullOrEmpty);
+            get => (string)GetProperty(InitialCatalogProperty);
+            set => SetProperty(value, InitialCatalogProperty);
         }
 
         public bool IsTlsConnection { get; set; }
@@ -27,5 +30,7 @@ namespace ViewModel.Classes.Connections.MsSqlServer
         public bool IsColumnEncryption { get; set; }
 
         public bool IsTrustServerCertificate { get; set; }
+
+        static MsSqlServerConnectionData() { }
     }
 }

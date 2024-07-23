@@ -62,7 +62,8 @@ namespace ViewModel.Dependencies.DataBase.MsSqlServer
                 {
                     foreach (var pair in parameters)
                     {
-                        command.Parameters.Add(new SqlParameter(pair.Key, pair.Value ?? DBNull.Value));
+                        command.Parameters.Add(new SqlParameter(pair.Key,
+                            pair.Value ?? DBNull.Value));
                     }
                 }
                 using (var reader = command.ExecuteReader())
