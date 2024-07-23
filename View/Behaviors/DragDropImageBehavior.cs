@@ -3,6 +3,8 @@
 using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Media.Imaging;
+using System.IO;
 
 using ViewModel.Interfaces.Services.Files;
 using ViewModel.Interfaces.Services.Messages;
@@ -105,16 +107,35 @@ namespace View.Behaviors
             if (fileNames != null)
             {
                 MessengerService.ExecuteWithExceptionMessage(() =>
-                    Image = FileService.Load(fileNames[0]));
+                {
+                    var bitmapImage = new BitmapImage();
+                    using (var stream = new MemoryStream(FileService.Load(fileNames[0])))
+                    {
+                        bitmapImage.BeginInit();
+                        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmapImage.StreamSource = stream;
+                        bitmapImage.EndInit();
+                    }
+                    var name = bitmapImage.Format.ToString();
+                    byte[] newImage;
+                    using (var stream = new MemoryStream())
+                    {
+                        var encoder = new JpegBitmapEncoder();
+                        encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+                        encoder.Save(stream);
+                        newImage = stream.ToArray();
+                    }
+                    Image = newImage;
+                });
             }
         }
 
         private void AssociatedObject_PreviewMouseLeftButtonDown(object sender,
             MouseButtonEventArgs e)
         {
-            if (sender is Image image /*&& image.Source is BitmapSource bitmapSource*/)
+            if (sender is Image image && image.Source != null)
             {
-                var fileName = "temp";
+                var fileName = "temp.jpeg";
                 var filePath = PathService.GetFullPath(fileName);
                 MessengerService.ExecuteWithExceptionMessage(() =>
                     FileService.Save(filePath, Image));
