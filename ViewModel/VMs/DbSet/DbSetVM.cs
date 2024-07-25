@@ -9,9 +9,9 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
+
 using ViewModel.Services;
 using ViewModel.Interfaces.Services;
-using ViewModel.Interfaces.Services.Messages;
 using ViewModel.Interfaces;
 
 namespace ViewModel.VMs.DbSet
@@ -28,17 +28,14 @@ namespace ViewModel.VMs.DbSet
         /// <summary>
         /// Создатель контекста базы данных.
         /// </summary>
-        private readonly ISession _dbContextBuilder;
-
-        /// <summary>
-        /// Сервис послания сообщений.
-        /// </summary>
-        protected IMessengerService _messengerService;
+        private readonly ISession _session;
 
         /// <summary>
         /// Сервис ресурсов.
         /// </summary>
         protected IResourceService _resourceService;
+
+        protected IMessageService _messageService;
 
         /// <summary>
         /// Представление таблицы из базы данных.
@@ -198,26 +195,26 @@ namespace ViewModel.VMs.DbSet
         /// <summary>
         /// Создаёт экземпляр класса <see cref="DbSetVM{T}"/>.
         /// </summary>
-        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="session">Создатель контекста базы данных.</param>
         /// <param name="resourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
-        public DbSetVM(ISession dbContextBuilder, IResourceService resourceService,
+        public DbSetVM(ISession session, IResourceService resourceService,
             IMessageService messageService)
         {
-            _dbContextBuilder = dbContextBuilder;
+            _session = session;
             _resourceService = resourceService;
-            _messengerService = new MessengerService(_resourceService, messageService);
-            _messengerService.ExecuteWithExceptionMessage(() =>
-                DbSetLocal = _dbContextBuilder.DbContext.GetDbSetLocal<T>(), () =>
-                SaveCommand?.NotifyCanExecuteChanged());
+            _messageService = messageService;
+            MessengerService.ExecuteWithExceptionMessage(resourceService, messageService,
+                () => DbSetLocal = _session.DbContext.GetDbSetLocal<T>(),
+                () => SaveCommand?.NotifyCanExecuteChanged());
             SaveCommand = new RelayCommand(() =>
-                _messengerService.ExecuteWithExceptionMessage(() =>
+                MessengerService.ExecuteWithExceptionMessage(resourceService, messageService, () =>
                 {
-                    _dbContextBuilder.DbContext.SaveChanges<T>();
-                    _dbContextBuilder.DbContext.Reload<T>();
+                    _session.DbContext.SaveChanges<T>();
+                    _session.DbContext.Reload<T>();
                 }, () =>
                 {
-                    _dbContextBuilder.DbContext.RejectChanges<T>();
+                    _session.DbContext.RejectChanges<T>();
                 }
                 ), () => DbSetLocal != null);
             _getMethodList =

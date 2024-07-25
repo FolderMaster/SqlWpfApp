@@ -1,8 +1,10 @@
 ﻿using System.Windows;
+
 using View.Implementations.ResourceService;
 using View.Windows.DbSet.Dependent;
+
 using ViewModel.Interfaces;
-using ViewModel.Interfaces.Services.Messages;
+using ViewModel.Interfaces.Services;
 
 namespace View.Implementations.Proces.Windows.DbSet.Dependent
 {

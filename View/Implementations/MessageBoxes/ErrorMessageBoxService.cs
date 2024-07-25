@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using ViewModel.Interfaces.Services.Messages;
+using ViewModel.Interfaces.Services;
 
 namespace View.Implementations.MessageBoxes
 {

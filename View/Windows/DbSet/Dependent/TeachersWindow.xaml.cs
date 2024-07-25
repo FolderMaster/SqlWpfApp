@@ -2,12 +2,11 @@
 using System.Windows;
 
 using ViewModel.VMs.DbSet;
+using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
-using ViewModel.Interfaces.Services.Messages;
 
 using Model.Dependent;
 using Model.Independent;
-using ViewModel.Interfaces;
 
 namespace View.Windows.DbSet.Dependent
 {
@@ -19,20 +18,20 @@ namespace View.Windows.DbSet.Dependent
         /// <summary>
         /// Создаёт экземпляр класса <see cref="TeachersWindow"/>.
         /// </summary>
-        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="session">Создатель контекста базы данных.</param>
         /// <param name="resourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
-        public TeachersWindow(ISession dbContextBuilder, IResourceService resourceService,
+        public TeachersWindow(ISession session, IResourceService resourceService,
             IMessageService messageService)
         {
             InitializeComponent();
 
             DataContext = new List<object>()
             {
-                new ControlDbSetVM<Teacher>(dbContextBuilder, resourceService, messageService),
-                new DbSetVM<Department>(dbContextBuilder, resourceService, messageService),
-                new DbSetVM<Position>(dbContextBuilder, resourceService, messageService),
-                new DbSetVM<Person>(dbContextBuilder, resourceService, messageService)
+                new ControlDbSetVM<Teacher>(session, resourceService, messageService),
+                new DbSetVM<Department>(session, resourceService, messageService),
+                new DbSetVM<Position>(session, resourceService, messageService),
+                new DbSetVM<Person>(session, resourceService, messageService)
             };
         }
     }

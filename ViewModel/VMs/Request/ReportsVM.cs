@@ -5,7 +5,6 @@ using System.Windows.Documents;
 
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
-using ViewModel.Interfaces.Services.Messages;
 using ViewModel.Services;
 
 namespace ViewModel.VMs.Request
@@ -89,14 +88,13 @@ namespace ViewModel.VMs.Request
         /// <summary>
         /// Создаёт экземпляр класса <see cref="ChangeDataRequestsVM"/>.
         /// </summary>
-        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="session">Создатель контекста базы данных.</param>
         /// <param name="resourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
         /// <param name="printService">Сервис печати.</param>
-        public ReportsVM(ISession dbContextBuilder,
-            IResourceService resourceService, IMessageService messageService,
-            IPrintService printService) :
-            base(dbContextBuilder, resourceService, messageService)
+        public ReportsVM(ISession session, IResourceService resourceService,
+            IMessageService messageService, IPrintService printService) :
+            base(session, resourceService, messageService)
         {
             _printService = printService;
             _documentEditService = new DocumentEditService(Document);

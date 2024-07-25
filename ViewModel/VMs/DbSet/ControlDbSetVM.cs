@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
-using ViewModel.Interfaces.Services.Messages;
 
 namespace ViewModel.VMs.DbSet
 {
@@ -67,12 +67,12 @@ namespace ViewModel.VMs.DbSet
         /// <summary>
         /// Создаёт экземпляр класса <see cref="ControlDbSetVM{T}"/>.
         /// </summary>
-        /// <param name="dataBaseContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="session">Создатель контекста базы данных.</param>
         /// <param name="resourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
-        public ControlDbSetVM(ISession dataBaseContextBuilder,
+        public ControlDbSetVM(ISession session,
             IResourceService resourceService, IMessageService messageService) :
-            base(dataBaseContextBuilder, resourceService, messageService)
+            base(session, resourceService, messageService)
         {
             FirstCommand = new RelayCommand(() => SelectedIndex = 0,
                 () => Count > 0 && SelectedIndex != 0);

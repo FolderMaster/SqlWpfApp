@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
-using ViewModel.Interfaces.Services.Messages;
 using ViewModel.VMs.Request;
 
 namespace View.Windows
@@ -15,20 +15,20 @@ namespace View.Windows
         /// <summary>
         /// Создаёт экземпляр класса <see cref="RequestsWindow"/>.
         /// </summary>
-        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="session">Создатель контекста базы данных.</param>
         /// <param name="resourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
-        public RequestsWindow(ISession dbContextBuilder, IResourceService resourceService,
+        public RequestsWindow(ISession session, IResourceService resourceService,
             IMessageService messageService)
         {
             InitializeComponent();
 
             DataContext = new List<object>()
             {
-                new ChangeDataRequestsVM(dbContextBuilder, resourceService, messageService),
-                new SpecialChangeDataRequestsVM(dbContextBuilder, resourceService, messageService),
-                new ViewDataRequestsVM(dbContextBuilder, resourceService, messageService),
-                new SpecialViewDataRequestsVM(dbContextBuilder, resourceService, messageService)
+                new ChangeDataRequestsVM(session, resourceService, messageService),
+                new SpecialChangeDataRequestsVM(session, resourceService, messageService),
+                new ViewDataRequestsVM(session, resourceService, messageService),
+                new SpecialViewDataRequestsVM(session, resourceService, messageService)
             };
         }
     }

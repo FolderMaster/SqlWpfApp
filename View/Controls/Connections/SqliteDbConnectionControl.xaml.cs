@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Windows;
 using System.Windows.Controls;
-using ViewModel.Classes.Connections.MsSqlServer;
+
 using ViewModel.Classes.Connections.Sqlite;
 using ViewModel.VMs.Connections;
 
@@ -17,8 +16,7 @@ namespace View.Controls.Connections
         public static DependencyProperty ConnectionsProperty =
             DependencyProperty.Register(nameof(Connections),
                 typeof(IList<SqliteConnectionData>), typeof(SqliteDbConnectionControl),
-                new FrameworkPropertyMetadata(null,
-                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnPropertyChanged));
+                new FrameworkPropertyMetadata(null, OnPropertyChanged));
 
         public static DependencyProperty SelectedConnectionProperty =
             DependencyProperty.Register(nameof(SelectedConnection), typeof(SqliteConnectionData),

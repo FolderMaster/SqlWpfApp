@@ -6,7 +6,6 @@ using System;
 using ViewModel.Enums;
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
-using ViewModel.Interfaces.Services.Messages;
 using ViewModel.VMs.Request.ParameterRequest;
 using ViewModel.VMs.Request.ParameterRequest.SpecialViewData;
 
@@ -58,12 +57,12 @@ namespace ViewModel.VMs.Request
         /// <summary>
         /// Создаёт экземпляр класса <see cref="SpecialViewDataRequestsVM"/>.
         /// </summary>
-        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="session">Создатель контекста базы данных.</param>
         /// <param name="resourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
-        public SpecialViewDataRequestsVM(ISession dbContextBuilder,
+        public SpecialViewDataRequestsVM(ISession session,
             IResourceService resourceService, IMessageService messageService) :
-            base(dbContextBuilder, resourceService, messageService) =>
+            base(session, resourceService, messageService) =>
             ExecuteCommand = new RelayCommand(() =>
             {
                 ParameterRequestVM requestVM = Request switch

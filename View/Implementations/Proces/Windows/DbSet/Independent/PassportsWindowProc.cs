@@ -1,9 +1,11 @@
 ﻿using System.Windows;
+
 using View.Implementations.ResourceService;
 using View.Windows.DbSet.Independent;
+
 using ViewModel.Interfaces;
+using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Files;
-using ViewModel.Interfaces.Services.Messages;
 
 namespace View.Implementations.Proces.Windows.DbSet.Independent
 {
@@ -29,11 +31,6 @@ namespace View.Implementations.Proces.Windows.DbSet.Independent
         private IFileService _fileService;
 
         /// <summary>
-        /// Сервис путей.
-        /// </summary>
-        private IPathService _pathService;
-
-        /// <summary>
         /// Создаёт экземпляр класса <see cref="PassportsWindowProc"/>.
         /// </summary>
         /// <param name="session">Создатель контекста базы данных.</param>
@@ -42,17 +39,15 @@ namespace View.Implementations.Proces.Windows.DbSet.Independent
         /// <param name="gettingOpenFileService">Сервис получения файла открытия.</param>
         /// <param name="gettingSaveFileService">Сервис получения файла сохранения.</param>
         /// <param name="fileService">Файловый сервис.</param>
-        /// <param name="pathService">Сервис путей.</param>
         public PassportsWindowProc(ISession session,
             IWindowResourceService windowResourceService, IMessageService messageService,
             IGettingFileService gettingOpenFileService, IGettingFileService gettingSaveFileService,
-            IFileService fileService, IPathService pathService) :
+            IFileService fileService) :
             base("Passports", session, windowResourceService, messageService)
         {
             _gettingOpenFileService = gettingOpenFileService;
             _gettingSaveFileService = gettingSaveFileService;
             _fileService = fileService;
-            _pathService = pathService;
         }
 
         /// <summary>
@@ -65,6 +60,6 @@ namespace View.Implementations.Proces.Windows.DbSet.Independent
         protected override Window CreateWindow(ISession session,
             IWindowResourceService windowResourceService, IMessageService messageService) =>
             new PassportsWindow(session, windowResourceService, messageService,
-                _gettingOpenFileService, _gettingSaveFileService, _fileService, _pathService);
+                _gettingOpenFileService, _gettingSaveFileService, _fileService);
     }
 }

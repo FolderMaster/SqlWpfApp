@@ -16,8 +16,7 @@ namespace View.Controls.Connections
         public static DependencyProperty ConnectionsDataProperty =
             DependencyProperty.Register(nameof(ConnectionsData),
                 typeof(IList<MsSqlServerConnectionDataSet>), typeof(MsSqlServerDbConnectionControl),
-                new FrameworkPropertyMetadata(null,
-                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnPropertyChanged));
+                new FrameworkPropertyMetadata(null, OnPropertyChanged));
 
         public static DependencyProperty SelectedConnectionProperty =
             DependencyProperty.Register(nameof(SelectedConnection), typeof(MsSqlServerConnectionData),

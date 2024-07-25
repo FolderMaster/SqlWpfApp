@@ -1,4 +1,5 @@
-﻿using System.Data.SQLite;
+﻿using Microsoft.Data.Sqlite;
+
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 
@@ -9,7 +10,7 @@ namespace ViewModel.Dependencies.DataBase.Sqlite
 {
     public class SqliteDbConnection : BaseDbConnection
     {
-        private readonly SQLiteConnectionStringBuilder _builder = new();
+        private readonly SqliteConnectionStringBuilder _builder = new();
 
         private SqliteConnectionData? _connection;
 
@@ -21,11 +22,6 @@ namespace ViewModel.Dependencies.DataBase.Sqlite
             get => _connection;
             set
             {
-                if (_connection != value)
-                {
-                    _connection = value;
-                    UpdateCanConnect();
-                }
                 var oldValue = _connection;
                 if (_connection != value)
                 {

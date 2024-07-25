@@ -36,6 +36,6 @@ namespace ViewModel.Interfaces.DataBase
         /// <param name="commandString">Строка команды.</param>
         /// <returns>Результат выполнения команды.</returns>
         public DataTable ExecuteCommand(string commandString,
-            Dictionary<string, object>? parameters = null);
+            IDictionary<string, object>? parameters = null);
     }
 }

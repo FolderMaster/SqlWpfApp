@@ -1,9 +1,10 @@
 ﻿using System.Windows;
+
 using View.Implementations.ResourceService;
 using View.Windows;
+
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
-using ViewModel.Interfaces.Services.Messages;
 
 namespace View.Implementations.Proces.Windows
 {

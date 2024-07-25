@@ -23,7 +23,6 @@ using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Proces;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Files;
-using ViewModel.Interfaces.Services.Messages;
 
 namespace View
 {
@@ -46,7 +45,6 @@ namespace View
             {
                 services.AddSingleton<IAppCloseable, AppCloseable>();
                 services.AddSingleton<IFileService, FileService>();
-                services.AddSingleton<IPathService, PathService>();
 
                 services.AddSingleton<IPrintService, PrintDialogService>();
 
@@ -99,6 +97,8 @@ namespace View
                 services.AddSingleton<IProc, ReportsWindowProc>();
 
                 services.AddSingleton<MainWindow>();
+
+                services.AddSingleton<IEncryptionService, AesEncryptionService>();
 
                 services.AddSingleton<IConfiguration, WindowConfiguration>();
 

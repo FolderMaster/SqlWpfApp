@@ -1,10 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 
 using Model.Independent;
+
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Files;
-using ViewModel.Interfaces.Services.Messages;
+using ViewModel.Services;
 
 namespace ViewModel.VMs.DbSet
 {
@@ -35,14 +36,9 @@ namespace ViewModel.VMs.DbSet
         public IFileService FileService { get; private set; }
 
         /// <summary>
-        /// Возвращает и задаёт сервис путей.
-        /// </summary>
-        public IPathService PathService { get; private set; }
-
-        /// <summary>
         /// Возвращает сервис послания сообщений.
         /// </summary>
-        public IMessengerService MessengerService => _messengerService;
+        public IMessageService MessageService => _messageService;
 
         /// <summary>
         /// Возвращает сервис ресурсов.
@@ -62,21 +58,19 @@ namespace ViewModel.VMs.DbSet
         /// <summary>
         /// Создаёт экземпляр класса <see cref="PassportsVM"/>.
         /// </summary>
-        /// <param name="dataBaseContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="session">Создатель контекста базы данных.</param>
         /// <param name="resourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
         /// <param name="openFileService">Сервис открытия файлов.</param>
         /// <param name="saveFileService">Сервис сохранения файлов.</param>
         /// <param name="fileService">Файловый сервис.</param>
-        /// <param name="pathService">Сервис путей.</param>
-        public PassportsVM(ISession dataBaseContextBuilder,
+        public PassportsVM(ISession session,
             IResourceService resourceService, IMessageService messageService,
             IGettingFileService openFileService, IGettingFileService saveFileService,
-            IFileService fileService, IPathService pathService) :
-            base(dataBaseContextBuilder, resourceService, messageService)
+            IFileService fileService) :
+            base(session, resourceService, messageService)
         {
             FileService = fileService;
-            PathService = pathService;
 
             LoadImageCommand = new RelayCommand(() =>
             {
@@ -84,8 +78,8 @@ namespace ViewModel.VMs.DbSet
                     (_resourceService.GetString(_openFileDialogFilterResourceKey));
                 if (filePath != null)
                 {
-                    _messengerService.ExecuteWithExceptionMessage(() =>
-                        SelectedItem.Scan = FileService.Load(filePath));
+                    MessengerService.ExecuteWithExceptionMessage(_resourceService,
+                        _messageService, () => SelectedItem.Scan = FileService.Load(filePath));
                 }
             }, () => SelectedItem != null);
             SaveImageCommand = new RelayCommand(() =>
@@ -94,8 +88,8 @@ namespace ViewModel.VMs.DbSet
                     (_resourceService.GetString(_saveFileDialogFilterResourceKey));
                 if (filePath != null)
                 {
-                    _messengerService.ExecuteWithExceptionMessage(() =>
-                        FileService.Save(filePath, SelectedItem.Scan));
+                    MessengerService.ExecuteWithExceptionMessage(_resourceService,
+                        _messageService, () => FileService.Save(filePath, SelectedItem.Scan));
                 }
             }, () => SelectedItem != null);
         }

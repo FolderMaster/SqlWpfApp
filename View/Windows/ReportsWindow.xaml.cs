@@ -2,7 +2,6 @@
 
 using ViewModel.VMs.Request;
 using ViewModel.Interfaces.Services;
-using ViewModel.Interfaces.Services.Messages;
 using ViewModel.Interfaces;
 
 namespace View.Windows
@@ -15,16 +14,16 @@ namespace View.Windows
         /// <summary>
         /// Создаёт экземпляр класса <see cref="ReportsWindow"/>.
         /// </summary>
-        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="session">Создатель контекста базы данных.</param>
         /// <param name="resourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
         /// <param name="printDialogService">Сервис печати.</param>
-        public ReportsWindow(ISession dbContextBuilder, IResourceService resourceService,
+        public ReportsWindow(ISession session, IResourceService resourceService,
             IMessageService messageService, IPrintService printDialogService)
         {
             InitializeComponent();
 
-            DataContext = new ReportsVM(dbContextBuilder, resourceService, messageService,
+            DataContext = new ReportsVM(session, resourceService, messageService,
                 printDialogService);
         }
     }

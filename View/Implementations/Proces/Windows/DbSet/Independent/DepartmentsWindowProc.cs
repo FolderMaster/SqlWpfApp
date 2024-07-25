@@ -5,10 +5,10 @@ using View.Windows.DbSet.Independent;
 using View.Implementations.ResourceService;
 
 using ViewModel.VMs.DbSet;
-using ViewModel.Interfaces.Services.Messages;
+using ViewModel.Interfaces;
+using ViewModel.Interfaces.Services;
 
 using Model.Independent;
-using ViewModel.Interfaces;
 
 namespace View.Implementations.Proces.Windows.DbSet.Independent
 {

@@ -5,11 +5,11 @@ using View.Windows.DbSet.Dependent;
 using View.Implementations.ResourceService;
 
 using ViewModel.VMs.DbSet;
-using ViewModel.Interfaces.Services.Messages;
+using ViewModel.Interfaces;
+using ViewModel.Interfaces.Services;
 
 using Model.Dependent;
 using Model.Independent;
-using ViewModel.Interfaces;
 
 namespace View.Implementations.Proces.Windows.DbSet.Dependent
 {

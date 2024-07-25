@@ -4,7 +4,6 @@ using System.Windows;
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Services;
-using ViewModel.Interfaces.Services.Messages;
 using ViewModel.VMs.Connections;
 
 namespace View.Windows
@@ -14,13 +13,13 @@ namespace View.Windows
     /// </summary>
     public partial class ConnectionWindow : Window
     {
-        public ConnectionWindow(ISession dbContextBuilders,
+        public ConnectionWindow(ISession session,
             IEnumerable<IDbConnection> connections, IResourceService resourceService,
             IMessageService errorMessageService)
         {
             InitializeComponent();
 
-            DataContext = new ConnectionVM(dbContextBuilders, resourceService,
+            DataContext = new ConnectionVM(session, resourceService,
                 errorMessageService, connections);
         }
     }

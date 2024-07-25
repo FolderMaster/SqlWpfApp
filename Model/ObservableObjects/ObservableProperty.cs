@@ -25,6 +25,9 @@
         public void CreateValueForOwner(ObservableObject owner) =>
             _values.Add(owner, _defaultValue);
 
+        public void RemoveValueForOwner(ObservableObject owner) =>
+            _values.Remove(owner);
+
         public object? GetValueForOwner(ObservableObject owner) => _values[owner];
 
         public bool UpdateValueForOwner(ObservableObject owner, object? value)

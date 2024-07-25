@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 
+using ViewModel.Interfaces;
+using ViewModel.Interfaces.Services;
 using View.Windows.DbSet.Dependent;
 using View.Implementations.ResourceService;
 
 using ViewModel.VMs.DbSet;
-using ViewModel.Interfaces.Services.Messages;
 
 using Model.Dependent;
-using ViewModel.Interfaces;
 
 namespace View.Implementations.Proces.Windows.DbSet.Dependent
 {

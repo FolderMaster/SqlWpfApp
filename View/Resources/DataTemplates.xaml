@@ -81,7 +81,7 @@
                 <ContentControl DataContext="{Binding}" Name="control">
                     <c:SqliteDbConnectionControl
                         SelectedConnection="{Binding DataContext.Connection, ElementName=control}"
-                        Connections="{Binding DataContext.Data, ElementName=control}"/>
+                        Connections="{Binding DataContext.Data, ElementName=control, Mode=OneWay}"/>
                 </ContentControl>
             </DataTemplate>
         </s:DbConnectionTemplateSelector.SqliteTemplate>

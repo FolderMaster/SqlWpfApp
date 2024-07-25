@@ -3,11 +3,10 @@ using System.Windows;
 
 using ViewModel.VMs.DbSet;
 using ViewModel.Interfaces.Services;
-using ViewModel.Interfaces.Services.Messages;
+using ViewModel.Interfaces;
 
 using Model.Dependent;
 using Model.Independent;
-using ViewModel.Interfaces;
 
 namespace View.Windows.DbSet.Dependent
 {
@@ -19,21 +18,21 @@ namespace View.Windows.DbSet.Dependent
         /// <summary>
         /// Создаёт экземпляр класса <see cref="TeacherDisciplineConnectionsWindow"/>.
         /// </summary>
-        /// <param name="dbContextBuilder">Создатель контекста базы данных.</param>
+        /// <param name="session">Создатель контекста базы данных.</param>
         /// <param name="resourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
-        public TeacherDisciplineConnectionsWindow(ISession dbContextBuilder,
+        public TeacherDisciplineConnectionsWindow(ISession session,
             IResourceService resourceService, IMessageService messageService)
         {
             InitializeComponent();
 
             DataContext = new List<object>()
             {
-                new ControlDbSetVM<TeacherDisciplineConnection>(dbContextBuilder, resourceService,
+                new ControlDbSetVM<TeacherDisciplineConnection>(session, resourceService,
                     messageService),
-                new DbSetVM<Teacher>(dbContextBuilder, resourceService, messageService),
-                new DbSetVM<Discipline>(dbContextBuilder, resourceService, messageService),
-                new DbSetVM<Role>(dbContextBuilder, resourceService, messageService)
+                new DbSetVM<Teacher>(session, resourceService, messageService),
+                new DbSetVM<Discipline>(session, resourceService, messageService),
+                new DbSetVM<Role>(session, resourceService, messageService)
             };
         }
     }

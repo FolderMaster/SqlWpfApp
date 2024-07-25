@@ -218,6 +218,7 @@ namespace ViewModel.Dependencies.DataBase
             return dbSet.Local.ToObservableCollection();
         }
 
-        public abstract DataTable ExecuteCommand(string commandString, Dictionary<string, object>? parameters = null);
+        public abstract DataTable ExecuteCommand(string commandString,
+            IDictionary<string, object>? parameters = null);
     }
 }

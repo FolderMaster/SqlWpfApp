@@ -7,7 +7,6 @@
              xmlns:local="clr-namespace:View.Controls.DbSet"
              xmlns:ctrl="clr-namespace:View.Controls"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:v="clr-namespace:View.ValidationRules"
              xmlns:m="clr-namespace:Model;assembly=Model"
              xmlns:b="clr-namespace:View.Behaviors"
              mc:Ignorable="d" 
@@ -55,35 +54,26 @@
                     Converter={StaticResource StringToHeaderConverter}}"/>
                 <DatePicker Grid.Row="5" SelectedDate="{Binding ElementName=passportControl,
                     Path=Passport.BirthDate, UpdateSourceTrigger=PropertyChanged}"
-                            IsEnabled="{Binding ElementName=passportControl,
+                    IsEnabled="{Binding ElementName=passportControl,
                     Path=IsReadOnly, Converter={StaticResource InverseBoolConverter}}"/>
                 <Label Grid.Row="6" Content="{Binding Source={StaticResource AgeHeader},
                     Converter={StaticResource StringToHeaderConverter}}"/>
-                <TextBox Grid.Row="7" Text="{Binding ElementName=passportControl, Path=Passport.Age, Mode=OneWay}"
+                <TextBox Grid.Row="7" Text="{Binding Passport.Age, ElementName=passportControl, Mode=OneWay}"
                          IsReadOnly="True"/>
                 <Label Grid.Row="8" Content="{Binding Source={StaticResource SexHeader},
                     Converter={StaticResource StringToHeaderConverter}}"/>
                 <ComboBox Grid.Row="9" ItemsSource="{Binding Source={StaticResource SexEnum}}"
-                          SelectedItem="{Binding ElementName=passportControl,Path=Passport.Sex,
-                          Converter={StaticResource BoolToEnumConverter}, ConverterParameter='Model.Sex'}"
-                          IsEnabled="{Binding ElementName=passportControl, Path=IsReadOnly,
-                          Converter={StaticResource InverseBoolConverter}}"/>
+                    SelectedItem="{Binding ElementName=passportControl,Path=Passport.Sex,
+                    Converter={StaticResource BoolToEnumConverter}, ConverterParameter='Model.Sex'}"
+                    IsEnabled="{Binding ElementName=passportControl, Path=IsReadOnly,
+                    Converter={StaticResource InverseBoolConverter}}"/>
                 <Label Grid.Row="10" Content="{Binding
                     Source={StaticResource PermanentResidenceAddressHeader},
                     Converter={StaticResource StringToHeaderConverter}}"/>
-                <TextBox Grid.Row="11" IsReadOnly="{Binding ElementName=passportControl,
-                        Path=IsReadOnly}" AcceptsReturn="True" TextWrapping="Wrap"
-                        VerticalScrollBarVisibility="Auto">
-                    <TextBox.Text>
-                        <Binding Path="Passport.PermanentResidenceAddress"
-                                 ElementName="passportControl"
-                                 UpdateSourceTrigger="PropertyChanged">
-                            <Binding.ValidationRules>
-                                <v:NotEmptyValidationRule/>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
+                <TextBox Grid.Row="11" IsReadOnly="{Binding IsReadOnly, ElementName=passportControl}"
+                    Text="{Binding Passport.PermanentResidenceAddress, ElementName=passportControl,
+                    UpdateSourceTrigger=PropertyChanged}"
+                    AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
             </Grid>
         </GroupBox>
         <GridSplitter Grid.Column="0" Width="3px"/>
@@ -101,11 +91,11 @@
                 <Image Source="{Binding ElementName=passportControl, Path=Passport.Scan,
                     TargetNullValue={StaticResource NoImage}}" AllowDrop="True">
                     <i:Interaction.Behaviors>
-                        <b:DragDropImageBehavior Image="{Binding ElementName=passportControl,
-                            Path=Passport.Scan, Mode=TwoWay}" MessengerService="{Binding
-                            ElementName=passportControl, Path=MessengerService}"
-                            FileService="{Binding ElementName=passportControl, Path=FileService}"
-                            PathService="{Binding ElementName=passportControl, Path=PathService}"/>
+                        <b:DragDropImageBehavior
+                            Image="{Binding Passport.Scan, ElementName=passportControl, Mode=TwoWay}"
+                            ResourceService="{Binding ResourceService, ElementName=passportControl}"
+                            MessageService="{Binding MessageService, ElementName=passportControl}"
+                            FileService="{Binding FileService, ElementName=passportControl}"/>
                     </i:Interaction.Behaviors>
                 </Image>
             </GroupBox>

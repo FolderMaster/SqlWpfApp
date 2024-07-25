@@ -5,8 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-using View.ValidationRules;
-
 namespace View.Behaviors
 {
     /// <summary>
@@ -76,7 +74,6 @@ namespace View.Behaviors
                         as string;
                     var columnBinding = column.Binding as Binding;
                     columnBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-                    columnBinding.ValidationRules.Add(new NotEmptyValidationRule());
                 }
                 else
                 {

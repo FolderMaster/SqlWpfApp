@@ -29,7 +29,7 @@
     <sys:String x:Key="ExitMessageTitle">Exit?</sys:String>
     <sys:String x:Key="ExitMessageDescription">Do you want to close the program?</sys:String>
 
-    <sys:String x:Key="MainHeader">SQLite WPF App</sys:String>
+    <sys:String x:Key="MainHeader">Sql Wpf App</sys:String>
 
     <sys:String x:Key="ExitHeader">Exit</sys:String>
     <sys:String x:Key="ExitPath">File</sys:String>

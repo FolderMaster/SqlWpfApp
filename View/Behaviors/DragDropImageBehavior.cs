@@ -7,7 +7,8 @@ using System.Windows.Media.Imaging;
 using System.IO;
 
 using ViewModel.Interfaces.Services.Files;
-using ViewModel.Interfaces.Services.Messages;
+using ViewModel.Interfaces.Services;
+using ViewModel.Services;
 
 namespace View.Behaviors
 {
@@ -26,12 +27,21 @@ namespace View.Behaviors
         }
 
         /// <summary>
-        /// Возвращает и задаёт сервис послания сообщений.
+        /// Возвращает и задаёт сервис сообщений.
         /// </summary>
-        public IMessengerService MessengerService
+        public IMessageService MessageService
         {
-            get => (IMessengerService)GetValue(MessengerServiceProperty);
-            set => SetValue(MessengerServiceProperty, value);
+            get => (IMessageService)GetValue(MessageServiceProperty);
+            set => SetValue(MessageServiceProperty, value);
+        }
+
+        /// <summary>
+        /// Возвращает и задаёт сервис ресурсов.
+        /// </summary>
+        public IResourceService ResourceService
+        {
+            get => (IResourceService)GetValue(ResourceServiceProperty);
+            set => SetValue(ResourceServiceProperty, value);
         }
 
         /// <summary>
@@ -44,25 +54,23 @@ namespace View.Behaviors
         }
 
         /// <summary>
-        /// Возвращает и задаёт сервис путей.
-        /// </summary>
-        public IPathService PathService
-        {
-            get => (IPathService)GetValue(PathServiceProperty);
-            set => SetValue(PathServiceProperty, value);
-        }
-
-        /// <summary>
         /// Свойство зависимости <see cref="Image"/>.
         /// </summary>
         public static DependencyProperty ImageProperty = DependencyProperty.Register(nameof(Image),
             typeof(byte[]), typeof(DragDropImageBehavior), new FrameworkPropertyMetadata());
 
         /// <summary>
-        /// Свойство зависимости <see cref="MessengerService"/>.
+        /// Свойство зависимости <see cref="MessageService"/>.
         /// </summary>
-        public static DependencyProperty MessengerServiceProperty = DependencyProperty.Register
-            (nameof(MessengerService), typeof(IMessengerService), typeof(DragDropImageBehavior),
+        public static DependencyProperty MessageServiceProperty = DependencyProperty.Register
+            (nameof(MessageService), typeof(IMessageService), typeof(DragDropImageBehavior),
+            new FrameworkPropertyMetadata());
+
+        /// <summary>
+        /// Свойство зависимости <see cref="ResourceService"/>.
+        /// </summary>
+        public static DependencyProperty ResourceServiceProperty = DependencyProperty.Register
+            (nameof(ResourceService), typeof(IResourceService), typeof(DragDropImageBehavior),
             new FrameworkPropertyMetadata());
 
         /// <summary>
@@ -70,13 +78,6 @@ namespace View.Behaviors
         /// </summary>
         public static DependencyProperty FileServiceProperty = DependencyProperty.Register
             (nameof(FileService), typeof(IFileService), typeof(DragDropImageBehavior),
-            new FrameworkPropertyMetadata());
-
-        /// <summary>
-        /// Свойство зависимости <see cref="PathService"/>.
-        /// </summary>
-        public static DependencyProperty PathServiceProperty = DependencyProperty.Register
-            (nameof(PathService), typeof(IPathService), typeof(DragDropImageBehavior),
             new FrameworkPropertyMetadata());
 
         /// <summary>
@@ -106,7 +107,7 @@ namespace View.Behaviors
             var fileNames = e.Data.GetData(DataFormats.FileDrop) as string[];
             if (fileNames != null)
             {
-                MessengerService.ExecuteWithExceptionMessage(() =>
+                MessengerService.ExecuteWithExceptionMessage(ResourceService, MessageService, () =>
                 {
                     var bitmapImage = new BitmapImage();
                     using (var stream = new MemoryStream(FileService.Load(fileNames[0])))
@@ -136,9 +137,9 @@ namespace View.Behaviors
             if (sender is Image image && image.Source != null)
             {
                 var fileName = "temp.jpeg";
-                var filePath = PathService.GetFullPath(fileName);
-                MessengerService.ExecuteWithExceptionMessage(() =>
-                    FileService.Save(filePath, Image));
+                var filePath = FileService.GetFullPath(fileName);
+                MessengerService.ExecuteWithExceptionMessage(ResourceService, MessageService,
+                    () => FileService.Save(filePath, Image));
 
                 var dataObject = new DataObject();
                 dataObject.SetData(DataFormats.FileDrop, new string[] { filePath }, true);

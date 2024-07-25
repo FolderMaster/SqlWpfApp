@@ -1,8 +1,9 @@
 ﻿using System;
 
 using View.Implementations.ResourceService;
+
 using ViewModel.Interfaces;
-using ViewModel.Interfaces.Services.Messages;
+using ViewModel.Interfaces.Services;
 
 namespace View.Implementations.Proces.Windows
 {
@@ -20,6 +21,6 @@ namespace View.Implementations.Proces.Windows
         } 
 
         protected override bool CanExecute() =>
-            _dbContextCreator.DbContext != null && _dbContextCreator.DbContext.CanConnect;
+            _session.DbContext != null && _session.DbContext.CanConnect;
     }
 }

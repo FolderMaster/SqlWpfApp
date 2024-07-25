@@ -24,11 +24,6 @@ namespace ViewModel.Dependencies.DataBase.MsSqlServer
             get => _connection;
             set
             {
-                if (_connection != value)
-                {
-                    _connection = value;
-                    UpdateCanConnect();
-                }
                 var oldValue = _connection;
                 if (_connection != value)
                 {

@@ -52,7 +52,7 @@ namespace ViewModel.Dependencies.DataBase.MsSqlServer
         /// <param name="commandString">Строка команды.</param>
         /// <returns>Результат выполнения команды.</returns>
         public override DataTable ExecuteCommand(string commandString,
-            Dictionary<string, object>? parameters = null)
+            IDictionary<string, object>? parameters = null)
         {
             Database.OpenConnection();
             using (var command = Database.GetDbConnection().CreateCommand())

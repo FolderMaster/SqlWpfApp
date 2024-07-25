@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,15 +8,12 @@ using System.Linq;
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Services;
-using ViewModel.Interfaces.Services.Messages;
 using ViewModel.Services;
 
 namespace ViewModel.VMs.Connections
 {
     public partial class ConnectionVM : ObservableObject
     {
-        private MessengerService _messengerService;
-
         private IDbConnection? _selectedConnection;
 
         public IDbConnection? SelectedConnection
@@ -46,12 +44,11 @@ namespace ViewModel.VMs.Connections
         public RelayCommand ConnectCommand { get; private set; }
 
         public ConnectionVM(ISession session, IResourceService resourceService,
-            IMessageService errorMessageService, IEnumerable<IDbConnection> connections)
+            IMessageService messageService, IEnumerable<IDbConnection> connections)
         {
-            _messengerService = new MessengerService(resourceService, errorMessageService);
-            
-            ConnectCommand = new RelayCommand(() => _messengerService.ExecuteWithExceptionMessage
-                (() => session.DbContext = SelectedConnection?.Connect()),
+            ConnectCommand = new RelayCommand(() => MessengerService.ExecuteWithExceptionMessage
+                (resourceService, messageService,
+                () => session.DbContext = SelectedConnection?.Connect()),
                 () => SelectedConnection?.CanConnect == true);
 
             Connections = connections;

@@ -1,10 +1,12 @@
 ﻿using System;
 
+using Model.ObservableObjects;
+
 using ViewModel.Interfaces.DataBase;
 
 namespace ViewModel.Dependencies.DataBase
 {
-    public abstract class BaseDbConnection : IDbConnection
+    public abstract class BaseDbConnection : ObservableObject, IDbConnection
     {
         private bool _canConnect;
 

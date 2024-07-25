@@ -2,10 +2,10 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-using ViewModel.Interfaces.Services.Files;
-using ViewModel.Interfaces.Services.Messages;
-
 using Model.Independent;
+
+using ViewModel.Interfaces.Services.Files;
+using ViewModel.Interfaces.Services;
 
 namespace View.Controls.DbSet
 {
@@ -54,12 +54,21 @@ namespace View.Controls.DbSet
         }
 
         /// <summary>
-        /// Возвращает и задаёт сервис послания сообщений.
+        /// Возвращает и задаёт сервис ресурсов.
         /// </summary>
-        public IMessengerService MessengerService
+        public IResourceService ResourceService
         {
-            get => (IMessengerService)GetValue(MessengerServiceProperty);
-            set => SetValue(MessengerServiceProperty, value);
+            get => (IResourceService)GetValue(ResourceServiceProperty);
+            set => SetValue(ResourceServiceProperty, value);
+        }
+
+        /// <summary>
+        /// Возвращает и задаёт сервис сообщений.
+        /// </summary>
+        public IMessageService MessageService
+        {
+            get => (IMessageService)GetValue(MessageServiceProperty);
+            set => SetValue(MessageServiceProperty, value);
         }
 
         /// <summary>
@@ -69,15 +78,6 @@ namespace View.Controls.DbSet
         {
             get => (IFileService)GetValue(FileServiceProperty);
             set => SetValue(FileServiceProperty, value);
-        }
-
-        /// <summary>
-        /// Возвращает и задаёт сервис путей.
-        /// </summary>
-        public IPathService PathService
-        {
-            get => (IPathService)GetValue(PathServiceProperty);
-            set => SetValue(PathServiceProperty, value);
         }
 
         /// <summary>
@@ -109,10 +109,17 @@ namespace View.Controls.DbSet
                 typeof(PassportControl), new FrameworkPropertyMetadata());
 
         /// <summary>
-        /// Свойство зависимости <see cref="MessengerService"/>.
+        /// Свойство зависимости <see cref="ResourceService"/>.
         /// </summary>
-        public static DependencyProperty MessengerServiceProperty = DependencyProperty.Register
-            (nameof(MessengerService), typeof(IMessengerService), typeof(PassportControl),
+        public static DependencyProperty ResourceServiceProperty = DependencyProperty.Register
+            (nameof(ResourceService), typeof(IResourceService), typeof(PassportControl),
+            new FrameworkPropertyMetadata());
+
+        /// <summary>
+        /// Свойство зависимости <see cref="MessageService"/>.
+        /// </summary>
+        public static DependencyProperty MessageServiceProperty = DependencyProperty.Register
+            (nameof(MessageService), typeof(IMessageService), typeof(PassportControl),
             new FrameworkPropertyMetadata());
 
         /// <summary>
@@ -120,13 +127,6 @@ namespace View.Controls.DbSet
         /// </summary>
         public static DependencyProperty FileServiceProperty = DependencyProperty.Register
             (nameof(FileService), typeof(IFileService), typeof(PassportControl),
-            new FrameworkPropertyMetadata());
-
-        /// <summary>
-        /// Свойство зависимости <see cref="PathService"/>.
-        /// </summary>
-        public static DependencyProperty PathServiceProperty = DependencyProperty.Register
-            (nameof(PathService), typeof(IPathService), typeof(PassportControl),
             new FrameworkPropertyMetadata());
 
         /// <summary>

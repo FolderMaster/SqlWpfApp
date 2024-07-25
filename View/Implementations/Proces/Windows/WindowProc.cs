@@ -2,8 +2,9 @@
 using System.Windows;
 
 using View.Implementations.ResourceService;
+
 using ViewModel.Interfaces;
-using ViewModel.Interfaces.Services.Messages;
+using ViewModel.Interfaces.Services;
 
 namespace View.Implementations.Proces.Windows
 {
@@ -20,7 +21,7 @@ namespace View.Implementations.Proces.Windows
         /// <summary>
         /// Создатель контекста базы данных.
         /// </summary>
-        protected ISession _dbContextCreator;
+        protected ISession _session;
 
         /// <summary>
         /// Сервис сообщений.
@@ -46,7 +47,7 @@ namespace View.Implementations.Proces.Windows
             IWindowResourceService windowResourceService, IMessageService messageService) :
             base(name, windowResourceService)
         {
-            _dbContextCreator = session;
+            _session = session;
             _messageService = messageService;
         }
 
@@ -56,7 +57,7 @@ namespace View.Implementations.Proces.Windows
         /// <returns>Сконфигурированное окно.</returns>
         private Window CreateConfiguredWindow()
         {
-            var window = CreateWindow(_dbContextCreator, _windowResourceService, _messageService);
+            var window = CreateWindow(_session, _windowResourceService, _messageService);
             window.Closed += Window_Closed;
             return window;
         }

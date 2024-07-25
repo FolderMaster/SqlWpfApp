@@ -1,5 +1,4 @@
-﻿using System;
-using View.Implementations.ResourceService;
+﻿using View.Implementations.ResourceService;
 
 using ViewModel.Classes;
 using ViewModel.Interfaces.Proces;

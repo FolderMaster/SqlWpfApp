@@ -7,7 +7,7 @@ namespace Model.ObservableObjects
     /// Класс сервис для обновления свойств, который реализует интерфейс
     /// <see cref="INotifyPropertyChanged"/>, у которого есть метод для работы с ним.
     /// </summary>
-    public class ObservableObject : INotifyPropertyChanged, INotifyDataErrorInfo
+    public class ObservableObject : INotifyPropertyChanged, INotifyDataErrorInfo, IDisposable
     {
         private static Dictionary<Type, List<ObservableProperty>> _classProperties = new();
 
@@ -64,6 +64,19 @@ namespace Model.ObservableObjects
                 return _errors[propertyName];
             }
             return null;
+        }
+
+        public void Dispose()
+        {
+            var ownerType = GetType();
+            if (_classProperties.ContainsKey(ownerType))
+            {
+                var properties = _classProperties[ownerType];
+                foreach (var property in properties)
+                {
+                    property.RemoveValueForOwner(this);
+                }
+            }
         }
 
         protected object? GetProperty(ObservableProperty property) =>

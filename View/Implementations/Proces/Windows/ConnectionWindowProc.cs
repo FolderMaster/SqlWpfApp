@@ -6,7 +6,7 @@ using View.Windows;
 
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.DataBase;
-using ViewModel.Interfaces.Services.Messages;
+using ViewModel.Interfaces.Services;
 
 namespace View.Implementations.Proces.Windows
 {

@@ -3,7 +3,6 @@ using View.Windows;
 
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
-using ViewModel.Interfaces.Services.Messages;
 using ViewModel.Interfaces.Technicals;
 using ViewModel.VMs;
 
@@ -58,6 +57,6 @@ namespace View.Services
         /// Конфигурирует основное окно <seealso cref="MainWindow"/>.
         /// </summary>
         public void Configure() => MainWindow.DataContext = new MainVM
-            (ResourceService, Configuration, ErrorMessageService);
+            (ErrorMessageService, ResourceService, Configuration);
     }
 }

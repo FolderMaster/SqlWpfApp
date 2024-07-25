@@ -12,8 +12,7 @@ namespace View.Controls.Connections
     {
         public static DependencyProperty ItemsSourceProperty =
             DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable<object>),
-                typeof(ListComboBox), new FrameworkPropertyMetadata(null,
-                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+                typeof(ListComboBox), new FrameworkPropertyMetadata(null));
 
         public static DependencyProperty SelectedItemProperty =
             DependencyProperty.Register(nameof(SelectedItem), typeof(object),

@@ -1,9 +1,10 @@
 ﻿using View.Implementations.Dialogs;
 using View.Implementations.Proces.Windows.DbSet.Independent;
 using View.Implementations.ResourceService;
+
 using ViewModel.Interfaces;
+using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Files;
-using ViewModel.Interfaces.Services.Messages;
 using ViewModel.Interfaces.Technicals;
 
 namespace View.Services
@@ -46,11 +47,6 @@ namespace View.Services
         public IFileService FileService { get; set; }
 
         /// <summary>
-        /// Возвращает и задаёт сервис путей.
-        /// </summary>
-        public IPathService PathService { get; set; }
-
-        /// <summary>
         /// Создаёт экземпляр класса <see cref="PassportsWindowProcCreator"/>.
         /// </summary>
         /// <param name="session">Создатель контекста базы данных.</param>
@@ -59,12 +55,10 @@ namespace View.Services
         /// <param name="openFileDialogService">Сервис диалога открытия файлов.</param>
         /// <param name="saveFileDialogService">Сервис диалога сохранения файлов.</param>
         /// <param name="fileService">Файловый сервис.</param>
-        /// <param name="pathService">Сервис путей.</param>
         public PassportsWindowProcCreator(ISession session,
             IWindowResourceService windowResourceService, IMessageService messageService,
             OpenFileDialogService openFileDialogService,
-            SaveFileDialogService saveFileDialogService, IFileService fileService,
-            IPathService pathService)
+            SaveFileDialogService saveFileDialogService, IFileService fileService)
         {
             Session = session;
             WindowResourceService = windowResourceService;
@@ -72,7 +66,6 @@ namespace View.Services
             GettingOpenFileService = openFileDialogService;
             GettingSaveFileService = saveFileDialogService;
             FileService = fileService;
-            PathService = pathService;
         }
 
         /// <summary>
@@ -82,6 +75,6 @@ namespace View.Services
         /// <seealso cref="PassportsWindowProc"/>.</returns>
         public PassportsWindowProc Create() => new PassportsWindowProc(Session,
             WindowResourceService, MessageService, GettingOpenFileService, GettingSaveFileService,
-            FileService, PathService);
+            FileService);
     }
 }
