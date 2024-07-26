@@ -20,17 +20,23 @@
                   SelectedItem="{Binding SelectedItem, ElementName=control}"
                   IsEnabled="{Binding ItemsSource, ElementName=control,
                   Converter={StaticResource ObjectToBoolConverter}}"/>
-        <Button Grid.Column="1" Content="{StaticResource AddImage}"
-                Width="{StaticResource ConnectionButtonSize}"
+        <Button Grid.Column="1" Width="{StaticResource ConnectionButtonSize}"
                 Height="{StaticResource ConnectionButtonSize}"
                 Command="{Binding AddCommand, ElementName=control}"
                 IsEnabled="{Binding ItemsSource, ElementName=control,
-                Converter={StaticResource ObjectToBoolConverter}}"/>
-        <Button Grid.Column="2" Content="{StaticResource RemoveImage}"
-                Width="{StaticResource ConnectionButtonSize}"
+                Converter={StaticResource ObjectToBoolConverter}}">
+            <Button.Content>
+                <Image Source="{StaticResource AddImage}"/>
+            </Button.Content>
+        </Button>
+        <Button Grid.Column="2" Width="{StaticResource ConnectionButtonSize}"
                 Height="{StaticResource ConnectionButtonSize}"
                 Command="{Binding RemoveCommand, ElementName=control}"
                 IsEnabled="{Binding SelectedItem, ElementName=control,
-                Converter={StaticResource ObjectToBoolConverter}}"/>
+                Converter={StaticResource ObjectToBoolConverter}}">
+            <Button.Content>
+                <Image Source="{StaticResource RemoveImage}"/>
+            </Button.Content>
+        </Button>
     </Grid>
 </UserControl>

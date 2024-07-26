@@ -141,11 +141,13 @@ namespace View.Behaviors
                 MessengerService.ExecuteWithExceptionMessage(ResourceService, MessageService,
                     () => FileService.Save(filePath, Image));
 
-                var dataObject = new DataObject();
-                dataObject.SetData(DataFormats.FileDrop, new string[] { filePath }, true);
-                dataObject.SetData(DataFormats.Bitmap, Image);
-
-                DragDrop.DoDragDrop(image, dataObject, DragDropEffects.Copy);
+                if (Image != null)
+                {
+                    var dataObject = new DataObject();
+                    dataObject.SetData(DataFormats.FileDrop, new string[] { filePath }, true);
+                    dataObject.SetData(DataFormats.Bitmap, Image);
+                    DragDrop.DoDragDrop(image, dataObject, DragDropEffects.Copy);
+                }
             }  
         }
     }

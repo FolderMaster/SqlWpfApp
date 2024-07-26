@@ -29,7 +29,7 @@
                 <CheckBox IsChecked="{Binding ElementName=studentControl,
                     Path=Student.IsDeductible}" IsEnabled="{Binding ElementName=studentControl,
                     Path=IsReadOnly, Converter={StaticResource InverseBoolConverter}}"
-                          Content="{StaticResource IsDeductibleHeader}" Margin="5px"/>
+                          Content="{StaticResource IsDeductibleHeader}"/>
             </StackPanel>
         </GroupBox>
         <GroupBox Grid.Column="1" Header="{StaticResource ScholarshipsHeader}">

@@ -13,6 +13,7 @@ using System.Reflection;
 using ViewModel.Services;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces;
+using ViewModel.Classes;
 
 namespace ViewModel.VMs.DbSet
 {
@@ -23,7 +24,7 @@ namespace ViewModel.VMs.DbSet
     /// командой сохранения.
     /// </summary>
     /// <typeparam name="T">Тип сущности таблицы.</typeparam>
-    public class DbSetVM<T> : ObservableObject where T : class
+    public partial class DbSetVM<T> : ObservableObject where T : class
     {
         /// <summary>
         /// Создатель контекста базы данных.
@@ -71,6 +72,9 @@ namespace ViewModel.VMs.DbSet
         /// Список методов возврата свойств.
         /// </summary>
         protected List<PropertyInfo> _getMethodList;
+
+        [ObservableProperty]
+        protected TableChangesSet tableChangesSet = new();
 
         /// <summary>
         /// Возвращает и задаёт локальное представление таблицы из базы данных.
@@ -336,10 +340,12 @@ namespace ViewModel.VMs.DbSet
                 case NotifyCollectionChangedAction.Add:
                     var newItem = e.NewItems[0];
                     DbSetLocal.Add((T)newItem);
+                    TableChangesSet.AddedCount++;
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     var oldItem = e.OldItems[0];
                     DbSetLocal.Remove((T)oldItem);
+                    TableChangesSet.RemovedCount++;
                     break;
             }
         }

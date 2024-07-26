@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\Add.ico" />
+    <None Remove="Resources\Images\Change.ico" />
     <None Remove="Resources\Images\Connection.ico" />
     <None Remove="Resources\Images\Departments.ico" />
     <None Remove="Resources\Images\Disciplines.ico" />
@@ -56,6 +57,7 @@
 
   <ItemGroup>
     <Resource Include="Resources\Images\Add.ico" />
+    <Resource Include="Resources\Images\Change.ico" />
     <Resource Include="Resources\Images\Connection.ico" />
     <Resource Include="Resources\Images\Departments.ico">
       <CopyToOutputDirectory></CopyToOutputDirectory>

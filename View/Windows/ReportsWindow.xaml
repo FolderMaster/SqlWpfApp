@@ -17,7 +17,8 @@
                     Command="{Binding DepartmentsCommand}"/>
         </WrapPanel>
         <Button DockPanel.Dock="Bottom" Command="{Binding PrintCommand}"
-                Content="{StaticResource PrintHeader}"/>
+                Content="{StaticResource PrintHeader}"
+                Style="{StaticResource ButtonStyle}" MinWidth="0"/>
         <FlowDocumentReader Document="{Binding Document}"/>
     </DockPanel>
 </Window>

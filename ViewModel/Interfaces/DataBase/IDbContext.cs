@@ -10,6 +10,8 @@ namespace ViewModel.Interfaces.DataBase
     /// </summary>
     public interface IDbContext
     {
+        public bool CanConnect { get; }
+
         /// <summary>
         /// Создаёт представление таблицы из базы данных.
         /// </summary>
@@ -20,8 +22,6 @@ namespace ViewModel.Interfaces.DataBase
         public void Reload<TEntity>() where TEntity : class;
 
         public void RejectChanges<TEntity>() where TEntity : class;
-
-        public bool CanConnect { get; }
 
         /// <summary>
         /// Сохраняет изменения в таблице.

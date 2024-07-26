@@ -32,11 +32,13 @@
                                     AddCommand="{Binding AddCommand}"
                                     RemoveCommand="{Binding RemoveCommand}"
                                     SaveCommand="{Binding SaveCommand}"
+                                    TableChangesSet="{Binding TableChangesSet}"
                                     DockPanel.Dock="Top"/>
         <controls:PassportControl Passport="{Binding SelectedItem}"
                                   LoadImageCommand="{Binding LoadImageCommand}"
                                   SaveImageCommand="{Binding SaveImageCommand}"
                                   MessageService="{Binding MessageService}"
+                                  ResourceService="{Binding ResourceService}"
                                   FileService="{Binding FileService}"
                                   IsReadOnly="{Binding SelectedNumber,
                                   Converter={StaticResource InverseIntToBoolConverter}}"/>

@@ -1,9 +1,76 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Style x:Key="ToolbarButtonStyle" TargetType="Button">
+    <Style x:Key="ToolbarElementStyle" TargetType="FrameworkElement">
+        <Style.Setters>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style.Setters>
+    </Style>
+    <Style x:Key="ToolbarButtonStyle" TargetType="FrameworkElement"
+           BasedOn="{StaticResource ToolbarElementStyle}">
         <Style.Setters>
             <Setter Property="Width" Value="{StaticResource ToolbarButtonSize}"/>
             <Setter Property="Height" Value="{StaticResource ToolbarButtonSize}"/>
+        </Style.Setters>
+    </Style>
+    <Style x:Key="ToolbarIconStyle" TargetType="FrameworkElement"
+           BasedOn="{StaticResource ToolbarElementStyle}">
+        <Style.Setters>
+            <Setter Property="Width" Value="{StaticResource ToolbarIconSize}"/>
+            <Setter Property="Height" Value="{StaticResource ToolbarIconSize}"/>
+        </Style.Setters>
+    </Style>
+    <Style x:Key="ToolbarLabelStyle" TargetType="Label"
+           BasedOn="{StaticResource ToolbarElementStyle}">
+        <Style.Setters>
+            <Setter Property="FontSize" Value="{StaticResource ToolbarFontSize}"/>
+        </Style.Setters>
+    </Style>
+    <Style x:Key="ToolbarBaseTextBoxStyle" TargetType="TextBox"
+           BasedOn="{StaticResource ToolbarElementStyle}">
+        <Style.Setters>
+            <Setter Property="FontSize" Value="{StaticResource ToolbarFontSize}"/>
+        </Style.Setters>
+    </Style>
+    <Style x:Key="ToolbarTextBoxStyle" TargetType="TextBox"
+           BasedOn="{StaticResource ToolbarBaseTextBoxStyle}">
+        <Style.Setters>
+            <Setter Property="Width" Value="{StaticResource ToolbarTextBoxWidth}"/>
+        </Style.Setters>
+    </Style>
+    <Style x:Key="ToolbarHalfTextBoxStyle" TargetType="TextBox"
+           BasedOn="{StaticResource ToolbarBaseTextBoxStyle}">
+        <Style.Setters>
+            <Setter Property="Width" Value="{StaticResource HalfToolbarTextBoxWidth}"/>
+        </Style.Setters>
+    </Style>
+    
+    <Style x:Key="MultiStringTextBox" TargetType="TextBox">
+        <Style.Setters>
+            <Setter Property="AcceptsReturn" Value="True"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="DefaultElementStyle" TargetType="FrameworkElement">
+        <Style.Setters>
+            <Setter Property="Margin">
+                <Setter.Value>
+                    <Thickness Top="{StaticResource DefaultMargin}"
+                               Left="{StaticResource DefaultMargin}"
+                               Bottom="{StaticResource DefaultMargin}"
+                               Right="{StaticResource DefaultMargin}"/>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+    <Style TargetType="CheckBox" BasedOn="{StaticResource DefaultElementStyle}"/>
+    <Style TargetType="RadioButton" BasedOn="{StaticResource DefaultElementStyle}"/>
+    <Style x:Key="ButtonStyle" TargetType="Button"
+           BasedOn="{StaticResource DefaultElementStyle}">
+        <Style.Setters>
+            <Setter Property="MinWidth" Value="{StaticResource ButtonWidth}"/>
+            <Setter Property="MinHeight" Value="{StaticResource ButtonHeight}"/>
         </Style.Setters>
     </Style>
 </ResourceDictionary>

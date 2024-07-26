@@ -5,40 +5,47 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:View.Controls.DbSet"
              mc:Ignorable="d" 
-             Name="controlDbSetToolBar" d:DesignHeight="100" d:DesignWidth="750">
+             Name="controlDbSetToolBar" d:DesignHeight="100" d:DesignWidth="1000">
     <ToolBar>
         <Button Command="{Binding ElementName=controlDbSetToolBar, Path=FirstCommand}"
-                Height="{StaticResource ToolbarButtonSize}"
-                Content="{StaticResource LeftDoubleArrowImage}">
+                Style="{StaticResource ToolbarButtonStyle}">
+            <Button.Content>
+                <Image Source="{StaticResource LeftDoubleArrowImage}"/>
+            </Button.Content>
             <Button.ToolTip>
                 <ToolTip Content="{StaticResource FirstHeader}"/>
             </Button.ToolTip>
         </Button>
         <Button Command="{Binding ElementName=controlDbSetToolBar, Path=BackCommand}"
-                Content="{StaticResource LeftArrowImage}"
-                Height="{StaticResource ToolbarButtonSize}">
+                Style="{StaticResource ToolbarButtonStyle}">
+            <Button.Content>
+                <Image Source="{StaticResource LeftArrowImage}"/>
+            </Button.Content>
             <Button.ToolTip>
                 <ToolTip Content="{StaticResource BackHeader}"/>
             </Button.ToolTip>
         </Button>
         <TextBox Text="{Binding ElementName=controlDbSetToolBar, Path=SelectedNumber,
                  UpdateSourceTrigger=PropertyChanged}"
-                 FontSize="{StaticResource ToolbarFontSize}"
-                 Width="{StaticResource HalfToolbarTextBoxWidth}"/>
-        <Label Content="{StaticResource OutOfHeader}" VerticalAlignment="Center"
-                   FontSize="{StaticResource ToolbarFontSize}"/>
+                 Style="{StaticResource ToolbarHalfTextBoxStyle}"/>
+        <Label Content="{StaticResource OutOfHeader}"
+               Style="{StaticResource ToolbarLabelStyle}"/>
         <Label Content="{Binding ElementName=controlDbSetToolBar, Path=Count}"
-               FontSize="{StaticResource ToolbarFontSize}" VerticalAlignment="Center"/>
+               Style="{StaticResource ToolbarLabelStyle}"/>
         <Button Command="{Binding ElementName=controlDbSetToolBar, Path=NextCommand}"
-                Content="{StaticResource RightArrowImage}"
-                Height="{StaticResource ToolbarButtonSize}">
+                Style="{StaticResource ToolbarButtonStyle}">
+            <Button.Content>
+                <Image Source="{StaticResource RightArrowImage}"/>
+            </Button.Content>
             <Button.ToolTip>
                 <ToolTip Content="{StaticResource NextHeader}"/>
             </Button.ToolTip>
         </Button>
         <Button Command="{Binding ElementName=controlDbSetToolBar, Path=LastCommand}"
-                Height="{StaticResource ToolbarButtonSize}"
-                Content="{StaticResource RightDoubleArrowImage}">
+                Style="{StaticResource ToolbarButtonStyle}">
+            <Button.Content>
+                <Image Source="{StaticResource RightDoubleArrowImage}"/>
+            </Button.Content>
             <Button.ToolTip>
                 <ToolTip Content="{StaticResource LastHeader}"/>
             </Button.ToolTip>
@@ -46,31 +53,47 @@
         <Separator/>
         <Label Content="{Binding Source={StaticResource SearchHeader},
                     Converter={StaticResource StringToHeaderConverter}}"
-               VerticalAlignment="Center" FontSize="{StaticResource ToolbarFontSize}"/>
+               Style="{StaticResource ToolbarLabelStyle}"/>
         <TextBox Text="{Binding ElementName=controlDbSetToolBar, Path=SearchText,
-            UpdateSourceTrigger=PropertyChanged}" FontSize="{StaticResource ToolbarFontSize}"
-                 Width="{StaticResource ToolbarTextBoxWidth}"/>
+            UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ToolbarTextBoxStyle}"/>
         <Label Content="{Binding Source={StaticResource FilterHeader},
                     Converter={StaticResource StringToHeaderConverter}}"
-               VerticalAlignment="Center" FontSize="{StaticResource ToolbarFontSize}"/>
+               Style="{StaticResource ToolbarLabelStyle}"/>
         <TextBox Text="{Binding ElementName=controlDbSetToolBar, Path=FilterText,
-            UpdateSourceTrigger=PropertyChanged}" FontSize="{StaticResource ToolbarFontSize}"
-                 Width="{StaticResource ToolbarTextBoxWidth}"/>
+            UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ToolbarTextBoxStyle}"/>
+        <Separator/>
+        <Image Source="{StaticResource ChangeImage}" Style="{StaticResource ToolbarIconStyle}"/>
+        <Label Content="{Binding ElementName=controlDbSetToolBar, Path=TableChangesSet.TotalCount}"/>
+        <Image Source="{StaticResource AddImage}" Style="{StaticResource ToolbarIconStyle}"/>
+        <Label Content="{Binding ElementName=controlDbSetToolBar, Path=TableChangesSet.AddedCount}"/>
+        <Image Source="{StaticResource UpdateImage}" Style="{StaticResource ToolbarIconStyle}"/>
+        <Label Content="{Binding ElementName=controlDbSetToolBar, Path=TableChangesSet.ModifiedCount}"/>
+        <Image Source="{StaticResource RemoveImage}" Style="{StaticResource ToolbarIconStyle}"/>
+        <Label Content="{Binding ElementName=controlDbSetToolBar, Path=TableChangesSet.RemovedCount}"/>
         <Separator/>
         <Button Command="{Binding ElementName=controlDbSetToolBar, Path=AddCommand}"
-                Height="{StaticResource ToolbarButtonSize}" Content="{StaticResource AddImage}">
+                Style="{StaticResource ToolbarButtonStyle}">
+            <Button.Content>
+                <Image Source="{StaticResource AddImage}"/>
+            </Button.Content>
             <Button.ToolTip>
                 <ToolTip Content="{StaticResource AddHeader}"/>
             </Button.ToolTip>
         </Button>
         <Button Command="{Binding ElementName=controlDbSetToolBar, Path=RemoveCommand}"
-                Height="{StaticResource ToolbarButtonSize}" Content="{StaticResource RemoveImage}">
+                Style="{StaticResource ToolbarButtonStyle}">
+            <Button.Content>
+                <Image Source="{StaticResource RemoveImage}"/>
+            </Button.Content>
             <Button.ToolTip>
                 <ToolTip Content="{StaticResource RemoveHeader}"/>
             </Button.ToolTip>
         </Button>
         <Button Command="{Binding ElementName=controlDbSetToolBar, Path=SaveCommand}"
-                Height="{StaticResource ToolbarButtonSize}" Content="{StaticResource SaveImage}">
+                Style="{StaticResource ToolbarButtonStyle}">
+            <Button.Content>
+                <Image Source="{StaticResource SaveImage}"/>
+            </Button.Content>
             <Button.ToolTip>
                 <ToolTip Content="{StaticResource SaveHeader}"/>
             </Button.ToolTip>

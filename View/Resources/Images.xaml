@@ -32,11 +32,13 @@
     <BitmapImage x:Shared="False" UriSource="Images/Reports.ico" x:Key="ReportsIcon"/>
 
     <BitmapImage x:Shared="False" UriSource="Images/NoImage.ico" x:Key="NoImage"/>
-    <Image x:Shared="False" Source="Images/RightArrow.ico" x:Key="RightArrowImage"/>
-    <Image x:Shared="False" Source="Images/LeftArrow.ico" x:Key="LeftArrowImage"/>
-    <Image x:Shared="False" Source="Images/RightDoubleArrow.ico" x:Key="RightDoubleArrowImage"/>
-    <Image x:Shared="False" Source="Images/LeftDoubleArrow.ico" x:Key="LeftDoubleArrowImage"/>
-    <Image x:Shared="False" Source="Images/Add.ico" x:Key="AddImage"/>
-    <Image x:Shared="False" Source="Images/Remove.ico" x:Key="RemoveImage"/>
-    <Image x:Shared="False" Source="Images/Save.ico" x:Key="SaveImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/RightArrow.ico" x:Key="RightArrowImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/LeftArrow.ico" x:Key="LeftArrowImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/RightDoubleArrow.ico" x:Key="RightDoubleArrowImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/LeftDoubleArrow.ico" x:Key="LeftDoubleArrowImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Add.ico" x:Key="AddImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Remove.ico" x:Key="RemoveImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Save.ico" x:Key="SaveImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Change.ico" x:Key="ChangeImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Update.ico" x:Key="UpdateImage"/>
 </ResourceDictionary>

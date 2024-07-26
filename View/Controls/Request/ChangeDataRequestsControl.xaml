@@ -53,183 +53,185 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <GroupBox Header="{StaticResource ValuesHeader}" Grid.Row="0">
-                <Grid>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <Grid>
-                        <Grid.Visibility>
-                            <MultiBinding Converter="{StaticResource
+                        <Grid>
+                            <Grid.Visibility>
+                                <MultiBinding Converter="{StaticResource
                                           EnumToVisibilityMultiConverter}"
                                           ConverterParameter="Students Insert">
-                                <Binding Path="TableName"/>
-                                <Binding Path="ChangeDataMode"/>
-                            </MultiBinding>
-                        </Grid.Visibility>
-                        <StackPanel>
-                            <Label Content="{Binding Source={StaticResource IDHeader},
+                                    <Binding Path="TableName"/>
+                                    <Binding Path="ChangeDataMode"/>
+                                </MultiBinding>
+                            </Grid.Visibility>
+                            <StackPanel>
+                                <Label Content="{Binding Source={StaticResource IDHeader},
                                Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding InsertStudentRequestVM.ID, Mode=TwoWay,
+                                <TextBox Text="{Binding InsertStudentRequestVM.ID, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
-                            <Label Content="{Binding Source={StaticResource
+                                <Label Content="{Binding Source={StaticResource
                                 RecordBookNumberHeader}, Converter={StaticResource
                                 StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding InsertStudentRequestVM.RecordBookNumber, Mode=TwoWay,
+                                <TextBox Text="{Binding InsertStudentRequestVM.RecordBookNumber, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
-                            <CheckBox IsChecked="{Binding InsertStudentRequestVM.IsDeductible}"
+                                <CheckBox IsChecked="{Binding InsertStudentRequestVM.IsDeductible}"
                                       Content="{StaticResource IsDeductibleHeader}"/>
-                            <Label Content="{Binding Source={StaticResource GroupNumberHeader},
+                                <Label Content="{Binding Source={StaticResource GroupNumberHeader},
                                Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding InsertStudentRequestVM.GroupNumber, Mode=TwoWay,
+                                <TextBox Text="{Binding InsertStudentRequestVM.GroupNumber, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
-                            <Label Content="{Binding Source={StaticResource
+                                <Label Content="{Binding Source={StaticResource
                                 GroupFormationYearHeader}, Converter={StaticResource
                                 StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding InsertStudentRequestVM.GroupFormationYear, Mode=TwoWay,
+                                <TextBox Text="{Binding InsertStudentRequestVM.GroupFormationYear, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
-                            <Label Content="{Binding Source={StaticResource ScholarshipNameHeader},
+                                <Label Content="{Binding Source={StaticResource ScholarshipNameHeader},
                                Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding InsertStudentRequestVM.ScholarshipName, Mode=TwoWay,
+                                <TextBox Text="{Binding InsertStudentRequestVM.ScholarshipName, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
-                        </StackPanel>
-                    </Grid>
-                    <Grid>
-                        <Grid.Visibility>
-                            <MultiBinding Converter="{StaticResource
+                            </StackPanel>
+                        </Grid>
+                        <Grid>
+                            <Grid.Visibility>
+                                <MultiBinding Converter="{StaticResource
                                           EnumToVisibilityMultiConverter}"
                                           ConverterParameter="Students Update">
-                                <Binding Path="TableName"/>
-                                <Binding Path="ChangeDataMode"/>
-                            </MultiBinding>
-                        </Grid.Visibility>
-                        <StackPanel>
-                            <Label Content="{Binding Source={StaticResource IDHeader},
+                                    <Binding Path="TableName"/>
+                                    <Binding Path="ChangeDataMode"/>
+                                </MultiBinding>
+                            </Grid.Visibility>
+                            <StackPanel>
+                                <Label Content="{Binding Source={StaticResource IDHeader},
                                Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding UpdateStudentRequestVM.ID, Mode=TwoWay,
+                                <TextBox Text="{Binding UpdateStudentRequestVM.ID, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
-                            <Label Content="{Binding Source={StaticResource
+                                <Label Content="{Binding Source={StaticResource
                                 RecordBookNumberHeader}, Converter={StaticResource
                                 StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding UpdateStudentRequestVM.RecordBookNumber, Mode=TwoWay,
+                                <TextBox Text="{Binding UpdateStudentRequestVM.RecordBookNumber, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
-                            <CheckBox IsChecked="{Binding UpdateStudentRequestVM.IsDeductible}"
+                                <CheckBox IsChecked="{Binding UpdateStudentRequestVM.IsDeductible}"
                                       Content="{StaticResource IsDeductibleHeader}"/>
-                            <Label Content="{Binding Source={StaticResource GroupNumberHeader},
+                                <Label Content="{Binding Source={StaticResource GroupNumberHeader},
                                Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding UpdateStudentRequestVM.GroupNumber, Mode=TwoWay,
+                                <TextBox Text="{Binding UpdateStudentRequestVM.GroupNumber, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
-                            <Label Content="{Binding Source={StaticResource
+                                <Label Content="{Binding Source={StaticResource
                                 GroupFormationYearHeader}, Converter={StaticResource
                                 StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding UpdateStudentRequestVM.GroupFormationYear, Mode=TwoWay,
+                                <TextBox Text="{Binding UpdateStudentRequestVM.GroupFormationYear, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
-                            <Label Content="{Binding Source={StaticResource ScholarshipNameHeader},
+                                <Label Content="{Binding Source={StaticResource ScholarshipNameHeader},
                                Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding UpdateStudentRequestVM.ScholarshipName, Mode=TwoWay,
+                                <TextBox Text="{Binding UpdateStudentRequestVM.ScholarshipName, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
-                        </StackPanel>
-                    </Grid>
-                    <Grid>
-                        <Grid.Visibility>
-                            <MultiBinding Converter="{StaticResource
+                            </StackPanel>
+                        </Grid>
+                        <Grid>
+                            <Grid.Visibility>
+                                <MultiBinding Converter="{StaticResource
                                           EnumToVisibilityMultiConverter}"
                                           ConverterParameter="Students Delete">
-                                <Binding Path="TableName"/>
-                                <Binding Path="ChangeDataMode"/>
-                            </MultiBinding>
-                        </Grid.Visibility>
-                        <StackPanel>
-                            <Label Content="{Binding Source={StaticResource IDHeader},
+                                    <Binding Path="TableName"/>
+                                    <Binding Path="ChangeDataMode"/>
+                                </MultiBinding>
+                            </Grid.Visibility>
+                            <StackPanel>
+                                <Label Content="{Binding Source={StaticResource IDHeader},
                                Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding DeleteStudentRequestVM.ID, Mode=TwoWay,
+                                <TextBox Text="{Binding DeleteStudentRequestVM.ID, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
-                        </StackPanel>
-                    </Grid>
-                    <Grid>
-                        <Grid.Visibility>
-                            <MultiBinding Converter="{StaticResource
+                            </StackPanel>
+                        </Grid>
+                        <Grid>
+                            <Grid.Visibility>
+                                <MultiBinding Converter="{StaticResource
                                           EnumToVisibilityMultiConverter}"
                                           ConverterParameter="GradeStatements Insert">
-                                <Binding Path="TableName"/>
-                                <Binding Path="ChangeDataMode"/>
-                            </MultiBinding>
-                        </Grid.Visibility>
-                        <StackPanel>
-                            <Label Content="{Binding Source={StaticResource StudentIDHeader},
+                                    <Binding Path="TableName"/>
+                                    <Binding Path="ChangeDataMode"/>
+                                </MultiBinding>
+                            </Grid.Visibility>
+                            <StackPanel>
+                                <Label Content="{Binding Source={StaticResource StudentIDHeader},
                                Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding InsertGradeStatementRequestVM.StudentID, Mode=TwoWay,
+                                <TextBox Text="{Binding InsertGradeStatementRequestVM.StudentID, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
-                            <Label Content="{Binding Source={StaticResource DisciplineIDHeader},
+                                <Label Content="{Binding Source={StaticResource DisciplineIDHeader},
                                Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding InsertGradeStatementRequestVM.DisciplineID, Mode=TwoWay,
+                                <TextBox Text="{Binding InsertGradeStatementRequestVM.DisciplineID, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
-                            <Label Content="{Binding Source={StaticResource TeacherIDHeader},
+                                <Label Content="{Binding Source={StaticResource TeacherIDHeader},
                                Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding InsertGradeStatementRequestVM.TeacherID, Mode=TwoWay,
+                                <TextBox Text="{Binding InsertGradeStatementRequestVM.TeacherID, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
-                            <Label Content="{Binding Source={StaticResource GradeNameHeader},
+                                <Label Content="{Binding Source={StaticResource GradeNameHeader},
                                Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding InsertGradeStatementRequestVM.GradeName, Mode=TwoWay,
+                                <TextBox Text="{Binding InsertGradeStatementRequestVM.GradeName, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
-                            <Label Content="{Binding Source={StaticResource PassingDateHeader},
+                                <Label Content="{Binding Source={StaticResource PassingDateHeader},
                                Converter={StaticResource StringToHeaderConverter}}"/>
-                            <DatePicker SelectedDate="{Binding InsertGradeStatementRequestVM.PassingDate,
+                                <DatePicker SelectedDate="{Binding InsertGradeStatementRequestVM.PassingDate,
                                 Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </StackPanel>
-                    </Grid>
-                    <Grid>
-                        <Grid.Visibility>
-                            <MultiBinding Converter="{StaticResource
+                            </StackPanel>
+                        </Grid>
+                        <Grid>
+                            <Grid.Visibility>
+                                <MultiBinding Converter="{StaticResource
                                           EnumToVisibilityMultiConverter}"
                                           ConverterParameter="GradeStatements Update">
-                                <Binding Path="TableName"/>
-                                <Binding Path="ChangeDataMode"/>
-                            </MultiBinding>
-                        </Grid.Visibility>
-                        <StackPanel>
-                            <Label Content="{Binding Source={StaticResource IDHeader},
+                                    <Binding Path="TableName"/>
+                                    <Binding Path="ChangeDataMode"/>
+                                </MultiBinding>
+                            </Grid.Visibility>
+                            <StackPanel>
+                                <Label Content="{Binding Source={StaticResource IDHeader},
                                Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding UpdateGradeStatementRequestVM.ID, Mode=TwoWay,
+                                <TextBox Text="{Binding UpdateGradeStatementRequestVM.ID, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
-                            <Label Content="{Binding Source={StaticResource StudentIDHeader},
+                                <Label Content="{Binding Source={StaticResource StudentIDHeader},
                                Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding UpdateGradeStatementRequestVM.StudentID, Mode=TwoWay,
+                                <TextBox Text="{Binding UpdateGradeStatementRequestVM.StudentID, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
-                            <Label Content="{Binding Source={StaticResource DisciplineIDHeader},
+                                <Label Content="{Binding Source={StaticResource DisciplineIDHeader},
                                Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding UpdateGradeStatementRequestVM.DisciplineID, Mode=TwoWay,
+                                <TextBox Text="{Binding UpdateGradeStatementRequestVM.DisciplineID, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
-                            <Label Content="{Binding Source={StaticResource TeacherIDHeader},
+                                <Label Content="{Binding Source={StaticResource TeacherIDHeader},
                                Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding UpdateGradeStatementRequestVM.TeacherID, Mode=TwoWay,
+                                <TextBox Text="{Binding UpdateGradeStatementRequestVM.TeacherID, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
-                            <Label Content="{Binding Source={StaticResource GradeNameHeader},
+                                <Label Content="{Binding Source={StaticResource GradeNameHeader},
                                Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding UpdateGradeStatementRequestVM.GradeName, Mode=TwoWay,
+                                <TextBox Text="{Binding UpdateGradeStatementRequestVM.GradeName, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
-                            <Label Content="{Binding Source={StaticResource PassingDateHeader},
+                                <Label Content="{Binding Source={StaticResource PassingDateHeader},
                                Converter={StaticResource StringToHeaderConverter}}"/>
-                            <DatePicker SelectedDate="{Binding UpdateGradeStatementRequestVM.PassingDate,
+                                <DatePicker SelectedDate="{Binding UpdateGradeStatementRequestVM.PassingDate,
                                 Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </StackPanel>
-                    </Grid>
-                    <Grid>
-                        <Grid.Visibility>
-                            <MultiBinding Converter="{StaticResource
+                            </StackPanel>
+                        </Grid>
+                        <Grid>
+                            <Grid.Visibility>
+                                <MultiBinding Converter="{StaticResource
                                           EnumToVisibilityMultiConverter}"
                                           ConverterParameter="GradeStatements Delete">
-                                <Binding Path="TableName"/>
-                                <Binding Path="ChangeDataMode"/>
-                            </MultiBinding>
-                        </Grid.Visibility>
-                        <StackPanel>
-                            <Label Content="{Binding Source={StaticResource IDHeader},
+                                    <Binding Path="TableName"/>
+                                    <Binding Path="ChangeDataMode"/>
+                                </MultiBinding>
+                            </Grid.Visibility>
+                            <StackPanel>
+                                <Label Content="{Binding Source={StaticResource IDHeader},
                                Converter={StaticResource StringToHeaderConverter}}"/>
-                            <TextBox Text="{Binding DeleteGradeStatementRequestVM.ID, Mode=TwoWay,
+                                <TextBox Text="{Binding DeleteGradeStatementRequestVM.ID, Mode=TwoWay,
                                  UpdateSourceTrigger=PropertyChanged}"/>
-                        </StackPanel>
+                            </StackPanel>
+                        </Grid>
                     </Grid>
-                </Grid>
+                </ScrollViewer>
             </GroupBox>
             <Button Grid.Row="1" Content="{StaticResource ExecuteRequestHeader}"
-                    Command="{Binding ExecuteCommand}"/>
+                    Command="{Binding ExecuteCommand}" Style="{StaticResource ButtonStyle}" MinWidth="0"/>
         </Grid>
         <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top"
                       ShowsPreview="True" ResizeDirection="Rows" Height="3px"/>

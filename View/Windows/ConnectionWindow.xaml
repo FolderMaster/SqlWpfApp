@@ -29,7 +29,8 @@
                       SelectedItem="{Binding SelectedConnection}"/>
         </Grid>
         <Button Content="{StaticResource ConnectHeader}" HorizontalAlignment="Center"
-                Command="{Binding ConnectCommand}" DockPanel.Dock="Bottom"/>
+                Command="{Binding ConnectCommand}" DockPanel.Dock="Bottom"
+                Style="{StaticResource ButtonStyle}"/>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <ContentControl ContentTemplateSelector="{StaticResource DbConnectionTemplateSelector}"
                             Content="{Binding SelectedConnection}"/>

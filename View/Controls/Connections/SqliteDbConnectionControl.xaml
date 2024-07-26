@@ -10,7 +10,7 @@
     <StackPanel>
         <Label Content="{Binding Source={StaticResource DataSourceHeader},
             Converter={StaticResource StringToHeaderConverter}}"/>
-        <local:ListComboBox ItemsSource="{Binding Connections, Mode=OneWay}"
+        <local:ListComboBox ItemsSource="{Binding Connections}"
                         SelectedItem="{Binding SelectedConnection}"
                         ItemTemplate="{StaticResource SqliteConnectionTemplate}"
                         Text="{Binding ConnectionText}"

@@ -161,12 +161,12 @@ namespace ViewModel.Dependencies.DataBase
         /// <returns>Количество сохранённых изменённых строк.</returns>
         public int SaveChanges<TEntity>() where TEntity : class
         {
-            var original = ChangeTracker.Entries().Where(x => !typeof(TEntity)
-                .IsAssignableFrom(x.Entity.GetType()) && x.State != EntityState.Unchanged)
-                .GroupBy(x => x.State).ToList();
+            var original = ChangeTracker.Entries().Where(x => !typeof(TEntity).
+                IsAssignableFrom(x.Entity.GetType()) && x.State != EntityState.Unchanged).
+                GroupBy(x => x.State).ToList();
 
-            foreach (var entry in ChangeTracker.Entries().Where(x => !typeof(TEntity)
-            .IsAssignableFrom(x.Entity.GetType())))
+            foreach (var entry in ChangeTracker.Entries().Where(x => !typeof(TEntity).
+                IsAssignableFrom(x.Entity.GetType())))
             {
                 entry.State = EntityState.Unchanged;
             }

@@ -4,13 +4,19 @@
     <sys:Double x:Key="ConnectionButtonSize">20</sys:Double>
 
     <sys:Double x:Key="ToolbarButtonSize">30</sys:Double>
+    <sys:Double x:Key="ToolbarIconSize">20</sys:Double>
     <sys:Double x:Key="ToolbarFontSize">20</sys:Double>
     <sys:Double x:Key="ToolbarTextBoxWidth">100</sys:Double>
     <sys:Double x:Key="HalfToolbarTextBoxWidth">50</sys:Double>
+
+    <sys:Double x:Key="ButtonWidth">75</sys:Double>
+    <sys:Double x:Key="ButtonHeight">25</sys:Double>
 
     <sys:Double x:Key="TableWindowWidth">800</sys:Double>
     <sys:Double x:Key="TableWindowHeight">500</sys:Double>
 
     <sys:Double x:Key="ConnectionWindowWidth">250</sys:Double>
-    <sys:Double x:Key="ConnectionWindowHeight">400</sys:Double>
+    <sys:Double x:Key="ConnectionWindowHeight">450</sys:Double>
+
+    <sys:Double x:Key="DefaultMargin">5</sys:Double>
 </ResourceDictionary>
