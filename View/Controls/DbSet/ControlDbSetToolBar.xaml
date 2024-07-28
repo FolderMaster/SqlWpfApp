@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:View.Controls.DbSet"
              mc:Ignorable="d" 
-             Name="controlDbSetToolBar" d:DesignHeight="100" d:DesignWidth="1000">
+             Name="control" d:DesignHeight="50" d:DesignWidth="800">
     <ToolBar>
-        <Button Command="{Binding ElementName=controlDbSetToolBar, Path=FirstCommand}"
+        <Button Command="{Binding ElementName=control, Path=FirstCommand}"
                 Style="{StaticResource ToolbarButtonStyle}">
             <Button.Content>
                 <Image Source="{StaticResource LeftDoubleArrowImage}"/>
@@ -16,7 +16,7 @@
                 <ToolTip Content="{StaticResource FirstHeader}"/>
             </Button.ToolTip>
         </Button>
-        <Button Command="{Binding ElementName=controlDbSetToolBar, Path=BackCommand}"
+        <Button Command="{Binding ElementName=control, Path=BackCommand}"
                 Style="{StaticResource ToolbarButtonStyle}">
             <Button.Content>
                 <Image Source="{StaticResource LeftArrowImage}"/>
@@ -25,14 +25,14 @@
                 <ToolTip Content="{StaticResource BackHeader}"/>
             </Button.ToolTip>
         </Button>
-        <TextBox Text="{Binding ElementName=controlDbSetToolBar, Path=SelectedNumber,
+        <TextBox Text="{Binding ElementName=control, Path=SelectedNumber,
                  UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource ToolbarHalfTextBoxStyle}"/>
         <Label Content="{StaticResource OutOfHeader}"
                Style="{StaticResource ToolbarLabelStyle}"/>
-        <Label Content="{Binding ElementName=controlDbSetToolBar, Path=Count}"
+        <Label Content="{Binding ElementName=control, Path=Count}"
                Style="{StaticResource ToolbarLabelStyle}"/>
-        <Button Command="{Binding ElementName=controlDbSetToolBar, Path=NextCommand}"
+        <Button Command="{Binding ElementName=control, Path=NextCommand}"
                 Style="{StaticResource ToolbarButtonStyle}">
             <Button.Content>
                 <Image Source="{StaticResource RightArrowImage}"/>
@@ -41,7 +41,7 @@
                 <ToolTip Content="{StaticResource NextHeader}"/>
             </Button.ToolTip>
         </Button>
-        <Button Command="{Binding ElementName=controlDbSetToolBar, Path=LastCommand}"
+        <Button Command="{Binding ElementName=control, Path=LastCommand}"
                 Style="{StaticResource ToolbarButtonStyle}">
             <Button.Content>
                 <Image Source="{StaticResource RightDoubleArrowImage}"/>
@@ -54,24 +54,15 @@
         <Label Content="{Binding Source={StaticResource SearchHeader},
                     Converter={StaticResource StringToHeaderConverter}}"
                Style="{StaticResource ToolbarLabelStyle}"/>
-        <TextBox Text="{Binding ElementName=controlDbSetToolBar, Path=SearchText,
+        <TextBox Text="{Binding ElementName=control, Path=SearchText,
             UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ToolbarTextBoxStyle}"/>
         <Label Content="{Binding Source={StaticResource FilterHeader},
                     Converter={StaticResource StringToHeaderConverter}}"
                Style="{StaticResource ToolbarLabelStyle}"/>
-        <TextBox Text="{Binding ElementName=controlDbSetToolBar, Path=FilterText,
+        <TextBox Text="{Binding ElementName=control, Path=FilterText,
             UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ToolbarTextBoxStyle}"/>
         <Separator/>
-        <Image Source="{StaticResource ChangeImage}" Style="{StaticResource ToolbarIconStyle}"/>
-        <Label Content="{Binding ElementName=controlDbSetToolBar, Path=TableChangesSet.TotalCount}"/>
-        <Image Source="{StaticResource AddImage}" Style="{StaticResource ToolbarIconStyle}"/>
-        <Label Content="{Binding ElementName=controlDbSetToolBar, Path=TableChangesSet.AddedCount}"/>
-        <Image Source="{StaticResource UpdateImage}" Style="{StaticResource ToolbarIconStyle}"/>
-        <Label Content="{Binding ElementName=controlDbSetToolBar, Path=TableChangesSet.ModifiedCount}"/>
-        <Image Source="{StaticResource RemoveImage}" Style="{StaticResource ToolbarIconStyle}"/>
-        <Label Content="{Binding ElementName=controlDbSetToolBar, Path=TableChangesSet.RemovedCount}"/>
-        <Separator/>
-        <Button Command="{Binding ElementName=controlDbSetToolBar, Path=AddCommand}"
+        <Button Command="{Binding ElementName=control, Path=AddCommand}"
                 Style="{StaticResource ToolbarButtonStyle}">
             <Button.Content>
                 <Image Source="{StaticResource AddImage}"/>
@@ -80,7 +71,7 @@
                 <ToolTip Content="{StaticResource AddHeader}"/>
             </Button.ToolTip>
         </Button>
-        <Button Command="{Binding ElementName=controlDbSetToolBar, Path=RemoveCommand}"
+        <Button Command="{Binding ElementName=control, Path=RemoveCommand}"
                 Style="{StaticResource ToolbarButtonStyle}">
             <Button.Content>
                 <Image Source="{StaticResource RemoveImage}"/>
@@ -89,7 +80,7 @@
                 <ToolTip Content="{StaticResource RemoveHeader}"/>
             </Button.ToolTip>
         </Button>
-        <Button Command="{Binding ElementName=controlDbSetToolBar, Path=SaveCommand}"
+        <Button Command="{Binding ElementName=control, Path=SaveCommand}"
                 Style="{StaticResource ToolbarButtonStyle}">
             <Button.Content>
                 <Image Source="{StaticResource SaveImage}"/>

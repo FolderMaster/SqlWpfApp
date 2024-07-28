@@ -13,9 +13,11 @@
         <c:GridDbSetToolBar DockPanel.Dock="Top" SaveCommand="{Binding [0].SaveCommand}"
                             SearchText="{Binding [0].SearchText, Mode=TwoWay}"
                             FilterText="{Binding [0].FilterText, Mode=TwoWay}"/>
+        <c:DbSetStatusBar DockPanel.Dock="Bottom" TableChangesSet="{Binding [0].TableChangesSet}"/>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <GroupBox Header="{StaticResource ThisTableHeader}" Grid.Row="0">
@@ -29,11 +31,11 @@
                     </i:Interaction.Behaviors>
                 </DataGrid>
             </GroupBox>
-            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Top"
-                          ShowsPreview="True" ResizeDirection="Rows" Height="3px"/>
-            <Grid Grid.Row="1">
+            <GridSplitter Grid.Row="1" Style="{StaticResource RowsGridSplitterStyle}"/>
+            <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <GroupBox Header="{StaticResource DependencyTableHeader}" Grid.Column="0">
@@ -45,8 +47,8 @@
                         </i:Interaction.Behaviors>
                     </DataGrid>
                 </GroupBox>
-                <GridSplitter Grid.Column="0" Width="3px"/>
-                <GroupBox Header="{StaticResource DependencyTableHeader}" Grid.Column="1">
+                <GridSplitter Grid.Column="1" Style="{StaticResource ColumnsGridSplitterStyle}"/>
+                <GroupBox Header="{StaticResource DependencyTableHeader}" Grid.Column="2">
                     <DataGrid ItemsSource="{Binding [2].DbSetLocal}" AutoGenerateColumns="True"
                           IsReadOnly="True" SelectedItem="{Binding [2].SelectedItem}"
                           SelectionUnit="CellOrRowHeader">

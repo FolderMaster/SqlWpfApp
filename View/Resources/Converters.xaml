@@ -9,4 +9,5 @@
     <c:EnumToVisibilityMultiConverter x:Key="EnumToVisibilityMultiConverter"/>
     <c:InverseBoolConverter x:Key="InverseBoolConverter"/>
     <c:BoolToEnumConverter x:Key="BoolToEnumConverter"/>
+    <c:InverseIntToBoolConverter x:Key="InverseIntToBoolConverter"/>
 </ResourceDictionary>

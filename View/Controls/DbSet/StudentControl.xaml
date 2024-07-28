@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:View.Controls.DbSet"
              mc:Ignorable="d"
-             Name="studentControl" d:DesignHeight="400" d:DesignWidth="600">
+             Name="control" d:DesignHeight="400" d:DesignWidth="600">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -16,34 +16,34 @@
             <StackPanel>
                 <Label Content="{Binding Source={StaticResource IDHeader},
                     Converter={StaticResource StringToHeaderConverter}}"/>
-                <ComboBox ItemsSource="{Binding ElementName=studentControl, Path=Persons}"
-                          SelectedItem="{Binding ElementName=studentControl, Path=Student.Person}"
-                          IsEnabled="{Binding ElementName=studentControl,
+                <ComboBox ItemsSource="{Binding ElementName=control, Path=Persons}"
+                          SelectedItem="{Binding ElementName=control, Path=Student.Person}"
+                          IsEnabled="{Binding ElementName=control,
                           Path=IsReadOnly, Converter={StaticResource InverseBoolConverter}}"
                           ItemTemplate="{StaticResource PersonTemplate}"/>
                 <Label Content="{Binding Source={StaticResource RecordBookNumberHeader},
                     Converter={StaticResource StringToHeaderConverter}}"/>
-                <TextBox Text="{Binding ElementName=studentControl,
+                <TextBox Text="{Binding ElementName=control,
                     Path=Student.RecordBookNumber}" IsReadOnly="{Binding
-                    ElementName=studentControl, Path=IsReadOnly}"/>
-                <CheckBox IsChecked="{Binding ElementName=studentControl,
-                    Path=Student.IsDeductible}" IsEnabled="{Binding ElementName=studentControl,
+                    ElementName=control, Path=IsReadOnly}"/>
+                <CheckBox IsChecked="{Binding ElementName=control,
+                    Path=Student.IsDeductible}" IsEnabled="{Binding ElementName=control,
                     Path=IsReadOnly, Converter={StaticResource InverseBoolConverter}}"
                           Content="{StaticResource IsDeductibleHeader}"/>
             </StackPanel>
         </GroupBox>
         <GroupBox Grid.Column="1" Header="{StaticResource ScholarshipsHeader}">
-            <ListBox ItemsSource="{Binding ElementName=studentControl, Path=Scholarships}"
-                     SelectedItem="{Binding ElementName=studentControl, Path=Student.Scholarship}"
+            <ListBox ItemsSource="{Binding ElementName=control, Path=Scholarships}"
+                     SelectedItem="{Binding ElementName=control, Path=Student.Scholarship}"
                      ItemTemplate="{StaticResource ScholarshipTemplate}" IsEnabled="{Binding
-                     ElementName=studentControl, Path=IsReadOnly, Converter={StaticResource
+                     ElementName=control, Path=IsReadOnly, Converter={StaticResource
                      InverseBoolConverter}}"/>
         </GroupBox>
         <GroupBox Grid.Column="2" Header="{StaticResource GroupsHeader}">
-            <ListBox ItemsSource="{Binding ElementName=studentControl, Path=Groups}"
-                     SelectedItem="{Binding ElementName=studentControl, Path=Student.Group}"
+            <ListBox ItemsSource="{Binding ElementName=control, Path=Groups}"
+                     SelectedItem="{Binding ElementName=control, Path=Student.Group}"
                      ItemTemplate="{StaticResource GroupTemplate}" IsEnabled="{Binding
-                     ElementName=studentControl, Path=IsReadOnly, Converter={StaticResource
+                     ElementName=control, Path=IsReadOnly, Converter={StaticResource
                      InverseBoolConverter}}"/>
         </GroupBox>
     </Grid>

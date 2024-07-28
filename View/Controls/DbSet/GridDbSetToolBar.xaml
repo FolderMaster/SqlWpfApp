@@ -5,33 +5,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:View.Controls.DbSet"
              mc:Ignorable="d"
-             Name="gridDbSetToolBar" d:DesignHeight="100" d:DesignWidth="600">
+             Name="control" d:DesignHeight="50" d:DesignWidth="400">
     <ToolBar>
         <Label Content="{Binding Source={StaticResource SearchHeader},
                     Converter={StaticResource StringToHeaderConverter}}"
                Style="{StaticResource ToolbarLabelStyle}"/>
-        <TextBox Text="{Binding ElementName=gridDbSetToolBar, Path=SearchText}"
+        <TextBox Text="{Binding ElementName=control, Path=SearchText}"
                  Style="{StaticResource ToolbarTextBoxStyle}"/>
         <Label Content="{Binding Source={StaticResource FilterHeader},
                     Converter={StaticResource StringToHeaderConverter}}"
                Style="{StaticResource ToolbarLabelStyle}"/>
-        <TextBox Text="{Binding ElementName=gridDbSetToolBar, Path=FilterText}"
+        <TextBox Text="{Binding ElementName=control, Path=FilterText}"
                  Style="{StaticResource ToolbarTextBoxStyle}"/>
         <Separator/>
-        <Image Source="{StaticResource ChangeImage}" Style="{StaticResource ToolbarIconStyle}"/>
-        <Label Content="{Binding ElementName=controlDbSetToolBar, Path=TableChangesSet.TotalCount}"
-               Style="{StaticResource ToolbarLabelStyle}"/>
-        <Image Source="{StaticResource AddImage}" Style="{StaticResource ToolbarIconStyle}"/>
-        <Label Content="{Binding ElementName=controlDbSetToolBar, Path=TableChangesSet.AddedCount}"
-               Style="{StaticResource ToolbarLabelStyle}"/>
-        <Image Source="{StaticResource UpdateImage}" Style="{StaticResource ToolbarIconStyle}"/>
-        <Label Content="{Binding ElementName=controlDbSetToolBar, Path=TableChangesSet.ModifiedCount}"
-               Style="{StaticResource ToolbarLabelStyle}"/>
-        <Image Source="{StaticResource RemoveImage}" Style="{StaticResource ToolbarIconStyle}"/>
-        <Label Content="{Binding ElementName=controlDbSetToolBar, Path=TableChangesSet.RemovedCount}"
-               Style="{StaticResource ToolbarLabelStyle}"/>
-        <Separator/>
-        <Button Command="{Binding ElementName=gridDbSetToolBar, Path=SaveCommand}"
+        <Button Command="{Binding ElementName=control, Path=SaveCommand}"
                 Style="{StaticResource ToolbarButtonStyle}">
             <Button.Content>
                 <Image Source="{StaticResource SaveImage}"/>

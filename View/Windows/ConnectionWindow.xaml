@@ -4,19 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Windows"
-        xmlns:converters="clr-namespace:View.Converters"
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Title="{StaticResource ConnectionHeader}"
         Icon="{StaticResource ConnectionIcon}"
         Height="{StaticResource ConnectionWindowHeight}"
         Width="{StaticResource ConnectionWindowWidth}">
-    <Window.Resources>
-        <ResourceDictionary>
-            <converters:StringToHeaderConverter x:Key="StringToHeaderConverter"/>
-            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter"/>
-        </ResourceDictionary>
-    </Window.Resources>
     <DockPanel LastChildFill="True">
         <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>

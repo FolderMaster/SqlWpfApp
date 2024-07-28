@@ -114,12 +114,6 @@ namespace View.Controls.DbSet
             set => SetValue(SaveCommandProperty, value);
         }
 
-        public TableChangesSet TableChangesSet
-        {
-            get => (TableChangesSet)GetValue(TableChangesSetProperty);
-            set => SetValue(TableChangesSetProperty, value);
-        }
-
         /// <summary>
         /// Свойство зависимости <see cref="FirstCommand"/>.
         /// </summary>
@@ -195,10 +189,6 @@ namespace View.Controls.DbSet
         /// </summary>
         public static DependencyProperty SaveCommandProperty =
             DependencyProperty.Register(nameof(SaveCommand), typeof(ICommand),
-                typeof(ControlDbSetToolBar), new FrameworkPropertyMetadata());
-
-        public static DependencyProperty TableChangesSetProperty =
-            DependencyProperty.Register(nameof(TableChangesSet), typeof(TableChangesSet),
                 typeof(ControlDbSetToolBar), new FrameworkPropertyMetadata());
 
         /// <summary>

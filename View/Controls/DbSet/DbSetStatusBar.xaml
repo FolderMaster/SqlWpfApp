@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="View.Controls.DbSet.DbSetStatusBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:View.Controls.DbSet"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="200" Name="control">
+    <StatusBar>
+        <StatusBarItem>
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{StaticResource ChangeImage}" Style="{StaticResource StatusbarIconStyle}"/>
+                <Label Content="{Binding ElementName=control, Path=TableChangesSet.TotalCount}"
+                       Style="{StaticResource StatusbarLabelStyle}"/>
+                <Image Source="{StaticResource AddImage}" Style="{StaticResource StatusbarIconStyle}"/>
+                <Label Content="{Binding ElementName=control, Path=TableChangesSet.AddedCount}"
+                       Style="{StaticResource StatusbarLabelStyle}"/>
+                <Image Source="{StaticResource UpdateImage}" Style="{StaticResource StatusbarIconStyle}"/>
+                <Label Content="{Binding ElementName=control, Path=TableChangesSet.ModifiedCount}"
+                       Style="{StaticResource StatusbarLabelStyle}"/>
+                <Image Source="{StaticResource RemoveImage}" Style="{StaticResource StatusbarIconStyle}"/>
+                <Label Content="{Binding ElementName=control, Path=TableChangesSet.RemovedCount}"
+                       Style="{StaticResource StatusbarLabelStyle}"/>
+            </StackPanel>
+        </StatusBarItem>
+    </StatusBar>
+</UserControl>

@@ -70,9 +70,10 @@
             <DataTemplate>
                 <ContentControl DataContext="{Binding}" Name="control">
                     <c:MsSqlServerDbConnectionControl
-                        SelectedConnection="{Binding DataContext.Connection, ElementName=control}"
-                        SelectedCredential="{Binding DataContext.Credential, ElementName=control}"
-                        ConnectionsData="{Binding DataContext.Data, ElementName=control}"/>
+                        ConnectionsData="{Binding DataContext.Data, ElementName=control, Mode=OneWay}"
+                        SelectedConnection="{Binding DataContext.Connection, ElementName=control, Mode=TwoWay}"
+                        SelectedCredential="{Binding DataContext.Credential, ElementName=control, Mode=TwoWay}"
+                        />
                 </ContentControl>
             </DataTemplate>
         </s:DbConnectionTemplateSelector.MsSqlServerTemplate>

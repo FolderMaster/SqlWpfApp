@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:View.Controls.DbSet"
              mc:Ignorable="d" 
-             Name="teacherControl" d:DesignHeight="450" d:DesignWidth="800">
+             Name="control" d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -16,25 +16,25 @@
             <StackPanel>
                 <Label Content="{Binding Source={StaticResource IDHeader},
                     Converter={StaticResource StringToHeaderConverter}}"/>
-                <ComboBox ItemsSource="{Binding ElementName=teacherControl, Path=Persons}"
-                          SelectedItem="{Binding ElementName=teacherControl, Path=Teacher.Person}"
-                          IsEnabled="{Binding ElementName=teacherControl,
+                <ComboBox ItemsSource="{Binding ElementName=control, Path=Persons}"
+                          SelectedItem="{Binding ElementName=control, Path=Teacher.Person}"
+                          IsEnabled="{Binding ElementName=control,
                           Path=IsReadOnly, Converter={StaticResource InverseBoolConverter}}"
                           ItemTemplate="{StaticResource PersonTemplate}"/>
             </StackPanel>
         </GroupBox>
         <GroupBox Grid.Column="1" Header="{StaticResource DepartmentsHeader}">
-            <ListBox ItemsSource="{Binding ElementName=teacherControl, Path=Departments}"
-                     SelectedItem="{Binding ElementName=teacherControl, Path=Teacher.Department}"
+            <ListBox ItemsSource="{Binding ElementName=control, Path=Departments}"
+                     SelectedItem="{Binding ElementName=control, Path=Teacher.Department}"
                      ItemTemplate="{StaticResource DepartmentTemplate}" IsEnabled="{Binding
-                     ElementName=teacherControl, Path=IsReadOnly, Converter={StaticResource
+                     ElementName=control, Path=IsReadOnly, Converter={StaticResource
                      InverseBoolConverter}}"/>
         </GroupBox>
         <GroupBox Grid.Column="2" Header="{StaticResource GroupsHeader}">
-            <ListBox ItemsSource="{Binding ElementName=teacherControl, Path=Positions}"
-                     SelectedItem="{Binding ElementName=teacherControl, Path=Teacher.Position}"
+            <ListBox ItemsSource="{Binding ElementName=control, Path=Positions}"
+                     SelectedItem="{Binding ElementName=control, Path=Teacher.Position}"
                      ItemTemplate="{StaticResource PositionTemplate}" IsEnabled="{Binding
-                     ElementName=teacherControl, Path=IsReadOnly, Converter={StaticResource
+                     ElementName=control, Path=IsReadOnly, Converter={StaticResource
                      InverseBoolConverter}}"/>
         </GroupBox>
     </Grid>

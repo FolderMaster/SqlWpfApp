@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:View.Controls.DbSet"
              mc:Ignorable="d" 
-             Name="gradeStatementControl" d:DesignHeight="450" d:DesignWidth="800">
+             Name="control" d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -18,42 +18,42 @@
             <StackPanel>
                 <Label Content="{Binding Source={StaticResource IDHeader},
                     Converter={StaticResource StringToHeaderConverter}}"/>
-                <TextBox Text="{Binding ElementName=gradeStatementControl, Path=GradeStatement.ID}"
-                         IsReadOnly="{Binding ElementName=gradeStatementControl, Path=IsReadOnly}"/>
+                <TextBox Text="{Binding ElementName=control, Path=GradeStatement.ID}"
+                         IsReadOnly="{Binding ElementName=control, Path=IsReadOnly}"/>
                 <Label Content="{Binding Source={StaticResource PassingDateHeader},
                     Converter={StaticResource StringToHeaderConverter}}"/>
-                <DatePicker SelectedDate="{Binding ElementName=gradeStatementControl,
+                <DatePicker SelectedDate="{Binding ElementName=control,
                     Path=GradeStatement.PassingDate, UpdateSourceTrigger=PropertyChanged}"
-                            IsEnabled="{Binding ElementName=gradeStatementControl,
+                            IsEnabled="{Binding ElementName=control,
                     Path=IsReadOnly, Converter={StaticResource InverseBoolConverter}}"/>
             </StackPanel>
         </GroupBox>
         <GroupBox Grid.Column="1" Header="{StaticResource DisciplinesHeader}">
-            <ListBox ItemsSource="{Binding ElementName=gradeStatementControl, Path=Disciplines}"
-                     SelectedItem="{Binding ElementName=gradeStatementControl,
+            <ListBox ItemsSource="{Binding ElementName=control, Path=Disciplines}"
+                     SelectedItem="{Binding ElementName=control,
                      Path=GradeStatement.Discipline}" ItemTemplate="{StaticResource
-                     DisciplineTemplate}" IsEnabled="{Binding ElementName=gradeStatementControl,
+                     DisciplineTemplate}" IsEnabled="{Binding ElementName=control,
                      Path=IsReadOnly, Converter={StaticResource InverseBoolConverter}}"/>
         </GroupBox>
         <GroupBox Grid.Column="2" Header="{StaticResource StudentsHeader}">
-            <ListBox ItemsSource="{Binding ElementName=gradeStatementControl, Path=Students}"
-                     SelectedItem="{Binding ElementName=gradeStatementControl,
+            <ListBox ItemsSource="{Binding ElementName=control, Path=Students}"
+                     SelectedItem="{Binding ElementName=control,
                      Path=GradeStatement.Student}" ItemTemplate="{StaticResource StudentTemplate}"
-                     IsEnabled="{Binding ElementName=gradeStatementControl, Path=IsReadOnly,
+                     IsEnabled="{Binding ElementName=control, Path=IsReadOnly,
                      Converter={StaticResource InverseBoolConverter}}"/>
         </GroupBox>
         <GroupBox Grid.Column="3" Header="{StaticResource TeachersHeader}">
-            <ListBox ItemsSource="{Binding ElementName=gradeStatementControl, Path=Teachers}"
-                     SelectedItem="{Binding ElementName=gradeStatementControl,
+            <ListBox ItemsSource="{Binding ElementName=control, Path=Teachers}"
+                     SelectedItem="{Binding ElementName=control,
                      Path=GradeStatement.Teacher}" ItemTemplate="{StaticResource TeacherTemplate}"
-                     IsEnabled="{Binding ElementName=gradeStatementControl, Path=IsReadOnly,
+                     IsEnabled="{Binding ElementName=control, Path=IsReadOnly,
                      Converter={StaticResource InverseBoolConverter}}"/>
         </GroupBox>
         <GroupBox Grid.Column="4" Header="{StaticResource GradesHeader}">
-            <ListBox ItemsSource="{Binding ElementName=gradeStatementControl, Path=Grades}"
-                     SelectedItem="{Binding ElementName=gradeStatementControl,
+            <ListBox ItemsSource="{Binding ElementName=control, Path=Grades}"
+                     SelectedItem="{Binding ElementName=control,
                      Path=GradeStatement.Grade}" ItemTemplate="{StaticResource GradeTemplate}"
-                     IsEnabled="{Binding ElementName=gradeStatementControl, Path=IsReadOnly,
+                     IsEnabled="{Binding ElementName=control, Path=IsReadOnly,
                      Converter={StaticResource InverseBoolConverter}}"/>
         </GroupBox>
     </Grid>

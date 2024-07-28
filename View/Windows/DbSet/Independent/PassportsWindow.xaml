@@ -4,16 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Windows.DbSet.Independent"
-        xmlns:converters="clr-namespace:View.Converters"
-        xmlns:controls="clr-namespace:View.Controls.DbSet"
+        xmlns:c="clr-namespace:View.Controls.DbSet"
         mc:Ignorable="d"
         Width="{StaticResource TableWindowWidth}" Height="{StaticResource TableWindowHeight}"
         Title="{StaticResource PassportsHeader}" Icon="{StaticResource PassportsIcon}">
-    <Window.Resources>
-        <ResourceDictionary>
-            <converters:InverseIntToBoolConverter x:Key="InverseIntToBoolConverter"/>
-        </ResourceDictionary>
-    </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Key="Down" Modifiers="Shift" Command="{Binding FirstCommand}"/>
         <KeyBinding Key="Left" Modifiers="Shift" Command="{Binding BackCommand}"/>
@@ -21,26 +15,25 @@
         <KeyBinding Key="Up" Modifiers="Shift" Command="{Binding LastCommand}"/>
     </Window.InputBindings>
     <DockPanel LastChildFill="True">
-        <controls:ControlDbSetToolBar FirstCommand="{Binding FirstCommand}"
-                                    BackCommand="{Binding BackCommand}"
-                                    SelectedNumber="{Binding SelectedNumber, Mode=TwoWay}"
-                                    Count="{Binding Count}"
-                                    NextCommand="{Binding NextCommand}"
-                                    LastCommand="{Binding LastCommand}"
-                                    SearchText="{Binding SearchText, Mode=TwoWay}"
-                                    FilterText="{Binding FilterText, Mode=TwoWay}"
-                                    AddCommand="{Binding AddCommand}"
-                                    RemoveCommand="{Binding RemoveCommand}"
-                                    SaveCommand="{Binding SaveCommand}"
-                                    TableChangesSet="{Binding TableChangesSet}"
-                                    DockPanel.Dock="Top"/>
-        <controls:PassportControl Passport="{Binding SelectedItem}"
-                                  LoadImageCommand="{Binding LoadImageCommand}"
-                                  SaveImageCommand="{Binding SaveImageCommand}"
-                                  MessageService="{Binding MessageService}"
-                                  ResourceService="{Binding ResourceService}"
-                                  FileService="{Binding FileService}"
-                                  IsReadOnly="{Binding SelectedNumber,
-                                  Converter={StaticResource InverseIntToBoolConverter}}"/>
+        <c:ControlDbSetToolBar DockPanel.Dock="Top" FirstCommand="{Binding FirstCommand}"
+                               BackCommand="{Binding BackCommand}"
+                               SelectedNumber="{Binding SelectedNumber, Mode=TwoWay}"
+                               Count="{Binding Count}"
+                               NextCommand="{Binding NextCommand}"
+                               LastCommand="{Binding LastCommand}"
+                               SearchText="{Binding SearchText, Mode=TwoWay}"
+                               FilterText="{Binding FilterText, Mode=TwoWay}"
+                               AddCommand="{Binding AddCommand}"
+                               RemoveCommand="{Binding RemoveCommand}"
+                               SaveCommand="{Binding SaveCommand}"/>
+        <c:DbSetStatusBar DockPanel.Dock="Bottom" TableChangesSet="{Binding TableChangesSet}"/>
+        <c:PassportControl Passport="{Binding SelectedItem}"
+                           LoadImageCommand="{Binding LoadImageCommand}"
+                           SaveImageCommand="{Binding SaveImageCommand}"
+                           MessageService="{Binding MessageService}"
+                           ResourceService="{Binding ResourceService}"
+                           FileService="{Binding FileService}"
+                           IsReadOnly="{Binding SelectedNumber,
+                           Converter={StaticResource InverseIntToBoolConverter}}"/>
     </DockPanel>
 </Window>

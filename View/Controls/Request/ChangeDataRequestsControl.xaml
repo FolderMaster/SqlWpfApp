@@ -11,6 +11,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -233,9 +234,8 @@
             <Button Grid.Row="1" Content="{StaticResource ExecuteRequestHeader}"
                     Command="{Binding ExecuteCommand}" Style="{StaticResource ButtonStyle}" MinWidth="0"/>
         </Grid>
-        <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top"
-                      ShowsPreview="True" ResizeDirection="Rows" Height="3px"/>
-        <GroupBox Header="{StaticResource ResultHeader}" Grid.Row="2">
+        <GridSplitter Grid.Row="2" Style="{StaticResource RowsGridSplitterStyle}"/>
+        <GroupBox Header="{StaticResource ResultHeader}" Grid.Row="3">
             <DataGrid ItemsSource="{Binding ExecutingResult}" AutoGenerateColumns="True"
                       IsReadOnly="True" SelectionUnit="CellOrRowHeader"/>
         </GroupBox>

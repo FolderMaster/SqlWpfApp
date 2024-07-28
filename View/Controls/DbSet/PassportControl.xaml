@@ -10,7 +10,7 @@
              xmlns:m="clr-namespace:Model;assembly=Model"
              xmlns:b="clr-namespace:View.Behaviors"
              mc:Ignorable="d" 
-             Name="passportControl" d:DesignHeight="400" d:DesignWidth="600">
+             Name="control" d:DesignHeight="400" d:DesignWidth="600">
     <UserControl.Resources>
         <ObjectDataProvider x:Key="SexEnum" MethodName="GetValues"
                     ObjectType="{x:Type sys:Enum}">
@@ -21,6 +21,7 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -42,54 +43,54 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Content="{Binding Source={StaticResource SerialNumberHeader},
                     Converter={StaticResource StringToHeaderConverter}}"/>
-                <ctrl:MaskedTextBox Grid.Row="1" OriginalText="{Binding ElementName=passportControl,
+                <ctrl:MaskedTextBox Grid.Row="1" OriginalText="{Binding ElementName=control,
                     Path=Passport.SerialNumber, UpdateSourceTrigger=PropertyChanged}"
-                    IsReadOnly="{Binding ElementName=passportControl, Path=IsReadOnly}"/>
+                    IsReadOnly="{Binding ElementName=control, Path=IsReadOnly}"/>
                 <Label Grid.Row="2" Content="{Binding Source={StaticResource NameHeader},
                     Converter={StaticResource StringToHeaderConverter}}"/>
-                <TextBox Grid.Row="3" Text="{Binding ElementName=passportControl,
+                <TextBox Grid.Row="3" Text="{Binding ElementName=control,
                     Path=Passport.Name, UpdateSourceTrigger=PropertyChanged}"
-                    IsReadOnly="{Binding ElementName=passportControl, Path=IsReadOnly}"/>
+                    IsReadOnly="{Binding ElementName=control, Path=IsReadOnly}"/>
                 <Label Grid.Row="4" Content="{Binding Source={StaticResource BirthDateHeader},
                     Converter={StaticResource StringToHeaderConverter}}"/>
-                <DatePicker Grid.Row="5" SelectedDate="{Binding ElementName=passportControl,
+                <DatePicker Grid.Row="5" SelectedDate="{Binding ElementName=control,
                     Path=Passport.BirthDate, UpdateSourceTrigger=PropertyChanged}"
-                    IsEnabled="{Binding ElementName=passportControl,
+                    IsEnabled="{Binding ElementName=control,
                     Path=IsReadOnly, Converter={StaticResource InverseBoolConverter}}"/>
                 <Label Grid.Row="6" Content="{Binding Source={StaticResource AgeHeader},
                     Converter={StaticResource StringToHeaderConverter}}"/>
-                <TextBox Grid.Row="7" Text="{Binding Passport.Age, ElementName=passportControl, Mode=OneWay}"
+                <TextBox Grid.Row="7" Text="{Binding Passport.Age, ElementName=control, Mode=OneWay}"
                          IsReadOnly="True"/>
                 <Label Grid.Row="8" Content="{Binding Source={StaticResource SexHeader},
                     Converter={StaticResource StringToHeaderConverter}}"/>
                 <ComboBox Grid.Row="9" ItemsSource="{Binding Source={StaticResource SexEnum}}"
-                    SelectedItem="{Binding ElementName=passportControl,Path=Passport.Sex,
+                    SelectedItem="{Binding ElementName=control,Path=Passport.Sex,
                     Converter={StaticResource BoolToEnumConverter}, ConverterParameter='Model.Sex'}"
-                    IsEnabled="{Binding ElementName=passportControl, Path=IsReadOnly,
+                    IsEnabled="{Binding ElementName=control, Path=IsReadOnly,
                     Converter={StaticResource InverseBoolConverter}}"/>
                 <Label Grid.Row="10" Content="{Binding
                     Source={StaticResource PermanentResidenceAddressHeader},
                     Converter={StaticResource StringToHeaderConverter}}"/>
-                <TextBox Grid.Row="11" IsReadOnly="{Binding IsReadOnly, ElementName=passportControl}"
-                    Text="{Binding Passport.PermanentResidenceAddress, ElementName=passportControl,
+                <TextBox Grid.Row="11" IsReadOnly="{Binding IsReadOnly, ElementName=control}"
+                    Text="{Binding Passport.PermanentResidenceAddress, ElementName=control,
                     UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MultiStringTextBox}"/>
             </Grid>
         </GroupBox>
-        <GridSplitter Grid.Column="0" Width="3px"/>
-        <Grid Grid.Column="1">
+        <GridSplitter Grid.Column="1" Style="{StaticResource ColumnsGridSplitterStyle}"/>
+        <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <GroupBox Grid.Row="0" Header="{StaticResource ScanHeader}">
-                <Image Source="{Binding ElementName=passportControl, Path=Passport.Scan,
+                <Image Source="{Binding ElementName=control, Path=Passport.Scan,
                     TargetNullValue={StaticResource NoImage}}" AllowDrop="True">
                     <i:Interaction.Behaviors>
                         <b:DragDropImageBehavior
-                            Image="{Binding Passport.Scan, ElementName=passportControl, Mode=TwoWay}"
-                            ResourceService="{Binding ResourceService, ElementName=passportControl}"
-                            MessageService="{Binding MessageService, ElementName=passportControl}"
-                            FileService="{Binding FileService, ElementName=passportControl}"/>
+                            Image="{Binding Passport.Scan, ElementName=control, Mode=TwoWay}"
+                            ResourceService="{Binding ResourceService, ElementName=control}"
+                            MessageService="{Binding MessageService, ElementName=control}"
+                            FileService="{Binding FileService, ElementName=control}"/>
                     </i:Interaction.Behaviors>
                 </Image>
             </GroupBox>
@@ -99,10 +100,10 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Content="{StaticResource SaveHeader}"
-                    Command="{Binding ElementName=passportControl, Path=SaveImageCommand}"
+                    Command="{Binding ElementName=control, Path=SaveImageCommand}"
                     Style="{StaticResource ButtonStyle}" MinWidth="0"/>
                 <Button Grid.Column="1" Content="{StaticResource LoadHeader}"
-                    Command="{Binding ElementName=passportControl, Path=LoadImageCommand}"
+                    Command="{Binding ElementName=control, Path=LoadImageCommand}"
                     Style="{StaticResource ButtonStyle}" MinWidth="0"/>
             </Grid>
         </Grid>

@@ -12,6 +12,7 @@
         <c:GridDbSetToolBar DockPanel.Dock="Top" SaveCommand="{Binding [0].SaveCommand}"
                             SearchText="{Binding [0].SearchText, Mode=TwoWay}"
                             FilterText="{Binding [0].FilterText, Mode=TwoWay}"/>
+        <c:DbSetStatusBar DockPanel.Dock="Bottom" TableChangesSet="{Binding [0].TableChangesSet}"/>
         <DataGrid ItemsSource="{Binding [0].FinalDbSetLocal}" AutoGenerateColumns="True"
                   SelectedItem="{Binding [0].SelectedItem}" SelectionUnit="CellOrRowHeader">
             <i:Interaction.Behaviors>
