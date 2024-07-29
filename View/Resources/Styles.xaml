@@ -37,6 +37,13 @@
             <Setter Property="Width" Value="{StaticResource HalfToolbarTextBoxWidth}"/>
         </Style.Setters>
     </Style>
+    <Style x:Key="ToolbarListBoxStyle" TargetType="FrameworkElement"
+           BasedOn="{StaticResource BarElementStyle}">
+        <Style.Setters>
+            <Setter Property="Height" Value="{StaticResource ToolbarItemSize}"/>
+            <Setter Property="Width" Value="{StaticResource ToolbarItemSize}"/>
+        </Style.Setters>
+    </Style>
 
     <Style x:Key="StatusbarIconStyle" TargetType="FrameworkElement"
            BasedOn="{StaticResource BarElementStyle}">

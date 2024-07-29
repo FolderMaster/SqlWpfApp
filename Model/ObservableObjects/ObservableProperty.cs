@@ -30,12 +30,13 @@
 
         public object? GetValueForOwner(ObservableObject owner) => _values[owner];
 
-        public bool UpdateValueForOwner(ObservableObject owner, object? value)
+        public bool UpdateValueForOwner(ObservableObject owner, object? newValue)
         {
-            if (IsNotCompare(_values[owner], value))
+            if (IsNotCompare(_values[owner], newValue))
             {
-                _values[owner] = value;
-                _callback?.Invoke(new ObservableArgs(Name, owner, value));
+                var oldValue = _values[owner];
+                _values[owner] = newValue;
+                _callback?.Invoke(new ObservableArgs(Name, owner, oldValue, newValue));
                 return true;
             }
             return false;
@@ -49,7 +50,7 @@
                 var value = _values[owner];
                 foreach (var validation in _validations)
                 {
-                    var error = validation(new ObservableArgs(Name, owner, value));
+                    var error = validation(new ObservableArgs(Name, owner, value, value));
                     if (error != null)
                     {
                         result.Add(error);

@@ -21,8 +21,11 @@
                                Count="{Binding Count}"
                                NextCommand="{Binding NextCommand}"
                                LastCommand="{Binding LastCommand}"
+                               Properties="{Binding Properties}"
                                SearchText="{Binding SearchText, Mode=TwoWay}"
+                               SearchProperties="{Binding SearchProperties}"
                                FilterText="{Binding FilterText, Mode=TwoWay}"
+                               FilterProperties="{Binding FilterProperties}"
                                AddCommand="{Binding AddCommand}"
                                RemoveCommand="{Binding RemoveCommand}"
                                SaveCommand="{Binding SaveCommand}"/>

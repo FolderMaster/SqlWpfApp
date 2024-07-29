@@ -191,22 +191,7 @@ namespace ViewModel.Dependencies.DataBase
             }
         }
 
-        public void RejectChanges<TEntity>() where TEntity : class
-        {
-            foreach (var entry in ChangeTracker.Entries<TEntity>())
-            {
-                switch (entry.State)
-                {
-                    case EntityState.Added:
-                        entry.State = EntityState.Detached;
-                        break;
-                    case EntityState.Modified:
-                    case EntityState.Deleted:
-                        entry.State = EntityState.Unchanged;
-                        break;
-                }
-            }
-        }
+        public void RejectChanges<TEntity>() where TEntity : class => ChangeTracker.Clear();
 
         public ObservableCollection<TEntity> GetDbSetLocal<TEntity>() where TEntity : class
         {

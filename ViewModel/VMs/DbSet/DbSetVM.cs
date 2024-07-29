@@ -71,10 +71,10 @@ namespace ViewModel.VMs.DbSet
         /// <summary>
         /// Список методов возврата свойств.
         /// </summary>
-        protected List<PropertyInfo> _getMethodList;
+        protected Dictionary<string, MethodInfo> _getPropertiesDictionary;
 
         [ObservableProperty]
-        protected TableChangesSet tableChangesSet = new();
+        protected TableChangesSet tableChangesSet;
 
         /// <summary>
         /// Возвращает и задаёт локальное представление таблицы из базы данных.
@@ -182,9 +182,19 @@ namespace ViewModel.VMs.DbSet
         }
 
         /// <summary>
-        /// Возвращает и задаёт название выбранного свойства.
+        /// Возвращает и задаёт свойства.
         /// </summary>
-        public string SelectedPropertyName { get; set; } = "";
+        public IEnumerable<string> Properties { get; private set; }
+
+        /// <summary>
+        /// Возвращает и задаёт свойства для поиска.
+        /// </summary>
+        public IEnumerable<string> SearchProperties { get; private set; }
+
+        /// <summary>
+        /// Возвращает и задаёт свойства для фильтрации.
+        /// </summary>
+        public IEnumerable<string> FilterProperties { get; private set; }
 
         /// <summary>
         /// Возвращает и задаёт команду сохранения.
@@ -209,8 +219,14 @@ namespace ViewModel.VMs.DbSet
             _resourceService = resourceService;
             _messageService = messageService;
             MessengerService.ExecuteWithExceptionMessage(resourceService, messageService,
-                () => DbSetLocal = _session.DbContext.GetDbSetLocal<T>(),
+                () =>
+                {
+                    DbSetLocal = _session.DbContext.GetDbSetLocal<T>();
+                    TableChangesSet = new(DbSetLocal);
+                    DbSetLocal.CollectionChanged += TableChangesSet.CollectionChanged;
+                },
                 () => SaveCommand?.NotifyCanExecuteChanged());
+
             SaveCommand = new RelayCommand(() =>
                 MessengerService.ExecuteWithExceptionMessage(resourceService, messageService, () =>
                 {
@@ -221,8 +237,17 @@ namespace ViewModel.VMs.DbSet
                     _session.DbContext.RejectChanges<T>();
                 }
                 ), () => DbSetLocal != null);
-            _getMethodList =
-                typeof(T).GetProperties().Where((p) => p.GetGetMethod() != null).ToList();
+
+            _getPropertiesDictionary = typeof(T).GetProperties().
+                Where((p) => p.GetGetMethod() != null).
+                ToDictionary((p) => p.Name, (p) => p.GetGetMethod());
+            Properties = _getPropertiesDictionary.Keys;
+            var searchProperties = new ObservableCollection<string>(Properties);
+            searchProperties.CollectionChanged += SearchProperties_CollectionChanged;
+            SearchProperties = searchProperties;
+            var filterProperties = new ObservableCollection<string>(Properties);
+            filterProperties.CollectionChanged += FilterProperties_CollectionChanged;
+            FilterProperties = filterProperties;
         }
 
         /// <summary>
@@ -245,8 +270,7 @@ namespace ViewModel.VMs.DbSet
             ObservableCollection<T> collection;
             if (!string.IsNullOrEmpty(FilterText))
             {
-                List<PropertyInfo> properties = GetPropertiesForCondition();
-
+                var properties = GetPropertiesForCondition(FilterProperties);
                 collection = [];
                 foreach (var item in DbSetLocal)
                 {
@@ -287,8 +311,7 @@ namespace ViewModel.VMs.DbSet
         {
             if (!string.IsNullOrEmpty(SearchText))
             {
-                List<PropertyInfo> properties = GetPropertiesForCondition();
-
+                var properties = GetPropertiesForCondition(SearchProperties);
                 foreach (var item in FinalDbSetLocal)
                 {
                     bool doFind = false;
@@ -317,9 +340,10 @@ namespace ViewModel.VMs.DbSet
         /// <param name="item">Элемент.</param>
         /// <returns>Логическое значение, указывающее было ли найдено совпадение в значении
         /// свойства.</returns>
-        private static bool IsMatchTextInValueOfProperty(string matchText, PropertyInfo property, T item)
+        private static bool IsMatchTextInValueOfProperty
+            (string matchText, MethodInfo property, T item)
         {
-            var value = property.GetValue(item);
+            var value = property.Invoke(item, []);
             var text = value != null ? value.ToString() : "";
             return text.IndexOf(matchText, StringComparison.OrdinalIgnoreCase) != -1;
         }
@@ -328,9 +352,19 @@ namespace ViewModel.VMs.DbSet
         /// Возвращает свойства по условию.
         /// </summary>
         /// <returns>Список свойств.</returns>
-        private List<PropertyInfo> GetPropertiesForCondition() =>
-            string.IsNullOrEmpty(SelectedPropertyName) ? _getMethodList :
-                [_getMethodList.First((p) => p.Name == SelectedPropertyName)];
+        private IEnumerable<MethodInfo> GetPropertiesForCondition
+            (IEnumerable<string> propertyNames) => _getPropertiesDictionary.Where((p) =>
+                propertyNames.Any((n) => n == p.Key)).Select((p) => p.Value);
+
+        private void SearchProperties_CollectionChanged(object? sender,
+            NotifyCollectionChangedEventArgs e) => Search();
+
+        private void FilterProperties_CollectionChanged(object? sender,
+            NotifyCollectionChangedEventArgs e)
+        {
+            Filter();
+            Search();
+        }
 
         private void FinalDbSetLocal_CollectionChanged(object? sender,
             NotifyCollectionChangedEventArgs e)
@@ -340,12 +374,10 @@ namespace ViewModel.VMs.DbSet
                 case NotifyCollectionChangedAction.Add:
                     var newItem = e.NewItems[0];
                     DbSetLocal.Add((T)newItem);
-                    TableChangesSet.AddedCount++;
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     var oldItem = e.OldItems[0];
                     DbSetLocal.Remove((T)oldItem);
-                    TableChangesSet.RemovedCount++;
                     break;
             }
         }

@@ -1,40 +1,107 @@
-﻿namespace ViewModel.Classes
+﻿using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
+
+using Model.ObservableObjects;
+
+namespace ViewModel.Classes
 {
-    public class TableChangesSet
+    public class TableChangesSet : ObservableObject
     {
-        private int _addedCount;
+        public static ObservableProperty AddedCountProperty = RegisterProperty
+            (typeof(TableChangesSet), nameof(AddedCount), 0, null,
+            (o) => ((TableChangesSet)o.Owner).TotalCount += (int)o.NewValue - (int)o.OldValue);
 
-        private int _removedCount;
+        public static ObservableProperty RemovedCountProperty = RegisterProperty
+            (typeof(TableChangesSet), nameof(RemovedCount), 0, null,
+            (o) => ((TableChangesSet)o.Owner).TotalCount += (int)o.NewValue - (int)o.OldValue);
 
-        private int _modifiedCount;
+        public static ObservableProperty ModifiedCountProperty = RegisterProperty
+            (typeof(TableChangesSet), nameof(ModifiedCount), 0, null,
+            (o) => ((TableChangesSet)o.Owner).TotalCount += (int)o.NewValue - (int)o.OldValue);
+
+        public static ObservableProperty TotalCountProperty = RegisterProperty
+            (typeof(TableChangesSet), nameof(TotalCount), 0);
+
+        private readonly List<object> _addedList = new List<object>();
+
+        private readonly List<object> _removedList = new List<object>();
+
+        private readonly List<object> _modifiedList = new List<object>();
 
         public int AddedCount
         {
-            get => _addedCount;
-            set => _addedCount = value;
+            get => (int)GetProperty(AddedCountProperty);
+            set => SetProperty(value, AddedCountProperty);
         }
 
         public int RemovedCount
         {
-            get => _removedCount;
-            set => _removedCount = value;
+            get => (int)GetProperty(RemovedCountProperty);
+            set => SetProperty(value, RemovedCountProperty);
         }
 
         public int ModifiedCount
         {
-            get => _modifiedCount;
-            set => _modifiedCount = value; 
+            get => (int)GetProperty(ModifiedCountProperty);
+            set => SetProperty(value, ModifiedCountProperty);
         }
 
-        public int TotalCount => _addedCount + _removedCount + _modifiedCount;
-
-        public TableChangesSet() { }
-
-        public TableChangesSet(int addedCount, int removedCount, int modifiedCount)
+        public int TotalCount
         {
-            AddedCount = addedCount;
-            RemovedCount = removedCount;
-            ModifiedCount = modifiedCount;
+            get => (int)GetProperty(TotalCountProperty);
+            private set => SetProperty(value, TotalCountProperty);
+        }
+
+        static TableChangesSet() { }
+
+        public TableChangesSet(IEnumerable<object> dbSetLocal)
+        {
+            foreach (var item in dbSetLocal)
+            {
+                if(item is INotifyPropertyChanged notify)
+                {
+                    notify.PropertyChanged += Notify_PropertyChanged;
+                }
+            }
+        }
+
+        public void CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    var addedItem = e.NewItems[0];
+                    _addedList.Add(addedItem);
+                    AddedCount++;
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    var removedItem = e.OldItems[0];
+                    if (_addedList.Contains(removedItem))
+                    {
+                        _addedList.Remove(removedItem);
+                        AddedCount--;
+                    }
+                    else
+                    {
+                        _removedList.Add(removedItem);
+                        RemovedCount++;
+                        if (removedItem is INotifyPropertyChanged removedNotify)
+                        {
+                            removedNotify.PropertyChanged -= Notify_PropertyChanged;
+                        }
+                    }
+                    break;
+            }
+        }
+
+        private void Notify_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (!_modifiedList.Contains(sender))
+            {
+                _modifiedList.Add(sender);
+                ModifiedCount++;
+            }
         }
     }
 }

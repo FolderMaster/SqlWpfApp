@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -114,6 +116,24 @@ namespace View.Controls.DbSet
             set => SetValue(SaveCommandProperty, value);
         }
 
+        public IEnumerable<object> Properties
+        {
+            get => (IEnumerable<object>)GetValue(PropertiesProperty);
+            set => SetValue(PropertiesProperty, value);
+        }
+
+        public IEnumerable<object> SearchProperties
+        {
+            get => (IEnumerable<object>)GetValue(SearchPropertiesProperty);
+            set => SetValue(SearchPropertiesProperty, value);
+        }
+
+        public IEnumerable<object> FilterProperties
+        {
+            get => (IEnumerable<object>)GetValue(FilterPropertiesProperty);
+            set => SetValue(FilterPropertiesProperty, value);
+        }
+
         /// <summary>
         /// Свойство зависимости <see cref="FirstCommand"/>.
         /// </summary>
@@ -189,6 +209,18 @@ namespace View.Controls.DbSet
         /// </summary>
         public static DependencyProperty SaveCommandProperty =
             DependencyProperty.Register(nameof(SaveCommand), typeof(ICommand),
+                typeof(ControlDbSetToolBar), new FrameworkPropertyMetadata());
+
+        public static DependencyProperty PropertiesProperty =
+            DependencyProperty.Register(nameof(Properties), typeof(IEnumerable<object>),
+                typeof(ControlDbSetToolBar), new FrameworkPropertyMetadata());
+
+        public static DependencyProperty SearchPropertiesProperty =
+            DependencyProperty.Register(nameof(SearchProperties), typeof(IEnumerable<object>),
+                typeof(ControlDbSetToolBar), new FrameworkPropertyMetadata());
+
+        public static DependencyProperty FilterPropertiesProperty =
+            DependencyProperty.Register(nameof(FilterProperties), typeof(IEnumerable<object>),
                 typeof(ControlDbSetToolBar), new FrameworkPropertyMetadata());
 
         /// <summary>

@@ -18,19 +18,19 @@ namespace Model.Independent
     {
         public static ObservableProperty SerialNumberProperty =
             RegisterProperty(typeof(Passport), nameof(SerialNumber), "",
-                [(o) => ValueValidator.AssertStringOnEqualLength((string)o.Value, 10, o.Name)]);
+                [(o) => ValueValidator.AssertStringOnEqualLength((string)o.NewValue, 10, o.Name)]);
 
         public static ObservableProperty NameProperty =
             RegisterProperty(typeof(Passport), nameof(Name), "",
-                [(o) => ValueValidator.AssertStringOnLessLength((string)o.Value, 64, o.Name)]);
+                [(o) => ValueValidator.AssertStringOnLessLength((string)o.NewValue, 64, o.Name)]);
 
         public static ObservableProperty PermanentResidenceAddressProperty =
             RegisterProperty(typeof(Passport), nameof(PermanentResidenceAddress), "",
-                [(o) => ValueValidator.AssertStringOnLessLength((string)o.Value, 64, o.Name)]);
+                [(o) => ValueValidator.AssertStringOnLessLength((string)o.NewValue, 64, o.Name)]);
 
         public static ObservableProperty ScanProperty =
             RegisterProperty(typeof(Passport), nameof(Scan), null,
-                [(o) => ValueValidator.AssertOnNotNullValue(o.Value, o.Name)]);
+                [(o) => ValueValidator.AssertOnNotNullValue(o.NewValue, o.Name)]);
 
         public static ObservableProperty BirthDateProperty =
             RegisterProperty(typeof(Passport), nameof(BirthDate), DateTime.Now, null,

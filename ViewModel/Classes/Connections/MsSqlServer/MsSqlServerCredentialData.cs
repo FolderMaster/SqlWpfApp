@@ -7,7 +7,7 @@ namespace ViewModel.Classes.Connections.MsSqlServer
     {
         public static readonly ObservableProperty UserProperty = RegisterProperty
             (typeof(MsSqlServerCredentialData), nameof(User), null,
-            [(o) => ValueValidator.AssertStringIsNotNullOrEmpty((string)o.Value, o.Name)]);
+            [(o) => ValueValidator.AssertStringIsNotNullOrEmpty((string)o.NewValue, o.Name)]);
 
         public string User
         {

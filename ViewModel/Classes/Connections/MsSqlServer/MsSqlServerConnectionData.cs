@@ -7,11 +7,11 @@ namespace ViewModel.Classes.Connections.MsSqlServer
     {
         public static readonly ObservableProperty DataSourceProperty = RegisterProperty
             (typeof(MsSqlServerConnectionData), nameof(DataSource), null,
-            [(o) => ValueValidator.AssertStringIsNotNullOrEmpty((string)o.Value, o.Name)]);
+            [(o) => ValueValidator.AssertStringIsNotNullOrEmpty((string)o.NewValue, o.Name)]);
 
         public static readonly ObservableProperty InitialCatalogProperty = RegisterProperty
             (typeof(MsSqlServerConnectionData), nameof(InitialCatalog), null,
-            [(o) => ValueValidator.AssertStringIsNotNullOrEmpty((string)o.Value, o.Name)]);
+            [(o) => ValueValidator.AssertStringIsNotNullOrEmpty((string)o.NewValue, o.Name)]);
 
         public string DataSource
         {

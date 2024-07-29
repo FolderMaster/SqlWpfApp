@@ -10,16 +10,17 @@
         Height="{StaticResource TableWindowHeight}" Width="{StaticResource TableWindowWidth}">
     <DockPanel LastChildFill="True">
         <c:GridDbSetToolBar DockPanel.Dock="Top" SaveCommand="{Binding [0].SaveCommand}"
+                            Properties="{Binding [0].Properties}"
                             SearchText="{Binding [0].SearchText, Mode=TwoWay}"
-                            FilterText="{Binding [0].FilterText, Mode=TwoWay}"/>
+                            SearchProperties="{Binding [0].SearchProperties}"
+                            FilterText="{Binding [0].FilterText, Mode=TwoWay}"
+                            FilterProperties="{Binding [0].FilterProperties}"/>
         <c:DbSetStatusBar DockPanel.Dock="Bottom" TableChangesSet="{Binding [0].TableChangesSet}"/>
         <DataGrid ItemsSource="{Binding [0].FinalDbSetLocal}"
                   SelectedItem="{Binding [0].SelectedItem}"
-                  Style="{StaticResource ReadonlyDataGridStyle}">
+                  Style="{StaticResource DataGridStyle}">
             <i:Interaction.Behaviors>
-                <b:DbSetDataGridBehavior CreateColumnPredicate="{Binding [1]}"
-                                         SelectedPropertyName="{Binding [0].SelectedPropertyName,
-                                         Mode=OneWayToSource}"/>
+                <b:DbSetDataGridBehavior CreateColumnPredicate="{Binding [1]}"/>
             </i:Interaction.Behaviors>
         </DataGrid>
     </DockPanel>

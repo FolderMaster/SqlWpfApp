@@ -6,13 +6,17 @@
 
         public ObservableObject Owner { get; private set; }
 
-        public object? Value { get; private set; }
+        public object? NewValue { get; private set; }
 
-        public ObservableArgs(string name, ObservableObject owner, object? value)
+        public object? OldValue { get; private set; }
+
+        public ObservableArgs(string name, ObservableObject owner,
+            object? oldValue, object? newValue)
         {
             Name = name;
             Owner = owner;
-            Value = value;
+            OldValue = oldValue;
+            NewValue = newValue;
         }
     }
 }

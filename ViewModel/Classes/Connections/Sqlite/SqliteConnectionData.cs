@@ -7,7 +7,7 @@ namespace ViewModel.Classes.Connections.Sqlite
     {
         public static readonly ObservableProperty DataSourceProperty = RegisterProperty
             (typeof(SqliteConnectionData), nameof(DataSource), null,
-            [(o) => ValueValidator.AssertStringIsNotNullOrEmpty((string)o.Value, o.Name)]);
+            [(o) => ValueValidator.AssertStringIsNotNullOrEmpty((string)o.NewValue, o.Name)]);
 
         public string DataSource
         {

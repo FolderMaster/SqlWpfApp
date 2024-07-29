@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -37,6 +38,24 @@ namespace View.Controls.DbSet
             set => SetValue(FilterTextProperty, value);
         }
 
+        public IEnumerable<object> Properties
+        {
+            get => (IEnumerable<object>)GetValue(PropertiesProperty);
+            set => SetValue(PropertiesProperty, value);
+        }
+
+        public IEnumerable<object> SearchProperties
+        {
+            get => (IEnumerable<object>)GetValue(SearchPropertiesProperty);
+            set => SetValue(SearchPropertiesProperty, value);
+        }
+
+        public IEnumerable<object> FilterProperties
+        {
+            get => (IEnumerable<object>)GetValue(FilterPropertiesProperty);
+            set => SetValue(FilterPropertiesProperty, value);
+        }
+
         /// <summary>
         /// Свойство зависимости <see cref="SaveCommand"/>.
         /// </summary>
@@ -56,6 +75,18 @@ namespace View.Controls.DbSet
         /// </summary>
         public static DependencyProperty FilterTextProperty =
             DependencyProperty.Register(nameof(FilterText), typeof(string),
+                typeof(GridDbSetToolBar), new FrameworkPropertyMetadata());
+
+        public static DependencyProperty PropertiesProperty =
+            DependencyProperty.Register(nameof(Properties), typeof(IEnumerable<object>),
+                typeof(GridDbSetToolBar), new FrameworkPropertyMetadata());
+
+        public static DependencyProperty SearchPropertiesProperty =
+            DependencyProperty.Register(nameof(SearchProperties), typeof(IEnumerable<object>),
+                typeof(GridDbSetToolBar), new FrameworkPropertyMetadata());
+
+        public static DependencyProperty FilterPropertiesProperty =
+            DependencyProperty.Register(nameof(FilterProperties), typeof(IEnumerable<object>),
                 typeof(GridDbSetToolBar), new FrameworkPropertyMetadata());
 
         /// <summary>

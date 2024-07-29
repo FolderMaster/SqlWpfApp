@@ -56,11 +56,18 @@
                Style="{StaticResource ToolbarLabelStyle}"/>
         <TextBox Text="{Binding ElementName=control, Path=SearchText,
             UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ToolbarTextBoxStyle}"/>
+        <local:ToggleContentControl Style="{StaticResource ToolbarListBoxStyle}">
+            <ListBox ItemsSource="{Binding Properties, ElementName=control}"/>
+        </local:ToggleContentControl>
+        <Separator/>
         <Label Content="{Binding Source={StaticResource FilterHeader},
                     Converter={StaticResource StringToHeaderConverter}}"
                Style="{StaticResource ToolbarLabelStyle}"/>
         <TextBox Text="{Binding ElementName=control, Path=FilterText,
             UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ToolbarTextBoxStyle}"/>
+        <local:ToggleContentControl Style="{StaticResource ToolbarListBoxStyle}">
+            <ListBox ItemsSource="{Binding Properties, ElementName=control}"/>
+        </local:ToggleContentControl>
         <Separator/>
         <Button Command="{Binding ElementName=control, Path=AddCommand}"
                 Style="{StaticResource ToolbarButtonStyle}">
