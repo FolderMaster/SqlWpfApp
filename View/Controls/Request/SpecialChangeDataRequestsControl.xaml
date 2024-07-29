@@ -168,8 +168,8 @@
         </Grid>
         <GridSplitter Grid.Row="2" Style="{StaticResource RowsGridSplitterStyle}"/>
         <GroupBox Header="{StaticResource ResultHeader}" Grid.Row="3">
-            <DataGrid ItemsSource="{Binding ExecutingResult}" AutoGenerateColumns="True"
-                      IsReadOnly="True" SelectionUnit="CellOrRowHeader"/>
+            <DataGrid ItemsSource="{Binding ExecutingResult}"
+                      Style="{StaticResource ReadonlyDataGridStyle}"/>
         </GroupBox>
     </Grid>
 </UserControl>

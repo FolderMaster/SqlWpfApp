@@ -106,4 +106,17 @@
             <Setter Property="VerticalAlignment" Value="Stretch"/>
         </Style.Setters>
     </Style>
+
+    <Style x:Key="DataGridStyle" TargetType="DataGrid">
+        <Style.Setters>
+            <Setter Property="AutoGenerateColumns" Value="True"/>
+            <Setter Property="SelectionUnit" Value="CellOrRowHeader"/>
+        </Style.Setters>
+    </Style>
+    <Style x:Key="ReadonlyDataGridStyle" TargetType="DataGrid"
+           BasedOn="{StaticResource DataGridStyle}">
+        <Style.Setters>
+            <Setter Property="IsReadOnly" Value="True"/>
+        </Style.Setters>
+    </Style>
 </ResourceDictionary>

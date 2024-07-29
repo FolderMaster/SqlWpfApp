@@ -21,9 +21,9 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <GroupBox Header="{StaticResource ThisTableHeader}" Grid.Row="0">
-                <DataGrid ItemsSource="{Binding [0].FinalDbSetLocal}" AutoGenerateColumns="True"
+                <DataGrid ItemsSource="{Binding [0].FinalDbSetLocal}"
                           SelectedItem="{Binding [0].SelectedItem}"
-                          SelectionUnit="CellOrRowHeader">
+                          Style="{StaticResource DataGridStyle}">
                     <i:Interaction.Behaviors>
                         <b:DbSetDataGridBehavior CreateColumnPredicate="{Binding [2]}"
                                                  SelectedPropertyName="{Binding
@@ -33,9 +33,9 @@
             </GroupBox>
             <GridSplitter Grid.Row="1" Style="{StaticResource RowsGridSplitterStyle}"/>
             <GroupBox Header="{StaticResource DependencyTableHeader}" Grid.Row="2">
-                <DataGrid ItemsSource="{Binding [1].FinalDbSetLocal}" AutoGenerateColumns="True"
-                          IsReadOnly="True" SelectedItem="{Binding [1].SelectedItem}"
-                          SelectionUnit="CellOrRowHeader">
+                <DataGrid ItemsSource="{Binding [1].FinalDbSetLocal}"
+                          SelectedItem="{Binding [1].SelectedItem}"
+                          Style="{StaticResource ReadonlyDataGridStyle}">
                     <i:Interaction.Behaviors>
                         <b:DbSetDataGridBehavior CreateColumnPredicate="{Binding [3]}"/>
                     </i:Interaction.Behaviors>

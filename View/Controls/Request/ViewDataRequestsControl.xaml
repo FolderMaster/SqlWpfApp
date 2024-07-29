@@ -24,8 +24,8 @@
             </WrapPanel>
         </GroupBox>
         <GroupBox Header="{StaticResource ResultHeader}" Grid.Row="1">
-            <DataGrid ItemsSource="{Binding ExecutingResult}" AutoGenerateColumns="True"
-                      IsReadOnly="True" SelectionUnit="CellOrRowHeader"/>
+            <DataGrid ItemsSource="{Binding ExecutingResult}"
+                      Style="{StaticResource ReadonlyDataGridStyle}"/>
         </GroupBox>
     </Grid>
 </UserControl>

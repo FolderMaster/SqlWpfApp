@@ -221,8 +221,8 @@
         </Grid>
         <GridSplitter Grid.Row="2" Style="{StaticResource RowsGridSplitterStyle}"/>
         <GroupBox Header="{StaticResource ResultHeader}" Grid.Row="3">
-            <DataGrid ItemsSource="{Binding ExecutingResult}" SelectionUnit="CellOrRowHeader"
-                      AutoGenerateColumns="True" IsReadOnly="True"/>
+            <DataGrid ItemsSource="{Binding ExecutingResult}"
+                      Style="{StaticResource ReadonlyDataGridStyle}"/>
         </GroupBox>
     </Grid>
 </UserControl>

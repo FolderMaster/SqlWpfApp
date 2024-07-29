@@ -13,8 +13,9 @@
                             SearchText="{Binding [0].SearchText, Mode=TwoWay}"
                             FilterText="{Binding [0].FilterText, Mode=TwoWay}"/>
         <c:DbSetStatusBar DockPanel.Dock="Bottom" TableChangesSet="{Binding [0].TableChangesSet}"/>
-        <DataGrid ItemsSource="{Binding [0].FinalDbSetLocal}" AutoGenerateColumns="True"
-                  SelectedItem="{Binding [0].SelectedItem}" SelectionUnit="CellOrRowHeader">
+        <DataGrid ItemsSource="{Binding [0].FinalDbSetLocal}"
+                  SelectedItem="{Binding [0].SelectedItem}"
+                  Style="{StaticResource ReadonlyDataGridStyle}">
             <i:Interaction.Behaviors>
                 <b:DbSetDataGridBehavior CreateColumnPredicate="{Binding [1]}"
                                          SelectedPropertyName="{Binding [0].SelectedPropertyName,
