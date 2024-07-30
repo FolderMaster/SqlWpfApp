@@ -58,12 +58,7 @@ namespace View.Implementations.Proces.Windows.DbSet.Dependent
             return new TwoGridDbSetWindow(windowResourceService, _keyResource, _keyResource,
                 new List<object>()
                 {
-                    mainVM, dependentVM, (string nameProperty) =>
-                    nameProperty != nameof(Specialty.Groups) &&
-                    nameProperty != nameof(Specialty.Disciplines) &&
-                    nameProperty != nameof(Specialty.Department), (string nameProperty) =>
-                    nameProperty != nameof(Department.Specialties) &&
-                    nameProperty != nameof(Department.Teachers)
+                    mainVM, dependentVM
                 });
         }
     }

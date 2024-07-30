@@ -2,6 +2,7 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 using Model.Independent;
 
@@ -38,16 +39,19 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт связанный паспорт.
         /// </summary>
+        [Browsable(false)]
         public virtual Passport Passport { get; set; }
 
         /// <summary>
         /// Возвращает и задаёт связанные студенты.
         /// </summary>
+        [Browsable(false)]
         public virtual ObservableCollection<Student> Students { get; set; }
 
         /// <summary>
         /// Возвращает и задаёт связанные преподаватели.
         /// </summary>
+        [Browsable(false)]
         public virtual ObservableCollection<Teacher> Teachers { get; set; }
 
         /// <summary>

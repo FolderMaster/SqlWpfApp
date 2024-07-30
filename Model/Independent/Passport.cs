@@ -2,6 +2,7 @@
 
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
 using Model.Dependent;
 using Model.ObservableObjects;
@@ -81,6 +82,7 @@ namespace Model.Independent
         /// <summary>
         /// Возвращает и задаёт скан.
         /// </summary>
+        [Browsable(false)]
         public byte[]? Scan
         {
             get => (byte[]?)GetProperty(ScanProperty);
@@ -105,6 +107,7 @@ namespace Model.Independent
         /// <summary>
         /// Возвращает и задаёт связанные персоны.
         /// </summary>
+        [Browsable(false)]
         public virtual ObservableCollection<Person> Persons { get; set; }
 
         static Passport() { }

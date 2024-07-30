@@ -47,9 +47,7 @@ namespace View.Implementations.Proces.Windows.DbSet.Independent
                 new List<object>()
                 {
                     new DbSetVM<GradeMode>(session, windowResourceService,
-                        messageService),
-                    (string nameProperty) => nameProperty != nameof(GradeMode.Grades) &&
-                    nameProperty != nameof(GradeMode.StudyForms)
+                        messageService)
                 });
     }
 }

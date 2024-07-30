@@ -2,6 +2,7 @@
 
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
 using Model.Dependent;
 
@@ -32,6 +33,7 @@ namespace Model.Independent
         /// <summary>
         /// Возвращает и задаёт связанные преподаватели.
         /// </summary>
+        [Browsable(false)]
         public virtual ObservableCollection<Teacher> Teachers { get; set; }
 
         /// <summary>

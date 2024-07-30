@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 
@@ -182,6 +183,11 @@ namespace ViewModel.VMs.DbSet
         }
 
         /// <summary>
+        /// Возвращает сервис ресурсов.
+        /// </summary>
+        public IResourceService ResourceService => _resourceService;
+
+        /// <summary>
         /// Возвращает и задаёт свойства.
         /// </summary>
         public IEnumerable<string> Properties { get; private set; }
@@ -189,12 +195,12 @@ namespace ViewModel.VMs.DbSet
         /// <summary>
         /// Возвращает и задаёт свойства для поиска.
         /// </summary>
-        public IEnumerable<string> SearchProperties { get; private set; }
+        public IList<string> SearchProperties { get; private set; }
 
         /// <summary>
         /// Возвращает и задаёт свойства для фильтрации.
         /// </summary>
-        public IEnumerable<string> FilterProperties { get; private set; }
+        public IList<string> FilterProperties { get; private set; }
 
         /// <summary>
         /// Возвращает и задаёт команду сохранения.
@@ -238,8 +244,7 @@ namespace ViewModel.VMs.DbSet
                 }
                 ), () => DbSetLocal != null);
 
-            _getPropertiesDictionary = typeof(T).GetProperties().
-                Where((p) => p.GetGetMethod() != null).
+            _getPropertiesDictionary = typeof(T).GetProperties().Where((p) => CheckProperty(p)).
                 ToDictionary((p) => p.Name, (p) => p.GetGetMethod());
             Properties = _getPropertiesDictionary.Keys;
             var searchProperties = new ObservableCollection<string>(Properties);
@@ -355,6 +360,20 @@ namespace ViewModel.VMs.DbSet
         private IEnumerable<MethodInfo> GetPropertiesForCondition
             (IEnumerable<string> propertyNames) => _getPropertiesDictionary.Where((p) =>
                 propertyNames.Any((n) => n == p.Key)).Select((p) => p.Value);
+
+        private bool CheckProperty(PropertyInfo property)
+        {
+            if (property.GetGetMethod() == null)
+            {
+                return false;
+            }
+            var attribute = property.GetCustomAttribute<BrowsableAttribute>();
+            if (attribute != null && !attribute.Browsable)
+            {
+                return false;
+            }
+            return true;
+        }
 
         private void SearchProperties_CollectionChanged(object? sender,
             NotifyCollectionChangedEventArgs e) => Search();

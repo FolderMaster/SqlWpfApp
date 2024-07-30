@@ -1,9 +1,12 @@
 ﻿using Microsoft.Xaml.Behaviors;
 
-using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+
+using ViewModel.Interfaces.Services;
 
 namespace View.Behaviors
 {
@@ -13,20 +16,30 @@ namespace View.Behaviors
     public class DbSetDataGridBehavior : Behavior<DataGrid>
     {
         /// <summary>
-        /// Возвращает и задаёт предикат создания столбцов.
+        /// Возвращает и задаёт сервис ресурсов.
         /// </summary>
-        public Func<string, bool> CreateColumnPredicate
+        public IResourceService ResourceService
         {
-            get => (Func<string, bool>)GetValue(CreateColumnPredicateProperty);
-            set => SetValue(CreateColumnPredicateProperty, value);
+            get => (IResourceService)GetValue(ResourceServiceProperty);
+            set => SetValue(ResourceServiceProperty, value);
+        }
+
+        public IEnumerable<string> Properties
+        {
+            get => (IEnumerable<string>)GetValue(PropertiesProperty);
+            set => SetValue(PropertiesProperty, value);
         }
 
         /// <summary>
-        /// Свойство зависимости <see cref="CreateColumnPredicate"/>.
+        /// Свойство зависимости <see cref="ResourceServicePredicate"/>.
         /// </summary>
-        public static DependencyProperty CreateColumnPredicateProperty =
-            DependencyProperty.Register(nameof(CreateColumnPredicate), typeof(Func<string, bool>),
-                typeof(DbSetDataGridBehavior), new FrameworkPropertyMetadata());
+        public static DependencyProperty ResourceServiceProperty =
+            DependencyProperty.Register(nameof(ResourceService), typeof(IResourceService),
+                typeof(DbSetDataGridBehavior));
+
+        public static DependencyProperty PropertiesProperty =
+            DependencyProperty.Register(nameof(Properties), typeof(IEnumerable<string>),
+                typeof(DbSetDataGridBehavior));
 
         /// <summary>
         /// Прикрепляет поведение к элементу управления.
@@ -48,19 +61,18 @@ namespace View.Behaviors
 
         private void AutoGeneratingColumn(object? sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.Column is DataGridBoundColumn column)
+            if (Properties.Contains(e.PropertyName))
             {
-                if (CreateColumnPredicate == null || CreateColumnPredicate(e.PropertyName))
+                if (e.Column is DataGridBoundColumn column)
                 {
-                    column.Header = Application.Current.Resources[e.PropertyName + "Header"]
-                        as string;
+                    column.Header = ResourceService.GetString(e.PropertyName + "Header");
                     var columnBinding = column.Binding as Binding;
                     columnBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
                 }
-                else
-                {
-                    e.Column = null;
-                }
+            }
+            else
+            {
+                e.Cancel = true;
             }
         }
     }

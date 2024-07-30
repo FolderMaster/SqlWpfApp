@@ -2,6 +2,7 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 using Model.Independent;
 
@@ -54,6 +55,7 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт связанная группа.
         /// </summary>
+        [Browsable(false)]
         public virtual Group Group { get; set; }
 
         /// <summary>
@@ -64,16 +66,19 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт связанная стипендия.
         /// </summary>
+        [Browsable(false)]
         public virtual Scholarship? Scholarship { get; set; }
 
         /// <summary>
         /// Возвращает и задаёт связанные ведомости оценивания.
         /// </summary>
+        [Browsable(false)]
         public virtual ObservableCollection<GradeStatement> GradeStatements { get; set; }
 
         /// <summary>
         /// Возвращает и задаёт связанные связи между дисциплинами и студентами.
         /// </summary>
+        [Browsable(false)]
         public virtual ObservableCollection<StudentDisciplineConnection> Connections { get; set; }
 
         /// <summary>

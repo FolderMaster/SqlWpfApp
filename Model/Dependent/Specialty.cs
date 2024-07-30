@@ -2,6 +2,7 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 using Model.Independent;
 
@@ -42,16 +43,19 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт связанный факультет.
         /// </summary>
+        [Browsable(false)]
         public virtual Department Department { get; set; }
 
         /// <summary>
         /// Возвращает и задаёт связанные дисциплины.
         /// </summary>
+        [Browsable(false)]
         public virtual ObservableCollection<Discipline> Disciplines { get; set; }
 
         /// <summary>
         /// Возвращает и задаёт связанные группы.
         /// </summary>
+        [Browsable(false)]
         public virtual ObservableCollection<Group> Groups { get; set; }
 
         /// <summary>

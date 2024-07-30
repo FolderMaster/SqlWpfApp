@@ -2,6 +2,7 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 using Model.Independent;
 
@@ -42,6 +43,7 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт связанный режим оценивания.
         /// </summary>
+        [Browsable(false)]
         public virtual GradeMode GradeMode { get; set; }
 
         /// <summary>
@@ -52,6 +54,7 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт связанные ведомости оценивания.
         /// </summary>
+        [Browsable(false)]
         public virtual ObservableCollection<GradeStatement> GradeStatements { get; set; }
 
         /// <summary>

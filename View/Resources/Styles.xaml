@@ -37,7 +37,7 @@
             <Setter Property="Width" Value="{StaticResource HalfToolbarTextBoxWidth}"/>
         </Style.Setters>
     </Style>
-    <Style x:Key="ToolbarListBoxStyle" TargetType="FrameworkElement"
+    <Style x:Key="ToolbarToggleContentStyle" TargetType="UserControl"
            BasedOn="{StaticResource BarElementStyle}">
         <Style.Setters>
             <Setter Property="Height" Value="{StaticResource ToolbarItemSize}"/>

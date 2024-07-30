@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Dependent
@@ -42,6 +43,7 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт связанная специальность.
         /// </summary>
+        [Browsable(false)]
         public virtual Specialty Specialty { get; set; }
 
         /// <summary>
@@ -52,22 +54,26 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт связанный режимы обучения.
         /// </summary>
+        [Browsable(false)]
         public virtual StudyForm StudyForm { get; set; }
 
         /// <summary>
         /// Возвращает и задаёт связанные ведомости оценивания.
         /// </summary>
+        [Browsable(false)]
         public virtual ObservableCollection<GradeStatement> GradeStatements { get; set; }
 
         /// <summary>
         /// Возвращает и задаёт связанные связи между дисциплинами и студентами.
         /// </summary>
+        [Browsable(false)]
         public virtual ObservableCollection<StudentDisciplineConnection> StudentConnections
         { get; set; }
 
         /// <summary>
         /// Возвращает и задаёт связанные связи между дисциплинами и преподавателями.
         /// </summary>
+        [Browsable(false)]
         public virtual ObservableCollection<TeacherDisciplineConnection> TeacherConnections
         { get; set; }
 

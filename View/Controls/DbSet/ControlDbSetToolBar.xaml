@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:View.Controls.DbSet"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:b="clr-namespace:View.Behaviors"
              mc:Ignorable="d" 
              Name="control" d:DesignHeight="50" d:DesignWidth="800">
     <ToolBar>
@@ -56,8 +58,15 @@
                Style="{StaticResource ToolbarLabelStyle}"/>
         <TextBox Text="{Binding ElementName=control, Path=SearchText,
             UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ToolbarTextBoxStyle}"/>
-        <local:ToggleContentControl Style="{StaticResource ToolbarListBoxStyle}">
-            <ListBox ItemsSource="{Binding Properties, ElementName=control}"/>
+        <local:ToggleContentControl Style="{StaticResource ToolbarToggleContentStyle}">
+            <ListBox ItemsSource="{Binding Properties, RelativeSource=
+                {RelativeSource FindAncestor, AncestorType=UserControl, AncestorLevel=2}}">
+                <i:Interaction.Behaviors>
+                    <b:ExtendedListBoxBehavior SelectedItems="{Binding SearchProperties,
+                        RelativeSource={RelativeSource FindAncestor,
+                        AncestorType=UserControl, AncestorLevel=2}}"/>
+                </i:Interaction.Behaviors>
+            </ListBox>
         </local:ToggleContentControl>
         <Separator/>
         <Label Content="{Binding Source={StaticResource FilterHeader},
@@ -65,8 +74,15 @@
                Style="{StaticResource ToolbarLabelStyle}"/>
         <TextBox Text="{Binding ElementName=control, Path=FilterText,
             UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ToolbarTextBoxStyle}"/>
-        <local:ToggleContentControl Style="{StaticResource ToolbarListBoxStyle}">
-            <ListBox ItemsSource="{Binding Properties, ElementName=control}"/>
+        <local:ToggleContentControl Style="{StaticResource ToolbarToggleContentStyle}">
+            <ListBox ItemsSource="{Binding Properties, RelativeSource=
+                {RelativeSource FindAncestor, AncestorType=UserControl, AncestorLevel=2}}">
+                <i:Interaction.Behaviors>
+                    <b:ExtendedListBoxBehavior SelectedItems="{Binding FilterProperties,
+                        RelativeSource={RelativeSource FindAncestor,
+                        AncestorType=UserControl, AncestorLevel=2}}"/>
+                </i:Interaction.Behaviors>
+            </ListBox>
         </local:ToggleContentControl>
         <Separator/>
         <Button Command="{Binding ElementName=control, Path=AddCommand}"

@@ -2,6 +2,7 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 using Model.Independent;
 
@@ -34,6 +35,7 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт связанный преподаватель.
         /// </summary>
+        [Browsable(false)]
         public virtual Teacher Teacher { get; set; }
 
         /// <summary>
@@ -44,6 +46,7 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт связанную дисциплину.
         /// </summary>
+        [Browsable(false)]
         public virtual Discipline Discipline { get; set; }
 
         /// <summary>
@@ -54,6 +57,7 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт связанную роль.
         /// </summary>
+        [Browsable(false)]
         public virtual Role Role { get; set; }
 
         /// <summary>

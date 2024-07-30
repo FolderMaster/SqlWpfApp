@@ -2,6 +2,7 @@
 
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
 using Model.Dependent;
 
@@ -32,11 +33,13 @@ namespace Model.Independent
         /// <summary>
         /// Возвращает и задаёт связанные оценки.
         /// </summary>
+        [Browsable(false)]
         public virtual ObservableCollection<Grade> Grades { get; set; }
 
         /// <summary>
         /// Возвращает и задаёт связанные режимы обучения.
         /// </summary>
+        [Browsable(false)]
         public virtual ObservableCollection<StudyForm> StudyForms { get; set; }
 
         /// <summary>

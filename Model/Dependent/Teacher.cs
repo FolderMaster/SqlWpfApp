@@ -2,6 +2,7 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 using Model.Independent;
 
@@ -33,6 +34,7 @@ namespace Model.Dependent
         /// Возвращает и задаёт связанная персона.
         /// </summary>
         [ForeignKey(nameof(ID))]
+        [Browsable(false)]
         public virtual Person Person { get; set; }
 
         /// <summary>
@@ -43,6 +45,7 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт связанный факультет.
         /// </summary>
+        [Browsable(false)]
         public virtual Department Department { get; set; }
 
         /// <summary>
@@ -53,16 +56,19 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт связанная должность.
         /// </summary>
+        [Browsable(false)]
         public virtual Position Position { get; set; }
 
         /// <summary>
         /// Возвращает и задаёт связанные ведомости оценивания.
         /// </summary>
+        [Browsable(false)]
         public virtual ObservableCollection<GradeStatement> GradeStatements { get; set; }
 
         /// <summary>
         /// Возвращает и задаёт связанные связи между дисциплинами и преподавателями.
         /// </summary>
+        [Browsable(false)]
         public virtual ObservableCollection<TeacherDisciplineConnection> Connections { get; set; }
 
         /// <summary>

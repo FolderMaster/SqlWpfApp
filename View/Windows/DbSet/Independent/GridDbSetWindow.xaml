@@ -20,7 +20,8 @@
                   SelectedItem="{Binding [0].SelectedItem}"
                   Style="{StaticResource DataGridStyle}">
             <i:Interaction.Behaviors>
-                <b:DbSetDataGridBehavior CreateColumnPredicate="{Binding [1]}"/>
+                <b:DbSetDataGridBehavior ResourceService="{Binding [0].ResourceService}"
+                                         Properties="{Binding [0].Properties}"/>
             </i:Interaction.Behaviors>
         </DataGrid>
     </DockPanel>

@@ -60,17 +60,7 @@ namespace View.Implementations.Proces.Windows.DbSet.Dependent
             return new ThreeGridDbSetWindow(windowResourceService, _keyResource, _keyResource,
                 new List<object>()
                 {
-                    mainVM, dependentVM, dependent2VM,
-                    (string nameProperty) => nameProperty != nameof(Discipline.Specialty) &&
-                    nameProperty != nameof(Discipline.StudentConnections) &&
-                    nameProperty != nameof(Discipline.TeacherConnections) &&
-                    nameProperty != nameof(Discipline.StudyForm) &&
-                    nameProperty != nameof(Discipline.GradeStatements),
-                    (string nameProperty) => nameProperty != nameof(StudyForm.Disciplines) &&
-                    nameProperty != nameof(StudyForm.GradeMode),
-                    (string nameProperty) => nameProperty != nameof(Specialty.Groups) &&
-                    nameProperty != nameof(Specialty.Disciplines) &&
-                    nameProperty != nameof(Specialty.Department)
+                    mainVM, dependentVM, dependent2VM
                 });
         }
     }

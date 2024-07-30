@@ -46,8 +46,7 @@ namespace View.Implementations.Proces.Windows.DbSet.Independent
             new GridDbSetWindow(windowResourceService, _keyResource, _keyResource,
                 new List<object>()
                 {
-                    new DbSetVM<Role>(session, windowResourceService, messageService),
-                    (string nameProperty) => nameProperty != nameof(Role.Connections)
+                    new DbSetVM<Role>(session, windowResourceService, messageService)
                 });
     }
 }

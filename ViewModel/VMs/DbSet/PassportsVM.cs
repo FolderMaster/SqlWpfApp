@@ -41,11 +41,6 @@ namespace ViewModel.VMs.DbSet
         public IMessageService MessageService => _messageService;
 
         /// <summary>
-        /// Возвращает сервис ресурсов.
-        /// </summary>
-        public IResourceService ResourceService => _resourceService;
-
-        /// <summary>
         /// Возвращает и задаёт команду загрузки изображения.
         /// </summary>
         public RelayCommand LoadImageCommand { get; private set; }

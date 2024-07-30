@@ -47,8 +47,7 @@ namespace View.Implementations.Proces.Windows.DbSet.Independent
                 new List<object>()
                 {
                     new DbSetVM<Scholarship>(session, windowResourceService,
-                        messageService),
-                    (string nameProperty) => nameProperty != nameof(Scholarship.Students)
+                        messageService)
                 });
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Dependent
@@ -40,11 +41,13 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт связанная специальность.
         /// </summary>
+        [Browsable(false)]
         public virtual Specialty Specialty { get; set; }
 
         /// <summary>
         /// Возвращает и задаёт связанные студенты.
         /// </summary>
+        [Browsable(false)]
         public virtual ObservableCollection<Student> Students { get; set; }
 
         /// <summary>

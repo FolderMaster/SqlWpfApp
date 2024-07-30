@@ -13,6 +13,7 @@ namespace Model.ObservableObjects
 
         private Dictionary<string, IEnumerable<string>> _errors = new();
 
+        [Browsable(false)]
         public bool HasErrors => _errors.Any();
 
         /// <summary>

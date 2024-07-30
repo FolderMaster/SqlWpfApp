@@ -28,7 +28,8 @@
                           SelectedItem="{Binding [0].SelectedItem}"
                           Style="{StaticResource DataGridStyle}">
                     <i:Interaction.Behaviors>
-                        <b:DbSetDataGridBehavior CreateColumnPredicate="{Binding [3]}"/>
+                        <b:DbSetDataGridBehavior ResourceService="{Binding [0].ResourceService}"
+                                                 Properties="{Binding [0].Properties}"/>
                     </i:Interaction.Behaviors>
                 </DataGrid>
             </GroupBox>
@@ -44,7 +45,8 @@
                           SelectedItem="{Binding [1].SelectedItem}"
                           Style="{StaticResource ReadonlyDataGridStyle}">
                         <i:Interaction.Behaviors>
-                            <b:DbSetDataGridBehavior CreateColumnPredicate="{Binding [4]}"/>
+                            <b:DbSetDataGridBehavior ResourceService="{Binding [0].ResourceService}"
+                                                     Properties="{Binding [1].Properties}"/>
                         </i:Interaction.Behaviors>
                     </DataGrid>
                 </GroupBox>
@@ -54,7 +56,8 @@
                               SelectedItem="{Binding [2].SelectedItem}"
                               Style="{StaticResource ReadonlyDataGridStyle}">
                         <i:Interaction.Behaviors>
-                            <b:DbSetDataGridBehavior CreateColumnPredicate="{Binding [5]}"/>
+                            <b:DbSetDataGridBehavior ResourceService="{Binding [0].ResourceService}"
+                                                     Properties="{Binding [2].Properties}"/>
                         </i:Interaction.Behaviors>
                     </DataGrid>
                 </GroupBox>

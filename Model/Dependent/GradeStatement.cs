@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Dependent
@@ -32,6 +33,7 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт связанный студент.
         /// </summary>
+        [Browsable(false)]
         public virtual Student Student { get; set; }
 
         /// <summary>
@@ -42,6 +44,7 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт связанная дисциплина.
         /// </summary>
+        [Browsable(false)]
         public virtual Discipline Discipline { get; set; }
 
         /// <summary>
@@ -52,6 +55,7 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт связанный преподаватель.
         /// </summary>
+        [Browsable(false)]
         public virtual Teacher Teacher { get; set; }
 
         /// <summary>
@@ -62,6 +66,7 @@ namespace Model.Dependent
         /// <summary>
         /// Возвращает и задаёт связанная оценка.
         /// </summary>
+        [Browsable(false)]
         public virtual Grade Grade { get; set; }
 
         /// <summary>
