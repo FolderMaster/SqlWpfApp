@@ -41,4 +41,16 @@
     <BitmapImage x:Shared="False" UriSource="Images/Save.ico" x:Key="SaveImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Change.ico" x:Key="ChangeImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Update.ico" x:Key="UpdateImage"/>
+
+    <BitmapImage x:Shared="False" UriSource="Images/Bold.ico" x:Key="BoldImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Italic.ico" x:Key="ItalicImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Right.ico" x:Key="RightImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Center.ico" x:Key="CenterImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Justify.ico" x:Key="JustifyImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Left.ico" x:Key="LeftImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Decrease.ico" x:Key="DecreaseImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Increase.ico" x:Key="IncreaseImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/List.ico" x:Key="ListImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Table.ico" x:Key="TableImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Image.ico" x:Key="ImageImage"/>
 </ResourceDictionary>

@@ -86,6 +86,7 @@ namespace View.Behaviors
         protected override void OnAttached()
         {
             base.OnAttached();
+            AssociatedObject.AllowDrop = true;
             AssociatedObject.Drop += AssociatedObject_Drop;
             AssociatedObject.PreviewMouseLeftButtonDown +=
                 AssociatedObject_PreviewMouseLeftButtonDown;

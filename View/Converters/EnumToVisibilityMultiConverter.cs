@@ -33,7 +33,7 @@ namespace View.Converters
             {
                 if (parameters[n] != values[n].ToString())
                 {
-                    return Visibility.Hidden;
+                    return Visibility.Collapsed;
                 }
             }
             return Visibility.Visible;

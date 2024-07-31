@@ -19,19 +19,22 @@ namespace Model.Independent
     {
         public static ObservableProperty SerialNumberProperty =
             RegisterProperty(typeof(Passport), nameof(SerialNumber), "",
-                [(o) => ValueValidator.AssertStringOnEqualLength((string)o.NewValue, 10, o.Name)]);
+                [(o) => ValueValidator.AssertStringOnEqualLength((string)o.NewValue, 10,
+                    o.Property.Name)]);
 
         public static ObservableProperty NameProperty =
             RegisterProperty(typeof(Passport), nameof(Name), "",
-                [(o) => ValueValidator.AssertStringOnLessLength((string)o.NewValue, 64, o.Name)]);
+                [(o) => ValueValidator.AssertStringOnLessLength((string)o.NewValue, 64,
+                    o.Property.Name)]);
 
         public static ObservableProperty PermanentResidenceAddressProperty =
             RegisterProperty(typeof(Passport), nameof(PermanentResidenceAddress), "",
-                [(o) => ValueValidator.AssertStringOnLessLength((string)o.NewValue, 64, o.Name)]);
+                [(o) => ValueValidator.AssertStringOnLessLength((string)o.NewValue, 64,
+                    o.Property.Name)]);
 
         public static ObservableProperty ScanProperty =
             RegisterProperty(typeof(Passport), nameof(Scan), null,
-                [(o) => ValueValidator.AssertOnNotNullValue(o.NewValue, o.Name)]);
+                [(o) => ValueValidator.AssertOnNotNullValue(o.NewValue, o.Property.Name)]);
 
         public static ObservableProperty BirthDateProperty =
             RegisterProperty(typeof(Passport), nameof(BirthDate), DateTime.Now, null,
@@ -52,8 +55,8 @@ namespace Model.Independent
         /// </summary>
         public string SerialNumber
         {
-            get => (string)GetProperty(SerialNumberProperty);
-            set => SetProperty(value, SerialNumberProperty);
+            get => (string)GetValue(SerialNumberProperty);
+            set => SetValue(value, SerialNumberProperty);
         }
 
         /// <summary>
@@ -61,8 +64,8 @@ namespace Model.Independent
         /// </summary>
         public string Name
         {
-            get => (string)GetProperty(NameProperty);
-            set => SetProperty(value, NameProperty);
+            get => (string)GetValue(NameProperty);
+            set => SetValue(value, NameProperty);
         }
 
         /// <summary>
@@ -70,8 +73,8 @@ namespace Model.Independent
         /// </summary>
         public string PermanentResidenceAddress
         {
-            get => (string)GetProperty(PermanentResidenceAddressProperty);
-            set => SetProperty(value, PermanentResidenceAddressProperty);
+            get => (string)GetValue(PermanentResidenceAddressProperty);
+            set => SetValue(value, PermanentResidenceAddressProperty);
         }
 
         /// <summary>
@@ -85,8 +88,8 @@ namespace Model.Independent
         [Browsable(false)]
         public byte[]? Scan
         {
-            get => (byte[]?)GetProperty(ScanProperty);
-            set => SetProperty(value, ScanProperty);
+            get => (byte[]?)GetValue(ScanProperty);
+            set => SetValue(value, ScanProperty);
         } 
 
         /// <summary>
@@ -94,8 +97,8 @@ namespace Model.Independent
         /// </summary>
         public DateTime BirthDate
         {
-            get => (DateTime)GetProperty(BirthDateProperty);
-            set => SetProperty(value, BirthDateProperty);
+            get => (DateTime)GetValue(BirthDateProperty);
+            set => SetValue(value, BirthDateProperty);
         }
 
         /// <summary>

@@ -10,7 +10,7 @@ namespace View.Behaviors
     {
         public static readonly DependencyProperty SelectedItemsProperty =
             DependencyProperty.Register(nameof(SelectedItems), typeof(IList),
-                typeof(ExtendedListBoxBehavior), new PropertyMetadata(null, SelectedItemsChanged));
+                typeof(ExtendedListBoxBehavior), new PropertyMetadata(SelectedItemsChanged));
 
         private bool _selectedItemsChanged = false;
 
@@ -55,13 +55,16 @@ namespace View.Behaviors
             var listBox = behavior.AssociatedObject;
             var list = (IList)e.NewValue;
 
-            behavior._selectedItemsChanged = true;
-            listBox.SelectedItems.Clear();
-            foreach (var item in list)
+            if (list != null)
             {
-                listBox.SelectedItems.Add(item);
+                behavior._selectedItemsChanged = true;
+                listBox.SelectedItems.Clear();
+                foreach (var item in list)
+                {
+                    listBox.SelectedItems.Add(item);
+                }
+                behavior._selectedItemsChanged = false;
             }
-            behavior._selectedItemsChanged = false;
         }
     }
 }

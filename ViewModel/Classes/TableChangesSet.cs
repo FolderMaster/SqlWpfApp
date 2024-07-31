@@ -31,26 +31,26 @@ namespace ViewModel.Classes
 
         public int AddedCount
         {
-            get => (int)GetProperty(AddedCountProperty);
-            set => SetProperty(value, AddedCountProperty);
+            get => (int)GetValue(AddedCountProperty);
+            set => SetValue(value, AddedCountProperty);
         }
 
         public int RemovedCount
         {
-            get => (int)GetProperty(RemovedCountProperty);
-            set => SetProperty(value, RemovedCountProperty);
+            get => (int)GetValue(RemovedCountProperty);
+            set => SetValue(value, RemovedCountProperty);
         }
 
         public int ModifiedCount
         {
-            get => (int)GetProperty(ModifiedCountProperty);
-            set => SetProperty(value, ModifiedCountProperty);
+            get => (int)GetValue(ModifiedCountProperty);
+            set => SetValue(value, ModifiedCountProperty);
         }
 
         public int TotalCount
         {
-            get => (int)GetProperty(TotalCountProperty);
-            private set => SetProperty(value, TotalCountProperty);
+            get => (int)GetValue(TotalCountProperty);
+            private set => SetValue(value, TotalCountProperty);
         }
 
         static TableChangesSet() { }

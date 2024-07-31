@@ -5,9 +5,12 @@ using System.Windows.Documents;
 
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Document;
+using ViewModel.Interfaces.Services.Files;
 using ViewModel.Services;
+using ViewModel.VMs.Request;
 
-namespace ViewModel.VMs.Request
+namespace ViewModel.VMs.Report
 {
     /// <summary>
     /// Класс представления модели для создания отчётов с документом и команды печати и вывода
@@ -57,13 +60,17 @@ namespace ViewModel.VMs.Request
         /// <summary>
         /// Сервис изменения документа.
         /// </summary>
-        private DocumentEditService _documentEditService;
+        private DocumentEditService _documentEditService = new();
 
         /// <summary>
         /// Документ.
         /// </summary>
         [ObservableProperty]
-        private FlowDocument document = new();
+        private object? document;
+
+        public IGettingFileService OpenGettingFileService { get; private set; }
+
+        public IDocumentService DocumentService { get; private set; }
 
         /// <summary>
         /// Возвращает и задаёт команду печати.
@@ -93,15 +100,17 @@ namespace ViewModel.VMs.Request
         /// <param name="messageService">Сервис сообщений.</param>
         /// <param name="printService">Сервис печати.</param>
         public ReportsVM(ISession session, IResourceService resourceService,
-            IMessageService messageService, IPrintService printService) :
+            IMessageService messageService, IPrintService printService,
+            IGettingFileService openGettingFileService, IDocumentService documentService) :
             base(session, resourceService, messageService)
         {
             _printService = printService;
-            _documentEditService = new DocumentEditService(Document);
+            OpenGettingFileService = openGettingFileService;
+            DocumentService = documentService;
 
             DeductingsCommand = new RelayCommand(() =>
             {
-                _documentEditService.Clear();
+                _documentEditService.Clear((FlowDocument)Document);
                 ExecuteCommand("SELECT s.ID, p.Name, s.GroupNumber, s.GroupFormationYear, " +
                     "sp.DepartmentName AS Department " +
                     "FROM Students s, Persons p, Groups g, Specialties sp " +
@@ -109,13 +118,13 @@ namespace ViewModel.VMs.Request
                     "AND s.GroupFormationYear = g.FormationYear AND " +
                     "g.SpecialtyNumber = sp.Number " +
                     "ORDER BY s.ID ASC, p.Name ASC");
-                _documentEditService.AddParagraph(_resourceService.GetString
+                _documentEditService.AddParagraph((FlowDocument)Document, _resourceService.GetString
                     (_deductingsStudentsParagraphResourceKey));
-                _documentEditService.AddTable(ExecutingResult);
+                _documentEditService.AddTable((FlowDocument)Document, ExecutingResult);
             });
             StudentsCommand = new RelayCommand(() =>
             {
-                _documentEditService.Clear();
+                _documentEditService.Clear((FlowDocument)Document);
                 ExecuteCommand("SELECT s.ID, p.Name, sp.DepartmentName AS Department, " +
                     "g.Number AS GroupNumber, g.FormationYear AS GroupFormationYear, " +
                     "AVG(CAST(studentGrades.Coefficient AS REAL)) AS AverageGrade " +
@@ -133,9 +142,9 @@ namespace ViewModel.VMs.Request
                     "g.SpecialtyNumber = sp.Number AND p.ID = s.ID " +
                     "GROUP BY sp.DepartmentName, g.Number, g.FormationYear, s.ID, p.Name " +
                     "ORDER BY s.ID ASC");
-                _documentEditService.AddParagraph(_resourceService.GetString
+                _documentEditService.AddParagraph((FlowDocument)Document, _resourceService.GetString
                     (_studentsAverageGradesParagraphResourceKey));
-                _documentEditService.AddTable(ExecutingResult);
+                _documentEditService.AddTable((FlowDocument)Document, ExecutingResult);
                 ExecuteCommand("SELECT s.ID, p.Name, sp.DepartmentName AS Department, " +
                     "g.Number AS GroupNumber, g.FormationYear AS GroupFormationYear, " +
                     "d.ID AS DisciplineID, d.Name AS DisciplineName, " +
@@ -154,13 +163,13 @@ namespace ViewModel.VMs.Request
                     "g.SpecialtyNumber = sp.Number AND p.ID = s.ID AND " +
                     "studentGrades.DisciplineID = d.ID " +
                     "ORDER BY s.ID ASC");
-                _documentEditService.AddParagraph(_resourceService.GetString
+                _documentEditService.AddParagraph((FlowDocument)Document, _resourceService.GetString
                     (_studentsGradesParagraphResourceKey));
-                _documentEditService.AddTable(ExecutingResult);
+                _documentEditService.AddTable((FlowDocument)Document, ExecutingResult);
             });
             DepartmentsCommand = new RelayCommand(() =>
             {
-                _documentEditService.Clear();
+                _documentEditService.Clear((FlowDocument)Document);
                 ExecuteCommand("SELECT sp.DepartmentName AS Department, s.GroupNumber, " +
                     "s.GroupFormationYear, s.ScholarshipName AS Scholarship, " +
                     "Count(s.ID) AS Count " +
@@ -170,9 +179,9 @@ namespace ViewModel.VMs.Request
                     "GROUP BY sp.DepartmentName, s.GroupNumber, s.GroupFormationYear, " +
                     "s.ScholarshipName " +
                     "ORDER BY sp.DepartmentName ASC, s.GroupNumber ASC, s.GroupFormationYear ASC");
-                _documentEditService.AddParagraph(_resourceService.GetString
+                _documentEditService.AddParagraph((FlowDocument)Document, _resourceService.GetString
                     (_departmentsScholarshipsParagraphResourceKey));
-                _documentEditService.AddTable(ExecutingResult);
+                _documentEditService.AddTable((FlowDocument)Document, ExecutingResult);
                 ExecuteCommand("SELECT sp.DepartmentName AS Department, s.GroupNumber, " +
                     "s.GroupFormationYear, " +
                     "AVG(CAST(studentGrades.Coefficient AS REAL)) AS AverageGrade " +
@@ -190,14 +199,13 @@ namespace ViewModel.VMs.Request
                     "g.SpecialtyNumber = sp.Number " +
                     "GROUP BY sp.DepartmentName, s.GroupNumber, s.GroupFormationYear " +
                     "ORDER BY sp.DepartmentName ASC, s.GroupNumber ASC, s.GroupFormationYear ASC");
-                _documentEditService.AddParagraph(_resourceService.GetString
+                _documentEditService.AddParagraph((FlowDocument)Document, _resourceService.GetString
                     (_departmentsAverageGradesParagraphResourceKey));
-                _documentEditService.AddTable(ExecutingResult);
+                _documentEditService.AddTable((FlowDocument)Document, ExecutingResult);
             });
             PrintCommand = new RelayCommand(() =>
             {
-                var source = Document as IDocumentPaginatorSource;
-                _printService.Print(source.DocumentPaginator,
+                _printService.Print(DocumentService.GetDocumentPaginator(Document),
                     _resourceService.GetString(_documentDescriptionResourceKey));
             });
         }

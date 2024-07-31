@@ -3,7 +3,8 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:Double x:Key="ConnectionButtonSize">20</sys:Double>
 
-    <sys:Double x:Key="ToolbarItemSize">30</sys:Double>
+    <sys:Double x:Key="ToolbarButtonSize">30</sys:Double>
+    <sys:Double x:Key="ToolbarListBoxItemSize">20</sys:Double>
     <sys:Double x:Key="ToolbarFontSize">20</sys:Double>
     <sys:Double x:Key="ToolbarTextBoxWidth">100</sys:Double>
     <sys:Double x:Key="HalfToolbarTextBoxWidth">50</sys:Double>

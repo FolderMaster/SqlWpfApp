@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 
+using View.Implementations.Dialogs;
 using View.Implementations.ResourceService;
 using View.Windows.DbSet.Independent;
 
@@ -41,8 +42,8 @@ namespace View.Implementations.Proces.Windows.DbSet.Independent
         /// <param name="fileService">Файловый сервис.</param>
         public PassportsWindowProc(ISession session,
             IWindowResourceService windowResourceService, IMessageService messageService,
-            IGettingFileService gettingOpenFileService, IGettingFileService gettingSaveFileService,
-            IFileService fileService) :
+            OpenFileDialogService gettingOpenFileService,
+            SaveFileDialogService gettingSaveFileService, IFileService fileService) :
             base("Passports", session, windowResourceService, messageService)
         {
             _gettingOpenFileService = gettingOpenFileService;

@@ -36,7 +36,7 @@
             {
                 var oldValue = _values[owner];
                 _values[owner] = newValue;
-                _callback?.Invoke(new ObservableArgs(Name, owner, oldValue, newValue));
+                _callback?.Invoke(new ObservableArgs(this, owner, oldValue, newValue));
                 return true;
             }
             return false;
@@ -50,7 +50,7 @@
                 var value = _values[owner];
                 foreach (var validation in _validations)
                 {
-                    var error = validation(new ObservableArgs(Name, owner, value, value));
+                    var error = validation(new ObservableArgs(this, owner, value, value));
                     if (error != null)
                     {
                         result.Add(error);

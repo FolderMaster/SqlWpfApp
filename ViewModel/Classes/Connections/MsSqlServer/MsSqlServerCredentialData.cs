@@ -7,12 +7,12 @@ namespace ViewModel.Classes.Connections.MsSqlServer
     {
         public static readonly ObservableProperty UserProperty = RegisterProperty
             (typeof(MsSqlServerCredentialData), nameof(User), null,
-            [(o) => ValueValidator.AssertStringIsNotNullOrEmpty((string)o.NewValue, o.Name)]);
+            [(o) => ValueValidator.AssertStringIsNotNullOrEmpty((string)o.NewValue, o.Property.Name)]);
 
         public string User
         {
-            get => (string)GetProperty(UserProperty);
-            set => SetProperty(value, UserProperty);
+            get => (string)GetValue(UserProperty);
+            set => SetValue(value, UserProperty);
         }
 
         public string Password { get; set; }

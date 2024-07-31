@@ -259,4 +259,19 @@
     <sys:String x:Key="DepartmentsAverageGradesParagraph">Average grades:</sys:String>
 
     <sys:String x:Key="DocumentDescription">Report</sys:String>
+
+    <sys:String x:Key="BoldHeader">Bold</sys:String>
+    <sys:String x:Key="ItalicHeader">Italic</sys:String>
+    <sys:String x:Key="SizeHeader">Size</sys:String>
+    <sys:String x:Key="IncreaseSizeHeader">Increase size</sys:String>
+    <sys:String x:Key="DecreaseSizeHeader">Decrease size</sys:String>
+    <sys:String x:Key="LeftHeader">Left</sys:String>
+    <sys:String x:Key="JustifyHeader">Justify</sys:String>
+    <sys:String x:Key="CenterHeader">Center</sys:String>
+    <sys:String x:Key="RightHeader">Right</sys:String>
+    <sys:String x:Key="ListHeader">List</sys:String>
+    <sys:String x:Key="TableHeader">Table</sys:String>
+    <sys:String x:Key="ImageHeader">Image</sys:String>
+    <sys:String x:Key="RowsHeader">Rows</sys:String>
+    <sys:String x:Key="ColumnsHeader">Columns</sys:String>
 </ResourceDictionary>

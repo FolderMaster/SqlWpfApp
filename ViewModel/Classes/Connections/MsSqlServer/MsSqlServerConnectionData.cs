@@ -7,22 +7,22 @@ namespace ViewModel.Classes.Connections.MsSqlServer
     {
         public static readonly ObservableProperty DataSourceProperty = RegisterProperty
             (typeof(MsSqlServerConnectionData), nameof(DataSource), null,
-            [(o) => ValueValidator.AssertStringIsNotNullOrEmpty((string)o.NewValue, o.Name)]);
+            [(o) => ValueValidator.AssertStringIsNotNullOrEmpty((string)o.NewValue, o.Property.Name)]);
 
         public static readonly ObservableProperty InitialCatalogProperty = RegisterProperty
             (typeof(MsSqlServerConnectionData), nameof(InitialCatalog), null,
-            [(o) => ValueValidator.AssertStringIsNotNullOrEmpty((string)o.NewValue, o.Name)]);
+            [(o) => ValueValidator.AssertStringIsNotNullOrEmpty((string)o.NewValue, o.Property.Name)]);
 
         public string DataSource
         {
-            get => (string)GetProperty(DataSourceProperty);
-            set => SetProperty(value, DataSourceProperty);
+            get => (string)GetValue(DataSourceProperty);
+            set => SetValue(value, DataSourceProperty);
         }
 
         public string InitialCatalog
         {
-            get => (string)GetProperty(InitialCatalogProperty);
-            set => SetProperty(value, InitialCatalogProperty);
+            get => (string)GetValue(InitialCatalogProperty);
+            set => SetValue(value, InitialCatalogProperty);
         }
 
         public bool IsTlsConnection { get; set; }

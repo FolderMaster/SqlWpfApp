@@ -6,6 +6,7 @@ using System.Windows;
 using View.Implementations;
 using View.Implementations.Configuration;
 using View.Implementations.Dialogs;
+using View.Implementations.Document;
 using View.Implementations.MessageBoxes;
 using View.Implementations.Proces.MessageBoxes;
 using View.Implementations.Proces.Windows;
@@ -22,6 +23,7 @@ using ViewModel.Interfaces;
 using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Proces;
 using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Document;
 using ViewModel.Interfaces.Services.Files;
 
 namespace View
@@ -66,17 +68,16 @@ namespace View
                 services.AddSingleton<IDbConnection, MsSqlServerDbConnection>();
                 services.AddSingleton<IDbConnection, SqliteDbConnection>();
 
+                services.AddSingleton<IDocumentService, DocumentService>();
+
                 services.AddSingleton<IProc, ExitMessageBoxProc>();
                 services.AddSingleton<IProc, InformationMessageBoxProc>();
 
                 services.AddSingleton<IProc, ConnectionWindowProc>();
 
-                services.AddSingleton<PassportsWindowProcCreator>();
-
                 services.AddSingleton<IProc, DepartmentsWindowProc>();
                 services.AddSingleton<IProc, GradeModesWindowProc>();
-                services.AddSingleton<IProc, PassportsWindowProc>((s) =>
-                    s.GetRequiredService<PassportsWindowProcCreator>().Create());
+                services.AddSingleton<IProc, PassportsWindowProc>();
                 services.AddSingleton<IProc, PositionsWindowProc>();
                 services.AddSingleton<IProc, RolesWindowProc>();
                 services.AddSingleton<IProc, ScholarshipsWindowProc>();

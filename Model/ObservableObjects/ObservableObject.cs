@@ -80,10 +80,10 @@ namespace Model.ObservableObjects
             }
         }
 
-        protected object? GetProperty(ObservableProperty property) =>
+        protected object? GetValue(ObservableProperty property) =>
             property.GetValueForOwner(this);
 
-        protected void SetProperty(object? value, ObservableProperty property)
+        protected void SetValue(object? value, ObservableProperty property)
         {
             if (property.UpdateValueForOwner(this, value))
             {

@@ -20,7 +20,7 @@ namespace View.Converters
         /// <returns>Если параметр и значение совпадают, то true, иначе false.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             => value != null && parameter != null && value.ToString() == parameter.ToString() ?
-            Visibility.Visible : Visibility.Hidden;
+            Visibility.Visible : Visibility.Collapsed;
 
         /// <summary>
         /// Конвертирует значение <see cref="Visibility"/> к перечислению (не используется).

@@ -26,33 +26,22 @@ namespace ViewModel.Services
         private static Thickness _cellBorderThickness = new Thickness(1);
 
         /// <summary>
-        /// Документ.
-        /// </summary>
-        private FlowDocument _document;
-
-        /// <summary>
-        /// Создаёт экземпляр класса <see cref="DocumentEditService"/>,
-        /// </summary>
-        /// <param name="document">Документ.</param>
-        public DocumentEditService(FlowDocument document) => _document = document;
-
-        /// <summary>
         /// Добавляет параграф документу.
         /// </summary>
         /// <param name="containedValue">Значение для размещения.</param>
-        public void AddParagraph(object containedValue) =>
-            _document.Blocks.Add(new Paragraph(new Run(containedValue.ToString())));
+        public void AddParagraph(FlowDocument document, object containedValue) =>
+            document.Blocks.Add(new Paragraph(new Run(containedValue.ToString())));
 
         /// <summary>
         /// Добавляет таблицу документу.
         /// </summary>
         /// <param name="dataTable">Таблица данных.</param>
-        public void AddTable(DataTable dataTable) => _document.Blocks.Add(CreateTable(dataTable));
+        public void AddTable(FlowDocument document, DataTable dataTable) => document.Blocks.Add(CreateTable(dataTable));
 
         /// <summary>
         /// Очищает документ.
         /// </summary>
-        public void Clear() => _document.Blocks.Clear();
+        public void Clear(FlowDocument document) => document.Blocks.Clear();
 
         /// <summary>
         /// Создаёт таблицу.

@@ -65,6 +65,7 @@
     <DataTemplate x:Key="AuthorizationTemplate">
         <TextBlock Text="{Binding User}"/>
     </DataTemplate>
+    
     <s:DbConnectionTemplateSelector x:Key="DbConnectionTemplateSelector">
         <s:DbConnectionTemplateSelector.MsSqlServerTemplate>
             <DataTemplate>
@@ -87,4 +88,47 @@
             </DataTemplate>
         </s:DbConnectionTemplateSelector.SqliteTemplate>
     </s:DbConnectionTemplateSelector>
+
+    <s:TextAlignmentTemplateSelector x:Key="TextAlignmentTemplateSelector">
+        <s:TextAlignmentTemplateSelector.LeftTemplate>
+            <DataTemplate>
+                <Image Source="{StaticResource LeftImage}"
+                       Style="{StaticResource ToolbarListBoxItemStyle}">
+                    <Image.ToolTip>
+                        <ToolTip Content="{StaticResource LeftHeader}"/>
+                    </Image.ToolTip>
+                </Image>
+            </DataTemplate>
+        </s:TextAlignmentTemplateSelector.LeftTemplate>
+        <s:TextAlignmentTemplateSelector.JustifyTemplate>
+            <DataTemplate>
+                <Image Source="{StaticResource JustifyImage}"
+                       Style="{StaticResource ToolbarListBoxItemStyle}">
+                    <Image.ToolTip>
+                        <ToolTip Content="{StaticResource JustifyHeader}"/>
+                    </Image.ToolTip>
+                </Image>
+            </DataTemplate>
+        </s:TextAlignmentTemplateSelector.JustifyTemplate>
+        <s:TextAlignmentTemplateSelector.CenterTemplate>
+            <DataTemplate>
+                <Image Source="{StaticResource CenterImage}"
+                       Style="{StaticResource ToolbarListBoxItemStyle}">
+                    <Image.ToolTip>
+                        <ToolTip Content="{StaticResource CenterHeader}"/>
+                    </Image.ToolTip>
+                </Image>
+            </DataTemplate>
+        </s:TextAlignmentTemplateSelector.CenterTemplate>
+        <s:TextAlignmentTemplateSelector.RightTemplate>
+            <DataTemplate>
+                <Image Source="{StaticResource RightImage}"
+                       Style="{StaticResource ToolbarListBoxItemStyle}">
+                    <Image.ToolTip>
+                        <ToolTip Content="{StaticResource RightHeader}"/>
+                    </Image.ToolTip>
+                </Image>
+            </DataTemplate>
+        </s:TextAlignmentTemplateSelector.RightTemplate>
+    </s:TextAlignmentTemplateSelector>
 </ResourceDictionary>

@@ -10,8 +10,11 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\Add.ico" />
+    <None Remove="Resources\Images\Bold.ico" />
+    <None Remove="Resources\Images\Center.ico" />
     <None Remove="Resources\Images\Change.ico" />
     <None Remove="Resources\Images\Connection.ico" />
+    <None Remove="Resources\Images\Decrease.ico" />
     <None Remove="Resources\Images\Departments.ico" />
     <None Remove="Resources\Images\Disciplines.ico" />
     <None Remove="Resources\Images\Exit.ico" />
@@ -19,9 +22,15 @@
     <None Remove="Resources\Images\Grades.ico" />
     <None Remove="Resources\Images\GradeStatements.ico" />
     <None Remove="Resources\Images\Groups.ico" />
+    <None Remove="Resources\Images\Image.ico" />
+    <None Remove="Resources\Images\Increase.ico" />
     <None Remove="Resources\Images\Information.ico" />
+    <None Remove="Resources\Images\Italic.ico" />
+    <None Remove="Resources\Images\Justify.ico" />
+    <None Remove="Resources\Images\Left.ico" />
     <None Remove="Resources\Images\LeftArrow.ico" />
     <None Remove="Resources\Images\LeftDoubleArrow.ico" />
+    <None Remove="Resources\Images\List.ico" />
     <None Remove="Resources\Images\NoImage.ico" />
     <None Remove="Resources\Images\Passports.ico" />
     <None Remove="Resources\Images\Persons.ico" />
@@ -29,6 +38,7 @@
     <None Remove="Resources\Images\Remove.ico" />
     <None Remove="Resources\Images\Reports.ico" />
     <None Remove="Resources\Images\Requests.ico" />
+    <None Remove="Resources\Images\Right.ico" />
     <None Remove="Resources\Images\RightArrow.ico" />
     <None Remove="Resources\Images\RightDoubleArrow.ico" />
     <None Remove="Resources\Images\Roles.ico" />
@@ -39,6 +49,7 @@
     <None Remove="Resources\Images\StudentDisciplineConnections.ico" />
     <None Remove="Resources\Images\Students.ico" />
     <None Remove="Resources\Images\StudyForms.ico" />
+    <None Remove="Resources\Images\Table.ico" />
     <None Remove="Resources\Images\TeacherDisciplineConnections.ico" />
     <None Remove="Resources\Images\Teachers.ico" />
     <None Remove="Resources\Images\Update.ico" />
@@ -57,8 +68,11 @@
 
   <ItemGroup>
     <Resource Include="Resources\Images\Add.ico" />
+    <Resource Include="Resources\Images\Bold.ico" />
+    <Resource Include="Resources\Images\Center.ico" />
     <Resource Include="Resources\Images\Change.ico" />
     <Resource Include="Resources\Images\Connection.ico" />
+    <Resource Include="Resources\Images\Decrease.ico" />
     <Resource Include="Resources\Images\Departments.ico">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
@@ -70,11 +84,17 @@
     <Resource Include="Resources\Images\Grades.ico" />
     <Resource Include="Resources\Images\GradeStatements.ico" />
     <Resource Include="Resources\Images\Groups.ico" />
+    <Resource Include="Resources\Images\Image.ico" />
+    <Resource Include="Resources\Images\Increase.ico" />
     <Resource Include="Resources\Images\Information.ico">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\Italic.ico" />
+    <Resource Include="Resources\Images\Justify.ico" />
+    <Resource Include="Resources\Images\Left.ico" />
     <Resource Include="Resources\Images\LeftArrow.ico" />
     <Resource Include="Resources\Images\LeftDoubleArrow.ico" />
+    <Resource Include="Resources\Images\List.ico" />
     <Resource Include="Resources\Images\NoImage.ico" />
     <Resource Include="Resources\Images\Passports.ico" />
     <Resource Include="Resources\Images\Persons.ico" />
@@ -82,6 +102,7 @@
     <Resource Include="Resources\Images\Remove.ico" />
     <Resource Include="Resources\Images\Reports.ico" />
     <Resource Include="Resources\Images\Requests.ico" />
+    <Resource Include="Resources\Images\Right.ico" />
     <Resource Include="Resources\Images\RightArrow.ico" />
     <Resource Include="Resources\Images\RightDoubleArrow.ico" />
     <Resource Include="Resources\Images\Roles.ico" />
@@ -92,6 +113,7 @@
     <Resource Include="Resources\Images\StudentDisciplineConnections.ico" />
     <Resource Include="Resources\Images\Students.ico" />
     <Resource Include="Resources\Images\StudyForms.ico" />
+    <Resource Include="Resources\Images\Table.ico" />
     <Resource Include="Resources\Images\TeacherDisciplineConnections.ico" />
     <Resource Include="Resources\Images\Teachers.ico" />
     <Resource Include="Resources\Images\Update.ico" />
