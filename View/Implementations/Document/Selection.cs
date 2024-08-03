@@ -25,23 +25,16 @@ namespace View.Implementations.Document
         public static ObservableProperty ItalicProperty = RegisterProperty(typeof(Selection),
             nameof(Italic), null, null, PropertyChanged);
 
-        public static ObservableProperty SizeProperty = RegisterProperty(typeof(Selection),
-            nameof(Size), null, null, PropertyChanged);
+        public static ObservableProperty FontSizeProperty = RegisterProperty(typeof(Selection),
+            nameof(FontSize), null, null, PropertyChanged);
+
+        public static ObservableProperty FontFamilyProperty = RegisterProperty(typeof(Selection),
+            nameof(FontFamily), null, null, PropertyChanged);
 
         public static ObservableProperty AlignmentProperty = RegisterProperty(typeof(Selection),
             nameof(Alignment), null, null, PropertyChanged);
 
-
         private readonly TextSelection _textSelection;
-
-        static Selection() { }
-
-        public Selection(TextSelection textSelection)
-        {
-            _textSelection = textSelection;
-            _textSelection.Changed += TextSelection_Changed;
-            UpdateProperties();
-        }
 
         public bool? Bold
         {
@@ -55,10 +48,16 @@ namespace View.Implementations.Document
             set => SetValue(value, ItalicProperty);
         }
 
-        public double? Size
+        public double? FontSize
         {
-            get => (double?)GetValue(SizeProperty);
-            set => SetValue(value, SizeProperty);
+            get => (double?)GetValue(FontSizeProperty);
+            set => SetValue(value, FontSizeProperty);
+        }
+
+        public object? FontFamily
+        {
+            get => GetValue(FontFamilyProperty);
+            set => SetValue(value, FontFamilyProperty);
         }
 
         public object? Alignment
@@ -67,9 +66,23 @@ namespace View.Implementations.Document
             set => SetValue(value, AlignmentProperty);
         }
 
-        public void CreateList()
+        static Selection() { }
+
+        public Selection(TextSelection textSelection)
+        {
+            _textSelection = textSelection;
+            _textSelection.Changed += TextSelection_Changed;
+            UpdateProperties();
+        }
+
+        public void CreateList(object markerStyle)
         {
             var list = new List(new ListItem(new Paragraph()));
+            list.MarkerStyle = (TextMarkerStyle)markerStyle;
+            if (FontSize != null)
+            {
+                list.FontSize = (double)FontSize;
+            }
             _textSelection.Start.InsertParagraphBreak();
             _textSelection.Start.Paragraph.SiblingBlocks.
                 InsertAfter(_textSelection.Start.Paragraph, list);
@@ -118,12 +131,26 @@ namespace View.Implementations.Document
                 InsertAfter(_textSelection.Start.Paragraph, container);
         }
 
+        protected void SetSelectionValue(DependencyProperty property, object value) =>
+            _textSelection.ApplyPropertyValue(property, value);
+
+        protected object GetSelectionValue(DependencyProperty property) =>
+            _textSelection.GetPropertyValue(property);
+
         protected virtual void UpdateProperties()
         {
-            Bold = GetSelectionBold();
-            Italic = GetSelectionItalic();
-            Size = GetSelectionSize();
-            Alignment = GetSelectionAlignment();
+            var weight = GetSelectionValue(TextElement.FontWeightProperty) as FontWeight?;
+            Bold = null != weight ? FontWeights.Bold == weight : null;
+
+            var style = GetSelectionValue(TextElement.FontStyleProperty) as FontStyle?;
+            Italic = style != null ? FontStyles.Italic == style : null;
+
+            FontSize = GetSelectionValue(TextElement.FontSizeProperty) as double?;
+
+            var family = GetSelectionValue(TextElement.FontFamilyProperty) as FontFamily;
+            FontFamily = family != null ? family.Source : null;
+
+            Alignment = GetSelectionValue(Block.TextAlignmentProperty) as TextAlignment?;
         }
 
         private static void PropertyChanged(ObservableArgs args)
@@ -133,83 +160,27 @@ namespace View.Implementations.Document
             {
                 if (args.Property == BoldProperty)
                 {
-                    selection.SetSelectionBold((bool)args.NewValue);
+                    selection.SetSelectionValue(TextElement.FontWeightProperty,
+                        (bool)args.NewValue ? FontWeights.Bold : FontWeights.Normal);
                 }
                 else if (args.Property == ItalicProperty)
                 {
-                    selection.SetSelectionItalic((bool)args.NewValue);
+                    selection.SetSelectionValue(TextElement.FontStyleProperty,
+                        (bool)args.NewValue ? FontStyles.Italic : FontStyles.Normal);
+                }
+                else if (args.Property == FontSizeProperty)
+                {
+                    selection.SetSelectionValue(TextElement.FontSizeProperty, args.NewValue);
+                }
+                else if (args.Property == FontFamilyProperty)
+                {
+                    selection.SetSelectionValue(TextElement.FontFamilyProperty, args.NewValue);
                 }
                 else if (args.Property == AlignmentProperty)
                 {
-                    selection.SetSelectionAlignment(args.NewValue);
-                }
-                else if (args.Property == SizeProperty)
-                {
-                    selection.SetSelectionSize((double)args.NewValue);
+                    selection.SetSelectionValue(Block.TextAlignmentProperty, args.NewValue);
                 }
             }
-        }
-
-        private bool? GetSelectionBold()
-        {
-            if (_textSelection.GetPropertyValue(TextElement.FontWeightProperty) is
-                FontWeight weight)
-            {
-                return weight == FontWeights.Bold;
-            }
-            return null;
-        }
-
-        private bool? GetSelectionItalic()
-        {
-            if (_textSelection.GetPropertyValue(TextElement.FontStyleProperty) is
-                FontStyle style)
-            {
-                return style == FontStyles.Italic;
-            }
-            return null;
-        }
-
-        private double? GetSelectionSize()
-        {
-            if (_textSelection.GetPropertyValue(TextElement.FontSizeProperty) is
-                double size)
-            {
-                return size;
-            }
-            return null;
-        }
-
-        private object? GetSelectionAlignment()
-        {
-            if (_textSelection.GetPropertyValue(Block.TextAlignmentProperty) is
-                TextAlignment alignment)
-            {
-                return alignment;
-            }
-            return null;
-        }
-
-        private void SetSelectionBold(bool isBold)
-        {
-            _textSelection.ApplyPropertyValue(TextElement.FontWeightProperty,
-                isBold ? FontWeights.Bold : FontWeights.Normal);
-        }
-
-        private void SetSelectionItalic(bool isItalic)
-        {
-            _textSelection.ApplyPropertyValue(TextElement.FontStyleProperty,
-                isItalic ? FontStyles.Italic : FontStyles.Normal);
-        }
-
-        private void SetSelectionSize(double size)
-        {
-            _textSelection.ApplyPropertyValue(TextElement.FontSizeProperty, size);
-        }
-
-        private void SetSelectionAlignment(object alignment)
-        {
-            _textSelection.ApplyPropertyValue(Block.TextAlignmentProperty, alignment);
         }
 
         private void TextSelection_Changed(object? sender, EventArgs e) =>

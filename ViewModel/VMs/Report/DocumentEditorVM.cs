@@ -13,10 +13,10 @@ namespace ViewModel.VMs.Report
     {
         private const double _delta = 2;
 
-        private object? _textSelection;
+        private ISelection? _selection;
 
         [ObservableProperty]
-        private ISelection? selection;
+        private object? markerStyle;
 
         [ObservableProperty]
         private int columnsCount = 10;
@@ -24,15 +24,13 @@ namespace ViewModel.VMs.Report
         [ObservableProperty]
         private int rowsCount = 10;
 
-        public object? TextSelection
+        public ISelection? Selection
         {
-            get => _textSelection;
+            get => _selection;
             set
             {
-                if (SetProperty(ref _textSelection, value))
+                if (SetProperty(ref _selection, value))
                 {
-                    Selection = TextSelection != null ?
-                        DocumentService?.GetSelection(TextSelection) : null;
                     CreateListCommand.NotifyCanExecuteChanged();
                     CreateTableCommand.NotifyCanExecuteChanged();
                     CreateImageCommand.NotifyCanExecuteChanged();
@@ -58,11 +56,11 @@ namespace ViewModel.VMs.Report
 
         public DocumentEditorVM()
         {
-            IncreaseSizeCommand = new RelayCommand(() => Selection.Size += _delta,
+            IncreaseSizeCommand = new RelayCommand(() => Selection.FontSize += _delta,
                 () => Selection != null);
-            DecreaseSizeCommand = new RelayCommand(() => Selection.Size -= _delta,
+            DecreaseSizeCommand = new RelayCommand(() => Selection.FontSize -= _delta,
                 () => Selection != null);
-            CreateListCommand = new RelayCommand(() => Selection.CreateList(),
+            CreateListCommand = new RelayCommand(() => Selection.CreateList(MarkerStyle),
                 () => Selection != null);
             CreateTableCommand = new RelayCommand
                 (() => Selection.CreateTable(rowsCount, columnsCount),

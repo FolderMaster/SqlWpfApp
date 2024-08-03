@@ -205,8 +205,8 @@ namespace ViewModel.VMs.Report
             });
             PrintCommand = new RelayCommand(() =>
             {
-                _printService.Print(DocumentService.GetDocumentPaginator(Document),
-                    _resourceService.GetString(_documentDescriptionResourceKey));
+                /**_printService.Print(DocumentService.GetDocumentPaginator(Document),
+                    _resourceService.GetString(_documentDescriptionResourceKey));**/
             });
         }
     }

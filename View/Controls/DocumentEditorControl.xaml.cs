@@ -3,6 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 
+using View.Implementations.Document;
+
 using ViewModel.Interfaces.Services.Document;
 using ViewModel.Interfaces.Services.Files;
 using ViewModel.VMs.Report;
@@ -15,7 +17,7 @@ namespace View.Controls
     public partial class DocumentEditorControl : UserControl
     {
         public static DependencyProperty DocumentProperty =
-            DependencyProperty.Register(nameof(Document), typeof(FlowDocument),
+            DependencyProperty.Register(nameof(Document), typeof(Document),
                 typeof(DocumentEditorControl), new FrameworkPropertyMetadata(OnPropertyChanged));
 
         public static DependencyProperty DocumentServiceProperty =
@@ -26,9 +28,9 @@ namespace View.Controls
             DependencyProperty.Register(nameof(OpenGettingFileService), typeof(IGettingFileService),
                 typeof(DocumentEditorControl), new FrameworkPropertyMetadata(OnPropertyChanged));
 
-        public FlowDocument Document
+        public Document Document
         {
-            get => (FlowDocument)GetValue(DocumentProperty);
+            get => (Document)GetValue(DocumentProperty);
             set => SetValue(DocumentProperty, value);
         }
 

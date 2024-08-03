@@ -63,6 +63,12 @@
             <Setter Property="Width" Value="{StaticResource ToolbarListBoxItemSize}"/>
         </Style.Setters>
     </Style>
+    <Style x:Key="ToolbarComboBoxStyle" TargetType="ComboBox"
+           BasedOn="{StaticResource BarElementStyle}">
+        <Style.Setters>
+            <Setter Property="Width" Value="{StaticResource ToolbarTextBoxWidth}"/>
+        </Style.Setters>
+    </Style>
 
     <Style x:Key="StatusbarIconStyle" TargetType="FrameworkElement"
            BasedOn="{StaticResource BarElementStyle}">

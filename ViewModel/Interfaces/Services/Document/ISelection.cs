@@ -6,11 +6,13 @@
 
         public bool? Italic { get; set; }
 
-        public double? Size { get; set; }
+        public double? FontSize { get; set; }
+
+        public object? FontFamily { get; set; }
 
         public object? Alignment { get; set; }
 
-        public void CreateList();
+        public void CreateList(object markerStyle);
 
         public void CreateTable(int columnsCount, int rowsCount);
 

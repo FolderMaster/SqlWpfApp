@@ -2,37 +2,50 @@
 
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
+
+using View.Implementations.Document;
+
+using ViewModel.Interfaces.Services.Document;
 
 namespace View.Behaviors
 {
     public class ExtendedRichTextBoxBehavior : Behavior<RichTextBox>
     {
         public static readonly DependencyProperty DocumentProperty =
-            DependencyProperty.Register(nameof(Document), typeof(FlowDocument),
-                typeof(ExtendedRichTextBoxBehavior), new FrameworkPropertyMetadata(null,
-                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, DocumentChanged));
+            DependencyProperty.Register(nameof(Document), typeof(Document),
+                typeof(ExtendedRichTextBoxBehavior),
+                new FrameworkPropertyMetadata(DocumentChanged));
 
         private static readonly DependencyProperty SelectionProperty =
-            DependencyProperty.Register(nameof(Selection), typeof(TextSelection),
+            DependencyProperty.Register(nameof(Selection), typeof(Selection),
                 typeof(ExtendedRichTextBoxBehavior));
 
-        public FlowDocument Document
+        private static readonly DependencyProperty DocumentServiceProperty =
+            DependencyProperty.Register(nameof(DocumentService), typeof(IDocumentService),
+                typeof(ExtendedRichTextBoxBehavior));
+
+        public Document Document
         {
-            get => (FlowDocument)GetValue(DocumentProperty);
+            get => (Document)GetValue(DocumentProperty);
             set => SetValue(DocumentProperty, value);
         }
 
-        public TextSelection Selection
+        public Selection Selection
         {
-            get => (TextSelection)GetValue(SelectionProperty);
+            get => (Selection)GetValue(SelectionProperty);
             set => SetValue(SelectionProperty, value);
+        }
+
+        public IDocumentService DocumentService
+        {
+            get => (IDocumentService)GetValue(DocumentServiceProperty);
+            set => SetValue(DocumentServiceProperty, value);
         }
 
         protected override void OnAttached()
         {
             base.OnAttached();
-            Document = AssociatedObject.Document;
+            Document = new Document(AssociatedObject.Document);
             AssociatedObject.SelectionChanged += AssociatedObject_SelectionChanged;
         }
 
@@ -45,14 +58,14 @@ namespace View.Behaviors
         private void AssociatedObject_SelectionChanged(object sender, RoutedEventArgs e)
         {
             var richTextBox = (RichTextBox)sender;
-            Selection = richTextBox.Selection;
+            Selection = new Selection(richTextBox.Selection);
         }
 
         private static void DocumentChanged(object sender,
             DependencyPropertyChangedEventArgs e)
         {
             var behavior = (ExtendedRichTextBoxBehavior)sender;
-            behavior.AssociatedObject.Document = (FlowDocument)e.NewValue;
+            //behavior.AssociatedObject.Document = (FlowDocument)e.NewValue;
         }
     }
 }

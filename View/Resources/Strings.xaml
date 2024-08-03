@@ -260,16 +260,32 @@
 
     <sys:String x:Key="DocumentDescription">Report</sys:String>
 
+    <sys:String x:Key="TextHeader">Text</sys:String>
+    <sys:String x:Key="StyleHeader">Style</sys:String>
     <sys:String x:Key="BoldHeader">Bold</sys:String>
     <sys:String x:Key="ItalicHeader">Italic</sys:String>
+    <sys:String x:Key="FamilyHeader">Family</sys:String>
+    <sys:String x:Key="FontFamilyTest">Font family test</sys:String>
     <sys:String x:Key="SizeHeader">Size</sys:String>
     <sys:String x:Key="IncreaseSizeHeader">Increase size</sys:String>
     <sys:String x:Key="DecreaseSizeHeader">Decrease size</sys:String>
+    <sys:String x:Key="AlignmentHeader">Alignment</sys:String>
     <sys:String x:Key="LeftHeader">Left</sys:String>
     <sys:String x:Key="JustifyHeader">Justify</sys:String>
     <sys:String x:Key="CenterHeader">Center</sys:String>
     <sys:String x:Key="RightHeader">Right</sys:String>
+    <sys:String x:Key="ContentHeader">Content</sys:String>
     <sys:String x:Key="ListHeader">List</sys:String>
+    <sys:String x:Key="NoneHeader">None</sys:String>
+    <sys:String x:Key="DiscHeader">•</sys:String>
+    <sys:String x:Key="CircleHeader">◯</sys:String>
+    <sys:String x:Key="SquareHeader">☐</sys:String>
+    <sys:String x:Key="BoxHeader">■</sys:String>
+    <sys:String x:Key="LowerRomanHeader">i</sys:String>
+    <sys:String x:Key="UpperRomanHeader">I</sys:String>
+    <sys:String x:Key="LowerLatinHeader">a</sys:String>
+    <sys:String x:Key="UpperLatinHeader">A</sys:String>
+    <sys:String x:Key="DecimalHeader">1</sys:String>
     <sys:String x:Key="TableHeader">Table</sys:String>
     <sys:String x:Key="ImageHeader">Image</sys:String>
     <sys:String x:Key="RowsHeader">Rows</sys:String>

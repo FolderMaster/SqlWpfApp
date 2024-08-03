@@ -10,4 +10,5 @@
     <c:InverseBoolConverter x:Key="InverseBoolConverter"/>
     <c:BoolToEnumConverter x:Key="BoolToEnumConverter"/>
     <c:InverseIntToBoolConverter x:Key="InverseIntToBoolConverter"/>
+    <c:StringToResourceConverter x:Key="StringToResourceConverter"/>
 </ResourceDictionary>
