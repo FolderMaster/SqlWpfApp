@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ViewModel.Interfaces.Services.Document
+﻿namespace ViewModel.Interfaces.Services.Document
 {
     public interface IDocument
     {
-        public double Width { get; set; }
+        public double PageWidth { get; set; }
 
-        public double Height { get; set; }
+        public double PageHeight { get; set; }
 
         public object DocumentPaginator { get; }
+
+        public void Clear();
+
+        public void InsertValue(object value);
     }
 }

@@ -13,16 +13,23 @@ namespace ViewModel.VMs.Report
     {
         private const double _delta = 2;
 
+        private IDocument? _document;
+
         private ISelection? _selection;
 
-        [ObservableProperty]
-        private object? markerStyle;
+        private object? _markerStyle;
 
         [ObservableProperty]
         private int columnsCount = 10;
 
         [ObservableProperty]
         private int rowsCount = 10;
+
+        public IDocument? Document
+        {
+            get => _document;
+            set => SetProperty(ref _document, value);
+        }
 
         public ISelection? Selection
         {
@@ -36,6 +43,18 @@ namespace ViewModel.VMs.Report
                     CreateImageCommand.NotifyCanExecuteChanged();
                     IncreaseSizeCommand.NotifyCanExecuteChanged();
                     DecreaseSizeCommand.NotifyCanExecuteChanged();
+                }
+            }
+        }
+
+        public object? MarkerStyle
+        {
+            get => _markerStyle;
+            set
+            {
+                if (SetProperty(ref _markerStyle, value))
+                {
+                    CreateListCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -60,10 +79,10 @@ namespace ViewModel.VMs.Report
                 () => Selection != null);
             DecreaseSizeCommand = new RelayCommand(() => Selection.FontSize -= _delta,
                 () => Selection != null);
-            CreateListCommand = new RelayCommand(() => Selection.CreateList(MarkerStyle),
-                () => Selection != null);
+            CreateListCommand = new RelayCommand(() => Selection.InsertList(MarkerStyle),
+                () => Selection != null && MarkerStyle != null);
             CreateTableCommand = new RelayCommand
-                (() => Selection.CreateTable(rowsCount, columnsCount),
+                (() => Selection.InsertTable(rowsCount, columnsCount),
                 () => Selection != null);
             CreateImageCommand = new RelayCommand(() =>
             {
@@ -71,7 +90,7 @@ namespace ViewModel.VMs.Report
                 if (filePath != null)
                 {
                     var bitmap = new BitmapImage(new Uri(filePath));
-                    Selection.CreateImage(bitmap);
+                    Selection.InsertImage(bitmap);
                 }
             }, () => Selection != null);
         }

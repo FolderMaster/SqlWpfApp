@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="View.Controls.Report.DocumentEditorControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:View.Controls.Report"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:b="clr-namespace:View.Behaviors"
+             d:DesignHeight="450" d:DesignWidth="800"
+             Name="control">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <local:DocumentToolBar Grid.Row="0"
+                               Selection="{Binding Selection}"
+                               Document="{Binding Document}"
+                               Families="{Binding DocumentService.FontFamilies,
+                               ElementName=control}"
+                               IncreaseSizeCommand="{Binding IncreaseSizeCommand}"
+                               DecreaseSizeCommand="{Binding DecreaseSizeCommand}"
+                               Alignments="{Binding DocumentService.HorizontalTextAlignments,
+                               ElementName=control}"
+                               CreateImageCommand="{Binding CreateImageCommand}"
+                               CreateListCommand="{Binding CreateListCommand}"
+                               MarkerStyles="{Binding DocumentService.MarkerStyles,
+                               ElementName=control}"
+                               SelectedMarkerStyle="{Binding MarkerStyle}"
+                               CreateTableCommand="{Binding CreateTableCommand}"
+                               ColumnsCount="{Binding ColumnsCount}"
+                               RowsCount="{Binding RowsCount}"/>
+        <RichTextBox Grid.Row="1" SpellCheck.IsEnabled="True"
+                     IsInactiveSelectionHighlightEnabled="True">
+            <i:Interaction.Behaviors>
+                <b:ExtendedRichTextBoxBehavior
+                    Selection="{Binding Selection, Mode=OneWayToSource}"
+                    Document="{Binding Document}"/>
+            </i:Interaction.Behaviors>
+        </RichTextBox>
+    </Grid>
+</UserControl>

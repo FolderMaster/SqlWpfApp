@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Windows"
         mc:Ignorable="d"
-        xmlns:c="clr-namespace:View.Controls"
+        xmlns:c="clr-namespace:View.Controls.Report"
         Title="{StaticResource ReportsHeader}" Icon="{StaticResource ReportsIcon}"
         Height="{StaticResource TableWindowHeight}" Width="{StaticResource TableWindowWidth}"
         Name="control">
@@ -14,10 +14,10 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <c:DocumentEditorControl Grid.Row="0" OpenGettingFileService=
-                "{Binding DataContext.OpenGettingFileService, ElementName=control}"
-                Document="{Binding DataContext.Document, ElementName=control, Mode=OneWayToSource}"
-                DocumentService="{Binding DataContext.DocumentService, ElementName=control}"/>
+        <c:DocumentEditorControl Grid.Row="0"
+                OpenGettingFileService="{Binding DataContext.OpenGettingFileService, ElementName=control}"
+                DocumentService="{Binding DataContext.DocumentService, ElementName=control}"
+                Document="{Binding DataContext.Document, ElementName=control}"/>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

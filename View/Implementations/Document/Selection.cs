@@ -20,19 +20,19 @@ namespace View.Implementations.Document
         private static readonly Thickness _borderThickness = new Thickness(1);
 
         public static ObservableProperty BoldProperty = RegisterProperty(typeof(Selection),
-            nameof(Bold), null, null, PropertyChanged);
+            nameof(Bold), null, null, Property_Changed);
 
         public static ObservableProperty ItalicProperty = RegisterProperty(typeof(Selection),
-            nameof(Italic), null, null, PropertyChanged);
+            nameof(Italic), null, null, Property_Changed);
 
         public static ObservableProperty FontSizeProperty = RegisterProperty(typeof(Selection),
-            nameof(FontSize), null, null, PropertyChanged);
+            nameof(FontSize), null, null, Property_Changed);
 
         public static ObservableProperty FontFamilyProperty = RegisterProperty(typeof(Selection),
-            nameof(FontFamily), null, null, PropertyChanged);
+            nameof(FontFamily), null, null, Property_Changed);
 
         public static ObservableProperty AlignmentProperty = RegisterProperty(typeof(Selection),
-            nameof(Alignment), null, null, PropertyChanged);
+            nameof(Alignment), null, null, Property_Changed);
 
         private readonly TextSelection _textSelection;
 
@@ -75,7 +75,7 @@ namespace View.Implementations.Document
             UpdateProperties();
         }
 
-        public void CreateList(object markerStyle)
+        public void InsertList(object markerStyle)
         {
             var list = new List(new ListItem(new Paragraph()));
             list.MarkerStyle = (TextMarkerStyle)markerStyle;
@@ -88,7 +88,7 @@ namespace View.Implementations.Document
                 InsertAfter(_textSelection.Start.Paragraph, list);
         }
 
-        public void CreateTable(int columnsCount, int rowsCount)
+        public void InsertTable(int columnsCount, int rowsCount)
         {
             var table = new Table();
             table.CellSpacing = _cellSpacing;
@@ -116,7 +116,7 @@ namespace View.Implementations.Document
                 InsertAfter(_textSelection.Start.Paragraph, table);
         }
 
-        public void CreateImage(object data)
+        public void InsertImage(object data)
         {
             var imageSource = (ImageSource)data;
             var image = new Image()
@@ -125,10 +125,11 @@ namespace View.Implementations.Document
                 Width = imageSource.Width,
                 Height = imageSource.Height
             };
-            var container = new BlockUIContainer(image);
-            _textSelection.Start.InsertParagraphBreak();
-            _textSelection.Start.Paragraph.SiblingBlocks.
-                InsertAfter(_textSelection.Start.Paragraph, container);
+            var grid = new Grid();
+            grid.Children.Add(image);
+            grid.Children.Add(new AdornerDecorator());
+            var container = new InlineUIContainer(grid);
+            _textSelection.Start.Paragraph.Inlines.Add(container);
         }
 
         protected void SetSelectionValue(DependencyProperty property, object value) =>
@@ -153,7 +154,7 @@ namespace View.Implementations.Document
             Alignment = GetSelectionValue(Block.TextAlignmentProperty) as TextAlignment?;
         }
 
-        private static void PropertyChanged(ObservableArgs args)
+        private static void Property_Changed(ObservableArgs args)
         {
             var selection = (Selection)args.Owner;
             if (args.NewValue != null)
@@ -181,6 +182,23 @@ namespace View.Implementations.Document
                     selection.SetSelectionValue(Block.TextAlignmentProperty, args.NewValue);
                 }
             }
+        }
+
+        protected AdornerLayer? GetAdornerLayerFromSelection()
+        {
+            var current = _textSelection.Start.Parent;
+            while (current != null)
+            {
+                if (current is RichTextBox richTextBox)
+                {
+                    return AdornerLayer.GetAdornerLayer(richTextBox);
+                }
+                else if (current is FrameworkContentElement element)
+                {
+                    current = element.Parent;
+                }
+            }
+            return null;
         }
 
         private void TextSelection_Changed(object? sender, EventArgs e) =>

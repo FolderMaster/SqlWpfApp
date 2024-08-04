@@ -9,7 +9,7 @@ using ViewModel.Interfaces.Services.Document;
 using ViewModel.Interfaces.Services.Files;
 using ViewModel.VMs.Report;
 
-namespace View.Controls
+namespace View.Controls.Report
 {
     /// <summary>
     /// Interaction logic for DocumentEditorControl.xaml
@@ -18,7 +18,8 @@ namespace View.Controls
     {
         public static DependencyProperty DocumentProperty =
             DependencyProperty.Register(nameof(Document), typeof(Document),
-                typeof(DocumentEditorControl), new FrameworkPropertyMetadata(OnPropertyChanged));
+                typeof(DocumentEditorControl), new FrameworkPropertyMetadata
+                (null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnPropertyChanged));
 
         public static DependencyProperty DocumentServiceProperty =
             DependencyProperty.Register(nameof(DocumentService), typeof(IDocumentService),
@@ -53,6 +54,8 @@ namespace View.Controls
             var vm = new DocumentEditorVM();
             vm.PropertyChanged += Vm_PropertyChanged;
             DataContext = vm;
+
+            Document = new Document(new FlowDocument());
         }
 
         private void Vm_PropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -65,6 +68,9 @@ namespace View.Controls
                     break;
                 case nameof(DocumentEditorVM.GettingOpenFileService):
                     OpenGettingFileService = vm.GettingOpenFileService;
+                    break;
+                case nameof(DocumentEditorVM.Document):
+                    Document = (Document)vm.Document;
                     break;
             }
         }
@@ -80,6 +86,10 @@ namespace View.Controls
             else if (e.Property == OpenGettingFileServiceProperty)
             {
                 vm.GettingOpenFileService = (IGettingFileService?)e.NewValue;
+            }
+            else if (e.Property == DocumentProperty)
+            {
+                vm.Document = (IDocument?)e.NewValue;
             }
         }
     }

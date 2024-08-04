@@ -229,7 +229,6 @@ namespace ViewModel.VMs.DbSet
                 {
                     DbSetLocal = _session.DbContext.GetDbSetLocal<T>();
                     TableChangesSet = new(DbSetLocal);
-                    DbSetLocal.CollectionChanged += TableChangesSet.CollectionChanged;
                 },
                 () => SaveCommand?.NotifyCanExecuteChanged());
 

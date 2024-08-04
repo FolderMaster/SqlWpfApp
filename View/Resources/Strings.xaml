@@ -274,6 +274,7 @@
     <sys:String x:Key="JustifyHeader">Justify</sys:String>
     <sys:String x:Key="CenterHeader">Center</sys:String>
     <sys:String x:Key="RightHeader">Right</sys:String>
+    
     <sys:String x:Key="ContentHeader">Content</sys:String>
     <sys:String x:Key="ListHeader">List</sys:String>
     <sys:String x:Key="NoneHeader">None</sys:String>
@@ -290,4 +291,8 @@
     <sys:String x:Key="ImageHeader">Image</sys:String>
     <sys:String x:Key="RowsHeader">Rows</sys:String>
     <sys:String x:Key="ColumnsHeader">Columns</sys:String>
+    
+    <sys:String x:Key="PageHeader">Page</sys:String>
+    <sys:String x:Key="PageWidthHeader">Page width</sys:String>
+    <sys:String x:Key="PageHeightHeader">Page height</sys:String>
 </ResourceDictionary>

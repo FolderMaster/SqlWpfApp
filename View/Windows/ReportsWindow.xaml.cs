@@ -1,10 +1,13 @@
 ﻿using System.Windows;
+using System.Windows.Documents;
 
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces;
 using ViewModel.VMs.Report;
 using ViewModel.Interfaces.Services.Files;
 using ViewModel.Interfaces.Services.Document;
+
+using View.Implementations.Document;
 
 namespace View.Windows
 {
@@ -26,8 +29,10 @@ namespace View.Windows
         {
             InitializeComponent();
 
-            DataContext = new ReportsVM(session, resourceService, messageService,
+            var vm = new ReportsVM(session, resourceService, messageService,
                 printDialogService, openGettingFileService, documentService);
+            vm.Document = new Document(new FlowDocument());
+            DataContext = vm;
         }
     }
 }

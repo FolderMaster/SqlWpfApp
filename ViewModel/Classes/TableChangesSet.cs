@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
@@ -55,18 +56,23 @@ namespace ViewModel.Classes
 
         static TableChangesSet() { }
 
-        public TableChangesSet(IEnumerable<object> dbSetLocal)
+        public TableChangesSet(IEnumerable dbSetLocal)
         {
             foreach (var item in dbSetLocal)
             {
-                if(item is INotifyPropertyChanged notify)
+                if(item is INotifyPropertyChanged notifyProperty)
                 {
-                    notify.PropertyChanged += Notify_PropertyChanged;
+                    notifyProperty.PropertyChanged += Notify_PropertyChanged;
                 }
+            }
+            if (dbSetLocal is INotifyCollectionChanged notifyCollection)
+            {
+                notifyCollection.CollectionChanged += DbSetLocal_CollectionChanged;
             }
         }
 
-        public void CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        private void DbSetLocal_CollectionChanged(object? sender,
+            NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {

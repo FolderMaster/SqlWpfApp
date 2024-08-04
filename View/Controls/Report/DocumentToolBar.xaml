@@ -1,0 +1,157 @@
+﻿<UserControl x:Class="View.Controls.Report.DocumentToolBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:View.Controls.Report"
+             mc:Ignorable="d" 
+             d:DesignHeight="80" d:DesignWidth="800" Name="control">
+    <TabControl>
+        <TabItem Header="{StaticResource TextHeader}">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="{Binding Source={StaticResource StyleHeader},
+                       Converter={StaticResource StringToHeaderConverter}}"
+                       Style="{StaticResource ToolbarLabelStyle}"/>
+                <ToggleButton IsChecked="{Binding Selection.Bold, ElementName=control}"
+                              IsEnabled="{Binding Selection,
+                              Converter={StaticResource ObjectToBoolConverter}}"
+                              Style="{StaticResource ToolbarButtonStyle}">
+                    <ToggleButton.Content>
+                        <Image Source="{StaticResource BoldImage}"/>
+                    </ToggleButton.Content>
+                    <ToggleButton.ToolTip>
+                        <ToolTip Content="{StaticResource BoldHeader}"/>
+                    </ToggleButton.ToolTip>
+                </ToggleButton>
+                <ToggleButton IsChecked="{Binding Selection.Italic, ElementName=control}"
+                              IsEnabled="{Binding Selection,
+                              Converter={StaticResource ObjectToBoolConverter}}"
+                              Style="{StaticResource ToolbarButtonStyle}">
+                    <ToggleButton.Content>
+                        <Image Source="{StaticResource ItalicImage}"/>
+                    </ToggleButton.Content>
+                    <ToggleButton.ToolTip>
+                        <ToolTip Content="{StaticResource ItalicHeader}"/>
+                    </ToggleButton.ToolTip>
+                </ToggleButton>
+                <Separator/>
+                <Label Content="{Binding Source={StaticResource FamilyHeader},
+                       Converter={StaticResource StringToHeaderConverter}}"
+                       Style="{StaticResource ToolbarLabelStyle}"/>
+                <ComboBox ItemsSource="{Binding Families, ElementName=control}"
+                          SelectedItem="{Binding Selection.FontFamily, ElementName=control}"
+                          ItemTemplate="{StaticResource FontFamilyTemplate}"
+                          IsEditable="True" IsTextSearchEnabled="True"
+                          IsEnabled="{Binding Selection,
+                          Converter={StaticResource ObjectToBoolConverter}}"
+                          Style="{StaticResource ToolbarComboBoxStyle}"/>
+                <Separator/>
+                <Label Content="{Binding Source={StaticResource SizeHeader},
+                       Converter={StaticResource StringToHeaderConverter}}"
+                       Style="{StaticResource ToolbarLabelStyle}"/>
+                <TextBox Text="{Binding Selection.FontSize, UpdateSourceTrigger=PropertyChanged,
+                         ElementName=control}"
+                         IsEnabled="{Binding Selection,
+                         Converter={StaticResource ObjectToBoolConverter}}"
+                         Style="{StaticResource ToolbarHalfTextBoxStyle}"/>
+                <Button Command="{Binding IncreaseSizeCommand, ElementName=control}"
+                        Style="{StaticResource ToolbarButtonStyle}">
+                    <Button.Content>
+                        <Image Source="{StaticResource IncreaseImage}"/>
+                    </Button.Content>
+                    <Button.ToolTip>
+                        <ToolTip Content="{StaticResource IncreaseSizeHeader}"/>
+                    </Button.ToolTip>
+                </Button>
+                <Button Command="{Binding DecreaseSizeCommand, ElementName=control}"
+                        Style="{StaticResource ToolbarButtonStyle}">
+                    <Button.Content>
+                        <Image Source="{StaticResource DecreaseImage}"/>
+                    </Button.Content>
+                    <Button.ToolTip>
+                        <ToolTip Content="{StaticResource DecreaseSizeHeader}"/>
+                    </Button.ToolTip>
+                </Button>
+                <Separator/>
+                <Label Content="{Binding Source={StaticResource AlignmentHeader},
+                       Converter={StaticResource StringToHeaderConverter}}"
+                       Style="{StaticResource ToolbarLabelStyle}"/>
+                <ListBox SelectedItem="{Binding Selection.Alignment, ElementName=control}"
+                         ItemsSource="{Binding Alignments, ElementName=control}"
+                         ItemTemplate="{StaticResource TextAlignmentTemplate}"
+                         IsEnabled="{Binding Selection,
+                         Converter={StaticResource ObjectToBoolConverter}}"
+                         Style="{StaticResource ToolbarListBoxStyle}"/>
+            </StackPanel>
+        </TabItem>
+        <TabItem Header="{StaticResource ContentHeader}">
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding CreateImageCommand, ElementName=control}"
+                        Style="{StaticResource ToolbarButtonStyle}">
+                    <Button.Content>
+                        <Image Source="{StaticResource ImageImage}"/>
+                    </Button.Content>
+                    <Button.ToolTip>
+                        <ToolTip Content="{StaticResource ImageHeader}"/>
+                    </Button.ToolTip>
+                </Button>
+                <Separator/>
+                <Button Command="{Binding CreateListCommand, ElementName=control}"
+                        Style="{StaticResource ToolbarButtonStyle}">
+                    <Button.Content>
+                        <Image Source="{StaticResource ListImage}"/>
+                    </Button.Content>
+                    <Button.ToolTip>
+                        <ToolTip Content="{StaticResource ListHeader}"/>
+                    </Button.ToolTip>
+                </Button>
+                <ListBox ItemsSource="{Binding MarkerStyles, ElementName=control}"
+                         SelectedItem="{Binding SelectedMarkerStyle, ElementName=control}"
+                         ItemTemplate="{StaticResource TextMaarkerStyleTemplate}"
+                         Style="{StaticResource ToolbarListBoxStyle}"/>
+                <Separator/>
+                <Button Command="{Binding CreateTableCommand, ElementName=control}"
+                        Style="{StaticResource ToolbarButtonStyle}">
+                    <Button.Content>
+                        <Image Source="{StaticResource TableImage}"/>
+                    </Button.Content>
+                    <Button.ToolTip>
+                        <ToolTip Content="{StaticResource TableHeader}"/>
+                    </Button.ToolTip>
+                </Button>
+                <Label Content="{Binding Source={StaticResource ColumnsHeader},
+                       Converter={StaticResource StringToHeaderConverter}}"
+                       Style="{StaticResource ToolbarLabelStyle}"/>
+                <TextBox Text="{Binding ColumnsCount, UpdateSourceTrigger=PropertyChanged,
+                         ElementName=control}"
+                         Style="{StaticResource ToolbarHalfTextBoxStyle}"/>
+                <Label Content="{Binding Source={StaticResource RowsHeader},
+                       Converter={StaticResource StringToHeaderConverter}}"
+                       Style="{StaticResource ToolbarLabelStyle}"/>
+                <TextBox Text="{Binding RowsCount, UpdateSourceTrigger=PropertyChanged,
+                         ElementName=control}"
+                         Style="{StaticResource ToolbarHalfTextBoxStyle}"/>
+            </StackPanel>
+        </TabItem>
+        <TabItem Header="{StaticResource PageHeader}">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="{Binding Source={StaticResource PageWidthHeader},
+                       Converter={StaticResource StringToHeaderConverter}}"
+                       Style="{StaticResource ToolbarLabelStyle}"/>
+                <TextBox Text="{Binding Document.PageWidth, UpdateSourceTrigger=PropertyChanged,
+                         ElementName=control}"
+                         IsEnabled="{Binding Document,
+                         Converter={StaticResource ObjectToBoolConverter}}"
+                         Style="{StaticResource ToolbarHalfTextBoxStyle}"/>
+                <Label Content="{Binding Source={StaticResource PageHeightHeader},
+                       Converter={StaticResource StringToHeaderConverter}}"
+                       Style="{StaticResource ToolbarLabelStyle}"/>
+                <TextBox Text="{Binding Document.PageHeight, UpdateSourceTrigger=PropertyChanged,
+                         ElementName=control}"
+                         IsEnabled="{Binding Document,
+                         Converter={StaticResource ObjectToBoolConverter}}"
+                         Style="{StaticResource ToolbarHalfTextBoxStyle}"/>
+            </StackPanel>
+        </TabItem>
+    </TabControl>
+</UserControl>

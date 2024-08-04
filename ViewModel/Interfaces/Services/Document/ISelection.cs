@@ -12,10 +12,10 @@
 
         public object? Alignment { get; set; }
 
-        public void CreateList(object markerStyle);
+        public void InsertList(object markerStyle);
 
-        public void CreateTable(int columnsCount, int rowsCount);
+        public void InsertTable(int columnsCount, int rowsCount);
 
-        public void CreateImage(object data);
+        public void InsertImage(object data);
     }
 }

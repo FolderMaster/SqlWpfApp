@@ -1,6 +1,4 @@
-﻿using ViewModel.Classes;
-
-namespace ViewModel.Interfaces.Proces
+﻿namespace ViewModel.Interfaces.Proces
 {
     /// <summary>
     /// Интерфейс процедуры с методом вызова.
