@@ -105,6 +105,9 @@
                         <ToolTip Content="{StaticResource ListHeader}"/>
                     </Button.ToolTip>
                 </Button>
+                <Label Content="{Binding Source={StaticResource MarkerStyleHeader},
+                       Converter={StaticResource StringToHeaderConverter}}"
+                       Style="{StaticResource ToolbarLabelStyle}"/>
                 <ListBox ItemsSource="{Binding MarkerStyles, ElementName=control}"
                          SelectedItem="{Binding SelectedMarkerStyle, ElementName=control}"
                          ItemTemplate="{StaticResource TextMaarkerStyleTemplate}"

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace View.Implementations.Configuration.Data
+namespace View.Implementations.Configuration
 {
     public class WindowData
     {

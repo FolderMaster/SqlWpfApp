@@ -1,7 +1,6 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Documents;
-
-using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Document;
 
 namespace View.Implementations.Dialogs
 {

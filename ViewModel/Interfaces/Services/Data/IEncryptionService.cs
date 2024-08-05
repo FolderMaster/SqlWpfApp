@@ -1,4 +1,4 @@
-﻿namespace ViewModel.Interfaces.Services
+﻿namespace ViewModel.Interfaces.Services.Data
 {
     public interface IEncryptionService
     {

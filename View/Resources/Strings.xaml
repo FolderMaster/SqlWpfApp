@@ -277,6 +277,7 @@
     
     <sys:String x:Key="ContentHeader">Content</sys:String>
     <sys:String x:Key="ListHeader">List</sys:String>
+    <sys:String x:Key="MarkerStyleHeader">Marker style</sys:String>
     <sys:String x:Key="NoneHeader">None</sys:String>
     <sys:String x:Key="DiscHeader">•</sys:String>
     <sys:String x:Key="CircleHeader">◯</sys:String>

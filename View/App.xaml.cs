@@ -17,12 +17,14 @@ using View.Services;
 using View.Windows;
 
 using ViewModel.Dependencies;
+using ViewModel.Dependencies.Data;
 using ViewModel.Dependencies.DataBase.MsSqlServer;
 using ViewModel.Dependencies.DataBase.Sqlite;
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Proces;
 using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Data;
 using ViewModel.Interfaces.Services.Document;
 using ViewModel.Interfaces.Services.Files;
 
@@ -46,9 +48,6 @@ namespace View
             _host = Host.CreateDefaultBuilder().ConfigureServices((services) =>
             {
                 services.AddSingleton<IAppCloseable, AppCloseable>();
-                services.AddSingleton<IFileService, FileService>();
-
-                services.AddSingleton<IPrintService, PrintDialogService>();
 
                 services.AddSingleton<ErrorMessageBoxService>();
                 services.AddSingleton<IMessageService>((s) =>
@@ -62,13 +61,18 @@ namespace View
 
                 services.AddSingleton<OpenFileDialogService>();
                 services.AddSingleton<SaveFileDialogService>();
+                services.AddSingleton<IFileService, FileService>();
 
                 services.AddSingleton<ISession, Session>();
 
                 services.AddSingleton<IDbConnection, MsSqlServerDbConnection>();
                 services.AddSingleton<IDbConnection, SqliteDbConnection>();
 
+                services.AddSingleton<IPrintService, PrintDialogService>();
                 services.AddSingleton<IDocumentService, DocumentService>();
+
+                services.AddSingleton<IEncryptionService, AesEncryptionService>();
+                services.AddSingleton<ISerializer, JsonSerializer>();
 
                 services.AddSingleton<IProc, ExitMessageBoxProc>();
                 services.AddSingleton<IProc, InformationMessageBoxProc>();
@@ -98,8 +102,6 @@ namespace View
                 services.AddSingleton<IProc, ReportsWindowProc>();
 
                 services.AddSingleton<MainWindow>();
-
-                services.AddSingleton<IEncryptionService, AesEncryptionService>();
 
                 services.AddSingleton<IConfiguration, WindowConfiguration>();
 

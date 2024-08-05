@@ -1,16 +1,14 @@
-﻿using Newtonsoft.Json;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 
-using View.Implementations.Configuration.Data;
 using View.Windows;
 
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.DataBase;
 using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Data;
 using ViewModel.Interfaces.Services.Files;
 using ViewModel.Services;
 
@@ -22,20 +20,9 @@ namespace View.Implementations.Configuration
     /// </summary>
     public class WindowConfiguration : IConfiguration
     {
-        private static readonly string _settingsPath = "settings.cfg";
+        private static readonly string _settingsPath = "settings.json";
 
         private static readonly string _savePath = "save.aes";
-
-        /// <summary>
-        /// Настройки Json-сериализатора.
-        /// </summary>
-        private static readonly JsonSerializerSettings _jsonSerializerSettings =
-            new JsonSerializerSettings()
-        {
-            ObjectCreationHandling = ObjectCreationHandling.Replace,
-            TypeNameHandling = TypeNameHandling.All,
-            Formatting = Formatting.Indented
-        };
 
         /// <summary>
         /// Окно.
@@ -48,6 +35,8 @@ namespace View.Implementations.Configuration
 
         private readonly IResourceService _resourceService;
 
+        private readonly ISerializer _serializer;
+
         private readonly IEncryptionService _encryptionService;
 
         private readonly IEnumerable<IDbConnection> _connections;
@@ -58,12 +47,14 @@ namespace View.Implementations.Configuration
         /// <param name="window">Окно.</param>
         public WindowConfiguration(MainWindow window, IFileService fileService,
             IMessageService messageService, IResourceService resourceService,
-            IEncryptionService encryptionService, IEnumerable<IDbConnection> connections)
+            ISerializer serializer, IEncryptionService encryptionService,
+            IEnumerable<IDbConnection> connections)
         {
             _window = window;
             _fileService = fileService;
             _messageService = messageService;
             _resourceService = resourceService;
+            _serializer = serializer;
             _encryptionService = encryptionService;
             _connections = connections;
             
@@ -116,12 +107,11 @@ namespace View.Implementations.Configuration
             }
         }
 
-        private void SaveData(object data, string filePath, bool isEncrypt = false)
+        private void SaveData(object value, string filePath, bool isEncrypt = false)
         {
             MessengerService.ExecuteWithExceptionMessage(_resourceService, _messageService, () =>
             {
-                var text = JsonConvert.SerializeObject(data, _jsonSerializerSettings);
-                var bytes = Encoding.Default.GetBytes(text);
+                var bytes = _serializer.Serialize(value);
                 if (isEncrypt)
                 {
                     var encryptedBytes = _encryptionService.Encrypt(bytes);
@@ -142,8 +132,7 @@ namespace View.Implementations.Configuration
                     var decryptedBytes = _encryptionService.Decrypt(bytes);
                     bytes = decryptedBytes;
                 }
-                var text = Encoding.Default.GetString(bytes);
-                result = JsonConvert.DeserializeObject<T>(text, _jsonSerializerSettings);
+                result = _serializer.Deserialize<T>(bytes);
             });
             return result;
         }

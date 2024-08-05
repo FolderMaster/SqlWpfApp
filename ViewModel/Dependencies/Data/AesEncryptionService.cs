@@ -3,10 +3,10 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Data;
 using ViewModel.Interfaces.Services.Files;
 
-namespace ViewModel.Dependencies
+namespace ViewModel.Dependencies.Data
 {
     public class AesEncryptionService : IEncryptionService
     {
