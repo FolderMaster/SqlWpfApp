@@ -36,6 +36,7 @@ namespace View.Behaviors
             base.OnAttached();
             AssociatedObject.SelectionChanged += AssociatedObject_SelectionChanged;
             Document = new Document(AssociatedObject.Document);
+            Selection = new Selection(AssociatedObject.Selection);
         }
 
         protected override void OnDetaching()

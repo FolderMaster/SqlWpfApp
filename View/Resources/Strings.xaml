@@ -169,12 +169,18 @@
     <sys:String x:Key="AgeHeader">Age</sys:String>
     <sys:String x:Key="AmountHeader">Amount</sys:String>
 
-    <sys:String x:Key="ImageOpenFileDialogFilter">
-        Images (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg
-    </sys:String>
-    <sys:String x:Key="ImageSaveFileDialogFilter">
-        PNG image|*.png|JPEG image|*.jpeg|JPG image|*.jpg
-    </sys:String>
+    <sys:String x:Key="PngFileDialogFilter">Png image</sys:String>
+    <sys:String x:Key="JpegFileDialogFilter">Jpeg image</sys:String>
+    <sys:String x:Key="GifFileDialogFilter">Gif image</sys:String>
+    <sys:String x:Key="BmpFileDialogFilter">Bmp image</sys:String>
+    <sys:String x:Key="TiffFileDialogFilter">Tiff image</sys:String>
+    <sys:String x:Key="WebpFileDialogFilter">Webp image</sys:String>
+    <sys:String x:Key="HeifFileDialogFilter">Heif image</sys:String>
+    <sys:String x:Key="IconFileDialogFilter">Icon image</sys:String>
+    <sys:String x:Key="WmfFileDialogFilter">Wmf image</sys:String>
+    <sys:String x:Key="ExifFileDialogFilter">Exif image</sys:String>
+    <sys:String x:Key="EmfFileDialogFilter">Emf image</sys:String>
+    
     <sys:String x:Key="IsNotImageMessage">Is not image.</sys:String>
 
     <sys:String x:Key="OperationsHeader">Operations</sys:String>

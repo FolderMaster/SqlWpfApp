@@ -1,7 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 
+using System.Collections.Generic;
+
 using Model.Independent;
 
+using ViewModel.Classes;
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Data;
@@ -21,15 +24,7 @@ namespace ViewModel.VMs.DbSet
     /// </summary>
     public class PassportsVM : ControlDbSetVM<Passport>
     {
-        /// <summary>
-        /// Ключ ресурса фильтра открытия файла диалога.
-        /// </summary>
-        private static readonly string _openFileDialogFilterKey = "ImageOpenFileDialogFilter";
-
-        /// <summary>
-        /// Ключ ресурса фильтра сохранения файла диалога.
-        /// </summary>
-        private static readonly string _saveFileDialogFilterKey = "ImageSaveFileDialogFilter";
+        private static readonly string _fileDialogFilterKey = "FileDialogFilter";
 
         private static readonly string _isNotImageMessageKey = "IsNotImageMessage";
 
@@ -75,7 +70,8 @@ namespace ViewModel.VMs.DbSet
 
             LoadImageCommand = new RelayCommand(() =>
             {
-                var filePath = openFileService.GetFilePath(ImageService.ImageFormats);
+                var fileFormats = ChangeFileFormats(ImageService.ImageFormats);
+                var filePath = openFileService.GetFilePath(fileFormats);
                 if (filePath != null)
                 {
                     MessengerService.ExecuteWithExceptionMessage(_resourceService,
@@ -96,8 +92,9 @@ namespace ViewModel.VMs.DbSet
             }, () => SelectedItem != null);
             SaveImageCommand = new RelayCommand(() =>
             {
-                var filePath = saveFileService.GetFilePath
+                var fileFormats = ChangeFileFormats
                     ([ImageService.GetImageFormat(SelectedItem.Scan)]);
+                var filePath = saveFileService.GetFilePath(fileFormats);
                 if (filePath != null)
                 {
                     MessengerService.ExecuteWithExceptionMessage(_resourceService,
@@ -113,6 +110,18 @@ namespace ViewModel.VMs.DbSet
         {
             SaveImageCommand?.NotifyCanExecuteChanged();
             LoadImageCommand?.NotifyCanExecuteChanged();
+        }
+
+        private IEnumerable<FileFormat> ChangeFileFormats(IEnumerable<FileFormat> fileFormats)
+        {
+            var result = new List<FileFormat>();
+            foreach (var fileFormat in fileFormats)
+            {
+                result.Add(new FileFormat(
+                    _resourceService.GetString(fileFormat.Name + _fileDialogFilterKey),
+                    fileFormat.Extensions));
+            }
+            return result;
         }
     }
 }

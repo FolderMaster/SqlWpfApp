@@ -3,8 +3,6 @@
 using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows;
-using System.Windows.Media.Imaging;
-using System.IO;
 using System.Linq;
 
 using ViewModel.Interfaces.Services.Files;
@@ -19,6 +17,8 @@ namespace View.Behaviors
     /// </summary>
     public class DragDropImageBehavior : Behavior<Image>
     {
+        private static readonly string _isNotImageMessageKey = "IsNotImageMessage";
+
         /// <summary>
         /// Свойство зависимости <see cref="Image"/>.
         /// </summary>
@@ -118,24 +118,16 @@ namespace View.Behaviors
             {
                 MessengerService.ExecuteWithExceptionMessage(ResourceService, MessageService, () =>
                 {
-                    var bitmapImage = new BitmapImage();
-                    using (var stream = new MemoryStream(FileService.Load(fileNames[0])))
+                    var data = FileService.Load(fileNames[0]);
+                    if (ImageService.IsImage(data))
                     {
-                        bitmapImage.BeginInit();
-                        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                        bitmapImage.StreamSource = stream;
-                        bitmapImage.EndInit();
+                        Image = data;
                     }
-                    var name = bitmapImage.Format.ToString();
-                    byte[] newImage;
-                    using (var stream = new MemoryStream())
+                    else
                     {
-                        var encoder = new JpegBitmapEncoder();
-                        encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
-                        encoder.Save(stream);
-                        newImage = stream.ToArray();
+                        MessengerService.ShowErrorMessage(MessageService,
+                            ResourceService, _isNotImageMessageKey);
                     }
-                    Image = newImage;
                 });
             }
         }
