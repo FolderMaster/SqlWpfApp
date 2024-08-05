@@ -6,6 +6,7 @@ using Model.Independent;
 
 using ViewModel.Interfaces.Services.Files;
 using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Data;
 
 namespace View.Controls.DbSet
 {
@@ -16,6 +17,58 @@ namespace View.Controls.DbSet
     /// </summary>
     public partial class PassportControl : UserControl
     {
+        /// <summary>
+        /// Свойство зависимости <see cref="Passport"/>.
+        /// </summary>
+        public static DependencyProperty PassportProperty =
+            DependencyProperty.Register(nameof(Passport), typeof(Passport),
+                typeof(PassportControl));
+
+        /// <summary>
+        /// Свойство зависимости <see cref="IsReadOnly"/>.
+        /// </summary>
+        public static DependencyProperty IsReadOnlyProperty =
+            DependencyProperty.Register(nameof(IsReadOnly), typeof(bool),
+                typeof(PassportControl));
+
+        /// <summary>
+        /// Свойство зависимости <see cref="LoadImageCommand"/>.
+        /// </summary>
+        public static DependencyProperty LoadImageCommandProperty =
+            DependencyProperty.Register(nameof(LoadImageCommand), typeof(ICommand),
+                typeof(PassportControl));
+
+        /// <summary>
+        /// Свойство зависимости <see cref="SaveImageCommand"/>.
+        /// </summary>
+        public static DependencyProperty SaveImageCommandProperty =
+            DependencyProperty.Register(nameof(SaveImageCommand), typeof(ICommand),
+                typeof(PassportControl));
+
+        /// <summary>
+        /// Свойство зависимости <see cref="ResourceService"/>.
+        /// </summary>
+        public static DependencyProperty ResourceServiceProperty = DependencyProperty.Register
+            (nameof(ResourceService), typeof(IResourceService), typeof(PassportControl));
+
+        /// <summary>
+        /// Свойство зависимости <see cref="MessageService"/>.
+        /// </summary>
+        public static DependencyProperty MessageServiceProperty = DependencyProperty.Register
+            (nameof(MessageService), typeof(IMessageService), typeof(PassportControl));
+
+        /// <summary>
+        /// Свойство зависимости <see cref="FileService"/>.
+        /// </summary>
+        public static DependencyProperty FileServiceProperty = DependencyProperty.Register
+            (nameof(FileService), typeof(IFileService), typeof(PassportControl));
+
+        /// <summary>
+        /// Свойство зависимости <see cref="ImageService"/>.
+        /// </summary>
+        public static DependencyProperty ImageServiceProperty = DependencyProperty.Register
+            (nameof(ImageService), typeof(IImageService), typeof(PassportControl));
+
         /// <summary>
         /// Возвращает и задаёт паспорт.
         /// </summary>
@@ -81,53 +134,13 @@ namespace View.Controls.DbSet
         }
 
         /// <summary>
-        /// Свойство зависимости <see cref="Passport"/>.
+        /// Возвращает и задаёт сервис изображений.
         /// </summary>
-        public static DependencyProperty PassportProperty =
-            DependencyProperty.Register(nameof(Passport), typeof(Passport),
-                typeof(PassportControl), new FrameworkPropertyMetadata());
-
-        /// <summary>
-        /// Свойство зависимости <see cref="IsReadOnly"/>.
-        /// </summary>
-        public static DependencyProperty IsReadOnlyProperty =
-            DependencyProperty.Register(nameof(IsReadOnly), typeof(bool),
-                typeof(PassportControl), new FrameworkPropertyMetadata());
-
-        /// <summary>
-        /// Свойство зависимости <see cref="LoadImageCommand"/>.
-        /// </summary>
-        public static DependencyProperty LoadImageCommandProperty =
-            DependencyProperty.Register(nameof(LoadImageCommand), typeof(ICommand),
-                typeof(PassportControl), new FrameworkPropertyMetadata());
-
-        /// <summary>
-        /// Свойство зависимости <see cref="SaveImageCommand"/>.
-        /// </summary>
-        public static DependencyProperty SaveImageCommandProperty =
-            DependencyProperty.Register(nameof(SaveImageCommand), typeof(ICommand),
-                typeof(PassportControl), new FrameworkPropertyMetadata());
-
-        /// <summary>
-        /// Свойство зависимости <see cref="ResourceService"/>.
-        /// </summary>
-        public static DependencyProperty ResourceServiceProperty = DependencyProperty.Register
-            (nameof(ResourceService), typeof(IResourceService), typeof(PassportControl),
-            new FrameworkPropertyMetadata());
-
-        /// <summary>
-        /// Свойство зависимости <see cref="MessageService"/>.
-        /// </summary>
-        public static DependencyProperty MessageServiceProperty = DependencyProperty.Register
-            (nameof(MessageService), typeof(IMessageService), typeof(PassportControl),
-            new FrameworkPropertyMetadata());
-
-        /// <summary>
-        /// Свойство зависимости <see cref="FileService"/>.
-        /// </summary>
-        public static DependencyProperty FileServiceProperty = DependencyProperty.Register
-            (nameof(FileService), typeof(IFileService), typeof(PassportControl),
-            new FrameworkPropertyMetadata());
+        public IImageService ImageService
+        {
+            get => (IImageService)GetValue(ImageServiceProperty);
+            set => SetValue(ImageServiceProperty, value);
+        }
 
         /// <summary>
         /// Создаёт экземпляр класса <see cref="PassportControl"/> по умолчанию.

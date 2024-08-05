@@ -20,11 +20,11 @@ namespace View.Implementations.Proces.Windows
         /// <summary>
         /// Сервис печати.
         /// </summary>
-        private IPrintService _printService;
+        private readonly IPrintService _printService;
 
-        private IGettingFileService _openGettingFileService;
+        private readonly IGettingFileService _openGettingFileService;
 
-        private IDocumentService _documentService;
+        private readonly IDocumentService _documentService;
 
         /// <summary>
         /// Создаёт экземпляр класса <see cref="ReportsWindowProc"/>.

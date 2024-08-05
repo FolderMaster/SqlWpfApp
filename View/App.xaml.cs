@@ -71,6 +71,7 @@ namespace View
                 services.AddSingleton<IPrintService, PrintDialogService>();
                 services.AddSingleton<IDocumentService, DocumentService>();
 
+                services.AddSingleton<IImageService, ImageService>();
                 services.AddSingleton<IEncryptionService, AesEncryptionService>();
                 services.AddSingleton<ISerializer, JsonSerializer>();
 

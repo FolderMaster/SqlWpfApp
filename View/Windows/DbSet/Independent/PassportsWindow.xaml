@@ -36,6 +36,7 @@
                            MessageService="{Binding MessageService}"
                            ResourceService="{Binding ResourceService}"
                            FileService="{Binding FileService}"
+                           ImageService="{Binding ImageService}"
                            IsReadOnly="{Binding SelectedNumber,
                            Converter={StaticResource InverseIntToBoolConverter}}"/>
     </DockPanel>

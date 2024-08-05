@@ -175,6 +175,7 @@
     <sys:String x:Key="ImageSaveFileDialogFilter">
         PNG image|*.png|JPEG image|*.jpeg|JPG image|*.jpg
     </sys:String>
+    <sys:String x:Key="IsNotImageMessage">Is not image.</sys:String>
 
     <sys:String x:Key="OperationsHeader">Operations</sys:String>
     

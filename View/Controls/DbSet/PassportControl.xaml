@@ -90,7 +90,8 @@
                             Image="{Binding Passport.Scan, ElementName=control, Mode=TwoWay}"
                             ResourceService="{Binding ResourceService, ElementName=control}"
                             MessageService="{Binding MessageService, ElementName=control}"
-                            FileService="{Binding FileService, ElementName=control}"/>
+                            FileService="{Binding FileService, ElementName=control}"
+                            ImageService="{Binding ImageService, ElementName=control}"/>
                     </i:Interaction.Behaviors>
                 </Image>
             </GroupBox>

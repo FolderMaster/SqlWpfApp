@@ -21,12 +21,12 @@ namespace View.Implementations.Proces.Windows
         /// <summary>
         /// Создатель контекста базы данных.
         /// </summary>
-        protected ISession _session;
+        protected readonly ISession _session;
 
         /// <summary>
         /// Сервис сообщений.
         /// </summary>
-        protected IMessageService _messageService;
+        protected readonly IMessageService _messageService;
 
         /// <summary>
         /// Создаёт экземпляр класса <see cref="WindowProc"/>.

@@ -6,6 +6,7 @@ using View.Windows.DbSet.Independent;
 
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Data;
 using ViewModel.Interfaces.Services.Files;
 
 namespace View.Implementations.Proces.Windows.DbSet.Independent
@@ -19,17 +20,19 @@ namespace View.Implementations.Proces.Windows.DbSet.Independent
         /// <summary>
         /// Сервис получения файла открытия.
         /// </summary>
-        private IGettingFileService _gettingOpenFileService;
+        private readonly IGettingFileService _gettingOpenFileService;
 
         /// <summary>
         /// Сервис получения файла сохранения.
         /// </summary>
-        private IGettingFileService _gettingSaveFileService;
+        private readonly IGettingFileService _gettingSaveFileService;
 
         /// <summary>
         /// Файловый сервис.
         /// </summary>
-        private IFileService _fileService;
+        private readonly IFileService _fileService;
+
+        private readonly IImageService _imageService;
 
         /// <summary>
         /// Создаёт экземпляр класса <see cref="PassportsWindowProc"/>.
@@ -43,12 +46,14 @@ namespace View.Implementations.Proces.Windows.DbSet.Independent
         public PassportsWindowProc(ISession session,
             IWindowResourceService windowResourceService, IMessageService messageService,
             OpenFileDialogService gettingOpenFileService,
-            SaveFileDialogService gettingSaveFileService, IFileService fileService) :
+            SaveFileDialogService gettingSaveFileService,
+            IFileService fileService, IImageService imageService) :
             base("Passports", session, windowResourceService, messageService)
         {
             _gettingOpenFileService = gettingOpenFileService;
             _gettingSaveFileService = gettingSaveFileService;
             _fileService = fileService;
+            _imageService = imageService;
         }
 
         /// <summary>
@@ -61,6 +66,6 @@ namespace View.Implementations.Proces.Windows.DbSet.Independent
         protected override Window CreateWindow(ISession session,
             IWindowResourceService windowResourceService, IMessageService messageService) =>
             new PassportsWindow(session, windowResourceService, messageService,
-                _gettingOpenFileService, _gettingSaveFileService, _fileService);
+                _gettingOpenFileService, _gettingSaveFileService, _fileService, _imageService);
     }
 }

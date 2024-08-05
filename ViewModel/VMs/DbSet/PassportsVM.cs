@@ -4,6 +4,7 @@ using Model.Independent;
 
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Data;
 using ViewModel.Interfaces.Services.Files;
 using ViewModel.Services;
 
@@ -23,17 +24,21 @@ namespace ViewModel.VMs.DbSet
         /// <summary>
         /// Ключ ресурса фильтра открытия файла диалога.
         /// </summary>
-        private static readonly string _openFileDialogFilterResourceKey = "ImageOpenFileDialogFilter";
+        private static readonly string _openFileDialogFilterKey = "ImageOpenFileDialogFilter";
 
         /// <summary>
         /// Ключ ресурса фильтра сохранения файла диалога.
         /// </summary>
-        private static readonly string _saveFileDialogFilterResourceKey = "ImageSaveFileDialogFilter";
+        private static readonly string _saveFileDialogFilterKey = "ImageSaveFileDialogFilter";
+
+        private static readonly string _isNotImageMessageKey = "IsNotImageMessage";
 
         /// <summary>
         /// Возвращает и задаёт файловый сервис.
         /// </summary>
         public IFileService FileService { get; private set; }
+
+        public IImageService ImageService { get; private set; }
 
         /// <summary>
         /// Возвращает сервис послания сообщений.
@@ -62,25 +67,37 @@ namespace ViewModel.VMs.DbSet
         public PassportsVM(ISession session,
             IResourceService resourceService, IMessageService messageService,
             IGettingFileService openFileService, IGettingFileService saveFileService,
-            IFileService fileService) :
+            IFileService fileService, IImageService imageService) :
             base(session, resourceService, messageService)
         {
             FileService = fileService;
+            ImageService = imageService;
 
             LoadImageCommand = new RelayCommand(() =>
             {
-                var filePath = openFileService.GetFilePath
-                    (_resourceService.GetString(_openFileDialogFilterResourceKey));
+                var filePath = openFileService.GetFilePath(ImageService.ImageFormats);
                 if (filePath != null)
                 {
                     MessengerService.ExecuteWithExceptionMessage(_resourceService,
-                        _messageService, () => SelectedItem.Scan = FileService.Load(filePath));
+                        _messageService, () =>
+                        {
+                            var data = FileService.Load(filePath);
+                            if (ImageService.IsImage(data))
+                            {
+                                SelectedItem.Scan = data;
+                            }
+                            else
+                            {
+                                MessengerService.ShowErrorMessage(messageService,
+                                    resourceService, _isNotImageMessageKey);
+                            }
+                        });
                 }
             }, () => SelectedItem != null);
             SaveImageCommand = new RelayCommand(() =>
             {
                 var filePath = saveFileService.GetFilePath
-                    (_resourceService.GetString(_saveFileDialogFilterResourceKey));
+                    ([ImageService.GetImageFormat(SelectedItem.Scan)]);
                 if (filePath != null)
                 {
                     MessengerService.ExecuteWithExceptionMessage(_resourceService,

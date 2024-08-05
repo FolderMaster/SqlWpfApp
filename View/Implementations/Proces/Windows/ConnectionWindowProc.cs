@@ -12,7 +12,7 @@ namespace View.Implementations.Proces.Windows
 {
     public class ConnectionWindowProc : WindowProc
     {
-        private IEnumerable<IDbConnection> _connections;
+        private readonly IEnumerable<IDbConnection> _connections;
 
         public ConnectionWindowProc(ISession session, IEnumerable<IDbConnection> connections,
             IWindowResourceService windowResourceService, IMessageService messageService) :

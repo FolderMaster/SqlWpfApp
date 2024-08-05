@@ -22,10 +22,10 @@ namespace ViewModel.Services
         /// <param name="titleResourceKey">Ключ к ресурсу заголовка.</param>
         /// <param name="descriptionResourceKey">Ключ к ресурсу описания.</param>
         /// <returns>Результат показа сообщения.</returns>
-        public static bool ShowMessage(IMessageService messageService, IResourceService resourceService,
-            string titleResourceKey, string descriptionResourceKey) =>
+        public static bool ShowErrorMessage(IMessageService messageService,
+            IResourceService resourceService, string descriptionResourceKey) =>
             messageService.ShowMessage(resourceService.GetString(descriptionResourceKey),
-                resourceService.GetString(titleResourceKey));
+                resourceService.GetString(_errorTitleResourceKey));
 
         /// <summary>
         /// Исполняет действие с сообщением о исключении.

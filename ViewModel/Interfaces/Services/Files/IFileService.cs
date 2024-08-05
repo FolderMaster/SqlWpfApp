@@ -20,6 +20,8 @@
         /// <returns>Загруженные данные.</returns>
         public byte[] Load(string path);
 
+        public void Delete(string path);
+
         /// <summary>
         /// Возвращает полный путь.
         /// </summary>

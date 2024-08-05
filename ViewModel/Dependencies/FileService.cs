@@ -17,6 +17,9 @@ namespace ViewModel.Dependencies
         public void Save(string path, byte[] data) => File.WriteAllBytes(path, data);
 
         /// <inheritdoc/>
+        public void Delete(string path) => File.Delete(path);
+
+        /// <inheritdoc/>
         public string GetFullPath(string path) => Path.GetFullPath(path);
 
         /// <inheritdoc/>

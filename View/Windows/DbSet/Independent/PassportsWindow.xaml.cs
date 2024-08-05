@@ -4,6 +4,7 @@ using ViewModel.VMs.DbSet;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.Files;
 using ViewModel.Interfaces;
+using ViewModel.Interfaces.Services.Data;
 
 namespace View.Windows.DbSet.Independent
 {
@@ -21,15 +22,16 @@ namespace View.Windows.DbSet.Independent
         /// <param name="gettingOpenFileService">Сервис получения файла открытия.</param>
         /// <param name="gettingSaveFileService">Сервис получения файла сохранения.</param>
         /// <param name="fileService">Файловый сервис.</param>
-        /// <param name="pathService">Сервис путей.</param>
+        /// <param name="imageService">Сервис изображений.</param>
         public PassportsWindow(ISession session, IResourceService resourceService, 
             IMessageService messageService, IGettingFileService gettingOpenFileService,
-            IGettingFileService gettingSaveFileService, IFileService fileService)
+            IGettingFileService gettingSaveFileService, IFileService fileService,
+            IImageService imageService)
         {
             InitializeComponent();
 
             DataContext = new PassportsVM(session, resourceService, messageService,
-                gettingOpenFileService, gettingSaveFileService, fileService);
+                gettingOpenFileService, gettingSaveFileService, fileService, imageService);
         }
     }
 }

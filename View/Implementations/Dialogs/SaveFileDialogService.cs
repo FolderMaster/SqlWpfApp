@@ -1,5 +1,8 @@
 ﻿using Microsoft.Win32;
 
+using System.Collections.Generic;
+
+using ViewModel.Classes;
 using ViewModel.Interfaces.Services.Files;
 
 namespace View.Implementations.Dialogs
@@ -8,16 +11,13 @@ namespace View.Implementations.Dialogs
     /// Класс сервиса диалога сохранения файлов с методом получения пути к файлу. Реализует
     /// <see cref="IGettingFileService"/>.
     /// </summary>
-    public class SaveFileDialogService : IGettingFileService
+    public class SaveFileDialogService : BaseFileDialogService
     {
-        /// <summary>
-        /// Получает путь к файлу.
-        /// </summary>
-        /// <param name="filter">Фильтр для файлов.</param>
-        /// <returns>Путь к файлу.</returns>
-        public string? GetFilePath(string? filter = null)
+        /// <inheritdoc/>
+        public override string? GetFilePath
+            (IEnumerable<FileFormat>? filter = null)
         {
-            var dialog = new SaveFileDialog() { Filter = filter != null ? filter : "" };
+            var dialog = new SaveFileDialog() { Filter = GetFilter(filter) };
             return dialog.ShowDialog() == true ? dialog.FileName : null;
         }
     }
