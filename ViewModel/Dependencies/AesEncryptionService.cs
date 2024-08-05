@@ -10,7 +10,7 @@ namespace ViewModel.Dependencies
 {
     public class AesEncryptionService : IEncryptionService
     {
-        private static string _filePath = "key.der";
+        private static string _filePath = "key.key";
 
         private static DataProtectionScope _scope = DataProtectionScope.CurrentUser;
 

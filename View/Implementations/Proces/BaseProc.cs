@@ -24,6 +24,7 @@ namespace View.Implementations.Proces
         /// </summary>
         protected IWindowResourceService _windowResourceService;
 
+        /// <inheritdoc/>
         public IProcData Data { get; private set; }
 
         protected BaseProc(string name, IWindowResourceService windowResourceService)
@@ -33,10 +34,13 @@ namespace View.Implementations.Proces
             Data = new ProcData(Invoke, GetMetadata(), CanExecute);
         }
 
+        /// <inheritdoc/>
         public abstract void Abort();
 
+        /// <inheritdoc/>
         public abstract void Invoke();
 
+        /// <inheritdoc/>
         protected virtual bool CanExecute() => true;
 
         public object GetMetadata() => new ProcMetadata(

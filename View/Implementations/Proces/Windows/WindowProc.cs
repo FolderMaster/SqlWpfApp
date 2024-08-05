@@ -29,14 +29,6 @@ namespace View.Implementations.Proces.Windows
         protected IMessageService _messageService;
 
         /// <summary>
-        /// Возвращает окно.
-        /// </summary>
-        private Window Window
-        {
-            get => _window ??= CreateConfiguredWindow();
-        }
-
-        /// <summary>
         /// Создаёт экземпляр класса <see cref="WindowProc"/>.
         /// </summary>
         /// <param name="name">Название.</param>
@@ -75,23 +67,26 @@ namespace View.Implementations.Proces.Windows
         /// <inheritdoc/>
         public override void Invoke()
         {
-            var window = Window;
-            if (window.IsVisible)
+            _window ??= CreateConfiguredWindow();
+            if (_window.IsVisible)
             {
-                window.Activate();
+                _window.Activate();
             }
             else
             {
-                window.Show();
+                _window.Show();
             }
         }
 
+        /// <inheritdoc/>
         public override void Abort()
         {
-            var window = Window;
-            if (window.IsVisible)
+            if (_window != null)
             {
-                window.Close();
+                if (_window.IsVisible)
+                {
+                    _window.Close();
+                }
             }
         }
 

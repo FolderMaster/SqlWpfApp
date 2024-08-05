@@ -1,17 +1,17 @@
 ﻿using Newtonsoft.Json;
 
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Windows;
 
-using View.Windows;
 using View.Implementations.Configuration.Data;
+using View.Windows;
 
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.DataBase;
-using ViewModel.Interfaces.Services.Files;
 using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Files;
 using ViewModel.Services;
 
 namespace View.Implementations.Configuration
@@ -22,7 +22,9 @@ namespace View.Implementations.Configuration
     /// </summary>
     public class WindowConfiguration : IConfiguration
     {
-        private static readonly string _filePath = "settings.cfg";
+        private static readonly string _settingsPath = "settings.cfg";
+
+        private static readonly string _savePath = "save.aes";
 
         /// <summary>
         /// Настройки Json-сериализатора.
@@ -73,18 +75,14 @@ namespace View.Implementations.Configuration
         public void Save()
         {
             var windowData = new WindowData(_window);
-            var connectionsData = new List<ConnectionData>();
+            SaveData(windowData, _settingsPath);
+
+            var connectionsData = new Dictionary<Type, object>();
             foreach (var connection in _connections)
             {
-                connectionsData.Add(new ConnectionData(connection.GetType(), connection.Data));
+                connectionsData.Add(connection.GetType(), connection.Data);
             }
-            var data = new FileData(windowData, connectionsData);
-
-            var text = JsonConvert.SerializeObject(data, _jsonSerializerSettings);
-            var bytes = Encoding.Default.GetBytes(text);
-            var encryptedBytes = _encryptionService.Encrypt(bytes);
-            MessengerService.ExecuteWithExceptionMessage(_resourceService, _messageService,
-                () => _fileService.Save(_filePath, encryptedBytes));
+            SaveData(connectionsData, _savePath, true);
         }
 
         /// <summary>
@@ -92,33 +90,62 @@ namespace View.Implementations.Configuration
         /// </summary>
         public void Load()
         {
-            if (_fileService.IsPathExists(_filePath))
+            if (_fileService.IsPathExists(_settingsPath))
             {
-                FileData? data = null;
-                MessengerService.ExecuteWithExceptionMessage
-                    (_resourceService, _messageService, () =>
+                var windowData = LoadData<WindowData>(_settingsPath);
+                if (windowData != null)
                 {
-                    var bytes = _fileService.Load(_filePath);
-                    var decryptedBytes = _encryptionService.Decrypt(bytes);
-                    var text = Encoding.Default.GetString(decryptedBytes);
-                    data = JsonConvert.DeserializeObject<FileData>
-                        (text, _jsonSerializerSettings);
-                });
+                    windowData.SetData(_window);
+                }
+            }
 
-                if (data != null)
+            if (_fileService.IsPathExists(_savePath))
+            {
+                var connectionsData = LoadData<IDictionary<Type, object>>(_savePath, true);
+                if (connectionsData != null)
                 {
-                    data.WindowData.SetData(_window);
                     foreach (var connection in _connections)
                     {
-                        var connectionData = data.ConnectionData.FirstOrDefault
-                            (d => d.ConnectionType == connection.GetType());
-                        if (connectionData != null)
+                        object data = default;
+                        if (connectionsData.TryGetValue(connection.GetType(), out data))
                         {
-                            connection.Data = connectionData.Data;
+                            connection.Data = data;
                         }
                     }
                 }
             }
+        }
+
+        private void SaveData(object data, string filePath, bool isEncrypt = false)
+        {
+            MessengerService.ExecuteWithExceptionMessage(_resourceService, _messageService, () =>
+            {
+                var text = JsonConvert.SerializeObject(data, _jsonSerializerSettings);
+                var bytes = Encoding.Default.GetBytes(text);
+                if (isEncrypt)
+                {
+                    var encryptedBytes = _encryptionService.Encrypt(bytes);
+                    bytes = encryptedBytes;
+                }
+                _fileService.Save(filePath, bytes);
+            });
+        }
+
+        private T? LoadData<T>(string filePath, bool isEncrypted = false)
+        {
+            T? result = default;
+            MessengerService.ExecuteWithExceptionMessage(_resourceService, _messageService, () =>
+            {
+                var bytes = _fileService.Load(filePath);
+                if (isEncrypted)
+                {
+                    var decryptedBytes = _encryptionService.Decrypt(bytes);
+                    bytes = decryptedBytes;
+                }
+                var text = Encoding.Default.GetString(bytes);
+                result = JsonConvert.DeserializeObject<T>(text, _jsonSerializerSettings);
+            });
+            return result;
         }
     }
 }
