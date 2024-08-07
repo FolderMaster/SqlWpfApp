@@ -17,6 +17,8 @@
 
     <sys:Double x:Key="GridSplitterSize">5</sys:Double>
 
+    <sys:Double x:Key="ResizeThumbSize">10</sys:Double>
+
     <sys:Double x:Key="DefaultMargin">5</sys:Double>
 
     <sys:Double x:Key="TableWindowWidth">800</sys:Double>

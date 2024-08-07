@@ -8,7 +8,7 @@
              mc:Ignorable="d"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:b="clr-namespace:View.Behaviors"
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="450" d:DesignWidth="600"
              Name="control">
     <Grid>
         <Grid.RowDefinitions>
@@ -31,14 +31,30 @@
                                SelectedMarkerStyle="{Binding MarkerStyle}"
                                CreateTableCommand="{Binding CreateTableCommand}"
                                ColumnsCount="{Binding ColumnsCount}"
-                               RowsCount="{Binding RowsCount}"/>
+                               RowsCount="{Binding RowsCount}"
+                               Pattern="{Binding Pattern}"
+                               SearchCommand="{Binding SearchCommand}"
+                               Replacement="{Binding Replacement}"
+                               ReplaceCommand="{Binding ReplaceCommand}"/>
         <RichTextBox Grid.Row="1" SpellCheck.IsEnabled="True"
-                     IsInactiveSelectionHighlightEnabled="True">
+                     IsInactiveSelectionHighlightEnabled="True"
+                     IsReadOnlyCaretVisible="True">
             <i:Interaction.Behaviors>
                 <b:ExtendedRichTextBoxBehavior
                     Selection="{Binding Selection, Mode=OneWayToSource}"
                     Document="{Binding Document}"/>
             </i:Interaction.Behaviors>
+            <FlowDocument>
+                <Paragraph>
+                    <Figure BaselineAlignment="Center" VerticalAnchor="ContentCenter">
+                        <Paragraph>
+                            <Image Source="{StaticResource AddImage}" Width="100" Height="100" Margin="0,0,10,0"/>
+                        </Paragraph>
+                    </Figure>
+                    Здесь идет текст, который будет обтекать изображение. Вы можете добавить сюда любой текст, который вам нужен.
+                    Здесь идет текст, который будет обтекать изображение. Вы можете добавить сюда любой текст, который вам нужен.
+                </Paragraph>
+            </FlowDocument>
         </RichTextBox>
     </Grid>
 </UserControl>

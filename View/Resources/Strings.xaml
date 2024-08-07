@@ -303,4 +303,7 @@
     <sys:String x:Key="PageHeader">Page</sys:String>
     <sys:String x:Key="PageWidthHeader">Page width</sys:String>
     <sys:String x:Key="PageHeightHeader">Page height</sys:String>
+    <sys:String x:Key="ReplaceHeader">Replace</sys:String>
+
+    <sys:String x:Key="TemplatesHeader">Templates...</sys:String>
 </ResourceDictionary>

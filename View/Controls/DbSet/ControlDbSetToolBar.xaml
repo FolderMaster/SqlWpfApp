@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:View.Controls.DbSet"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:b="clr-namespace:View.Behaviors"
+             xmlns:c="clr-namespace:View.Controls"
              mc:Ignorable="d" 
              Name="control" d:DesignHeight="50" d:DesignWidth="800">
     <ToolBar>
@@ -58,7 +59,8 @@
                Style="{StaticResource ToolbarLabelStyle}"/>
         <TextBox Text="{Binding ElementName=control, Path=SearchText,
             UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ToolbarTextBoxStyle}"/>
-        <local:ToggleContentControl Style="{StaticResource ToolbarToggleContentStyle}">
+        <c:ToggleContentControl ButtonContent="+"
+                                Style="{StaticResource ToolbarToggleContentStyle}">
             <ListBox ItemsSource="{Binding Properties, RelativeSource=
                 {RelativeSource FindAncestor, AncestorType=UserControl, AncestorLevel=2}}">
                 <i:Interaction.Behaviors>
@@ -67,14 +69,15 @@
                         AncestorType=UserControl, AncestorLevel=2}}"/>
                 </i:Interaction.Behaviors>
             </ListBox>
-        </local:ToggleContentControl>
+        </c:ToggleContentControl>
         <Separator/>
         <Label Content="{Binding Source={StaticResource FilterHeader},
                     Converter={StaticResource StringToHeaderConverter}}"
                Style="{StaticResource ToolbarLabelStyle}"/>
         <TextBox Text="{Binding ElementName=control, Path=FilterText,
             UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ToolbarTextBoxStyle}"/>
-        <local:ToggleContentControl Style="{StaticResource ToolbarToggleContentStyle}">
+        <c:ToggleContentControl ButtonContent="+"
+                                Style="{StaticResource ToolbarToggleContentStyle}">
             <ListBox ItemsSource="{Binding Properties, RelativeSource=
                 {RelativeSource FindAncestor, AncestorType=UserControl, AncestorLevel=2}}">
                 <i:Interaction.Behaviors>
@@ -83,7 +86,7 @@
                         AncestorType=UserControl, AncestorLevel=2}}"/>
                 </i:Interaction.Behaviors>
             </ListBox>
-        </local:ToggleContentControl>
+        </c:ToggleContentControl>
         <Separator/>
         <Button Command="{Binding ElementName=control, Path=AddCommand}"
                 Style="{StaticResource ToolbarButtonStyle}">

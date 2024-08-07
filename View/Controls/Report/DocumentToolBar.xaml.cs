@@ -51,6 +51,20 @@ namespace View.Controls.Report
             (nameof(RowsCount), typeof(int), typeof(DocumentToolBar),
             new FrameworkPropertyMetadata(10, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
+        public static DependencyProperty PatternProperty = DependencyProperty.Register
+            (nameof(Pattern), typeof(string), typeof(DocumentToolBar),
+            new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+        public static DependencyProperty SearchCommandProperty = DependencyProperty.Register
+            (nameof(SearchCommand), typeof(ICommand), typeof(DocumentToolBar));
+
+        public static DependencyProperty ReplacementProperty = DependencyProperty.Register
+            (nameof(Replacement), typeof(string), typeof(DocumentToolBar),
+            new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+        public static DependencyProperty ReplaceCommandProperty = DependencyProperty.Register
+            (nameof(ReplaceCommand), typeof(ICommand), typeof(DocumentToolBar));
+
         public Selection Selection
         {
             get => (Selection)GetValue(SelectionProperty);
@@ -127,6 +141,30 @@ namespace View.Controls.Report
         {
             get => (int)GetValue(RowsCountProperty);
             set => SetValue(RowsCountProperty, value);
+        }
+
+        public string Pattern
+        {
+            get => (string)GetValue(PatternProperty);
+            set => SetValue(PatternProperty, value);
+        }
+
+        public ICommand SearchCommand
+        {
+            get => (ICommand)GetValue(SearchCommandProperty);
+            set => SetValue(SearchCommandProperty, value);
+        }
+
+        public string Replacement
+        {
+            get => (string)GetValue(ReplacementProperty);
+            set => SetValue(ReplacementProperty, value);
+        }
+
+        public ICommand ReplaceCommand
+        {
+            get => (ICommand)GetValue(ReplaceCommandProperty);
+            set => SetValue(ReplaceCommandProperty, value);
         }
 
         public DocumentToolBar()

@@ -154,6 +154,37 @@
                          IsEnabled="{Binding Document,
                          Converter={StaticResource ObjectToBoolConverter}}"
                          Style="{StaticResource ToolbarHalfTextBoxStyle}"/>
+                <Separator/>
+                <Label Content="{Binding Source={StaticResource SearchHeader},
+                       Converter={StaticResource StringToHeaderConverter}}"
+                       Style="{StaticResource ToolbarLabelStyle}"/>
+                <TextBox Text="{Binding Pattern, UpdateSourceTrigger=PropertyChanged,
+                         ElementName=control}"
+                         Style="{StaticResource ToolbarTextBoxStyle}"/>
+                <Button Command="{Binding SearchCommand, ElementName=control}"
+                        Style="{StaticResource ToolbarButtonStyle}">
+                    <Button.Content>
+                        <Image Source="{StaticResource SearchImage}"/>
+                    </Button.Content>
+                    <Button.ToolTip>
+                        <ToolTip Content="{StaticResource SearchHeader}"/>
+                    </Button.ToolTip>
+                </Button>
+                <Label Content="{Binding Source={StaticResource ReplaceHeader},
+                       Converter={StaticResource StringToHeaderConverter}}"
+                       Style="{StaticResource ToolbarLabelStyle}"/>
+                <TextBox Text="{Binding Replacement, UpdateSourceTrigger=PropertyChanged,
+                         ElementName=control}"
+                         Style="{StaticResource ToolbarTextBoxStyle}"/>
+                <Button Command="{Binding ReplaceCommand, ElementName=control}"
+                        Style="{StaticResource ToolbarButtonStyle}">
+                    <Button.Content>
+                        <Image Source="{StaticResource ReplaceImage}"/>
+                    </Button.Content>
+                    <Button.ToolTip>
+                        <ToolTip Content="{StaticResource ReplaceHeader}"/>
+                    </Button.ToolTip>
+                </Button>
             </StackPanel>
         </TabItem>
     </TabControl>

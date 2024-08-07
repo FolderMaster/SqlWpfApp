@@ -36,6 +36,7 @@
     <None Remove="Resources\Images\Persons.ico" />
     <None Remove="Resources\Images\Positions.ico" />
     <None Remove="Resources\Images\Remove.ico" />
+    <None Remove="Resources\Images\Replace.ico" />
     <None Remove="Resources\Images\Reports.ico" />
     <None Remove="Resources\Images\Requests.ico" />
     <None Remove="Resources\Images\Right.ico" />
@@ -44,6 +45,7 @@
     <None Remove="Resources\Images\Roles.ico" />
     <None Remove="Resources\Images\Save.ico" />
     <None Remove="Resources\Images\Scholarships.ico" />
+    <None Remove="Resources\Images\Search.ico" />
     <None Remove="Resources\Images\Specialties.ico" />
     <None Remove="Resources\Images\SQLite.ico" />
     <None Remove="Resources\Images\StudentDisciplineConnections.ico" />
@@ -99,6 +101,7 @@
     <Resource Include="Resources\Images\Persons.ico" />
     <Resource Include="Resources\Images\Positions.ico" />
     <Resource Include="Resources\Images\Remove.ico" />
+    <Resource Include="Resources\Images\Replace.ico" />
     <Resource Include="Resources\Images\Reports.ico" />
     <Resource Include="Resources\Images\Requests.ico" />
     <Resource Include="Resources\Images\Right.ico" />
@@ -107,6 +110,7 @@
     <Resource Include="Resources\Images\Roles.ico" />
     <Resource Include="Resources\Images\Save.ico" />
     <Resource Include="Resources\Images\Scholarships.ico" />
+    <Resource Include="Resources\Images\Search.ico" />
     <Resource Include="Resources\Images\Specialties.ico" />
     <Resource Include="Resources\Images\SQLite.ico" />
     <Resource Include="Resources\Images\StudentDisciplineConnections.ico" />

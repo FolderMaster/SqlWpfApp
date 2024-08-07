@@ -52,6 +52,10 @@ namespace View.Behaviors
             {
                 Selection = new Selection(richTextBox.Selection);
             }
+            else
+            {
+                Selection = null;
+            }
         }
 
         private static void DocumentChanged(object sender,

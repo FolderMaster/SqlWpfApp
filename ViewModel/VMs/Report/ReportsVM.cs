@@ -15,6 +15,7 @@ namespace ViewModel.VMs.Report
     /// </summary>
     public partial class ReportsVM : RequestsVM
     {
+        private static string _sqlRequestPattern = "\\{\\{\\s*SQL:\\s*(.*?)\\s*\\|\\s*(.*?)\\s*\\}\\}";
         /// <summary>
         /// Ключ ресурса параграфа о студентах в отчёте об отчислениях.
         /// </summary>
@@ -98,6 +99,8 @@ namespace ViewModel.VMs.Report
         /// </summary>
         public RelayCommand DepartmentsCommand { get; private set; }
 
+        public RelayCommand ExecuteCommand { get; private set; }
+
         /// <summary>
         /// Создаёт экземпляр класса <see cref="ChangeDataRequestsVM"/>.
         /// </summary>
@@ -133,6 +136,7 @@ namespace ViewModel.VMs.Report
                 DocumentEditService.ApplyTemplate(Document, new object[]
                 {
                     _resourceService.GetString(_studentsAverageGradesParagraphResourceKey),
+                    "{{ SQL:" +
                     "SELECT s.ID, p.Name, sp.DepartmentName AS Department, " +
                     "g.Number AS GroupNumber, g.FormationYear AS GroupFormationYear, " +
                     "AVG(CAST(studentGrades.Coefficient AS REAL)) AS AverageGrade " +
@@ -149,8 +153,10 @@ namespace ViewModel.VMs.Report
                     "s.GroupFormationYear = g.FormationYear AND s.GroupNumber = g.Number AND " +
                     "g.SpecialtyNumber = sp.Number AND p.ID = s.ID " +
                     "GROUP BY sp.DepartmentName, g.Number, g.FormationYear, s.ID, p.Name " +
-                    "ORDER BY s.ID ASC",
+                    "ORDER BY s.ID ASC" +
+                    " | table }}",
                     _resourceService.GetString(_studentsGradesParagraphResourceKey),
+                    "{{ SQL:" +
                     "SELECT s.ID, p.Name, sp.DepartmentName AS Department, " +
                     "g.Number AS GroupNumber, g.FormationYear AS GroupFormationYear, " +
                     "d.ID AS DisciplineID, d.Name AS DisciplineName, " +
@@ -168,7 +174,8 @@ namespace ViewModel.VMs.Report
                     "s.GroupFormationYear = g.FormationYear AND s.GroupNumber = g.Number AND " +
                     "g.SpecialtyNumber = sp.Number AND p.ID = s.ID AND " +
                     "studentGrades.DisciplineID = d.ID " +
-                    "ORDER BY s.ID ASC"
+                    "ORDER BY s.ID ASC" +
+                    " | table }}"
                 });
             }, () => Document != null);
             DepartmentsCommand = new RelayCommand(() =>
@@ -176,6 +183,7 @@ namespace ViewModel.VMs.Report
                 DocumentEditService.ApplyTemplate(Document, new object[]
                 {
                     _resourceService.GetString(_departmentsScholarshipsParagraphResourceKey),
+                    "{{ SQL:" +
                     "SELECT sp.DepartmentName AS Department, s.GroupNumber, " +
                     "s.GroupFormationYear, s.ScholarshipName AS Scholarship, " +
                     "Count(s.ID) AS Count " +
@@ -184,8 +192,10 @@ namespace ViewModel.VMs.Report
                     "AND g.SpecialtyNumber = sp.Number " +
                     "GROUP BY sp.DepartmentName, s.GroupNumber, s.GroupFormationYear, " +
                     "s.ScholarshipName " +
-                    "ORDER BY sp.DepartmentName ASC, s.GroupNumber ASC, s.GroupFormationYear ASC",
+                    "ORDER BY sp.DepartmentName ASC, s.GroupNumber ASC, s.GroupFormationYear ASC" +
+                    " | table }}",
                     _resourceService.GetString(_departmentsAverageGradesParagraphResourceKey),
+                    "{{ SQL:" +
                     "SELECT sp.DepartmentName AS Department, s.GroupNumber, " +
                     "s.GroupFormationYear, " +
                     "AVG(CAST(studentGrades.Coefficient AS REAL)) AS AverageGrade " +
@@ -202,8 +212,13 @@ namespace ViewModel.VMs.Report
                     "s.GroupFormationYear = g.FormationYear AND s.GroupNumber = g.Number AND " +
                     "g.SpecialtyNumber = sp.Number " +
                     "GROUP BY sp.DepartmentName, s.GroupNumber, s.GroupFormationYear " +
-                    "ORDER BY sp.DepartmentName ASC, s.GroupNumber ASC, s.GroupFormationYear ASC"
+                    "ORDER BY sp.DepartmentName ASC, s.GroupNumber ASC, s.GroupFormationYear ASC" +
+                    " | table }}"
                 });
+            }, () => Document != null);
+            ExecuteCommand = new RelayCommand(() =>
+            {
+                var sqlRequests = Document.Search(_sqlRequestPattern);
             }, () => Document != null);
             PrintCommand = new RelayCommand(() =>
             {

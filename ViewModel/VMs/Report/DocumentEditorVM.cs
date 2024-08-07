@@ -2,6 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Media.Imaging;
 
 using ViewModel.Interfaces.Services.Document;
@@ -19,6 +21,13 @@ namespace ViewModel.VMs.Report
 
         private object? _markerStyle;
 
+        private IEnumerable<object>? _findedRanges;
+
+        private string _pattern;
+
+        [ObservableProperty]
+        private string replacement;
+
         [ObservableProperty]
         private int columnsCount = 10;
 
@@ -28,7 +37,14 @@ namespace ViewModel.VMs.Report
         public IDocument? Document
         {
             get => _document;
-            set => SetProperty(ref _document, value);
+            set
+            {
+                if (SetProperty(ref _document, value))
+                {
+                    SearchCommand.NotifyCanExecuteChanged();
+                    ReplaceCommand.NotifyCanExecuteChanged();
+                }
+            }
         }
 
         public ISelection? Selection
@@ -43,6 +59,7 @@ namespace ViewModel.VMs.Report
                     CreateImageCommand.NotifyCanExecuteChanged();
                     IncreaseSizeCommand.NotifyCanExecuteChanged();
                     DecreaseSizeCommand.NotifyCanExecuteChanged();
+                    SearchCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -55,6 +72,30 @@ namespace ViewModel.VMs.Report
                 if (SetProperty(ref _markerStyle, value))
                 {
                     CreateListCommand.NotifyCanExecuteChanged();
+                }
+            }
+        }
+
+        public string Pattern
+        {
+            get => _pattern;
+            set
+            {
+                if (SetProperty(ref _pattern, value))
+                {
+                    SearchCommand.NotifyCanExecuteChanged();
+                }
+            }
+        }
+
+        public IEnumerable<object>? FindedRanges
+        {
+            get => _findedRanges;
+            private set
+            {
+                if (SetProperty(ref _findedRanges, value))
+                {
+                    ReplaceCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -72,6 +113,10 @@ namespace ViewModel.VMs.Report
         public RelayCommand CreateTableCommand { get; private set; }
 
         public RelayCommand CreateImageCommand { get; private set; }
+
+        public RelayCommand SearchCommand { get; private set; }
+
+        public RelayCommand ReplaceCommand { get; private set; }
 
         public DocumentEditorVM()
         {
@@ -93,6 +138,21 @@ namespace ViewModel.VMs.Report
                     Selection.InsertImage(bitmap);
                 }
             }, () => Selection != null);
+            SearchCommand = new RelayCommand(() =>
+            {
+                FindedRanges = Document.Search(Pattern);
+                foreach (var range in FindedRanges)
+                {
+                    Selection.Select(range);
+                }
+            }, () => Document != null && Selection != null && !string.IsNullOrEmpty(Pattern));
+            ReplaceCommand = new RelayCommand(() =>
+            {
+                foreach (var range in FindedRanges)
+                {
+                    Document.Replace(Replacement, range);
+                }
+            }, () => Document != null && FindedRanges != null && FindedRanges.Any());
         }
     }
 }

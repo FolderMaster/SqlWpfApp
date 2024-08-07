@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Windows"
         mc:Ignorable="d"
-        xmlns:c="clr-namespace:View.Controls.Report"
+        xmlns:r="clr-namespace:View.Controls.Report"
+        xmlns:c="clr-namespace:View.Controls"
         Title="{StaticResource ReportsHeader}" Icon="{StaticResource ReportsIcon}"
         Height="{StaticResource TableWindowHeight}" Width="{StaticResource TableWindowWidth}"
         Name="control">
@@ -14,8 +15,9 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-        <c:DocumentEditorControl Grid.Row="0"
-                OpenGettingFileService="{Binding DataContext.OpenGettingFileService, ElementName=control}"
+        <r:DocumentEditorControl Grid.Row="0"
+                OpenGettingFileService="{Binding DataContext.OpenGettingFileService,
+                ElementName=control}"
                 DocumentService="{Binding DataContext.DocumentService, ElementName=control}"
                 Document="{Binding DataContext.Document, ElementName=control}"/>
         <Grid Grid.Row="1">
@@ -23,18 +25,28 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="{StaticResource DeductingsHeader}"
-                    Command="{Binding DeductingsCommand}"
+            <c:ToggleContentControl Grid.Column="0"
+                                    ButtonContent="{StaticResource TemplatesHeader}"
+                                    Style="{StaticResource ButtonStyle}" MinWidth="0">
+                <Border BorderBrush="Black" BorderThickness="1" Background="White">
+                    <StackPanel >
+                        <Button Content="{StaticResource DeductingsHeader}"
+                                Command="{Binding DeductingsCommand}"
+                                Style="{StaticResource ButtonStyle}"/>
+                        <Button Grid.Column="1" Content="{StaticResource StudentsHeader}"
+                                Command="{Binding StudentsCommand}"
+                                Style="{StaticResource ButtonStyle}"/>
+                        <Button Grid.Column="2" Content="{StaticResource DepartmentsHeader}"
+                                Command="{Binding DepartmentsCommand}"
+                                Style="{StaticResource ButtonStyle}"/>
+                    </StackPanel>
+                </Border>
+            </c:ToggleContentControl>
+            <Button Grid.Column="1" Command="{Binding ExecuteCommand}"
+                    Content="{StaticResource ExecuteRequestHeader}"
                     Style="{StaticResource ButtonStyle}" MinWidth="0"/>
-            <Button Grid.Column="1" Content="{StaticResource StudentsHeader}"
-                    Command="{Binding StudentsCommand}"
-                    Style="{StaticResource ButtonStyle}" MinWidth="0"/>
-            <Button Grid.Column="2" Content="{StaticResource DepartmentsHeader}"
-                    Command="{Binding DepartmentsCommand}"
-                    Style="{StaticResource ButtonStyle}" MinWidth="0"/>
-            <Button Grid.Column="3" Command="{Binding PrintCommand}"
+            <Button Grid.Column="2" Command="{Binding PrintCommand}"
                     Content="{StaticResource PrintHeader}"
                     Style="{StaticResource ButtonStyle}" MinWidth="0"/>
         </Grid>

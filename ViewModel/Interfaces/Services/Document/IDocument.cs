@@ -1,4 +1,6 @@
-﻿namespace ViewModel.Interfaces.Services.Document
+﻿using System.Collections.Generic;
+
+namespace ViewModel.Interfaces.Services.Document
 {
     public interface IDocument
     {
@@ -8,8 +10,14 @@
 
         public object DocumentPaginator { get; }
 
+        public object Range { get; }
+
+        public object EndRange { get; }
+
         public void Clear();
 
-        public void InsertValue(object value);
+        public void Replace(object? value, object range);
+
+        public IEnumerable<object> Search(object value);
     }
 }

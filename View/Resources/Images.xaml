@@ -50,7 +50,11 @@
     <BitmapImage x:Shared="False" UriSource="Images/Left.ico" x:Key="LeftImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Decrease.ico" x:Key="DecreaseImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Increase.ico" x:Key="IncreaseImage"/>
+    
     <BitmapImage x:Shared="False" UriSource="Images/List.ico" x:Key="ListImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Table.ico" x:Key="TableImage"/>
     <BitmapImage x:Shared="False" UriSource="Images/Image.ico" x:Key="ImageImage"/>
+
+    <BitmapImage x:Shared="False" UriSource="Images/Search.ico" x:Key="SearchImage"/>
+    <BitmapImage x:Shared="False" UriSource="Images/Replace.ico" x:Key="ReplaceImage"/>
 </ResourceDictionary>

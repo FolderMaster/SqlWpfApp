@@ -11,10 +11,10 @@ namespace ViewModel.Services
     {
         public static void ApplyTemplate(IDocument document, IEnumerable template)
         {
-            document.Clear();
+            document.Replace(null, document.Range);
             foreach (var value in template)
             {
-                document.InsertValue(value);
+                document.Replace(value, document.EndRange);
             }
         }
     }

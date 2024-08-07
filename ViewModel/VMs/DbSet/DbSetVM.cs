@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Text.RegularExpressions;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
@@ -270,17 +271,17 @@ namespace ViewModel.VMs.DbSet
         private void Filter()
         {
             var selectedIndex = SelectedIndex;
-
             ObservableCollection<T> collection;
             if (!string.IsNullOrEmpty(FilterText))
             {
+                var regex = new Regex(FilterText, RegexOptions.IgnoreCase);
                 var properties = GetPropertiesForCondition(FilterProperties);
                 collection = [];
                 foreach (var item in DbSetLocal)
                 {
                     foreach (var property in properties)
                     {
-                        var doFind = IsMatchTextInValueOfProperty(FilterText, property, item);
+                        var doFind = IsMatchTextInValueOfProperty(regex, property, item);
                         if (doFind)
                         {
                             collection.Add(item);
@@ -315,13 +316,14 @@ namespace ViewModel.VMs.DbSet
         {
             if (!string.IsNullOrEmpty(SearchText))
             {
+                var regex = new Regex(SearchText, RegexOptions.IgnoreCase);
                 var properties = GetPropertiesForCondition(SearchProperties);
                 foreach (var item in FinalDbSetLocal)
                 {
                     bool doFind = false;
                     foreach (var property in properties)
                     {
-                        doFind = IsMatchTextInValueOfProperty(SearchText, property, item);
+                        doFind = IsMatchTextInValueOfProperty(regex, property, item);
                         if (doFind)
                         {
                             SelectedItem = item;
@@ -339,17 +341,17 @@ namespace ViewModel.VMs.DbSet
         /// <summary>
         /// Проверяет найдено ли совпадение текста в значении свойства.
         /// </summary>
-        /// <param name="matchText">Текст для поиска совпадения.</param>
+        /// <param name="regex">Регулярное выражение.</param>
         /// <param name="property">Свойство.</param>
         /// <param name="item">Элемент.</param>
         /// <returns>Логическое значение, указывающее было ли найдено совпадение в значении
         /// свойства.</returns>
         private static bool IsMatchTextInValueOfProperty
-            (string matchText, MethodInfo property, T item)
+            (Regex regex, MethodInfo property, T item)
         {
             var value = property.Invoke(item, []);
             var text = value != null ? value.ToString() : "";
-            return text.IndexOf(matchText, StringComparison.OrdinalIgnoreCase) != -1;
+            return regex.IsMatch(text);
         }
 
         /// <summary>

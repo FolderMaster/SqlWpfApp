@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Markup;
 
-namespace View.Controls.DbSet
+namespace View.Controls
 {
     /// <summary>
     /// Interaction logic for ToggleContentControl.xaml
@@ -10,15 +10,25 @@ namespace View.Controls.DbSet
     [ContentProperty(nameof(InnerContent))]
     public partial class ToggleContentControl : UserControl
     {
+        public static readonly DependencyProperty InnerContentProperty =
+            DependencyProperty.Register(nameof(InnerContent), typeof(object),
+                typeof(ToggleContentControl));
+
+        public static readonly DependencyProperty ButtonContentProperty =
+            DependencyProperty.Register(nameof(ButtonContent), typeof(object),
+                typeof(ToggleContentControl));
+
         public object InnerContent
         {
             get => GetValue(InnerContentProperty);
             set => SetValue(InnerContentProperty, value);
         }
 
-        public static readonly DependencyProperty InnerContentProperty =
-            DependencyProperty.Register(nameof(InnerContent), typeof(object),
-                typeof(ToggleContentControl), new PropertyMetadata(null));
+        public object ButtonContent
+        {
+            get => GetValue(ButtonContentProperty);
+            set => SetValue(ButtonContentProperty, value);
+        }
 
         public ToggleContentControl()
         {

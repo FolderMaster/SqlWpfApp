@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
 
 using Model.ObservableObjects;
@@ -66,6 +67,8 @@ namespace View.Implementations.Document
             set => SetValue(value, AlignmentProperty);
         }
 
+        public object Range => new TextRange(_textSelection.Start, _textSelection.End);
+
         static Selection() { }
 
         public Selection(TextSelection textSelection)
@@ -125,11 +128,15 @@ namespace View.Implementations.Document
                 Width = imageSource.Width,
                 Height = imageSource.Height
             };
-            var grid = new Grid();
-            grid.Children.Add(image);
-            grid.Children.Add(new AdornerDecorator());
-            var container = new InlineUIContainer(grid);
+            var container = new InlineUIContainer(image);
+            container.MouseDown += BlockUIContainer_MouseDown;
             _textSelection.Start.Paragraph.Inlines.Add(container);
+        }
+
+        public void Select(object range)
+        {
+            var textRange = (TextRange)range;
+            _textSelection.Select(textRange.Start, textRange.End);
         }
 
         protected void SetSelectionValue(DependencyProperty property, object value) =>
@@ -152,6 +159,23 @@ namespace View.Implementations.Document
             FontFamily = family != null ? family.Source : null;
 
             Alignment = GetSelectionValue(Block.TextAlignmentProperty) as TextAlignment?;
+        }
+
+        private AdornerLayer? GetAdornerLayerFromSelection()
+        {
+            var current = _textSelection.Start.Parent;
+            while (current != null)
+            {
+                if (current is RichTextBox richTextBox)
+                {
+                    return AdornerLayer.GetAdornerLayer(richTextBox);
+                }
+                else if (current is FrameworkContentElement element)
+                {
+                    current = element.Parent;
+                }
+            }
+            return null;
         }
 
         private static void Property_Changed(ObservableArgs args)
@@ -184,24 +208,25 @@ namespace View.Implementations.Document
             }
         }
 
-        protected AdornerLayer? GetAdornerLayerFromSelection()
-        {
-            var current = _textSelection.Start.Parent;
-            while (current != null)
-            {
-                if (current is RichTextBox richTextBox)
-                {
-                    return AdornerLayer.GetAdornerLayer(richTextBox);
-                }
-                else if (current is FrameworkContentElement element)
-                {
-                    current = element.Parent;
-                }
-            }
-            return null;
-        }
+        private void TextSelection_Changed(object? sender, EventArgs e) => UpdateProperties();
 
-        private void TextSelection_Changed(object? sender, EventArgs e) =>
-            UpdateProperties();
+        private void BlockUIContainer_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var container = (BlockUIContainer)sender;
+            var image = (Image)container.Child;
+            var adornerLayer = GetAdornerLayerFromSelection();
+            var adorner = (Adorner)image.Tag;
+            if (adorner == null)
+            {
+                adorner = new ResizeAdorner(image);
+                image.Tag = adorner;
+                adornerLayer.Add(adorner);
+            }
+            else
+            {
+                image.Tag = null;
+                adornerLayer.Remove(adorner);
+            }
+        }
     }
 }
