@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 
 using Model.ObservableObjects;
+
+using View.Services;
 
 using ViewModel.Interfaces.Services.Document;
 
@@ -13,13 +13,6 @@ namespace View.Implementations.Document
 {
     public class Selection : ObservableObject, ISelection
     {
-        private const double _cellSpacing = 0;
-
-        private static readonly Brush _borderBrush =
-            new SolidColorBrush(Color.FromRgb(0, 0, 0));
-
-        private static readonly Thickness _borderThickness = new Thickness(1);
-
         public static ObservableProperty BoldProperty = RegisterProperty(typeof(Selection),
             nameof(Bold), null, null, Property_Changed);
 
@@ -67,7 +60,8 @@ namespace View.Implementations.Document
             set => SetValue(value, AlignmentProperty);
         }
 
-        public object Range => new TextRange(_textSelection.Start, _textSelection.End);
+        public IRange Range => new Range(new TextRange
+            (_textSelection.Start, _textSelection.End));
 
         static Selection() { }
 
@@ -80,62 +74,30 @@ namespace View.Implementations.Document
 
         public void InsertList(object markerStyle)
         {
-            var list = new List(new ListItem(new Paragraph()));
+            var list = DocumentEditorService.CreateList(1);
             list.MarkerStyle = (TextMarkerStyle)markerStyle;
             if (FontSize != null)
             {
                 list.FontSize = (double)FontSize;
             }
-            _textSelection.Start.InsertParagraphBreak();
-            _textSelection.Start.Paragraph.SiblingBlocks.
-                InsertAfter(_textSelection.Start.Paragraph, list);
+            DocumentEditorService.SetBlock(list, _textSelection.Start, _textSelection.End);
         }
 
         public void InsertTable(int columnsCount, int rowsCount)
         {
-            var table = new Table();
-            table.CellSpacing = _cellSpacing;
-            for (int i = 0; i < columnsCount; i++)
-            {
-                table.Columns.Add(new TableColumn());
-            }
-            table.RowGroups.Add(new TableRowGroup());
-            for (int i = 0; i < rowsCount; i++)
-            {
-                var row = new TableRow();
-                for (int j = 0; j < columnsCount; j++)
-                {
-                    TableCell cell = new TableCell(new Paragraph())
-                    {
-                        BorderBrush = _borderBrush,
-                        BorderThickness = _borderThickness
-                    };
-                    row.Cells.Add(cell);
-                }
-                table.RowGroups[0].Rows.Add(row);
-            }
-            _textSelection.Start.InsertParagraphBreak();
-            _textSelection.Start.Paragraph.SiblingBlocks.
-                InsertAfter(_textSelection.Start.Paragraph, table);
+            var table = DocumentEditorService.CreateTable(columnsCount, rowsCount);
+            DocumentEditorService.SetBlock(table, _textSelection.Start, _textSelection.End);
         }
 
         public void InsertImage(object data)
         {
-            var imageSource = (ImageSource)data;
-            var image = new Image()
-            {
-                Source = imageSource,
-                Width = imageSource.Width,
-                Height = imageSource.Height
-            };
-            var container = new InlineUIContainer(image);
-            container.MouseDown += BlockUIContainer_MouseDown;
-            _textSelection.Start.Paragraph.Inlines.Add(container);
+            var image = DocumentEditorService.CreateImage((ImageSource)data);
+            DocumentEditorService.SetBlock(image, _textSelection.Start, _textSelection.End);
         }
 
-        public void Select(object range)
+        public void Select(IRange range)
         {
-            var textRange = (TextRange)range;
+            var textRange = (Range)range;
             _textSelection.Select(textRange.Start, textRange.End);
         }
 
@@ -159,23 +121,6 @@ namespace View.Implementations.Document
             FontFamily = family != null ? family.Source : null;
 
             Alignment = GetSelectionValue(Block.TextAlignmentProperty) as TextAlignment?;
-        }
-
-        private AdornerLayer? GetAdornerLayerFromSelection()
-        {
-            var current = _textSelection.Start.Parent;
-            while (current != null)
-            {
-                if (current is RichTextBox richTextBox)
-                {
-                    return AdornerLayer.GetAdornerLayer(richTextBox);
-                }
-                else if (current is FrameworkContentElement element)
-                {
-                    current = element.Parent;
-                }
-            }
-            return null;
         }
 
         private static void Property_Changed(ObservableArgs args)
@@ -209,24 +154,5 @@ namespace View.Implementations.Document
         }
 
         private void TextSelection_Changed(object? sender, EventArgs e) => UpdateProperties();
-
-        private void BlockUIContainer_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            var container = (BlockUIContainer)sender;
-            var image = (Image)container.Child;
-            var adornerLayer = GetAdornerLayerFromSelection();
-            var adorner = (Adorner)image.Tag;
-            if (adorner == null)
-            {
-                adorner = new ResizeAdorner(image);
-                image.Tag = adorner;
-                adornerLayer.Add(adorner);
-            }
-            else
-            {
-                image.Tag = null;
-                adornerLayer.Remove(adorner);
-            }
-        }
     }
 }

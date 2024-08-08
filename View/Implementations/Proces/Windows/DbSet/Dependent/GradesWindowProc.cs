@@ -7,6 +7,7 @@ using View.Implementations.ResourceService;
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
 using ViewModel.VMs.DbSet;
+using ViewModel.Interfaces.Services.Data;
 
 using Model.Dependent;
 using Model.Independent;
@@ -19,10 +20,7 @@ namespace View.Implementations.Proces.Windows.DbSet.Dependent
     /// </summary>
     public class GradesWindowProc : DbWindowProc
     {
-        /// <summary>
-        /// Ключ ресурсов.
-        /// </summary>
-        private static string _keyResource = nameof(Grade) + "s";
+        private readonly ISearchService _searchService;
 
         /// <summary>
         /// Создаёт экземпляр класса <see cref="GradesWindowProc"/>.
@@ -30,10 +28,10 @@ namespace View.Implementations.Proces.Windows.DbSet.Dependent
         /// <param name="session">Создатель контекста базы данных.</param>
         /// <param name="windowResourceService">Сервис ресурсов окна.</param>
         /// <param name="messageService">Сервис сообщений.</param>
-        public GradesWindowProc(ISession session,
-            IWindowResourceService windowResourceService, IMessageService messageService) :
-            base("Grades", session, windowResourceService, messageService)
-        { }
+        public GradesWindowProc(ISession session, IWindowResourceService windowResourceService,
+            IMessageService messageService, ISearchService searchService) :
+            base("Grades", session, windowResourceService, messageService) =>
+            _searchService = searchService;
 
         /// <summary>
         /// Создаёт окно.
@@ -46,16 +44,16 @@ namespace View.Implementations.Proces.Windows.DbSet.Dependent
             IWindowResourceService windowResourceService, IMessageService messageService)
         {
             var mainVM = new DbSetVM<Grade>(session, windowResourceService,
-                messageService);
+                messageService, _searchService);
             var dependentVM = new DbSetVM<GradeMode>(session, windowResourceService,
-                messageService);
+                messageService, _searchService);
 
             mainVM.SelectedItemChanged += (sender, e) =>
             {
                 dependentVM.SelectedItem = mainVM.SelectedItem?.GradeMode;
             };
 
-            return new TwoGridDbSetWindow(windowResourceService, _keyResource, _keyResource,
+            return new TwoGridDbSetWindow(windowResourceService, _name, _name,
                 new List<object>()
                 {
                     mainVM, dependentVM

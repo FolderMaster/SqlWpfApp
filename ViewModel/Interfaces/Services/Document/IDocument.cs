@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using ViewModel.Interfaces.Services.Data;
+
 namespace ViewModel.Interfaces.Services.Document
 {
     public interface IDocument
@@ -8,16 +10,17 @@ namespace ViewModel.Interfaces.Services.Document
 
         public double PageHeight { get; set; }
 
+        public IRange ContentRange { get; }
+
+        public IRange StartRange { get; }
+
+        public IRange EndRange { get; }
+
         public object DocumentPaginator { get; }
 
-        public object Range { get; }
+        public void Replace(object? value, IRange range);
 
-        public object EndRange { get; }
-
-        public void Clear();
-
-        public void Replace(object? value, object range);
-
-        public IEnumerable<object> Search(object value);
+        public IEnumerable<IRange> Search(object pattern,
+            IRange range, ISearchService searchService);
     }
 }

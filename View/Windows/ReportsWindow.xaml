@@ -19,6 +19,7 @@
                 OpenGettingFileService="{Binding DataContext.OpenGettingFileService,
                 ElementName=control}"
                 DocumentService="{Binding DataContext.DocumentService, ElementName=control}"
+                SearchService="{Binding DataContext.SearchService, ElementName=control}"
                 Document="{Binding DataContext.Document, ElementName=control}"/>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>

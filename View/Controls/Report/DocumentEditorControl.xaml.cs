@@ -5,6 +5,7 @@ using System.Windows.Documents;
 
 using View.Implementations.Document;
 
+using ViewModel.Interfaces.Services.Data;
 using ViewModel.Interfaces.Services.Document;
 using ViewModel.Interfaces.Services.Files;
 using ViewModel.VMs.Report;
@@ -29,22 +30,32 @@ namespace View.Controls.Report
             DependencyProperty.Register(nameof(OpenGettingFileService), typeof(IGettingFileService),
                 typeof(DocumentEditorControl), new FrameworkPropertyMetadata(OnPropertyChanged));
 
+        public static DependencyProperty SearchServiceProperty =
+            DependencyProperty.Register(nameof(SearchService), typeof(ISearchService),
+                typeof(DocumentEditorControl), new FrameworkPropertyMetadata(OnPropertyChanged));
+
         public Document Document
         {
             get => (Document)GetValue(DocumentProperty);
             set => SetValue(DocumentProperty, value);
         }
 
-        public IDocumentService? DocumentService
+        public IDocumentService DocumentService
         {
             get => (IDocumentService)GetValue(DocumentServiceProperty);
             set => SetValue(DocumentServiceProperty, value);
         }
 
-        public IGettingFileService? OpenGettingFileService
+        public IGettingFileService OpenGettingFileService
         {
-            get => (IGettingFileService?)GetValue(OpenGettingFileServiceProperty);
+            get => (IGettingFileService)GetValue(OpenGettingFileServiceProperty);
             set => SetValue(OpenGettingFileServiceProperty, value);
+        }
+
+        public ISearchService SearchService
+        {
+            get => (ISearchService)GetValue(SearchServiceProperty);
+            set => SetValue(SearchServiceProperty, value);
         }
 
         public DocumentEditorControl()
@@ -63,15 +74,19 @@ namespace View.Controls.Report
             var vm = (DocumentEditorVM)sender;
             switch (e.PropertyName)
             {
+                case nameof(DocumentEditorVM.Document):
+                    Document = (Document)vm.Document;
+                    break;
                 case nameof(DocumentEditorVM.DocumentService):
                     DocumentService = vm.DocumentService;
                     break;
                 case nameof(DocumentEditorVM.GettingOpenFileService):
                     OpenGettingFileService = vm.GettingOpenFileService;
                     break;
-                case nameof(DocumentEditorVM.Document):
-                    Document = (Document)vm.Document;
+                case nameof(DocumentEditorVM.SearchService):
+                    SearchService = vm.SearchService;
                     break;
+                
             }
         }
 
@@ -79,7 +94,11 @@ namespace View.Controls.Report
         {
             var control = (DocumentEditorControl)sender;
             var vm = (DocumentEditorVM)control.DataContext;
-            if (e.Property == DocumentServiceProperty)
+            if (e.Property == DocumentProperty)
+            {
+                vm.Document = (IDocument?)e.NewValue;
+            }
+            else if (e.Property == DocumentServiceProperty)
             {
                 vm.DocumentService = (IDocumentService?)e.NewValue;
             }
@@ -87,9 +106,9 @@ namespace View.Controls.Report
             {
                 vm.GettingOpenFileService = (IGettingFileService?)e.NewValue;
             }
-            else if (e.Property == DocumentProperty)
+            else if (e.Property == SearchServiceProperty)
             {
-                vm.Document = (IDocument?)e.NewValue;
+                vm.SearchService = (ISearchService?)e.NewValue;
             }
         }
     }

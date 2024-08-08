@@ -259,12 +259,6 @@
     <sys:String x:Key="DeductingsHeader">Deductings</sys:String>
     <sys:String x:Key="PrintHeader">Print</sys:String>
 
-    <sys:String x:Key="DeductingsStudentsParagraph">Students:</sys:String>
-    <sys:String x:Key="StudentsAverageGradesParagraph">Average grades:</sys:String>
-    <sys:String x:Key="StudentsGradesParagraph">Grades:</sys:String>
-    <sys:String x:Key="DepartmentsScholarshipsParagraph">Scholarships:</sys:String>
-    <sys:String x:Key="DepartmentsAverageGradesParagraph">Average grades:</sys:String>
-
     <sys:String x:Key="DocumentDescription">Report</sys:String>
 
     <sys:String x:Key="TextHeader">Text</sys:String>
@@ -304,6 +298,95 @@
     <sys:String x:Key="PageWidthHeader">Page width</sys:String>
     <sys:String x:Key="PageHeightHeader">Page height</sys:String>
     <sys:String x:Key="ReplaceHeader">Replace</sys:String>
+    <sys:String x:Key="CancelHeader">Cancel</sys:String>
 
     <sys:String x:Key="TemplatesHeader">Templates...</sys:String>
+    <sys:String x:Key="RequestPattern">\{\{\s*SQL:\s*(.*?)\s*\|\s*(.*?)\s*\}\}</sys:String>
+
+    <sys:String x:Key="DeductingsStudentsParagraph">Students:</sys:String>
+    <sys:String x:Key="DeductingsStudentsRequest">
+        {{ SQL:
+        SELECT s.ID, p.Name, s.GroupNumber, s.GroupFormationYear, sp.DepartmentName AS Department
+        FROM Students s, Persons p, Groups g, Specialties sp
+        WHERE IsDeductible = 1 AND s.ID = p.ID AND s.GroupNumber = g.Number
+        AND s.GroupFormationYear = g.FormationYear AND g.SpecialtyNumber = sp.Number
+        ORDER BY s.ID ASC, p.Name ASC
+        | table }}
+    </sys:String>
+
+    <sys:String x:Key="StudentsAverageGradesParagraph">Average grades:</sys:String>
+    <sys:String x:Key="StudentsAverageGradesRequest">
+        {{ SQL:
+        SELECT s.ID, p.Name, sp.DepartmentName AS Department, g.Number AS GroupNumber,
+        g.FormationYear AS GroupFormationYear,
+        AVG(CAST(studentGrades.Coefficient AS REAL)) AS AverageGrade
+        FROM Students s, Persons p, Groups g, Specialties sp, (
+        SELECT StudentID, DisciplineID, PassingDate, Coefficient
+        FROM GradeStatements gs, Grades gr
+        WHERE gr.Name = gs.GradeName AND NOT EXISTS (
+        SELECT 1
+        FROM GradeStatements grs
+        WHERE grs.StudentID = gs.StudentID AND grs.DisciplineID = gs.DisciplineID
+        AND grs.PassingDate > gs.PassingDate)
+        ) AS studentGrades
+        WHERE studentGrades.StudentID = s.ID AND s.GroupFormationYear = g.FormationYear AND
+        s.GroupNumber = g.Number AND g.SpecialtyNumber = sp.Number AND p.ID = s.ID
+        GROUP BY sp.DepartmentName, g.Number, g.FormationYear, s.ID, p.Name
+        ORDER BY s.ID ASC
+        | table }}
+    </sys:String>
+    <sys:String x:Key="StudentsGradesParagraph">Grades:</sys:String>
+    <sys:String x:Key="StudentsGradesRequest">
+        {{ SQL:
+        SELECT s.ID, p.Name, sp.DepartmentName AS Department, g.Number AS GroupNumber,
+        g.FormationYear AS GroupFormationYear, d.ID AS DisciplineID, d.Name AS DisciplineName,
+        studentGrades.GradeName AS Grade
+        FROM Students s, Persons p, Groups g, Specialties sp, Disciplines d, (
+        SELECT StudentID, DisciplineID, PassingDate, GradeName
+        FROM GradeStatements gs
+        WHERE  NOT EXISTS (
+        SELECT 1
+        FROM GradeStatements grs
+        WHERE grs.StudentID = gs.StudentID AND grs.DisciplineID = gs.DisciplineID
+        AND grs.PassingDate > gs.PassingDate)
+        ) AS studentGrades
+        WHERE studentGrades.StudentID = s.ID AND
+        s.GroupFormationYear = g.FormationYear AND s.GroupNumber = g.Number AND 
+        g.SpecialtyNumber = sp.Number AND p.ID = s.ID AND studentGrades.DisciplineID = d.ID
+        ORDER BY s.ID ASC
+        | table }}
+    </sys:String>
+    
+    <sys:String x:Key="DepartmentsScholarshipsParagraph">Scholarships:</sys:String>
+    <sys:String x:Key="DepartmentsScholarshipsRequest">
+        {{ SQL:
+        SELECT sp.DepartmentName AS Department, s.GroupNumber, s.GroupFormationYear,
+        s.ScholarshipName AS Scholarship, Count(s.ID) AS Count
+        FROM Students s, Groups g, Specialties sp
+        WHERE s.GroupNumber = g.Number AND s.GroupFormationYear = g.FormationYear AND
+        g.SpecialtyNumber = sp.Number
+        GROUP BY sp.DepartmentName, s.GroupNumber, s.GroupFormationYear, s.ScholarshipName
+        ORDER BY sp.DepartmentName ASC, s.GroupNumber ASC, s.GroupFormationYear ASC
+        | table }}
+    </sys:String>
+    <sys:String x:Key="DepartmentsAverageGradesParagraph">Average grades:</sys:String>
+    <sys:String x:Key="DepartmentsAverageGradesRequest">
+        {{ SQL:
+        SELECT sp.DepartmentName AS Department, s.GroupNumber, s.GroupFormationYear,
+        AVG(CAST(studentGrades.Coefficient AS REAL)) AS AverageGrade
+        FROM Students s, Groups g, Specialties sp, (
+        SELECT StudentID, DisciplineID, PassingDate, Coefficient
+        FROM GradeStatements gs, Grades gr
+        WHERE gr.Name = gs.GradeName AND NOT EXISTS (
+        SELECT 1
+        FROM GradeStatements grs
+        WHERE grs.StudentID = gs.StudentID AND grs.DisciplineID = gs.DisciplineID AND
+        grs.PassingDate > gs.PassingDate)
+        ) AS studentGrades
+        WHERE studentGrades.StudentID = s.ID AND s.GroupFormationYear = g.FormationYear AND
+        s.GroupNumber = g.Number AND g.SpecialtyNumber = sp.Number
+        GROUP BY sp.DepartmentName, s.GroupNumber, s.GroupFormationYear
+        ORDER BY sp.DepartmentName ASC, s.GroupNumber ASC, s.GroupFormationYear ASC
+        | table }}
+    </sys:String>
 </ResourceDictionary>

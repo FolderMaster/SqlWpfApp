@@ -4,6 +4,7 @@ using System.Windows;
 using ViewModel.VMs.DbSet;
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Data;
 
 using Model.Dependent;
 using Model.Independent;
@@ -22,16 +23,17 @@ namespace View.Windows.DbSet.Dependent
         /// <param name="resourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
         public TeachersWindow(ISession session, IResourceService resourceService,
-            IMessageService messageService)
+            IMessageService messageService, ISearchService searchService)
         {
             InitializeComponent();
 
             DataContext = new List<object>()
             {
-                new ControlDbSetVM<Teacher>(session, resourceService, messageService),
-                new DbSetVM<Department>(session, resourceService, messageService),
-                new DbSetVM<Position>(session, resourceService, messageService),
-                new DbSetVM<Person>(session, resourceService, messageService)
+                new ControlDbSetVM<Teacher>(session, resourceService, messageService,
+                    searchService),
+                new DbSetVM<Department>(session, resourceService, messageService, searchService),
+                new DbSetVM<Position>(session, resourceService, messageService, searchService),
+                new DbSetVM<Person>(session, resourceService, messageService, searchService)
             };
         }
     }

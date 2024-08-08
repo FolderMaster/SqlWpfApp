@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media.Imaging;
 
+using ViewModel.Interfaces.Services.Data;
 using ViewModel.Interfaces.Services.Document;
 using ViewModel.Interfaces.Services.Files;
 
@@ -21,7 +22,7 @@ namespace ViewModel.VMs.Report
 
         private object? _markerStyle;
 
-        private IEnumerable<object>? _findedRanges;
+        private IEnumerable<IRange>? _findedRanges;
 
         private string _pattern;
 
@@ -43,6 +44,7 @@ namespace ViewModel.VMs.Report
                 {
                     SearchCommand.NotifyCanExecuteChanged();
                     ReplaceCommand.NotifyCanExecuteChanged();
+                    CancelHighlightingCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -59,7 +61,6 @@ namespace ViewModel.VMs.Report
                     CreateImageCommand.NotifyCanExecuteChanged();
                     IncreaseSizeCommand.NotifyCanExecuteChanged();
                     DecreaseSizeCommand.NotifyCanExecuteChanged();
-                    SearchCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -88,21 +89,39 @@ namespace ViewModel.VMs.Report
             }
         }
 
-        public IEnumerable<object>? FindedRanges
+        public IEnumerable<IRange>? FindedRanges
         {
             get => _findedRanges;
             private set
             {
+                var oldValue = _findedRanges;
                 if (SetProperty(ref _findedRanges, value))
                 {
+                    if (oldValue != null)
+                    {
+                        foreach (var range in oldValue)
+                        {
+                            range.IsHighlighted = false;
+                        }
+                    }
+                    if (FindedRanges != null)
+                    {
+                        foreach (var range in FindedRanges)
+                        {
+                            range.IsHighlighted = true;
+                        }
+                    }
                     ReplaceCommand.NotifyCanExecuteChanged();
+                    CancelHighlightingCommand.NotifyCanExecuteChanged();
                 }
             }
         }
 
-        public IGettingFileService? GettingOpenFileService { get; set; }
+        public ISearchService SearchService { get; set; }
 
-        public IDocumentService? DocumentService { get; set; }
+        public IGettingFileService GettingOpenFileService { get; set; }
+
+        public IDocumentService DocumentService { get; set; }
 
         public RelayCommand IncreaseSizeCommand { get; private set; }
 
@@ -117,6 +136,8 @@ namespace ViewModel.VMs.Report
         public RelayCommand SearchCommand { get; private set; }
 
         public RelayCommand ReplaceCommand { get; private set; }
+
+        public RelayCommand CancelHighlightingCommand { get; private set; }
 
         public DocumentEditorVM()
         {
@@ -140,12 +161,9 @@ namespace ViewModel.VMs.Report
             }, () => Selection != null);
             SearchCommand = new RelayCommand(() =>
             {
-                FindedRanges = Document.Search(Pattern);
-                foreach (var range in FindedRanges)
-                {
-                    Selection.Select(range);
-                }
-            }, () => Document != null && Selection != null && !string.IsNullOrEmpty(Pattern));
+                FindedRanges = null;
+                FindedRanges = Document.Search(Pattern, Document.ContentRange, SearchService);
+            }, () => Document != null && !string.IsNullOrEmpty(Pattern));
             ReplaceCommand = new RelayCommand(() =>
             {
                 foreach (var range in FindedRanges)
@@ -153,6 +171,8 @@ namespace ViewModel.VMs.Report
                     Document.Replace(Replacement, range);
                 }
             }, () => Document != null && FindedRanges != null && FindedRanges.Any());
+            CancelHighlightingCommand = new RelayCommand(() => FindedRanges = null,
+                () => Document != null && FindedRanges != null && FindedRanges.Any());
         }
     }
 }

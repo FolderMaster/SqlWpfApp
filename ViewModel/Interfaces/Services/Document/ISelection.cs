@@ -12,7 +12,7 @@
 
         public object? Alignment { get; set; }
 
-        public object Range { get; }
+        public IRange Range { get; }
 
         public void InsertList(object markerStyle);
 
@@ -20,6 +20,6 @@
 
         public void InsertImage(object data);
 
-        public void Select(object range);
+        public void Select(IRange range);
     }
 }

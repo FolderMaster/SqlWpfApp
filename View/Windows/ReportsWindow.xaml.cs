@@ -6,6 +6,7 @@ using ViewModel.Interfaces;
 using ViewModel.VMs.Report;
 using ViewModel.Interfaces.Services.Files;
 using ViewModel.Interfaces.Services.Document;
+using ViewModel.Interfaces.Services.Data;
 
 using View.Implementations.Document;
 
@@ -25,12 +26,13 @@ namespace View.Windows
         /// <param name="printDialogService">Сервис печати.</param>
         public ReportsWindow(ISession session, IResourceService resourceService,
             IMessageService messageService, IPrintService printDialogService,
-            IGettingFileService openGettingFileService, IDocumentService documentService)
+            IGettingFileService openGettingFileService, IDocumentService documentService,
+            ISearchService searchService)
         {
             InitializeComponent();
 
             var vm = new ReportsVM(session, resourceService, messageService,
-                printDialogService, openGettingFileService, documentService);
+                printDialogService, openGettingFileService, documentService, searchService);
             vm.Document = new Document(new FlowDocument());
             DataContext = vm;
         }

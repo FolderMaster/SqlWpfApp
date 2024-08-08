@@ -9,6 +9,8 @@ namespace View.Implementations.Proces.Windows
 {
     public abstract class DbWindowProc : WindowProc
     {
+        
+
         protected DbWindowProc(string name, ISession session,
             IWindowResourceService windowResourceService, IMessageService messageService) :
             base(name, session, windowResourceService, messageService) =>

@@ -1,5 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
+
 using ViewModel.Interfaces.Services.Document;
 
 namespace View.Implementations.Dialogs
@@ -17,10 +19,13 @@ namespace View.Implementations.Dialogs
         /// <param name="description">Описание.</param>
         public void Print(object document, string description)
         {
+            var documentPaginator = document as DocumentPaginator;
             var dialog = new PrintDialog();
             if (dialog.ShowDialog() == true)
             {
-                dialog.PrintDocument(document as DocumentPaginator, description);
+                documentPaginator.PageSize = new Size(dialog.PrintableAreaWidth,
+                    dialog.PrintableAreaHeight);
+                dialog.PrintDocument(documentPaginator, description);
             }
         }
     }

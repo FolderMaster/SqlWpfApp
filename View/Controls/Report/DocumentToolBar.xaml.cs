@@ -65,6 +65,10 @@ namespace View.Controls.Report
         public static DependencyProperty ReplaceCommandProperty = DependencyProperty.Register
             (nameof(ReplaceCommand), typeof(ICommand), typeof(DocumentToolBar));
 
+        public static DependencyProperty CancelHighlightingCommandProperty =
+            DependencyProperty.Register(nameof(CancelHighlightingCommand),
+                typeof(ICommand), typeof(DocumentToolBar));
+
         public Selection Selection
         {
             get => (Selection)GetValue(SelectionProperty);
@@ -165,6 +169,12 @@ namespace View.Controls.Report
         {
             get => (ICommand)GetValue(ReplaceCommandProperty);
             set => SetValue(ReplaceCommandProperty, value);
+        }
+
+        public ICommand CancelHighlightingCommand
+        {
+            get => (ICommand)GetValue(CancelHighlightingCommandProperty);
+            set => SetValue(CancelHighlightingCommandProperty, value);
         }
 
         public DocumentToolBar()

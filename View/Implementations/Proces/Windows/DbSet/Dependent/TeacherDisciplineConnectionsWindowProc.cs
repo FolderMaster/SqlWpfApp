@@ -5,6 +5,7 @@ using View.Windows.DbSet.Dependent;
 
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Data;
 
 namespace View.Implementations.Proces.Windows.DbSet.Dependent
 {
@@ -14,6 +15,8 @@ namespace View.Implementations.Proces.Windows.DbSet.Dependent
     /// </summary>
     public class TeacherDisciplineConnectionsWindowProc : DbWindowProc
     {
+        private readonly ISearchService _searchService;
+
         /// <summary>
         /// Создаёт экземпляр класса <see cref="TeacherDisciplineConnectionsWindowProc"/>.
         /// </summary>
@@ -21,9 +24,10 @@ namespace View.Implementations.Proces.Windows.DbSet.Dependent
         /// <param name="windowResourceService">Сервис ресурсов окна.</param>
         /// <param name="messageService">Сервис сообщений.</param>
         public TeacherDisciplineConnectionsWindowProc(ISession session,
-            IWindowResourceService windowResourceService, IMessageService messageService) :
-            base("TeacherDisciplineConnections", session, windowResourceService, messageService)
-        { }
+            IWindowResourceService windowResourceService,
+            IMessageService messageService, ISearchService searchService) :
+            base("TeacherDisciplineConnections", session, windowResourceService, messageService) =>
+            _searchService = searchService;
 
         /// <summary>
         /// Создаёт окно.
@@ -35,6 +39,6 @@ namespace View.Implementations.Proces.Windows.DbSet.Dependent
         protected override Window CreateWindow(ISession session,
             IWindowResourceService windowResourceService, IMessageService messageService) =>
             new TeacherDisciplineConnectionsWindow(session, windowResourceService,
-                messageService);
+                messageService, _searchService);
     }
 }

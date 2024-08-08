@@ -7,6 +7,7 @@ using View.Implementations.ResourceService;
 using ViewModel.VMs.DbSet;
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Data;
 
 using Model.Independent;
 
@@ -18,10 +19,7 @@ namespace View.Implementations.Proces.Windows.DbSet.Independent
     /// </summary>
     public class DepartmentsWindowProc : DbWindowProc
     {
-        /// <summary>
-        /// Ключ ресурсов.
-        /// </summary>
-        private static string _keyResource = nameof(Department) + "s";
+        private readonly ISearchService _searchService;
 
         /// <summary>
         /// Создаёт экземпляр класса <see cref="DepartmentsWindowProc"/>.
@@ -30,8 +28,10 @@ namespace View.Implementations.Proces.Windows.DbSet.Independent
         /// <param name="windowResourceService">Сервис ресурсов окна.</param>
         /// <param name="messageService">Сервис сообщений.</param>
         public DepartmentsWindowProc(ISession session,
-            IWindowResourceService windowResourceService, IMessageService messageService) :
-            base("Departments", session, windowResourceService, messageService) { }
+            IWindowResourceService windowResourceService, IMessageService messageService,
+            ISearchService searchService) :
+            base("Departments", session, windowResourceService, messageService) =>
+            _searchService = searchService;
 
         /// <summary>
         /// Создаёт окно.
@@ -42,11 +42,11 @@ namespace View.Implementations.Proces.Windows.DbSet.Independent
         /// <returns>Окно.</returns>
         protected override Window CreateWindow(ISession session,
             IWindowResourceService windowResourceService, IMessageService messageService) =>
-            new GridDbSetWindow(windowResourceService, _keyResource, _keyResource,
+            new GridDbSetWindow(windowResourceService, _name, _name,
                 new List<object>()
                 {
                     new DbSetVM<Department>(session, windowResourceService,
-                        messageService)
+                        messageService, _searchService)
                 });
     }
 }

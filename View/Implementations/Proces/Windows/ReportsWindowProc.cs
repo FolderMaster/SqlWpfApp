@@ -6,6 +6,7 @@ using View.Windows;
 
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Data;
 using ViewModel.Interfaces.Services.Document;
 using ViewModel.Interfaces.Services.Files;
 
@@ -26,6 +27,8 @@ namespace View.Implementations.Proces.Windows
 
         private readonly IDocumentService _documentService;
 
+        private readonly ISearchService _searchService;
+
         /// <summary>
         /// Создаёт экземпляр класса <see cref="ReportsWindowProc"/>.
         /// </summary>
@@ -36,12 +39,13 @@ namespace View.Implementations.Proces.Windows
         public ReportsWindowProc(ISession session,
             IWindowResourceService windowResourceService, IMessageService messageService,
             IPrintService printService, OpenFileDialogService openGettingFileService,
-            IDocumentService documentService) :
+            IDocumentService documentService, ISearchService searchService) :
             base("Reports", session, windowResourceService, messageService)
         {
             _printService = printService;
             _openGettingFileService = openGettingFileService;
             _documentService = documentService;
+            _searchService = searchService;
         }
 
         /// <summary>
@@ -54,6 +58,6 @@ namespace View.Implementations.Proces.Windows
         protected override Window CreateWindow(ISession session,
             IWindowResourceService windowResourceService, IMessageService messageService) =>
             new ReportsWindow(session, windowResourceService, messageService,
-                _printService, _openGettingFileService, _documentService);
+                _printService, _openGettingFileService, _documentService, _searchService);
     }
 }

@@ -1,7 +1,13 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
+using System;
+using System.Linq;
+
+using ViewModel.Enums;
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Data;
 using ViewModel.Interfaces.Services.Document;
 using ViewModel.Interfaces.Services.Files;
 using ViewModel.Services;
@@ -13,42 +19,69 @@ namespace ViewModel.VMs.Report
     /// Класс представления модели для создания отчётов с документом и команды печати и вывода
     /// отчётов.
     /// </summary>
-    public partial class ReportsVM : RequestsVM
+    public partial class ReportsVM : ObservableObject
     {
-        private static string _sqlRequestPattern = "\\{\\{\\s*SQL:\\s*(.*?)\\s*\\|\\s*(.*?)\\s*\\}\\}";
+        private static string _requestPatternKey = "RequestPattern";
+
         /// <summary>
         /// Ключ ресурса параграфа о студентах в отчёте об отчислениях.
         /// </summary>
-        private static string _deductingsStudentsParagraphResourceKey =
-            "DeductingsStudentsParagraph";
+        private static string _deductingsStudentsParagraphKey = "DeductingsStudentsParagraph";
+
+        private static string _deductingsStudentsRequestKey = "DeductingsStudentsRequest";
 
         /// <summary>
         /// Ключ ресурса параграфа о средне статистических оценках в отчёте о студентах.
         /// </summary>
-        private static string _studentsAverageGradesParagraphResourceKey =
+        private static string _studentsAverageGradesParagraphKey =
             "StudentsAverageGradesParagraph";
+
+        private static string _studentsAverageGradesRequestKey = "StudentsAverageGradesRequest";
 
         /// <summary>
         /// Ключ ресурса параграфа о оценках в отчёте о студентах.
         /// </summary>
-        private static string _studentsGradesParagraphResourceKey = "StudentsGradesParagraph";
+        private static string _studentsGradesParagraphKey = "StudentsGradesParagraph";
+
+        private static string _studentsGradesRequestKey = "StudentsGradesRequest";
 
         /// <summary>
         /// Ключ ресурса параграфа о стипендиях в отчёте о факультетах.
         /// </summary>
-        private static string _departmentsScholarshipsParagraphResourceKey =
+        private static string _departmentsScholarshipsParagraphKey =
             "DepartmentsScholarshipsParagraph";
+
+        private static string _departmentsScholarshipsRequestKey =
+            "DepartmentsScholarshipsRequest";
 
         /// <summary>
         /// Ключ ресурса параграфа о средне статистических оценках в отчёте о факультетах.
         /// </summary>
-        private static string _departmentsAverageGradesParagraphResourceKey =
+        private static string _departmentsAverageGradesParagraphKey =
             "DepartmentsAverageGradesParagraph";
+
+        private static string _departmentsAverageGradesRequestKey =
+            "DepartmentsAverageGradesRequest";
 
         /// <summary>
         /// Ключ ресурса описания документа.
         /// </summary>
-        private static string _documentDescriptionResourceKey = "DocumentDescription";
+        private static string _documentDescriptionKey = "DocumentDescription";
+
+        /// <summary>
+        /// Создатель контекста базы данных.
+        /// </summary>
+        private ISession _session;
+
+        /// <summary>
+        /// Сервис послания сообщений.
+        /// </summary>
+        protected IMessageService _messageService;
+
+        /// <summary>
+        /// Сервис ресурсов.
+        /// </summary>
+        protected IResourceService _resourceService;
 
         /// <summary>
         /// Сервис печати.
@@ -64,6 +97,8 @@ namespace ViewModel.VMs.Report
 
         public IDocumentService DocumentService { get; private set; }
 
+        public ISearchService SearchService { get; private set; }
+
         public IDocument? Document
         {
             get => _document;
@@ -75,6 +110,7 @@ namespace ViewModel.VMs.Report
                     DeductingsCommand.NotifyCanExecuteChanged();
                     StudentsCommand.NotifyCanExecuteChanged();
                     DepartmentsCommand.NotifyCanExecuteChanged();
+                    ExecuteCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -110,120 +146,68 @@ namespace ViewModel.VMs.Report
         /// <param name="printService">Сервис печати.</param>
         public ReportsVM(ISession session, IResourceService resourceService,
             IMessageService messageService, IPrintService printService,
-            IGettingFileService openGettingFileService, IDocumentService documentService) :
-            base(session, resourceService, messageService)
+            IGettingFileService openGettingFileService, IDocumentService documentService,
+            ISearchService searchService)
         {
+            _session = session;
+            _resourceService = resourceService;
+            _messageService = messageService;
             _printService = printService;
             OpenGettingFileService = openGettingFileService;
             DocumentService = documentService;
+            SearchService = searchService;
 
             DeductingsCommand = new RelayCommand(() =>
             {
                 DocumentEditService.ApplyTemplate(Document, new object[]
                 {
-                    _resourceService.GetString(_deductingsStudentsParagraphResourceKey),
-                    "SELECT s.ID, p.Name, s.GroupNumber, s.GroupFormationYear, " +
-                    "sp.DepartmentName AS Department " +
-                    "FROM Students s, Persons p, Groups g, Specialties sp " +
-                    "WHERE IsDeductible = 1 AND s.ID = p.ID AND s.GroupNumber = g.Number " +
-                    "AND s.GroupFormationYear = g.FormationYear AND " +
-                    "g.SpecialtyNumber = sp.Number " +
-                    "ORDER BY s.ID ASC, p.Name ASC"
+                    _resourceService.GetString(_deductingsStudentsParagraphKey),
+                    _resourceService.GetString(_deductingsStudentsRequestKey)
                 });
             }, () => Document != null);
             StudentsCommand = new RelayCommand(() =>
             {
                 DocumentEditService.ApplyTemplate(Document, new object[]
                 {
-                    _resourceService.GetString(_studentsAverageGradesParagraphResourceKey),
-                    "{{ SQL:" +
-                    "SELECT s.ID, p.Name, sp.DepartmentName AS Department, " +
-                    "g.Number AS GroupNumber, g.FormationYear AS GroupFormationYear, " +
-                    "AVG(CAST(studentGrades.Coefficient AS REAL)) AS AverageGrade " +
-                    "FROM Students s, Persons p, Groups g, Specialties sp, (" +
-                    "SELECT StudentID, DisciplineID, PassingDate, Coefficient " +
-                    "FROM GradeStatements gs, Grades gr " +
-                    "WHERE gr.Name = gs.GradeName AND NOT EXISTS (" +
-                    "SELECT 1 " +
-                    "FROM GradeStatements grs " +
-                    "WHERE grs.StudentID = gs.StudentID AND grs.DisciplineID = gs.DisciplineID " +
-                    "AND grs.PassingDate > gs.PassingDate)" +
-                    ") AS studentGrades " +
-                    "WHERE studentGrades.StudentID = s.ID AND " +
-                    "s.GroupFormationYear = g.FormationYear AND s.GroupNumber = g.Number AND " +
-                    "g.SpecialtyNumber = sp.Number AND p.ID = s.ID " +
-                    "GROUP BY sp.DepartmentName, g.Number, g.FormationYear, s.ID, p.Name " +
-                    "ORDER BY s.ID ASC" +
-                    " | table }}",
-                    _resourceService.GetString(_studentsGradesParagraphResourceKey),
-                    "{{ SQL:" +
-                    "SELECT s.ID, p.Name, sp.DepartmentName AS Department, " +
-                    "g.Number AS GroupNumber, g.FormationYear AS GroupFormationYear, " +
-                    "d.ID AS DisciplineID, d.Name AS DisciplineName, " +
-                    "studentGrades.GradeName AS Grade " +
-                    "FROM Students s, Persons p, Groups g, Specialties sp, Disciplines d, (" +
-                    "SELECT StudentID, DisciplineID, PassingDate, GradeName " +
-                    "FROM GradeStatements gs " +
-                    "WHERE  NOT EXISTS (" +
-                    "SELECT 1 " +
-                    "FROM GradeStatements grs " +
-                    "WHERE grs.StudentID = gs.StudentID AND grs.DisciplineID = gs.DisciplineID " +
-                    "AND grs.PassingDate > gs.PassingDate)" +
-                    ") AS studentGrades " +
-                    "WHERE studentGrades.StudentID = s.ID AND " +
-                    "s.GroupFormationYear = g.FormationYear AND s.GroupNumber = g.Number AND " +
-                    "g.SpecialtyNumber = sp.Number AND p.ID = s.ID AND " +
-                    "studentGrades.DisciplineID = d.ID " +
-                    "ORDER BY s.ID ASC" +
-                    " | table }}"
+                    _resourceService.GetString(_studentsAverageGradesParagraphKey),
+                    _resourceService.GetString(_studentsAverageGradesRequestKey),
+                    _resourceService.GetString(_studentsGradesParagraphKey),
+                    _resourceService.GetString(_studentsGradesRequestKey)
                 });
             }, () => Document != null);
             DepartmentsCommand = new RelayCommand(() =>
             {
                 DocumentEditService.ApplyTemplate(Document, new object[]
                 {
-                    _resourceService.GetString(_departmentsScholarshipsParagraphResourceKey),
-                    "{{ SQL:" +
-                    "SELECT sp.DepartmentName AS Department, s.GroupNumber, " +
-                    "s.GroupFormationYear, s.ScholarshipName AS Scholarship, " +
-                    "Count(s.ID) AS Count " +
-                    "FROM Students s, Groups g, Specialties sp " +
-                    "WHERE s.GroupNumber = g.Number AND s.GroupFormationYear = g.FormationYear " +
-                    "AND g.SpecialtyNumber = sp.Number " +
-                    "GROUP BY sp.DepartmentName, s.GroupNumber, s.GroupFormationYear, " +
-                    "s.ScholarshipName " +
-                    "ORDER BY sp.DepartmentName ASC, s.GroupNumber ASC, s.GroupFormationYear ASC" +
-                    " | table }}",
-                    _resourceService.GetString(_departmentsAverageGradesParagraphResourceKey),
-                    "{{ SQL:" +
-                    "SELECT sp.DepartmentName AS Department, s.GroupNumber, " +
-                    "s.GroupFormationYear, " +
-                    "AVG(CAST(studentGrades.Coefficient AS REAL)) AS AverageGrade " +
-                    "FROM Students s, Groups g, Specialties sp, (" +
-                    "SELECT StudentID, DisciplineID, PassingDate, Coefficient " +
-                    "FROM GradeStatements gs, Grades gr " +
-                    "WHERE gr.Name = gs.GradeName AND NOT EXISTS (" +
-                    "SELECT 1 " +
-                    "FROM GradeStatements grs " +
-                    "WHERE grs.StudentID = gs.StudentID AND " +
-                    "grs.DisciplineID = gs.DisciplineID AND grs.PassingDate > gs.PassingDate)" +
-                    ") AS studentGrades " +
-                    "WHERE studentGrades.StudentID = s.ID AND " +
-                    "s.GroupFormationYear = g.FormationYear AND s.GroupNumber = g.Number AND " +
-                    "g.SpecialtyNumber = sp.Number " +
-                    "GROUP BY sp.DepartmentName, s.GroupNumber, s.GroupFormationYear " +
-                    "ORDER BY sp.DepartmentName ASC, s.GroupNumber ASC, s.GroupFormationYear ASC" +
-                    " | table }}"
+                    _resourceService.GetString(_departmentsScholarshipsParagraphKey),
+                    _resourceService.GetString(_departmentsScholarshipsRequestKey),
+                    _resourceService.GetString(_departmentsAverageGradesParagraphKey),
+                    _resourceService.GetString(_departmentsAverageGradesRequestKey),
                 });
             }, () => Document != null);
             ExecuteCommand = new RelayCommand(() =>
             {
-                var sqlRequests = Document.Search(_sqlRequestPattern);
+                MessengerService.ExecuteWithExceptionMessage(resourceService, messageService, () =>
+                {
+                    var pattern = _resourceService.GetString(_requestPatternKey);
+                    var ranges = Document.Search(pattern, Document.ContentRange, SearchService);
+                    foreach (var range in ranges)
+                    {
+                        var group = SearchService.GetGroups(range.Text, pattern).First();
+                        var command = (string)group.ElementAt(1);
+                        DataFormat format;
+                        if (Enum.TryParse((string)group.ElementAt(2), true, out format))
+                        {
+                            var table = _session.DbContext.ExecuteCommand(command);
+                            DocumentEditService.InsertDataTable(Document, range, table, format);
+                        }
+                    }
+                });
             }, () => Document != null);
             PrintCommand = new RelayCommand(() =>
             {
                 _printService.Print(Document.DocumentPaginator,
-                    _resourceService.GetString(_documentDescriptionResourceKey));
+                    _resourceService.GetString(_documentDescriptionKey));
             }, () => Document != null);
         }
     }

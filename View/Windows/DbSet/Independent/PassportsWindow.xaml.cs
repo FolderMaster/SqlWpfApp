@@ -24,13 +24,13 @@ namespace View.Windows.DbSet.Independent
         /// <param name="fileService">Файловый сервис.</param>
         /// <param name="imageService">Сервис изображений.</param>
         public PassportsWindow(ISession session, IResourceService resourceService, 
-            IMessageService messageService, IGettingFileService gettingOpenFileService,
-            IGettingFileService gettingSaveFileService, IFileService fileService,
-            IImageService imageService)
+            IMessageService messageService, ISearchService searchService,
+            IGettingFileService gettingOpenFileService, IGettingFileService gettingSaveFileService,
+            IFileService fileService, IImageService imageService)
         {
             InitializeComponent();
 
-            DataContext = new PassportsVM(session, resourceService, messageService,
+            DataContext = new PassportsVM(session, resourceService, messageService, searchService,
                 gettingOpenFileService, gettingSaveFileService, fileService, imageService);
         }
     }

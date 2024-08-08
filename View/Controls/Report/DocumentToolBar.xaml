@@ -185,6 +185,15 @@
                         <ToolTip Content="{StaticResource ReplaceHeader}"/>
                     </Button.ToolTip>
                 </Button>
+                <Button Command="{Binding CancelHighlightingCommand, ElementName=control}"
+                        Style="{StaticResource ToolbarButtonStyle}">
+                    <Button.Content>
+                        <Image Source="{StaticResource RemoveImage}"/>
+                    </Button.Content>
+                    <Button.ToolTip>
+                        <ToolTip Content="{StaticResource CancelHeader}"/>
+                    </Button.ToolTip>
+                </Button>
             </StackPanel>
         </TabItem>
     </TabControl>

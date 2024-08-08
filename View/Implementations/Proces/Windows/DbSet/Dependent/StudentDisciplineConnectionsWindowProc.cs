@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 
-using ViewModel.Interfaces;
-using ViewModel.Interfaces.Services;
 using View.Windows.DbSet.Dependent;
 using View.Implementations.ResourceService;
 
+using ViewModel.Interfaces;
+using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Data;
 using ViewModel.VMs.DbSet;
 
 using Model.Dependent;
@@ -18,10 +19,7 @@ namespace View.Implementations.Proces.Windows.DbSet.Dependent
     /// </summary>
     public class StudentDisciplineConnectionsWindowProc : DbWindowProc
     {
-        /// <summary>
-        /// Ключ ресурсов.
-        /// </summary>
-        private static string _keyResource = nameof(StudentDisciplineConnection) + "s";
+        private readonly ISearchService _searchService;
 
         /// <summary>
         /// Создаёт экземпляр класса <see cref="StudentDisciplineConnectionsWindowProc"/>.
@@ -30,9 +28,10 @@ namespace View.Implementations.Proces.Windows.DbSet.Dependent
         /// <param name="windowResourceService">Сервис ресурсов окна.</param>
         /// <param name="messageService">Сервис сообщений.</param>
         public StudentDisciplineConnectionsWindowProc(ISession session,
-            IWindowResourceService windowResourceService, IMessageService messageService) :
-            base("StudentDisciplineConnections", session, windowResourceService, messageService)
-        { }
+            IWindowResourceService windowResourceService, IMessageService messageService,
+            ISearchService searchService) :
+            base("StudentDisciplineConnections", session, windowResourceService, messageService) =>
+            _searchService = searchService;
 
         /// <summary>
         /// Создаёт окно.
@@ -45,11 +44,11 @@ namespace View.Implementations.Proces.Windows.DbSet.Dependent
             IWindowResourceService windowResourceService, IMessageService messageService)
         {
             var mainVM = new DbSetVM<StudentDisciplineConnection>(session,
-                windowResourceService, messageService);
+                windowResourceService, messageService, _searchService);
             var dependentVM = new DbSetVM<Student>(session, windowResourceService,
-                messageService);
+                messageService, _searchService);
             var dependent2VM = new DbSetVM<Discipline>(session, windowResourceService,
-                messageService);
+                messageService, _searchService);
 
             mainVM.SelectedItemChanged += (sender, e) =>
             {
@@ -57,7 +56,7 @@ namespace View.Implementations.Proces.Windows.DbSet.Dependent
                 dependent2VM.SelectedItem = mainVM.SelectedItem?.Discipline;
             };
 
-            return new ThreeGridDbSetWindow(windowResourceService, _keyResource, _keyResource,
+            return new ThreeGridDbSetWindow(windowResourceService, _name, _name,
                 new List<object>()
                 {
                     mainVM, dependentVM, dependent2VM

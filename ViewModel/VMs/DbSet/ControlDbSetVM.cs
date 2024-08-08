@@ -2,6 +2,7 @@
 
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Data;
 
 namespace ViewModel.VMs.DbSet
 {
@@ -70,9 +71,9 @@ namespace ViewModel.VMs.DbSet
         /// <param name="session">Создатель контекста базы данных.</param>
         /// <param name="resourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
-        public ControlDbSetVM(ISession session,
-            IResourceService resourceService, IMessageService messageService) :
-            base(session, resourceService, messageService)
+        public ControlDbSetVM(ISession session, IResourceService resourceService,
+            IMessageService messageService, ISearchService searchService) :
+            base(session, resourceService, messageService, searchService)
         {
             FirstCommand = new RelayCommand(() => SelectedIndex = 0,
                 () => Count > 0 && SelectedIndex != 0);

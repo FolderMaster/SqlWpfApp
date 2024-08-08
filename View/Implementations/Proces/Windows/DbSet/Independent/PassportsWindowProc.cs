@@ -34,6 +34,8 @@ namespace View.Implementations.Proces.Windows.DbSet.Independent
 
         private readonly IImageService _imageService;
 
+        private readonly ISearchService _searchService;
+
         /// <summary>
         /// Создаёт экземпляр класса <see cref="PassportsWindowProc"/>.
         /// </summary>
@@ -47,13 +49,14 @@ namespace View.Implementations.Proces.Windows.DbSet.Independent
             IWindowResourceService windowResourceService, IMessageService messageService,
             OpenFileDialogService gettingOpenFileService,
             SaveFileDialogService gettingSaveFileService,
-            IFileService fileService, IImageService imageService) :
+            IFileService fileService, IImageService imageService, ISearchService searchService) :
             base("Passports", session, windowResourceService, messageService)
         {
             _gettingOpenFileService = gettingOpenFileService;
             _gettingSaveFileService = gettingSaveFileService;
             _fileService = fileService;
             _imageService = imageService;
+            _searchService = searchService;
         }
 
         /// <summary>
@@ -65,7 +68,7 @@ namespace View.Implementations.Proces.Windows.DbSet.Independent
         /// <returns>Окно.</returns>
         protected override Window CreateWindow(ISession session,
             IWindowResourceService windowResourceService, IMessageService messageService) =>
-            new PassportsWindow(session, windowResourceService, messageService,
+            new PassportsWindow(session, windowResourceService, messageService, _searchService,
                 _gettingOpenFileService, _gettingSaveFileService, _fileService, _imageService);
     }
 }

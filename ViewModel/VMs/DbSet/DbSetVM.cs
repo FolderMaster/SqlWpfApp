@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Text.RegularExpressions;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
@@ -16,6 +15,7 @@ using ViewModel.Services;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces;
 using ViewModel.Classes;
+using ViewModel.Interfaces.Services.Data;
 
 namespace ViewModel.VMs.DbSet
 {
@@ -36,9 +36,11 @@ namespace ViewModel.VMs.DbSet
         /// <summary>
         /// Сервис ресурсов.
         /// </summary>
-        protected IResourceService _resourceService;
+        protected readonly IResourceService _resourceService;
 
-        protected IMessageService _messageService;
+        protected readonly IMessageService _messageService;
+
+        protected readonly ISearchService _searchService;
 
         /// <summary>
         /// Представление таблицы из базы данных.
@@ -220,11 +222,12 @@ namespace ViewModel.VMs.DbSet
         /// <param name="resourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
         public DbSetVM(ISession session, IResourceService resourceService,
-            IMessageService messageService)
+            IMessageService messageService, ISearchService searchService)
         {
             _session = session;
             _resourceService = resourceService;
             _messageService = messageService;
+            _searchService = searchService;
             MessengerService.ExecuteWithExceptionMessage(resourceService, messageService,
                 () =>
                 {
@@ -274,14 +277,13 @@ namespace ViewModel.VMs.DbSet
             ObservableCollection<T> collection;
             if (!string.IsNullOrEmpty(FilterText))
             {
-                var regex = new Regex(FilterText, RegexOptions.IgnoreCase);
                 var properties = GetPropertiesForCondition(FilterProperties);
                 collection = [];
                 foreach (var item in DbSetLocal)
                 {
                     foreach (var property in properties)
                     {
-                        var doFind = IsMatchTextInValueOfProperty(regex, property, item);
+                        var doFind = IsMatchTextInValueOfProperty(property, item, FilterText);
                         if (doFind)
                         {
                             collection.Add(item);
@@ -316,14 +318,13 @@ namespace ViewModel.VMs.DbSet
         {
             if (!string.IsNullOrEmpty(SearchText))
             {
-                var regex = new Regex(SearchText, RegexOptions.IgnoreCase);
                 var properties = GetPropertiesForCondition(SearchProperties);
                 foreach (var item in FinalDbSetLocal)
                 {
                     bool doFind = false;
                     foreach (var property in properties)
                     {
-                        doFind = IsMatchTextInValueOfProperty(regex, property, item);
+                        doFind = IsMatchTextInValueOfProperty(property, item, SearchText);
                         if (doFind)
                         {
                             SelectedItem = item;
@@ -341,17 +342,17 @@ namespace ViewModel.VMs.DbSet
         /// <summary>
         /// Проверяет найдено ли совпадение текста в значении свойства.
         /// </summary>
-        /// <param name="regex">Регулярное выражение.</param>
         /// <param name="property">Свойство.</param>
         /// <param name="item">Элемент.</param>
+        /// <param name="pattern">Строка поиска.</param>
         /// <returns>Логическое значение, указывающее было ли найдено совпадение в значении
         /// свойства.</returns>
-        private static bool IsMatchTextInValueOfProperty
-            (Regex regex, MethodInfo property, T item)
+        private bool IsMatchTextInValueOfProperty
+            (MethodInfo property, T item, string pattern)
         {
             var value = property.Invoke(item, []);
             var text = value != null ? value.ToString() : "";
-            return regex.IsMatch(text);
+            return _searchService.IsMatch(text, pattern);
         }
 
         /// <summary>

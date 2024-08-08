@@ -5,6 +5,7 @@ using View.Windows.DbSet.Dependent;
 
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Data;
 
 namespace View.Implementations.Proces.Windows.DbSet.Dependent
 {
@@ -14,6 +15,8 @@ namespace View.Implementations.Proces.Windows.DbSet.Dependent
     /// </summary>
     public class GradeStatementsWindowProc : DbWindowProc
     {
+        private readonly ISearchService _searchService;
+
         /// <summary>
         /// Создаёт экземпляр класса <see cref="GradeStatementsWindowProc"/>.
         /// </summary>
@@ -21,9 +24,10 @@ namespace View.Implementations.Proces.Windows.DbSet.Dependent
         /// <param name="windowResourceService">Сервис ресурсов окна.</param>
         /// <param name="messageService">Сервис сообщений.</param>
         public GradeStatementsWindowProc(ISession session,
-            IWindowResourceService windowResourceService, IMessageService messageService) :
-            base("GradeStatements", session, windowResourceService, messageService)
-        { }
+            IWindowResourceService windowResourceService,
+            IMessageService messageService, ISearchService searchService) :
+            base("GradeStatements", session, windowResourceService, messageService) =>
+            _searchService = searchService;
 
         /// <summary>
         /// Создаёт окно.
@@ -34,6 +38,7 @@ namespace View.Implementations.Proces.Windows.DbSet.Dependent
         /// <returns>Окно.</returns>
         protected override Window CreateWindow(ISession session,
             IWindowResourceService windowResourceService, IMessageService messageService) =>
-            new GradeStatementsWindow(session, windowResourceService, messageService);
+            new GradeStatementsWindow(session, windowResourceService,
+                messageService, _searchService);
     }
 }

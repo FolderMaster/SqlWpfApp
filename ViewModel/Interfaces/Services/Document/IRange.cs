@@ -2,8 +2,8 @@
 {
     public interface IRange
     {
-        public object Start { get; }
+        public string Text { get; }
 
-        public object End { get; }
+        public bool IsHighlighted { get; set; }
     }
 }

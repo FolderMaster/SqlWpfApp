@@ -4,7 +4,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Media;
 
-namespace View.Implementations.Document
+namespace View.Services
 {
     public class ResizeAdorner : Adorner
     {

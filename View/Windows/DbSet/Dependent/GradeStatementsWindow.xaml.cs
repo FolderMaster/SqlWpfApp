@@ -4,6 +4,7 @@ using System.Windows;
 using ViewModel.VMs.DbSet;
 using ViewModel.Interfaces;
 using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.Data;
 
 using Model.Dependent;
 
@@ -20,19 +21,19 @@ namespace View.Windows.DbSet.Dependent
         /// <param name="session">Создатель контекста базы данных.</param>
         /// <param name="resourceService">Сервис ресурсов.</param>
         /// <param name="messageService">Сервис сообщений.</param>
-        public GradeStatementsWindow(ISession session,
-            IResourceService resourceService, IMessageService messageService)
+        public GradeStatementsWindow(ISession session, IResourceService resourceService,
+            IMessageService messageService, ISearchService searchService)
         {
             InitializeComponent();
 
             DataContext = new List<object>()
             {
                 new ControlDbSetVM<GradeStatement>(session, resourceService,
-                    messageService),
-                new DbSetVM<Discipline>(session, resourceService, messageService),
-                new DbSetVM<Student>(session, resourceService, messageService),
-                new DbSetVM<Teacher>(session, resourceService, messageService),
-                new DbSetVM<Grade>(session, resourceService, messageService)
+                    messageService, searchService),
+                new DbSetVM<Discipline>(session, resourceService, messageService, searchService),
+                new DbSetVM<Student>(session, resourceService, messageService, searchService),
+                new DbSetVM<Teacher>(session, resourceService, messageService, searchService),
+                new DbSetVM<Grade>(session, resourceService, messageService, searchService)
             };
         }
     }

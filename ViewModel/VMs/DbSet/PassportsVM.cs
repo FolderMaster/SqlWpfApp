@@ -59,11 +59,11 @@ namespace ViewModel.VMs.DbSet
         /// <param name="openFileService">Сервис открытия файлов.</param>
         /// <param name="saveFileService">Сервис сохранения файлов.</param>
         /// <param name="fileService">Файловый сервис.</param>
-        public PassportsVM(ISession session,
-            IResourceService resourceService, IMessageService messageService,
+        public PassportsVM(ISession session, IResourceService resourceService,
+            IMessageService messageService, ISearchService searchService,
             IGettingFileService openFileService, IGettingFileService saveFileService,
             IFileService fileService, IImageService imageService) :
-            base(session, resourceService, messageService)
+            base(session, resourceService, messageService, searchService)
         {
             FileService = fileService;
             ImageService = imageService;

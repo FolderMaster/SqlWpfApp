@@ -1,4 +1,5 @@
 ﻿using System.Windows.Documents;
+using System.Windows.Media;
 
 using ViewModel.Interfaces.Services.Document;
 
@@ -6,14 +7,47 @@ namespace View.Implementations.Document
 {
     public class Range : IRange
     {
-        public object Start { get; private set; }
+        private readonly Brush _highlightingBrush = Brushes.Yellow;
 
-        public object End { get; private set; }
+        private readonly TextRange _textRange;
 
-        public Range(TextPointer start, TextPointer end)
+        private bool _isHighlighted = false;
+
+        public string Text
         {
-            Start = start;
-            End = end;
+            get => _textRange.Text;
+            set => _textRange.Text = value;
+        }
+
+        public bool IsHighlighted
+        {
+            get => _isHighlighted;
+            set
+            {
+                if (IsHighlighted != value)
+                {
+                    _isHighlighted = value;
+                    ChangeHighlighting();
+                }
+            }
+        }
+
+        public TextPointer Start => _textRange.Start;
+
+        public TextPointer End => _textRange.End;
+
+        public Range(TextRange textRange) => _textRange = textRange;
+
+        private void ChangeHighlighting()
+        {
+            if (IsHighlighted)
+            {
+                _textRange.ApplyPropertyValue(TextElement.BackgroundProperty, _highlightingBrush);
+            }
+            else
+            {
+                _textRange.ApplyPropertyValue(TextElement.BackgroundProperty, null);
+            }
         }
     }
 }

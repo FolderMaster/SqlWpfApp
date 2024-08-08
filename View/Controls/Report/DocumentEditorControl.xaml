@@ -35,7 +35,8 @@
                                Pattern="{Binding Pattern}"
                                SearchCommand="{Binding SearchCommand}"
                                Replacement="{Binding Replacement}"
-                               ReplaceCommand="{Binding ReplaceCommand}"/>
+                               ReplaceCommand="{Binding ReplaceCommand}"
+                               CancelHighlightingCommand="{Binding CancelHighlightingCommand}"/>
         <RichTextBox Grid.Row="1" SpellCheck.IsEnabled="True"
                      IsInactiveSelectionHighlightEnabled="True"
                      IsReadOnlyCaretVisible="True">
@@ -44,17 +45,6 @@
                     Selection="{Binding Selection, Mode=OneWayToSource}"
                     Document="{Binding Document}"/>
             </i:Interaction.Behaviors>
-            <FlowDocument>
-                <Paragraph>
-                    <Figure BaselineAlignment="Center" VerticalAnchor="ContentCenter">
-                        <Paragraph>
-                            <Image Source="{StaticResource AddImage}" Width="100" Height="100" Margin="0,0,10,0"/>
-                        </Paragraph>
-                    </Figure>
-                    Здесь идет текст, который будет обтекать изображение. Вы можете добавить сюда любой текст, который вам нужен.
-                    Здесь идет текст, который будет обтекать изображение. Вы можете добавить сюда любой текст, который вам нужен.
-                </Paragraph>
-            </FlowDocument>
         </RichTextBox>
     </Grid>
 </UserControl>
